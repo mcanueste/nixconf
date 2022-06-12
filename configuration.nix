@@ -109,6 +109,7 @@
     podman-compose
 
     jetbrains.pycharm-professional
+    teams
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
