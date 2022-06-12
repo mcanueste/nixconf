@@ -79,7 +79,13 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  virtualisation.docker.enable = true;
+  virtualisation = {
+    docker.enable = true;
+    podman = {
+      enable = true;
+      dockerCompat = false;
+    };
+  }; 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.mcst = {
@@ -98,6 +104,9 @@
     wget
     neovim
     firefox
+
+    docker-compose
+    podman-compose
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
