@@ -107,6 +107,8 @@
 
     docker-compose
     podman-compose
+
+    jetbrains.pycharm-professional
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
