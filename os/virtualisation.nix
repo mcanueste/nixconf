@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   virtualisation = {
     docker.enable = true;
@@ -7,4 +7,9 @@
       dockerCompat = false;
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    docker-compose
+    podman-compose
+  ];
 }
