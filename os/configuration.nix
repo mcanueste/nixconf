@@ -12,15 +12,21 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      
-      # Import home manager
-      (import "${home-manager}/nixos")
+
+      # Import locale settings
+      ./locale.nix
 
       # Import virtualisation config
       ./virtualisation.nix
-
+      
       # Import packages configuration
       ./packages.nix
+
+      # ZSA Moonlander configs
+      ./zsa.nix
+
+      # Import home manager
+      (import "${home-manager}/nixos")
     ];
 
   # Bootloader.
@@ -37,24 +43,6 @@ in
 
   # Enable networking
   networking.networkmanager.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "Europe/Berlin";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.utf8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "de_DE.utf8";
-    LC_IDENTIFICATION = "de_DE.utf8";
-    LC_MEASUREMENT = "de_DE.utf8";
-    LC_MONETARY = "de_DE.utf8";
-    LC_NAME = "de_DE.utf8";
-    LC_NUMERIC = "de_DE.utf8";
-    LC_PAPER = "de_DE.utf8";
-    LC_TELEPHONE = "de_DE.utf8";
-    LC_TIME = "de_DE.utf8";
-  };
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -98,9 +86,6 @@ in
     description = "mcst";
     extraGroups = [ "networkmanager" "wheel" "docker" ];
   };
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
