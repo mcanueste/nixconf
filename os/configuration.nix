@@ -12,7 +12,15 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      
+      # Import home manager
       (import "${home-manager}/nixos")
+
+      # Import virtualisation config
+      ./virtualisation.nix
+
+      # Import packages configuration
+      ./packages.nix
     ];
 
   # Bootloader.
@@ -84,14 +92,6 @@ in
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  virtualisation = {
-    docker.enable = true;
-    podman = {
-      enable = true;
-      dockerCompat = false;
-    };
-  }; 
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.mcst = {
     isNormalUser = true;
@@ -101,21 +101,6 @@ in
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    git
-    wget
-    neovim
-    firefox
-
-    docker-compose
-    podman-compose
-
-    jetbrains.pycharm-professional
-    teams
-  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -140,6 +125,7 @@ in
   home-manager.users.mcst = {
     home.packages = with pkgs; [ 
       fish
+      starship
     ];
     programs.bash = {
       enable = true;
