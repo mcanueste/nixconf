@@ -10,10 +10,11 @@ in
     (import "${home-manager}/nixos")
 
     # Import partial configs
+    ./alacritty.nix
     ./starship.nix
     ./bash.nix
     ./exa.nix
+    ./fzf.nix
     ./git.nix
-    ./alacritty.nix
   ];
 }
