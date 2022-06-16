@@ -10,15 +10,10 @@ in
     (import "${home-manager}/nixos")
 
     # Import partial configs
-    ./bash.nix
     ./starship.nix
+    ./bash.nix
+    ./exa.nix
     ./git.nix
     ./alacritty.nix
   ];
-
-  # home-manager.users.mcst = {
-  #   home.packages = with pkgs; [ 
-  #     fish
-  #   ];
-  # };
 }
