@@ -11,13 +11,13 @@ in
 
     # Import partial configs
     ./bash.nix
+    ./starship.nix
     ./git.nix
   ];
 
-  home-manager.users.mcst = {
-    home.packages = with pkgs; [ 
-      fish
-      starship
-    ];
-  };
+  # home-manager.users.mcst = {
+  #   home.packages = with pkgs; [ 
+  #     fish
+  #   ];
+  # };
 }
