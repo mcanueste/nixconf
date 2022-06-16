@@ -12,7 +12,7 @@
 	    x = 6;
 	    y = 6;
 	  };
-	  opacity = 0.90;
+	  opacity = 0.95;
 	  decorations = "none";
 	  title = "Alacritty";
 	  class = {

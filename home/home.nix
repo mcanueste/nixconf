@@ -13,8 +13,10 @@ in
     ./alacritty.nix
     ./starship.nix
     ./bash.nix
+    ./dircolors.nix
     ./exa.nix
     ./fzf.nix
+    ./tealdeer.nix
     ./git.nix
   ];
 }
