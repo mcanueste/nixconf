@@ -13,6 +13,7 @@ in
     ./bash.nix
     ./starship.nix
     ./git.nix
+    ./alacritty.nix
   ];
 
   # home-manager.users.mcst = {
