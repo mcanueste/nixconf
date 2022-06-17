@@ -30,10 +30,15 @@
 
   ############################## Hardware
   hardware = {
+    # Use pipewire
     pulseaudio.enable = false;
 
     # enable udev rules for zsa keybords
     keyboard.zsa.enable = true;
+
+    # nvidia driver
+    opengl.enable = true;
+    nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
 
@@ -134,6 +139,9 @@
 
       # Enable touchpad support (enabled default in most desktopManager).
       libinput.enable = true;
+
+      # nvidia
+      videoDrivers = [ "nvidia" ];
     };
   };
 
@@ -153,6 +161,12 @@
     podman = {
       enable = true;
       dockerCompat = false;
+    };
+    virtualbox = {
+      host = {
+        enable = true;
+	enableExtensionPack = true;
+      };
     };
   };
 
