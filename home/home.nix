@@ -9,14 +9,14 @@ in
     # Import home manager
     (import "${home-manager}/nixos")
 
-    # Import partial configs
-    ./alacritty.nix
-    ./starship.nix
-    ./bash.nix
-    ./dircolors.nix
-    ./exa.nix
-    ./fzf.nix
-    ./tealdeer.nix
-    ./git.nix
+    # Import program configs
+    ./programs/alacritty.nix
+    ./programs/starship.nix
+    ./programs/bash.nix
+    ./programs/dircolors.nix
+    ./programs/exa.nix
+    ./programs/fzf.nix
+    ./programs/tealdeer.nix
+    ./programs/git.nix
   ];
 }
