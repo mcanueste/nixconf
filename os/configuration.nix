@@ -160,17 +160,24 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [ 
+    # General
     git
     wget
-    neovim
+
+    # Browser
     firefox
-
-    jetbrains.pycharm-professional
-    teams
-
-    # compose
+    brave
+    
+    # Virtualization tools
     docker-compose
     podman-compose
+
+    # Editors
+    neovim
+    jetbrains.pycharm-professional
+
+    # Communication
+    teams
 
     # Wally for moonlander
     wally-cli
