@@ -18,9 +18,15 @@ in
     ./programs/fzf.nix
     ./programs/tealdeer.nix
     ./programs/git.nix
-    ./programs/direnv.nix
+    # ./programs/direnv.nix
   ];
 
   # Enable lorri service
-  services.lorri.enable = true;
+  # services.lorri.enable = true;
+
+  home-manager.users.mcst = {
+    home.packages = [
+      (pkgs.nerdfonts.override { fonts = [ "SourceCodePro" "Hack" ]; })
+    ];
+  }; 
 }
