@@ -18,5 +18,9 @@ in
     ./programs/fzf.nix
     ./programs/tealdeer.nix
     ./programs/git.nix
+    ./programs/direnv.nix
   ];
+
+  # Enable lorri service
+  services.lorri.enable = true;
 }
