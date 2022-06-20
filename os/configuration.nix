@@ -43,7 +43,7 @@
 
 
   ############################## System.
-  sound.enable = false; # disable sound as we are using pipewire
+  sound.enable = true; # disable sound as we are using pipewire
 
 
   ############################## Security.
@@ -118,19 +118,6 @@
 
       # If you want to use JACK applications, uncomment this
       #jack.enable = true;
-
-      config.pipewire = {
-        "context.properties" = [
-          {
-            "link.max-buffers" = 64;
-            "log.level" = 2;
-            "default.clock.rate" = 48000;
-            "default.clock.quantum" = 1024;
-            "default.clock.min-quantum" = 32;
-            "default.clock.max-quantum" = 8192;
-          }
-        ];
-      };
 
       wireplumber.enable = true;
     };
