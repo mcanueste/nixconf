@@ -204,6 +204,10 @@
   #   enableSSHSupport = true;
   # };
 
+  # enable experimental and unfree packages for user
+  nix.extraOptions = ''
+    experimental-features = nix-command
+  '';
 
   ############################## Version.
   # This value determines the NixOS release from which the default

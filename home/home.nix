@@ -23,6 +23,14 @@ in
 
   # Enable lorri service
   # services.lorri.enable = true;
+  
+  # User based nixpkgs config
+  home-manager.users.mcst = {
+    xdg = {
+      enable = true;
+      configFile."nixpkgs/config.nix".source = ./nixpkgs-config.nix;
+    };
+  };
 
   home-manager.users.mcst = {
     home.packages = [
