@@ -206,7 +206,7 @@
 
   # enable experimental and unfree packages for user
   nix.extraOptions = ''
-    experimental-features = nix-command
+    experimental-features = nix-command flakes
   '';
 
   ############################## Version.
