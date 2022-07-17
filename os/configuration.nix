@@ -160,12 +160,6 @@
       enable = true;
       dockerCompat = false;
     };
-    virtualbox = {
-      host = {
-        enable = true;
-	enableExtensionPack = true;
-      };
-    };
   };
 
   # Allow unfree packages
