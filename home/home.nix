@@ -19,6 +19,7 @@ in
     ./programs/tealdeer.nix
     ./programs/git.nix
     # ./programs/direnv.nix
+    ./programs/helix.nix
   ];
 
   # Enable lorri service
