@@ -18,7 +18,13 @@
     #   }
     # ]
 
+    extraConfig = { 
+      whitespace = "trailing-space,space-before-tab"; 
+      editor = "vim";
+    };
+
     diff-so-fancy.enable = true;
+
     aliases = {
       a = "add";
       aa = "add --all";
