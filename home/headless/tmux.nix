@@ -4,36 +4,34 @@
     enable = true;
     # prefix = "C-a";
     shortcut = "a";
+
     baseIndex = 1;
     clock24 = true;
+
     disableConfirmationPrompt = true;
     newSession = true;
-    sensibleOnTop = true;
-    keyMode = "vi";
-    customPaneNavigationAndResize = true;
-    reverseSplit = true;
+    terminal = "screen-256color";
+    historyLimit = 50000;
 
-    # tmuxp.enable = true;
-    # tmuxinator.enable = true;
+    sensibleOnTop = true;
+
+    keyMode = "vi";
+    reverseSplit = false;
+    customPaneNavigationAndResize = true;
+
+    extraConfig = ''
+      set -g mouse on 
+      set -g mouse-select-pane on
+
+      bind -N "Split the pane into two, left and right" g split-window -h
+      bind -N "Split the pane into two, top and bottom" v split-window -v
+    '';
+
     plugins = with pkgs; [
       {
         plugin = tmuxPlugins.resurrect;
         extraConfig = "set -g @resurrect-strategy-nvim 'session'";
       }
-      {
-        plugin = tmuxPlugins.cpu;
-      }
-      # {
-      #   plugin = tmuxPlugins.continuum;
-      #   extraConfig = ''
-      #     set -g @continuum-restore "on"
-      #     set -g @continuum-save-interval "60" # minutes
-      #   '';
-      # }
-      # { # TODO: package this or implement scripts
-      #   plugin = tmuxPlugins.session-wizard;
-      #   extraConfig = "set -g @session-wizard 'T'";
-      # }
     ];
   };
 }
