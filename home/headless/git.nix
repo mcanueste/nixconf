@@ -19,8 +19,10 @@
     # ]
 
     extraConfig = { 
-      whitespace = "trailing-space,space-before-tab"; 
-      editor = "vim";
+      core = {
+        whitespace = "trailing-space,space-before-tab";
+	editor = "nvim";
+      };
     };
 
     diff-so-fancy.enable = true;
