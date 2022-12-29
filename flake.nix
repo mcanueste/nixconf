@@ -15,6 +15,9 @@
     pkgs = import nixpkgs {
       inherit system;
       config = { allowUnfree = true; };
+      overlays = [
+        (import ./overlays/rose_pine_tmux.nix)
+      ];
     };
   in {
     nixosConfigurations = {
@@ -22,9 +25,9 @@
         inherit system;
         modules = [
           ./os
-          # TODO find a less ugly way to set home-manager up
           home-manager.nixosModules.home-manager
           {
+	    nixpkgs = { inherit pkgs; };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.mcst = import ./home;

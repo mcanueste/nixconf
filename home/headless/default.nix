@@ -11,5 +11,10 @@
     ./fzf.nix
     ./zoxide.nix
   ];
+
+  home.sessionVariables = {
+    EDITOR = "nvim"; 
+    ZK_NOTEBOOK_DIR = "~/Projects/notes";
+  };
 }
 

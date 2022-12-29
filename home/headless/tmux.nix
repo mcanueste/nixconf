@@ -32,6 +32,9 @@
         plugin = tmuxPlugins.resurrect;
         extraConfig = "set -g @resurrect-strategy-nvim 'session'";
       }
+      {
+        plugin = tmuxPlugins.rose-pine-tmux;
+      }
     ];
   };
 }

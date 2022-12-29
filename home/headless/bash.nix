@@ -69,6 +69,11 @@
       bind '"\e[B": history-search-forward'
       bind '"\e[C": forward-char'
       bind '"\e[D": backward-char'
+
+      # sessionVariables are not taking effect for some reason
+      export EDITOR="nvim"
+      export FZF_TMUX="1"
+      export ZK_NOTEBOOK_DIR="$HOME/Projects/notes/"
     '';
     sessionVariables = {
     	# Automatically trim long paths in the prompt (requires Bash 4.x)

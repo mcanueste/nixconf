@@ -7,10 +7,10 @@
     fd
     dive
     lazygit # TODO: configure later?
-      
-    # editors
+    nix-prefetch
     helix
     neovim
+    zk
   ];
 }
 
