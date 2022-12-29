@@ -17,6 +17,7 @@
       config = { allowUnfree = true; };
       overlays = [
         (import ./overlays/rose_pine_tmux.nix)
+        (import ./overlays/tmux_session_wizard.nix)
       ];
     };
   in {
