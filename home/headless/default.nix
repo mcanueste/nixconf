@@ -10,6 +10,7 @@
     ./bat.nix
     ./fzf.nix
     ./zoxide.nix
+    ./neovim.nix
   ];
 
   home.sessionVariables = {

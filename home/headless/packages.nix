@@ -8,8 +8,6 @@
     dive
     lazygit # TODO: configure later?
     nix-prefetch
-    helix
-    neovim
     zk
   ];
 }
