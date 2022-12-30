@@ -11,6 +11,7 @@
       ./printer.nix
       ./gnome.nix
       ./packages.nix
+      ./virtualization.nix
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
