@@ -11,6 +11,7 @@
     ./fzf.nix
     ./zoxide.nix
     ./neovim.nix
+    ./direnv.nix
   ];
 
   home.sessionVariables = {
