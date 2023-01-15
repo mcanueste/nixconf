@@ -10,6 +10,7 @@
     nix-prefetch
     zk
     poetry
+    gccStdenv
   ];
 }
 
