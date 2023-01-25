@@ -46,5 +46,20 @@
         }
       ];
     };
+
+    wg1 = {
+      address = [ "10.46.0.30/32" ];
+      # dns = [ "10.41.21.1" ];
+      privateKeyFile = "/home/mcst/.ssh/wireguard/privatekey";
+      
+      peers = [
+        {
+          publicKey = "gGcWwjxTz1/CwfiK3A5bHxbqF2tqfwqybOkEfLJmTSo=";
+          allowedIPs = [ "10.41.21.0/24" ];
+          endpoint = "82.222.60.207:51820";
+          persistentKeepalive = 25;
+        }
+      ];
+    };
   };
 }

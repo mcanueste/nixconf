@@ -11,6 +11,7 @@
     zk
     poetry
     gccStdenv
+    rsync
   ];
 }
 
