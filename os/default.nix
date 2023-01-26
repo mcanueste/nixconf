@@ -1,6 +1,7 @@
 {
-  config,
   pkgs,
+  lib,
+  config,
   ...
 }: {
   # This value determines the NixOS release from which the default
@@ -10,12 +11,12 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.11";
+  nixpkgs.hostPlatform = "x86_64-linux";
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
+    ./hardware
     ./boot.nix
     ./locale.nix
     ./networking.nix

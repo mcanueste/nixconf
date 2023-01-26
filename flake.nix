@@ -52,6 +52,8 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.mcst = import ./home;
+
+	    nixconf.hardware.xps15.enable = true;
           }
         ];
       };
