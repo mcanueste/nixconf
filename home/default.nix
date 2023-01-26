@@ -1,14 +1,13 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   home.username = "mcst";
   home.homeDirectory = "/home/mcst";
 
-  imports = [ 
+  imports = [
     ./desktop
     ./headless
   ];
 
-  # programs.emacs = {                              
+  # programs.emacs = {
   #   enable = true;
   #   extraPackages = epkgs: [
   #     epkgs.nix-mode
@@ -16,7 +15,7 @@
   #   ];
   # };
 
-  # services.gpg-agent = {                          
+  # services.gpg-agent = {
   #   enable = true;
   #   defaultCacheTtl = 1800;
   #   enableSshSupport = true;
@@ -35,4 +34,3 @@
   # changes in each release.
   home.stateVersion = "22.11";
 }
-

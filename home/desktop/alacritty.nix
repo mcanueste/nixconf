@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   programs.alacritty = {
     enable = true;
     settings = {
@@ -9,7 +8,8 @@
       cursor.style = "block";
       draw_bold_text_with_bright_colors = true;
       cursor.unfocused_hollow = true;
-      env = { # env variables
+      env = {
+        # env variables
         TERM = "xterm-256color";
       };
       window = {
@@ -36,7 +36,7 @@
         };
         size = 12.0;
       };
-      
+
       # Rose Pine Theme
       colors = {
         primary = {
@@ -53,7 +53,7 @@
         };
         line_indicator = {
           foreground = null;
-          background = null; 
+          background = null;
         };
         selection = {
           text = "0xe0def4";

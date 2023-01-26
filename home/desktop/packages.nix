@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   fonts.fontconfig.enable = true;
 
   # Packages that don't need GUI and specific config
@@ -7,7 +6,6 @@
     teams
     zoom-us
     jetbrains.datagrip
-    (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+    (pkgs.nerdfonts.override {fonts = ["FiraCode" "DroidSansMono"];})
   ];
 }
-

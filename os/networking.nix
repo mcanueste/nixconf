@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -11,7 +10,7 @@
   # networking.wireless.iwd.enable = true;
   networking.networkmanager = {
     enable = true;
-    # wifi.backend = "iwd"; 
+    # wifi.backend = "iwd";
   };
 
   # Open ports in the firewall.
@@ -33,14 +32,14 @@
 
   networking.wg-quick.interfaces = {
     wg0 = {
-      address = [ "10.45.0.30/32" ];
-      dns = [ "10.41.0.2" ];
+      address = ["10.45.0.30/32"];
+      dns = ["10.41.0.2"];
       privateKeyFile = "/home/mcst/.ssh/wireguard/privatekey";
-      
+
       peers = [
         {
           publicKey = "4HvNXgrqfGeFkhFBXjJelFu+uDcvepN+o0bIdCgUBWw=";
-          allowedIPs = [ "10.41.0.0/16" ];
+          allowedIPs = ["10.41.0.0/16"];
           endpoint = "3.74.48.98:51820";
           persistentKeepalive = 25;
         }
@@ -48,14 +47,14 @@
     };
 
     wg1 = {
-      address = [ "10.46.0.30/32" ];
+      address = ["10.46.0.30/32"];
       # dns = [ "10.41.21.1" ];
       privateKeyFile = "/home/mcst/.ssh/wireguard/privatekey";
-      
+
       peers = [
         {
           publicKey = "gGcWwjxTz1/CwfiK3A5bHxbqF2tqfwqybOkEfLJmTSo=";
-          allowedIPs = [ "10.41.21.0/24" ];
+          allowedIPs = ["10.41.21.0/24"];
           endpoint = "82.222.60.207:51820";
           persistentKeepalive = 25;
         }

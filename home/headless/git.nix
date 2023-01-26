@@ -1,12 +1,11 @@
-{ ... }:
-{
+{...}: {
   programs.git = {
     enable = true;
     lfs.enable = true;
 
     userName = "mcanueste";
     userEmail = "mcanueste@gmail.com";
-    
+
     # TODO: add signing
     # signing = ?
 
@@ -18,10 +17,10 @@
     #   }
     # ]
 
-    extraConfig = { 
+    extraConfig = {
       core = {
         whitespace = "trailing-space,space-before-tab";
-	editor = "nvim";
+        editor = "nvim";
       };
     };
 

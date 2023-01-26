@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   imports = [
     ./packages.nix
     ./tmux.nix
@@ -15,8 +14,7 @@
   ];
 
   home.sessionVariables = {
-    EDITOR = "nvim"; 
+    EDITOR = "nvim";
     ZK_NOTEBOOK_DIR = "~/Projects/notes";
   };
 }
-

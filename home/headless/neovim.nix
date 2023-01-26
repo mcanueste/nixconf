@@ -1,10 +1,9 @@
-{ pkgs, ... }:
-{
-  programs.neovim= {
+{pkgs, ...}: {
+  programs.neovim = {
     enable = true;
     viAlias = true;
     vimAlias = true;
-    vimdiffAlias = true; 
+    vimdiffAlias = true;
     extraConfig = ''
       " Enable mouse mode
       set mouse=a
@@ -18,22 +17,22 @@
       " Use a color column on the 80-character mark
       set colorcolumn=80
 
-      " Show `▸▸` for tabs: 	, `·` for tailing whitespace: 
+      " Show `▸▸` for tabs: 	, `·` for tailing whitespace:
       set list listchars=tab:▸▸,trail:·
     '';
     plugins = with pkgs.vimPlugins; [
-      { 
+      {
         plugin = rose-pine;
         config = "colorscheme rose-pine";
       }
 
-      { 
+      {
         plugin = which-key-nvim;
         type = "lua";
         config = ''
-         require('which-key').setup()
-         vim.o.timeout = true
-         vim.o.timeoutlen = 300
+          require('which-key').setup()
+          vim.o.timeout = true
+          vim.o.timeoutlen = 300
         '';
       }
 
@@ -107,7 +106,7 @@
 
       plenary-nvim
       telescope-fzf-writer-nvim
-      { 
+      {
         plugin = telescope-nvim;
         type = "lua";
         config = ''
