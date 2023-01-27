@@ -1,18 +1,19 @@
 {
-pkgs,
-lib,
-config,
-...
+  pkgs,
+  lib,
+  config,
+  ...
 }: let
   cfg = config.nixconf.hardware.xps15;
 in {
   options.nixconf.hardware.xps15 = {
-    enable = lib.mkEnableOption {
+    enable = lib.mkOption {
       default = true;
       description = "Enable XPS15 hardware configuration";
+      type = lib.types.bool;
     };
   };
- 
+
   config = lib.mkIf cfg.enable {
     fileSystems = {
       "/boot/efi" = {
@@ -25,24 +26,24 @@ in {
       };
     };
 
-    swapDevices = [ 
-      {device = "/dev/disk/by-label/swap";} 
+    swapDevices = [
+      {device = "/dev/disk/by-label/swap";}
     ];
 
     boot = {
       initrd = {
         availableKernelModules = [
-          "xhci_pci" 
-          "ahci" 
-          "nvme" 
-          "usb_storage" 
-          "usbhid" 
-          "sd_mod" 
+          "xhci_pci"
+          "ahci"
+          "nvme"
+          "usb_storage"
+          "usbhid"
+          "sd_mod"
           "rtsx_pci_sdmmc"
         ];
         kernelModules = [];
       };
-      kernelModules = [ "kvm-intel" ];
+      kernelModules = ["kvm-intel"];
       extraModulePackages = [];
       loader = {
         systemd-boot.enable = true;

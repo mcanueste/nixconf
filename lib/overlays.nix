@@ -7,7 +7,7 @@ let
   };
 
   libOverlay = lib: final: prev: {
-    lib = prev.lib // {nixvim = lib;};
+    lib = prev.lib // {nixconf = lib;};
   };
 in {
   inherit pkgsOverlay libOverlay;

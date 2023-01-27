@@ -34,6 +34,7 @@
       inherit system;
       config = {allowUnfree = true;};
       overlays = [
+        (lib.overlays.libOverlay lib.nixconf)
         (import ./overlays/rose_pine_tmux.nix)
         (import ./overlays/tmux_session_wizard.nix)
       ];
@@ -53,7 +54,12 @@
             home-manager.useUserPackages = true;
             home-manager.users.mcst = import ./home;
 
-	    nixconf.hardware.xps15.enable = true;
+            nixconf.network = {
+              wgKreo = true;
+              wgKreoPrivateKeyFile = "/home/mcst/.ssh/wireguard/privatekey";
+              wgKreogpu = true;
+              wgKreogpuPrivateKeyFile = "/home/mcst/.ssh/wireguard/privatekey";
+            };
           }
         ];
       };

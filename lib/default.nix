@@ -1,5 +1,6 @@
 let
   overlays = import ./overlays.nix;
+  nixconf = import ./nixconf.nix;
 
   mkPkgs = {
     nixpkgs,
@@ -11,7 +12,7 @@ let
     import nixpkgs {
       inherit system config;
       overlays = [
-        # (overlays.libOverlay nixvim)
+        (overlays.libOverlay nixconf)
         (overlays.pkgsOverlay packages)
       ];
     };
@@ -29,5 +30,5 @@ let
       ];
     };
 in {
-  inherit overlays mkPkgs loadModules;
+  inherit overlays mkPkgs loadModules nixconf;
 }
