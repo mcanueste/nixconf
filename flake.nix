@@ -3,9 +3,8 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
-    home-manager = {
-      url = "github:nix-community/home-manager/master";
+    homeconf = {
+      url = "./home";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -13,8 +12,7 @@
   outputs = {
     self,
     nixpkgs,
-    flake-utils,
-    home-manager,
+    homeconf,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -25,15 +23,10 @@
     };
 
     config = {
-      nixpkgs = {inherit pkgs;};
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.users.mcst = import ./home;
-
       nixconf.network = {
-        wgKreo = true;
+        wgKreo = false;
         wgKreoPrivateKeyFile = "/home/mcst/.ssh/wireguard/privatekey";
-        wgKreogpu = true;
+        wgKreogpu = false;
         wgKreogpuPrivateKeyFile = "/home/mcst/.ssh/wireguard/privatekey";
       };
     };
@@ -43,11 +36,12 @@
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         inherit system;
-        modules = [
-          ./os
-          home-manager.nixosModules.home-manager
-          config
-        ];
+        modules =
+          homeconf.nixconfModules
+          ++ [
+            ./os
+            config
+          ];
       };
     };
   };

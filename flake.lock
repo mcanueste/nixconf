@@ -1,33 +1,19 @@
 {
   "nodes": {
-    "flake-utils": {
-      "locked": {
-        "lastModified": 1667395993,
-        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
+          "homeconf",
           "nixpkgs"
         ],
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1673343300,
-        "narHash": "sha256-5Xdj6kpXYMie0MlnGwqK5FaMdsedxvyuakWtyKB3zaQ=",
+        "lastModified": 1674771519,
+        "narHash": "sha256-U0W3S1nX6yEvLh3Vq70EORbmXecAKXfmEfCfaA4A+I8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "176e455371a8371586e8a3ff0d56ee9f3ca2324e",
+        "rev": "bb4b25b302dbf0f527f190461b080b5262871756",
         "type": "github"
       },
       "original": {
@@ -35,6 +21,24 @@
         "ref": "master",
         "repo": "home-manager",
         "type": "github"
+      }
+    },
+    "homeconf": {
+      "inputs": {
+        "home-manager": "home-manager",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-c0dVmkPcPioj+YXV00Ivx+YKaIH3SAo5JuwFiCsAqBs=",
+        "path": "/nix/store/8j45m9wq4k8m3lrfql48ani7wn5z8p4y-source/home",
+        "type": "path"
+      },
+      "original": {
+        "path": "/nix/store/8j45m9wq4k8m3lrfql48ani7wn5z8p4y-source/home",
+        "type": "path"
       }
     },
     "nixpkgs": {
@@ -54,8 +58,7 @@
     },
     "root": {
       "inputs": {
-        "flake-utils": "flake-utils",
-        "home-manager": "home-manager",
+        "homeconf": "homeconf",
         "nixpkgs": "nixpkgs"
       }
     },
