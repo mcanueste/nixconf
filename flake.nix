@@ -21,11 +21,11 @@
 
     pkgs = import nixpkgs {
       inherit system;
-      config = { allowUnfree = true; };
+      config = {allowUnfree = true;};
     };
 
     config = {
-      nixpkgs = { inherit pkgs; };
+      nixpkgs = {inherit pkgs;};
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.users.mcst = import ./home;
@@ -37,7 +37,6 @@
         wgKreogpuPrivateKeyFile = "/home/mcst/.ssh/wireguard/privatekey";
       };
     };
-
   in {
     formatter.${system} = pkgs.alejandra;
 
@@ -47,7 +46,7 @@
         modules = [
           ./os
           home-manager.nixosModules.home-manager
-	  config
+          config
         ];
       };
     };
