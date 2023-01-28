@@ -48,12 +48,12 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-Yd7MXzBYp2AkB+YYt2VJWm3W6UyIFWYBriG+SO35OhQ=",
-        "path": "/nix/store/w1rpdf8i4kc8bxbh9hg7qrdgaka7rv7m-source/home",
+        "narHash": "sha256-ByzOCqyujdScG12luBkQiINJegzU9ePhlF+5iixXHLA=",
+        "path": "/nix/store/b39fciqkjlv6af4hqf3risi3xb5zp7mq-source/home",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/w1rpdf8i4kc8bxbh9hg7qrdgaka7rv7m-source/home",
+        "path": "/nix/store/b39fciqkjlv6af4hqf3risi3xb5zp7mq-source/home",
         "type": "path"
       }
     },
@@ -81,11 +81,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1674898275,
-        "narHash": "sha256-r6/UXF/PkXfWasfqtZl6UHoGPaqqGyk3WFsw6JykBgg=",
+        "lastModified": 1674905380,
+        "narHash": "sha256-gwDACIB0p8VCtH6voOH03d2i72spF6ZqRj1XwtM6NM0=",
         "owner": "mcanueste",
         "repo": "nixvim",
-        "rev": "c0b941451b3f3aa015acf3e948fdea8f666d9427",
+        "rev": "248365109a3eb6cf3f785d1d5c7d0af9e5379d8c",
         "type": "github"
       },
       "original": {
