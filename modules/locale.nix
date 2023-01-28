@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.nixconf.locale;
+  cfg = config.nixos.locale;
 in {
-  options.nixconf.locale = {
+  options.nixos.locale = {
     timezone = lib.mkOption {
       default = "Europe/Berlin";
       description = "Time Zone";

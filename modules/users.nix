@@ -4,8 +4,8 @@
   config,
   ...
 }: let
-  cfg = config.nixconf.user;
-  docker = config.nixconf.virtualisation.docker;
+  cfg = config.nixos.user;
+  docker = config.nixos.virtualisation.docker;
   addGroupIf = cond: group: groups:
     if cond
     then (groups ++ [group])

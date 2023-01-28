@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  cfg = config.nixconf.network;
+  cfg = config.nixos.network;
 
   wgKreo = {
     kreo = {
@@ -25,7 +25,7 @@
 
   mkWgInterfaces = configs: builtins.foldl' (i: c: i // c) {} configs;
 in {
-  options.nixconf.network = {
+  options.nixos.network = {
     hostname = lib.mkOption {
       default = "nixos";
       description = "Network hostname";

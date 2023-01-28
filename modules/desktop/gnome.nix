@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.nixconf.desktop.gnome;
+  cfg = config.nixos.desktop.gnome;
 in {
-  options.nixconf.desktop.gnome = {
+  options.nixos.desktop.gnome = {
     enable = lib.mkOption {
       default = true;
       description = "Enable gnome desktop";

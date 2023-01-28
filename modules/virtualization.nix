@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  cfg = config.nixconf.virtualisation;
+  cfg = config.nixos.virtualisation;
 
   getPackage = pkgs: pname:
     with builtins;
@@ -19,7 +19,7 @@
 
   filterPackages = packages: with builtins; filter (p: ! isNull p) packages;
 in {
-  options.nixconf.virtualisation = {
+  options.nixos.virtualisation = {
     docker = lib.mkOption {
       default = true;
       description = "Enable docker";

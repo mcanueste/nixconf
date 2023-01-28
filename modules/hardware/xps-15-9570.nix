@@ -4,9 +4,9 @@
   config,
   ...
 }: let
-  cfg = config.nixconf.hardware.xps15;
+  cfg = config.nixos.hardware.xps15;
 in {
-  options.nixconf.hardware.xps15 = {
+  options.nixos.hardware.xps15 = {
     enable = lib.mkOption {
       default = true;
       description = "Enable XPS15 hardware configuration";

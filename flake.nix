@@ -23,7 +23,7 @@
     };
 
     config = {
-      nixconf.network = {
+      nixos.network = {
         wgKreo = true;
       };
     };
