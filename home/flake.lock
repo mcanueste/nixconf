@@ -18,7 +18,6 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "homeconf",
           "nixpkgs"
         ],
         "utils": "utils"
@@ -38,45 +37,26 @@
         "type": "github"
       }
     },
-    "homeconf": {
-      "inputs": {
-        "home-manager": "home-manager",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "nixvim": "nixvim"
-      },
-      "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-Yd7MXzBYp2AkB+YYt2VJWm3W6UyIFWYBriG+SO35OhQ=",
-        "path": "/nix/store/w1rpdf8i4kc8bxbh9hg7qrdgaka7rv7m-source/home",
-        "type": "path"
-      },
-      "original": {
-        "path": "/nix/store/w1rpdf8i4kc8bxbh9hg7qrdgaka7rv7m-source/home",
-        "type": "path"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1674641431,
         "narHash": "sha256-qfo19qVZBP4qn5M5gXc/h1MDgAtPA5VxJm9s8RUAkVk=",
-        "owner": "NixOS",
+        "owner": "nixos",
         "repo": "nixpkgs",
         "rev": "9b97ad7b4330aacda9b2343396eb3df8a853b4fc",
         "type": "github"
       },
       "original": {
-        "id": "nixpkgs",
+        "owner": "nixos",
         "ref": "nixos-unstable",
-        "type": "indirect"
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "nixvim": {
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": [
-          "homeconf",
           "nixpkgs"
         ]
       },
@@ -96,8 +76,9 @@
     },
     "root": {
       "inputs": {
-        "homeconf": "homeconf",
-        "nixpkgs": "nixpkgs"
+        "home-manager": "home-manager",
+        "nixpkgs": "nixpkgs",
+        "nixvim": "nixvim"
       }
     },
     "utils": {

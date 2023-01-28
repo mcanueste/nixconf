@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   imports = [
     ./packages.nix
-    ./tmux.nix
     ./bash.nix
     ./dircolors.nix
     ./git.nix
@@ -9,7 +8,7 @@
     ./bat.nix
     ./fzf.nix
     ./zoxide.nix
-    ./neovim.nix
+    # ./neovim.nix
     ./direnv.nix
   ];
 

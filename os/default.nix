@@ -1,6 +1,7 @@
 {
-  config,
   pkgs,
+  lib,
+  config,
   ...
 }: {
   # This value determines the NixOS release from which the default
@@ -10,20 +11,37 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "22.11";
+  nixpkgs.hostPlatform = "x86_64-linux";
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
+  # System level packages
+  environment.systemPackages = with pkgs; [
+    curl
+    wget
+    unzip
+  ];
+
+  # Enable CUPS to print document
+  services.printing.enable = true;
+
+  # Enable sound with pipewire.
+  sound.enable = true;
+  hardware.pulseaudio.enable = false;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
+
   imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-    ./boot.nix
+    ./hardware
+    ./desktop
+    ./users.nix
     ./locale.nix
     ./networking.nix
-    ./sound.nix
-    ./users.nix
-    ./printer.nix
-    ./gnome.nix
-    ./packages.nix
     ./virtualization.nix
   ];
 }
