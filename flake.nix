@@ -17,8 +17,8 @@
   } @ inputs: let
     system = "x86_64-linux";
 
-    pkgs = import nixpkgs {
-      inherit system;
+    pkgs = homeconf.lib.mkPkgs {
+      inherit nixpkgs system;
       config = {allowUnfree = true;};
     };
 

@@ -8,7 +8,7 @@
     ./bat.nix
     ./fzf.nix
     ./zoxide.nix
-    ./neovim.nix
+    # ./neovim.nix
     ./direnv.nix
   ];
 

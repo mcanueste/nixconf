@@ -1,5 +1,20 @@
 {
   "nodes": {
+    "flake-utils": {
+      "locked": {
+        "lastModified": 1667395993,
+        "narHash": "sha256-nuEHfE/LcWyuSWnS8t12N1wc105Qtau+/OdUAjtQ0rA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "5aed5285a952e0b949eb3ba02c12fa4fcfef535f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -28,16 +43,17 @@
         "home-manager": "home-manager",
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "nixvim": "nixvim"
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-c0dVmkPcPioj+YXV00Ivx+YKaIH3SAo5JuwFiCsAqBs=",
-        "path": "/nix/store/8j45m9wq4k8m3lrfql48ani7wn5z8p4y-source/home",
+        "narHash": "sha256-CESB6IxDixX256T5BXLnd+b4xVCbmTzSIkjhL92kI5g=",
+        "path": "/nix/store/cia9ic0xvbw6lp32n69kdyq4kcj0ppzf-source/home",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/8j45m9wq4k8m3lrfql48ani7wn5z8p4y-source/home",
+        "path": "/nix/store/cia9ic0xvbw6lp32n69kdyq4kcj0ppzf-source/home",
         "type": "path"
       }
     },
@@ -54,6 +70,28 @@
         "id": "nixpkgs",
         "ref": "nixos-unstable",
         "type": "indirect"
+      }
+    },
+    "nixvim": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": [
+          "homeconf",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1674683550,
+        "narHash": "sha256-5dUhm3UI1t2K/3tklYav7lI4tn9A9vgTvrTddammslY=",
+        "owner": "mcanueste",
+        "repo": "nixvim",
+        "rev": "a0b76710d38015cbd568551c100f5997c58fd6dc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mcanueste",
+        "repo": "nixvim",
+        "type": "github"
       }
     },
     "root": {
