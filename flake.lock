@@ -18,7 +18,7 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
-          "homeconf",
+          "nixhome",
           "nixpkgs"
         ],
         "utils": "utils"
@@ -38,7 +38,7 @@
         "type": "github"
       }
     },
-    "homeconf": {
+    "nixhome": {
       "inputs": {
         "home-manager": "home-manager",
         "nixpkgs": [
@@ -47,14 +47,17 @@
         "nixvim": "nixvim"
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-ByzOCqyujdScG12luBkQiINJegzU9ePhlF+5iixXHLA=",
-        "path": "/nix/store/b39fciqkjlv6af4hqf3risi3xb5zp7mq-source/home",
-        "type": "path"
+        "lastModified": 1674906467,
+        "narHash": "sha256-FCgxodaV6Hr44bV36W3oWpxsOymdd64eCP9cxDvo9E8=",
+        "owner": "mcanueste",
+        "repo": "nixhome",
+        "rev": "ddcbdd01389d71b7d9adab5a7bef4b0cac6c0957",
+        "type": "github"
       },
       "original": {
-        "path": "/nix/store/b39fciqkjlv6af4hqf3risi3xb5zp7mq-source/home",
-        "type": "path"
+        "owner": "mcanueste",
+        "repo": "nixhome",
+        "type": "github"
       }
     },
     "nixpkgs": {
@@ -76,7 +79,7 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": [
-          "homeconf",
+          "nixhome",
           "nixpkgs"
         ]
       },
@@ -96,7 +99,7 @@
     },
     "root": {
       "inputs": {
-        "homeconf": "homeconf",
+        "nixhome": "nixhome",
         "nixpkgs": "nixpkgs"
       }
     },

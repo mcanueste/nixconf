@@ -3,8 +3,8 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
-    homeconf = {
-      url = "./home";
+    nixhome = {
+      url = "github:mcanueste/nixhome";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -12,12 +12,12 @@
   outputs = {
     self,
     nixpkgs,
-    homeconf,
+    nixhome,
     ...
   } @ inputs: let
     system = "x86_64-linux";
 
-    pkgs = homeconf.lib.mkPkgs {
+    pkgs = nixhome.lib.mkPkgs {
       inherit nixpkgs system;
       config = {allowUnfree = true;};
     };
@@ -37,9 +37,9 @@
       nixos = nixpkgs.lib.nixosSystem {
         inherit system;
         modules =
-          homeconf.nixconfModules
+          nixhome.nixconfModules
           ++ [
-            ./os
+            ./modules
             config
           ];
       };

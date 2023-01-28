@@ -1,2 +1,2 @@
-# nixconf
-NixOs and Nix configuration files
+# nixos
+NixOS configuration flake
