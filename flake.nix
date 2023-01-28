@@ -24,10 +24,7 @@
 
     config = {
       nixconf.network = {
-        wgKreo = false;
-        wgKreoPrivateKeyFile = "/home/mcst/.ssh/wireguard/privatekey";
-        wgKreogpu = false;
-        wgKreogpuPrivateKeyFile = "/home/mcst/.ssh/wireguard/privatekey";
+        wgKreo = true;
       };
     };
   in {
