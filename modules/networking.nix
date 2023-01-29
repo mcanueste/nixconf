@@ -46,8 +46,12 @@ in {
       enable = true;
     };
 
-    networking.wg-quick.interfaces = mkWgInterfaces [ 
-      (if cfg.wgKreo then wgKreo else {})
+    networking.wg-quick.interfaces = mkWgInterfaces [
+      (
+        if cfg.wgKreo
+        then wgKreo
+        else {}
+      )
     ];
   };
 }
