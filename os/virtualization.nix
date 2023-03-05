@@ -64,6 +64,6 @@ in {
       (getPackageIf cfg.virt-manager pkgs "virt-manager")
     ];
 
-    programs.dconf.enable = (isGnome || cfg.virt-manager);
+    programs.dconf.enable = isGnome || cfg.virt-manager;
   };
 }

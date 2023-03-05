@@ -27,6 +27,7 @@
     userConf = import ./configs/users/mcst.nix;
     osConf = import ./configs/os/mcst-desktop.nix;
     homeConf = import ./configs/home/mcst-desktop.nix;
+    wgConf = import ./configs/wireguard/kreo.nix;
 
     pkgs = lib.mkPkgs {
       inherit nixpkgs system;
@@ -41,15 +42,16 @@
         inherit system;
         modules = [
           ./os
-	  userConf
+          userConf
           osConf
+	  wgConf
           home-manager.nixosModules.home-manager
           {
             nixpkgs = {inherit pkgs;};
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.mcst = ./home;
-	    # config = homeConf;
+            # config = homeConf;
           }
         ];
       };
