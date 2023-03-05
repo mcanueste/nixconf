@@ -38,7 +38,7 @@
   };
 
   # Add self signed CA certs
-  security.pki.certificateFiles = [ ./certs/kreo.crt ];
+  security.pki.certificateFiles = [./certs/kreo.crt];
 
   imports = [
     ./hardware

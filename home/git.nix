@@ -45,7 +45,7 @@ in {
 
       # TODO: maybe change to another diff tool?
       diff-so-fancy.enable = true;
-	
+
       aliases = {
         a = "add";
         aa = "add --all";

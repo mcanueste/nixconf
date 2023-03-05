@@ -1,9 +1,9 @@
-{ pkgs
-, lib
-, config
-, ...
-}:
-let
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
   cfg = config.nixhome.bash;
   mkBoolOption = description:
     lib.mkOption {
@@ -12,13 +12,12 @@ let
       default = true;
     };
 
-  mkAliases = aliases: builtins.foldl' (s: a: s // a) { } aliases;
+  mkAliases = aliases: builtins.foldl' (s: a: s // a) {} aliases;
   aliasIf = cond: alias:
     if ! cond
-    then { }
+    then {}
     else alias;
-in
-{
+in {
   options.nixhome.bash = {
     enable = mkBoolOption "Enable bash config";
   };
@@ -29,8 +28,8 @@ in
       enableCompletion = true;
       historySize = 100000;
       historyFileSize = 100000;
-      historyControl = [ "erasedups" "ignoredups" "ignorespace" ];
-      historyIgnore = [ "exit" "ls" "bg" "fg" "history" "clear" ];
+      historyControl = ["erasedups" "ignoredups" "ignorespace"];
+      historyIgnore = ["exit" "ls" "bg" "fg" "history" "clear"];
       shellOptions = [
         # Append to history file rather than replacing it.
         "histappend"
@@ -101,9 +100,9 @@ in
         # CDPATH = ".:~/Projects";
       };
       shellAliases = mkAliases [
-        { g = "git"; }
-        { v = "vim"; }
-        { h = "hx"; }
+        {g = "git";}
+        {v = "vim";}
+        {h = "hx";}
       ];
     };
 
