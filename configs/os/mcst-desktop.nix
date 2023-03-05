@@ -1,0 +1,7 @@
+{
+  nixos = {
+    network = {
+      wgKreo = true;
+    };
+  };
+}

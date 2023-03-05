@@ -5,6 +5,7 @@
   ...
 }: let
   cfg = config.nixos.virtualisation;
+  isGnome = config.nixos.desktop.gnome.enable;
 
   getPackage = pkgs: pname:
     with builtins;
@@ -26,27 +27,21 @@ in {
       type = lib.types.bool;
     };
 
-    dockerCompose = lib.mkOption {
-      default = true;
-      description = "Enable docker-compose";
-      type = lib.types.bool;
-    };
-
     podman = lib.mkOption {
       default = false;
       description = "Enable podman";
       type = lib.types.bool;
     };
 
-    podmanDockerCompat = lib.mkOption {
-      default = false;
-      description = "Enable podman";
+    distrobox = lib.mkOption {
+      default = true;
+      description = "Enable distrobox";
       type = lib.types.bool;
     };
 
-    podmanCompose = lib.mkOption {
+    virt-manager = lib.mkOption {
       default = false;
-      description = "Enable podman-compose";
+      description = "Enable virt-manager";
       type = lib.types.bool;
     };
   };
@@ -56,14 +51,19 @@ in {
       docker.enable = cfg.docker;
       podman = {
         enable = cfg.podman;
-        dockerCompat = cfg.podmanDockerCompat;
-        defaultNetwork.settings.dns_enabled = cfg.podmanCompose;
+        dockerCompat = cfg.podman;
+        defaultNetwork.settings.dns_enabled = cfg.podman;
       };
+      libvirtd.enable = cfg.virt-manager;
     };
 
     environment.systemPackages = filterPackages [
-      (getPackageIf cfg.dockerCompose pkgs "docker-compose")
-      (getPackageIf cfg.podmanCompose pkgs "podman-compose")
+      (getPackageIf cfg.docker pkgs "docker-compose")
+      (getPackageIf cfg.podman pkgs "podman-compose")
+      (getPackageIf cfg.distrobox pkgs "distrobox")
+      (getPackageIf cfg.virt-manager pkgs "virt-manager")
     ];
+
+    programs.dconf.enable = (isGnome || cfg.virt-manager);
   };
 }

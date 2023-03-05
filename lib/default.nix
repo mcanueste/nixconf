@@ -1,10 +1,5 @@
 let
-  pkgsOverlay = packages: final: prev:
-    prev
-    // builtins.mapAttrs
-    (n: v: v.defaultPackage.${final.system})
-    packages;
-
+  pkgsOverlay = import ../overlays/pkgs.nix;
   mkPkgs = {
     nixpkgs,
     packages ? {},
@@ -18,5 +13,5 @@ let
       ];
     };
 in {
-  inherit pkgsOverlay mkPkgs;
+  inherit mkPkgs;
 }

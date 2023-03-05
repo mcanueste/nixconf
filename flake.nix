@@ -23,16 +23,15 @@
     system = "x86_64-linux";
 
     lib = import ./lib;
+
+    userConf = import ./configs/users/mcst.nix;
+    osConf = import ./configs/os/mcst-desktop.nix;
+    homeConf = import ./configs/home/mcst-desktop.nix;
+
     pkgs = lib.mkPkgs {
       inherit nixpkgs system;
       config = {allowUnfree = true;};
       packages = {inherit nixvim;};
-    };
-
-    config = {
-      nixos.network = {
-        wgKreo = true;
-      };
     };
   in {
     formatter.${system} = pkgs.alejandra;
@@ -42,16 +41,23 @@
         inherit system;
         modules = [
           ./os
-          config
+	  userConf
+          osConf
           home-manager.nixosModules.home-manager
           {
             nixpkgs = {inherit pkgs;};
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.mcst = ./home;
+	    # config = homeConf;
           }
         ];
       };
+    };
+
+    homeConfigurations.default = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      modules = [./home homeConf];
     };
   };
 }

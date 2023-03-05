@@ -1,0 +1,5 @@
+{
+  nixhome = {
+    desktop = true;
+  };
+}
