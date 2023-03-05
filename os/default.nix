@@ -43,7 +43,6 @@
   imports = [
     ./hardware
     ./desktop
-    # ./users.nix
     ./locale.nix
     ./networking.nix
     ./virtualization.nix
