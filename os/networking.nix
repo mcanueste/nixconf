@@ -25,6 +25,12 @@ in {
       description = "Wireguard configurations";
       type = lib.types.anything;
     };
+
+    wireguard.certs = lib.mkOption {
+      default = [];
+      description = "CA paths";
+      type = lib.types.listOf lib.types.path;
+    };
   };
 
   config = {
@@ -32,5 +38,6 @@ in {
     networking.useDHCP = lib.mkDefault true;
     networking.networkmanager = {enable = true;};
     networking.wg-quick.interfaces = mkWgInterfaces cfg.wireguard.configs;
+    security.pki.certificateFiles = cfg.wireguard.certs;
   };
 }

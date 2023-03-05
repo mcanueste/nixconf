@@ -1,6 +1,7 @@
 {
   nixos.network.wireguard = {
     enable = true;
+    certs = [./certs/kreo.crt];
     configs = [
       {
         kreo = {
