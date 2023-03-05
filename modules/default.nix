@@ -20,6 +20,7 @@
     curl
     wget
     unzip
+    gnome3.gnome-tweaks
   ];
 
   # Enable CUPS to print document
