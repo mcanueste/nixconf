@@ -12,6 +12,12 @@ in {
       description = "Enable XPS15 hardware configuration";
       type = lib.types.bool;
     };
+
+    swap = lib.mkOption {
+      default = false;
+      description = "Enable swap";
+      type = lib.types.bool;
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -26,9 +32,10 @@ in {
       };
     };
 
-    # swapDevices = [
-    #   {device = "/dev/disk/by-label/swap";}
-    # ];
+    swapDevices =
+      if cfg.swap
+      then [{device = "/dev/disk/by-label/swap";}]
+      else [];
 
     boot = {
       initrd = {
