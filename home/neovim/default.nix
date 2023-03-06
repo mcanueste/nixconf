@@ -16,12 +16,33 @@ in {
 
   config = {
     home.packages = with pkgs; [
-      stdenv
       neovim
-
-      # nix support
-      # alejandra
-      # nil
+      gcc
+      stdenv
+      xclip
+      xsel
+      wl-clipboard
+      git
+      ripgrep
+      fd
+      wget
+      curl
+      gzip
+      gnutar
+      lazygit
+      go
+      cargo
+      rustc
+      nodejs
+      nodePackages.npm
+      nodePackages.neovim
+      (luajit.withPackages (lp: [
+        lp.luarocks
+      ]))
+      (python311.withPackages (pp: [
+        pp.pip
+        pp.pynvim
+      ]))
     ];
 
     xdg.configFile."nvim/" = {
