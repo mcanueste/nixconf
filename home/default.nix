@@ -15,10 +15,6 @@
     ./packages.nix
     ./bash.nix
     ./git.nix
+    ./neovim
   ];
-
-  # home.sessionVariables = {
-  #   EDITOR = "nvim";
-  #   ZK_NOTEBOOK_DIR = "~/Projects/notes";
-  # };
 }

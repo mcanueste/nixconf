@@ -48,7 +48,7 @@ in {
       (getPkgIf cfg.dive pkgs.dive)
       (getPkgIf cfg.lazygit pkgs.lazygit)
       (getPkgIf cfg.rsync pkgs.rsync)
-      (getPkgIf cfg.nixvim pkgs.nixvim)
+      # (getPkgIf cfg.nixvim pkgs.nixvim)
       (getPkgIf cfg.kubectl pkgs.kubectl)
       (getPkgIf cfg.minikube pkgs.minikube)
       (getPkgIf cfg.gcloud pkgs.google-cloud-sdk)
