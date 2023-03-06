@@ -21,18 +21,19 @@
     ...
   } @ inputs: let
     system = "x86_64-linux";
-
-    lib = import ./lib;
-
     userConf = import ./configs/users/mcst.nix;
     osConf = import ./configs/os/mcst-desktop.nix;
     homeConf = import ./configs/home/mcst-desktop.nix;
     wgConf = import ./configs/wireguard/kreo.nix;
 
-    pkgs = lib.mkPkgs {
-      inherit nixpkgs system;
+    flakePackages = {
+      inherit nixvim;
+    };
+
+    pkgs = import nixpkgs {
+      inherit system;
       config = {allowUnfree = true;};
-      packages = {inherit nixvim;};
+      overlays = import ./overlays flakePackages;
     };
   in {
     formatter.${system} = pkgs.alejandra;
@@ -40,11 +41,15 @@
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         inherit system;
+        specialArgs = {
+          inherit pkgs;
+          lib = pkgs.lib;
+        };
         modules = [
           ./os
           userConf
           osConf
-	  wgConf
+          wgConf
           home-manager.nixosModules.home-manager
           {
             nixpkgs = {inherit pkgs;};

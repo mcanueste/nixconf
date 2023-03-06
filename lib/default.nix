@@ -1,17 +1,23 @@
-let
-  pkgsOverlay = import ../overlays/pkgs.nix;
-  mkPkgs = {
-    nixpkgs,
-    packages ? {},
-    config ? {},
-    system ? "x86_64-linux",
+{lib, ...}: rec {
+  mkBoolOption = {
+    description,
+    default ? true,
   }:
-    import nixpkgs {
-      inherit system config;
-      overlays = [
-        (pkgsOverlay packages)
-      ];
+    lib.mkOption {
+      inherit description default;
+      type = lib.types.bool;
     };
-in {
-  inherit mkPkgs;
+
+  getPackage = pkgs: pname:
+    with builtins;
+      if hasAttr pname pkgs
+      then getAttr pname pkgs
+      else getAttr pname pkgs;
+
+  getPackageIf = cond: pkgs: pname:
+    if cond
+    then getPackage pkgs pname
+    else null;
+
+  filterPackages = packages: with builtins; filter (p: ! isNull p) packages;
 }

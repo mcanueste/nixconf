@@ -3,46 +3,21 @@
   lib,
   config,
   ...
-}: let
+}:
+with lib.conflib; let
   cfg = config.nixos.virtualisation;
   isGnome = config.nixos.desktop.gnome.enable;
-
-  getPackage = pkgs: pname:
-    with builtins;
-      if hasAttr pname pkgs
-      then getAttr pname pkgs
-      else getAttr pname pkgs;
-
-  getPackageIf = cond: pkgs: pname:
-    if cond
-    then getPackage pkgs pname
-    else null;
-
-  filterPackages = packages: with builtins; filter (p: ! isNull p) packages;
 in {
   options.nixos.virtualisation = {
-    docker = lib.mkOption {
-      default = true;
-      description = "Enable docker";
-      type = lib.types.bool;
-    };
-
-    podman = lib.mkOption {
-      default = false;
+    docker = mkBoolOption {description = "Enable docker";};
+    podman = mkBoolOption {
       description = "Enable podman";
-      type = lib.types.bool;
-    };
-
-    distrobox = lib.mkOption {
-      default = true;
-      description = "Enable distrobox";
-      type = lib.types.bool;
-    };
-
-    virt-manager = lib.mkOption {
       default = false;
+    };
+    distrobox = mkBoolOption {description = "Enable distrobox";};
+    virt-manager = mkBoolOption {
       description = "Enable virt-manager";
-      type = lib.types.bool;
+      default = false;
     };
   };
 
