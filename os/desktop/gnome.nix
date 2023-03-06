@@ -42,5 +42,13 @@ in {
     # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
     # boot.blacklistedKernelModules = [ "nouveau" ];
     # boot.kernelParams = [ "module_blacklist=i915" ];
+
+    # enable dconf
+    programs.dconf.enable = true;
+
+    # Packages
+    environment.systemPackages = with pkgs; [
+      gnome3.gnome-tweaks
+    ];
   };
 }
