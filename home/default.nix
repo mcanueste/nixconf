@@ -11,11 +11,11 @@
   home.homeDirectory = "/home/mcst";
 
   imports = [
-    ./desktop
-    ./packages.nix
     ./bash.nix
     ./alacritty.nix
+    ./starship.nix
     ./git.nix
+    ./packages.nix
     ./neovim
   ];
 }

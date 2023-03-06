@@ -24,7 +24,6 @@ in {
     dive = mkBoolOption "Enable dive";
     lazygit = mkBoolOption "Enable lazygit";
     rsync = mkBoolOption "Enable rsync";
-    nixvim = mkBoolOption "Enable nixvim";
 
     kubectl = mkBoolOption "Enable kubectl";
     minikube = mkBoolOption "Enable minikube";
@@ -37,6 +36,12 @@ in {
     zoxide = mkBoolOption "Enable zoxide";
     direnv = mkBoolOption "Enable direnv";
     tmux = mkBoolOption "Enable tmux";
+
+    brave = mkBoolOption "Enable brave browser";
+    teams = mkBoolOption "Enable teams";
+    datagrip = mkBoolOption "Enable JetBrains Datagrip";
+    pycharm = mkBoolOption "Enable JetBrains PyCharm Professional";
+    nerdfonts = mkBoolOption "Enable Nerd Fonts";
   };
 
   config = {
@@ -48,12 +53,20 @@ in {
       (getPkgIf cfg.dive pkgs.dive)
       (getPkgIf cfg.lazygit pkgs.lazygit)
       (getPkgIf cfg.rsync pkgs.rsync)
-      # (getPkgIf cfg.nixvim pkgs.nixvim)
       (getPkgIf cfg.kubectl pkgs.kubectl)
       (getPkgIf cfg.minikube pkgs.minikube)
       (getPkgIf cfg.gcloud pkgs.google-cloud-sdk)
       (getPkgIf cfg.cfssl pkgs.cfssl)
+      (getPkgIf cfg.brave pkgs.brave)
+      (getPkgIf cfg.teams pkgs.teams)
+      (getPkgIf cfg.datagrip pkgs.jetbrains.datagrip)
+      (getPkgIf cfg.pycharm pkgs.jetbrains.pycharm-professional)
+      (
+        getPkgIf cfg.nerdfonts
+        (pkgs.nerdfonts.override {fonts = ["FiraCode" "DroidSansMono"];})
+      )
     ];
+    fonts.fontconfig.enable = cfg.nerdfonts;
     programs.exa = {
       enable = cfg.exa;
       enableAliases = true;

@@ -4,8 +4,7 @@
   config,
   ...
 }: let
-  cfg = config.nixhome.desktop.alacritty;
-  isDesktop = config.nixhome.desktop.enable;
+  cfg = config.nixhome.alacritty;
 
   genFontConf = font: type: {
     family = font;
@@ -97,7 +96,7 @@
     ];
   };
 in {
-  options.nixhome.desktop.alacritty = {
+  options.nixhome.alacritty = {
     enable = lib.mkOption {
       description = "Enable alacritty";
       type = lib.types.bool;
@@ -105,7 +104,7 @@ in {
     };
   };
 
-  config = lib.mkIf (cfg.enable && isDesktop) {
+  config = lib.mkIf cfg.enable {
     programs.alacritty = {
       enable = true;
       settings = {
