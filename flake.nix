@@ -7,28 +7,21 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim = {
-      url = "github:mcanueste/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = {
     self,
     nixpkgs,
     home-manager,
-    nixvim,
     ...
   } @ inputs: let
     system = "x86_64-linux";
+    flakePackages = {};
+
     userConf = import ./configs/users/mcst.nix;
     osConf = import ./configs/os/mcst-desktop.nix;
     homeConf = import ./configs/home/mcst-desktop.nix;
     wgConf = import ./configs/wireguard/kreo.nix;
-
-    flakePackages = {
-      inherit nixvim;
-    };
 
     pkgs = import nixpkgs {
       inherit system;

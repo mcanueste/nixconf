@@ -14,7 +14,7 @@ in {
     };
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       neovim
       gcc
@@ -43,6 +43,9 @@ in {
         pp.pip
         pp.pynvim
       ]))
+      
+      # formatters
+      alejandra
     ];
 
     xdg.configFile."nvim/" = {

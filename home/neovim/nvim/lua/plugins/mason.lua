@@ -66,7 +66,7 @@ return {
       "mypy",
 
       -- nix
-      "rnix-lsp",
+      "nil",
 
       -- spelling
       -- "cspell",

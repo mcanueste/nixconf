@@ -51,6 +51,9 @@ return {
         -- markdown
         nls.builtins.formatting.cbfmt,
         nls.builtins.diagnostics.vale,
+
+        -- nix
+        nls.builtins.formatting.alejandra,
       },
     }
   end,
