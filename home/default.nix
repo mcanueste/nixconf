@@ -14,6 +14,7 @@
     ./desktop
     ./packages.nix
     ./bash.nix
+    ./alacritty.nix
     ./git.nix
     ./neovim
   ];

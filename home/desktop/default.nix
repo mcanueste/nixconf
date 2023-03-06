@@ -6,7 +6,6 @@
 }: {
   imports = [
     ./desktop.nix
-    ./alacritty.nix
     ./starship.nix
   ];
 }

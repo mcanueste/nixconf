@@ -68,15 +68,15 @@ return {
       -- nix
       "nil",
 
-      -- spelling
-      -- "cspell",
-      -- "codespell",
-      -- "misspell",
-
       -- markdown
       "cbfmt",
       "vale",
       "marksman",
+
+      -- spelling
+      -- "cspell",
+      -- "codespell",
+      -- "misspell",
     },
   },
 }
