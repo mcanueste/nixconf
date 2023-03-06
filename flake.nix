@@ -14,7 +14,7 @@
     nixpkgs,
     home-manager,
     ...
-  } @ inputs: let
+  }: let
     system = "x86_64-linux";
     flakePackages = {};
 

@@ -15,6 +15,11 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    xdg.configFile."nvim/" = {
+      source = ./nvim;
+      recursive = true;
+    };
+
     home.packages = with pkgs; [
       neovim
       gcc
@@ -43,14 +48,9 @@ in {
         pp.pip
         pp.pynvim
       ]))
-      
+
       # formatters
       alejandra
     ];
-
-    xdg.configFile."nvim/" = {
-      source = ./nvim;
-      recursive = true;
-    };
   };
 }
