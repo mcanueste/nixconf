@@ -135,10 +135,14 @@ in {
           auto_scroll = false;
         };
         font = {
-          normal = genFontConf "FiraCode Nerd Font Mono" "Regular";
-          bold = genFontConf "FiraCode Nerd Font Mono" "Bold";
-          italic = genFontConf "FiraCode Nerd Font Mono" "Italic";
-          bold_italic = genFontConf "FiraCode Nerd Font Mono" "Bold Italic";
+          # normal = genFontConf "FiraCode Nerd Font Mono" "Regular";
+          # bold = genFontConf "FiraCode Nerd Font Mono" "Bold";
+          # italic = genFontConf "FiraCode Nerd Font Mono" "Italic";
+          # bold_italic = genFontConf "FiraCode Nerd Font Mono" "Bold Italic";
+          normal = genFontConf "SauceCodePro Nerd Font Mono" "Regular";
+          bold = genFontConf "SauceCodePro Nerd Font Mono" "Bold";
+          italic = genFontConf "SauceCodePro Nerd Font Mono" "Italic";
+          bold_italic = genFontConf "SauceCodePro Nerd Font Mono" "Bold Italic";
           size = 12.0;
         };
         colors = catppuccin-mocha;

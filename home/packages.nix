@@ -61,7 +61,9 @@ in {
       (getPkgIf cfg.pycharm pkgs.jetbrains.pycharm-professional)
       (
         getPkgIf cfg.nerdfonts
-        (pkgs.nerdfonts.override {fonts = ["FiraCode" "DroidSansMono"];})
+        (pkgs.nerdfonts.override {fonts = [
+          "FiraCode" "SourceCodePro"
+        ];})
       )
     ];
     fonts.fontconfig.enable = cfg.nerdfonts;
