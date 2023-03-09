@@ -27,8 +27,8 @@ in {
     programs.bash = {
       shellAliases = {
         v = "nvim";
-        vc = "XDG_CONFIG_HOME=~/nix/nixos/home/neovim/ nvim ~/nix/nixos/home/neovim/nvim";
         vn = "XDG_CONFIG_HOME=~/nix/nixos/home/neovim/ nvim ~/notes/";
+        vconf = "XDG_CONFIG_HOME=~/nix/nixos/home/neovim/ nvim ~/nix/nixos/home/neovim/nvim";
       };
     };
 
