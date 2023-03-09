@@ -14,8 +14,8 @@
     ./bash.nix
     ./alacritty.nix
     ./starship.nix
-    ./git.nix
     ./packages.nix
+    ./git
     ./neovim
   ];
 }

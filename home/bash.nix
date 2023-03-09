@@ -11,8 +11,6 @@
       type = lib.types.bool;
       default = true;
     };
-
-  mkAliases = aliases: builtins.foldl' (s: a: s // a) {} aliases;
 in {
   options.nixhome.bash = {
     enable = mkBoolOption "Enable bash config";
@@ -20,7 +18,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     programs.bash = {
-      enable = cfg.enable;
+      inherit (cfg) enable;
       enableCompletion = true;
       historySize = 100000;
       historyFileSize = 100000;
@@ -94,9 +92,6 @@ in {
         # Ex: CDPATH=".:~:~/projects" will look for targets in the current working directory,
         # in home and in the ~/projects folder
         # CDPATH = ".:~/Projects";
-      };
-      shellAliases = {
-        g = "git";
       };
     };
 

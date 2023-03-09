@@ -18,47 +18,61 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    home.packages = [
+      pkgs.lazygit
+    ];
+
+    xdg.configFile."git/kreo.conf" = {
+      source = ./kreo.conf;
+    };
+
+    programs.bash = {
+      shellAliases = {
+        g = "git";
+        lg = "lazygit";
+      };
+    };
+
     programs.git = {
-      enable = cfg.enable;
+      enable = true;
       lfs.enable = cfg.lfs;
 
+      delta.enable = true;
       userName = "mcanueste";
       userEmail = "mcanueste@gmail.com";
-
-      # TODO: add additional configs for certain dirs
-      # includes = [
-      #   {
-      #     path = "~/path/to/conditional.inc";
-      #     condition = "gitdir:~/src/dir";
-      #   }
-      # ]
-
-      # TODO: add signing
-      # signing = ?
-
+      includes = [
+        {
+          condition = "gitdir:/home/mcst/kreo/";
+          path = "/home/mcst/.config/git/kreo.conf";
+        }
+      ];
       extraConfig = {
         core = {
           whitespace = "trailing-space,space-before-tab";
           editor = "nvim";
         };
       };
-
-      # TODO: maybe change to another diff tool?
-      diff-so-fancy.enable = true;
-
       aliases = {
+        s = "status";
+
         a = "add";
         aa = "add --all";
-        s = "status";
+
         p = "push";
         pl = "pull";
-        b = "branch";
+
         c = "commit";
         cm = "commit -m";
+
+        b = "branch";
         co = "checkout";
+        cob = "checkout -b";
+
         r = "rebase";
         r2 = "rebase -i HEAD~2";
+
         re = "restore";
+
         d = "diff";
       };
     };

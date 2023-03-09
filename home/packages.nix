@@ -22,7 +22,6 @@ in {
     ripgrep = mkBoolOption "Enable ripgrep";
     fd = mkBoolOption "Enable fd";
     dive = mkBoolOption "Enable dive";
-    lazygit = mkBoolOption "Enable lazygit";
     rsync = mkBoolOption "Enable rsync";
 
     kubectl = mkBoolOption "Enable kubectl";
@@ -51,7 +50,6 @@ in {
       (getPkgIf cfg.ripgrep pkgs.ripgrep)
       (getPkgIf cfg.fd pkgs.fd)
       (getPkgIf cfg.dive pkgs.dive)
-      (getPkgIf cfg.lazygit pkgs.lazygit)
       (getPkgIf cfg.rsync pkgs.rsync)
       (getPkgIf cfg.kubectl pkgs.kubectl)
       (getPkgIf cfg.minikube pkgs.minikube)
