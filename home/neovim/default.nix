@@ -113,5 +113,12 @@ in {
       statix
       nil
     ];
+
+    programs.bash = {
+      shellAliases = {
+        v = "nvim";
+        vc = "XDG_CONFIG_HOME=~/nix/nixos/home/neovim/ nvim";
+      };
+    };
   };
 }

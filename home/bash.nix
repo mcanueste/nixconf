@@ -13,10 +13,6 @@
     };
 
   mkAliases = aliases: builtins.foldl' (s: a: s // a) {} aliases;
-  aliasIf = cond: alias:
-    if ! cond
-    then {}
-    else alias;
 in {
   options.nixhome.bash = {
     enable = mkBoolOption "Enable bash config";
@@ -99,11 +95,9 @@ in {
         # in home and in the ~/projects folder
         # CDPATH = ".:~/Projects";
       };
-      shellAliases = mkAliases [
-        {g = "git";}
-        {v = "vim";}
-        {h = "hx";}
-      ];
+      shellAliases = {
+        g = "git";
+      };
     };
 
     programs.dircolors = {
