@@ -20,6 +20,10 @@ in {
       recursive = true;
     };
 
+    home.file.".vale.ini" = {
+      source = ./vale.ini;
+    };
+
     home.packages = with pkgs; [
       neovim
       gcc
@@ -35,22 +39,79 @@ in {
       gzip
       gnutar
       lazygit
+
+      # generic formatting
+      nodePackages.prettier
+
+      # markdown
+      proselint
+      vale
+      marksman
+
+      # toml support
+      taplo
+
+      # yaml
+      yamllint
+      nodePackages.yaml-language-server
+
+      # docker support
+      hadolint
+      nodePackages.dockerfile-language-server-nodejs
+
+      # ansible
+      ansible-lint
+      ansible-language-server
+
+      # terraform support
+      tfsec
+      terraform-ls
+
+      # bash support
+      beautysh
+      shellcheck
+      shellharden
+      nodePackages.bash-language-server
+
+      # go support
       go
+      gopls
+      gofumpt
+      gotools
+      golines
+      golangci-lint
+
+      # rust support
       cargo
       rustc
-      nodejs
-      nodePackages.npm
-      nodePackages.neovim
+      rustfmt
+      rust-analyzer
+
+      # lua support
       (luajit.withPackages (lp: [
         lp.luarocks
       ]))
+      lua-language-server
+
+      # javascript support
+      nodejs
+      nodePackages.npm
+      nodePackages.neovim
+
+      # pyright support
       (python311.withPackages (pp: [
         pp.pip
         pp.pynvim
+        pp.black
+        pp.mypy
       ]))
+      ruff
+      nodePackages.pyright
 
-      # formatters
+      # nix support
       alejandra
+      statix
+      nil
     ];
   };
 }
