@@ -15,8 +15,11 @@
     ./bash.nix
     ./alacritty.nix
     ./starship.nix
-    ./packages.nix
-
+    ./tmux.nix
+    ./browsers.nix
+    ./chat.nix
+    ./cloud.nix
+    ./editors.nix
     ./git
     ./neovim
   ];
