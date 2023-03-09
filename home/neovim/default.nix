@@ -88,6 +88,7 @@ in {
       rust-analyzer
 
       # lua support
+      stylua
       (luajit.withPackages (lp: [
         lp.luarocks
       ]))
@@ -117,7 +118,7 @@ in {
     programs.bash = {
       shellAliases = {
         v = "nvim";
-        vc = "XDG_CONFIG_HOME=~/nix/nixos/home/neovim/ nvim";
+        vc = "XDG_CONFIG_HOME=~/nix/nixos/home/neovim/ nvim ~/nix/nixos/home/neovim/nvim";
       };
     };
   };

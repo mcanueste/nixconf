@@ -1,6 +1,9 @@
 return {
   "jose-elias-alvarez/null-ls.nvim",
   event = { "BufReadPre", "BufNewFile" },
+  keys = {
+    { "<leader>cf", function() vim.lsp.buf.format() end, desc = "Format" },
+  },
   opts = function()
     local nls = require("null-ls")
     return {
@@ -60,7 +63,4 @@ return {
       },
     }
   end,
-  keys = {
-    { "<leader>cf", function() vim.lsp.buf.format() end, desc = "Format" },
-  },
 }
