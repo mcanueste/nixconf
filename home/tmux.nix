@@ -36,6 +36,9 @@ in {
       set -ag terminal-overrides ",xterm-256color:RGB"
       '';
       plugins = with pkgs; [
+        tmuxPlugins.open
+        tmuxPlugins.resurrect
+        tmuxPlugins.continuum
         tmuxPlugins.catppuccin
       ];
     };

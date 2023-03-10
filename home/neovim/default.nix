@@ -30,6 +30,17 @@ in {
         vn = "XDG_CONFIG_HOME=~/nix/nixos/home/neovim/ nvim ~/notes/";
         vconf = "XDG_CONFIG_HOME=~/nix/nixos/home/neovim/ nvim ~/nix/nixos/home/neovim/nvim";
       };
+      sessionVariables = {
+        EDITOR = "nvim";
+      };
+    };
+
+    home.sessionVariables = {
+      EDITOR = "nvim";
+    };
+
+    systemd.user.sessionVariables = {
+      EDITOR = "nvim";
     };
 
     home.packages = with pkgs; [
