@@ -108,6 +108,14 @@ in {
     programs.alacritty = {
       enable = true;
       settings = {
+        shell = {
+          program = "bash";
+          args = [
+            "-l"
+            "-c"
+            "tmux attach || tmux"
+          ];
+        };
         live_config_reload = true;
         visual_bell.duration = 0;
         dynamic_title = true;

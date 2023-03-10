@@ -36,7 +36,7 @@
         inherit system;
         specialArgs = {
           inherit pkgs;
-          lib = pkgs.lib;
+          inherit (pkgs) lib;
         };
         modules = [
           ./os
