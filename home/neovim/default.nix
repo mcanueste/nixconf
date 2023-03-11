@@ -20,8 +20,19 @@ in {
       recursive = true;
     };
 
-    home.file.".vale.ini" = {
-      source = ./vale.ini;
+    home.file = {
+      ".vale.ini" = {
+        source = ./vale.ini;
+      };
+      ".cache/vale/Vocab/Custom/accept.txt" = {
+        text = ''
+        [Aa]nsible
+        '';
+      };
+      ".cache/vale/Vocab/Custom/reject.txt" = {
+        text = ''
+        '';
+      };
     };
 
     programs.bash = {
