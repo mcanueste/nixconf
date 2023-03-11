@@ -4,12 +4,12 @@
   config,
   ...
 }: let
-  cfg = config.nixos.desktop.gnome;
+  cfg = config.nixos.desktop.i3;
 in {
-  options.nixos.desktop.gnome = {
+  options.nixos.desktop.i3 = {
     enable = lib.mkOption {
-      default = true;
-      description = "Enable gnome desktop";
+      default = false;
+      description = "Enable i3";
       type = lib.types.bool;
     };
   };
@@ -26,18 +26,31 @@ in {
       # Enable touchpad support
       libinput.enable = true;
 
-      # Enable the GNOME Desktop Environment.
-      displayManager.gdm.enable = true;
-      desktopManager.gnome.enable = true;
+      # Enable the xfce as desktop manager
+      desktopManager = {
+        xterm.enable = false;
+        xfce = {
+          enable = true;
+          noDesktop = true;
+          enableXfwm = false;
+        };
+      };
+
+      # Enable i3
+      displayManager.defaultSession = "xfce";
+      windowManager.i3 = {
+        enable = true;
+        extraPackages = with pkgs; [
+          lxappearance
+          dmenu
+          i3-gaps
+          i3status
+          i3lock
+          i3blocks
+        ];
+      };
     };
-
-    # enable dconf
     programs.dconf.enable = true;
-
-    # Packages
-    environment.systemPackages = with pkgs; [
-      gnome3.gnome-tweaks
-    ];
 
     # services.xserver.videoDrivers = [ "nvidia" ];
     # hardware.opengl.enable = true;
