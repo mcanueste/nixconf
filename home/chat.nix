@@ -33,7 +33,7 @@ in {
   config = {
     home.packages = filterPkgs [
       (getPkgIf cfg.telegram pkgs.tdesktop)
-      (getPkgIf cfg.teams pkgs.teams)
+      # (getPkgIf cfg.teams pkgs.teams)
       (getPkgIf cfg.slack pkgs.slack)
       (getPkgIf cfg.discord pkgs.discord)
     ];

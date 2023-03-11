@@ -108,14 +108,6 @@ in {
     programs.alacritty = {
       enable = true;
       settings = {
-        shell = {
-          program = "bash";
-          args = [
-            "-l"
-            "-c"
-            "tmux attach || tmux"
-          ];
-        };
         live_config_reload = true;
         visual_bell.duration = 0;
         dynamic_title = true;
@@ -143,10 +135,10 @@ in {
           auto_scroll = false;
         };
         font = {
-          normal = genFontConf "SauceCodePro Nerd Font Mono" "Regular";
-          bold = genFontConf "SauceCodePro Nerd Font Mono" "Bold";
-          italic = genFontConf "SauceCodePro Nerd Font Mono" "Italic";
-          bold_italic = genFontConf "SauceCodePro Nerd Font Mono" "Bold Italic";
+          normal = genFontConf "JetBrainsMono Nerd Font" "Regular";
+          bold = genFontConf "JetBrainsMono Nerd Font" "Bold";
+          italic = genFontConf "JetBrainsMono Nerd Font" "Italic";
+          bold_italic = genFontConf "JetBrainsMono Nerd Font" "Bold Italic";
           size = 12.0;
         };
         colors = catppuccin-mocha;
@@ -156,7 +148,7 @@ in {
     home.packages = [
       (pkgs.nerdfonts.override {
         fonts = [
-          "SourceCodePro"
+          "JetBrainsMono"
         ];
       })
     ];

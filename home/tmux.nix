@@ -9,7 +9,8 @@
     lib.mkOption {
       inherit description;
       type = lib.types.bool;
-      default = true;
+      # default = true;
+      default = false;
     };
 in {
   options.nixhome.tmux = {
@@ -17,6 +18,18 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    programs.alacritty = {
+      settings = {
+        shell = {
+          program = "bash";
+          args = [
+            "-l"
+            "-c"
+            "tmux attach || tmux"
+          ];
+        };
+      };
+    };
     programs.tmux = {
       enable = true;
       mouse = true;

@@ -2,7 +2,6 @@
   programs.starship = {
     enable = true;
     enableBashIntegration = true;
-    enableZshIntegration = false;
     enableFishIntegration = true;
     settings = {
       scan_timeout = 10;

@@ -46,6 +46,14 @@ in {
       };
     };
 
+    programs.fish = {
+      shellAliases = {
+        v = "nvim";
+        vn = "XDG_CONFIG_HOME=~/nix/nixos/home/neovim/ nvim ~/notes/";
+        vconf = "XDG_CONFIG_HOME=~/nix/nixos/home/neovim/ nvim ~/nix/nixos/home/neovim/nvim";
+      };
+    };
+
     home.sessionVariables = {
       EDITOR = "nvim";
     };

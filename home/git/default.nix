@@ -33,6 +33,13 @@ in {
       };
     };
 
+    programs.fish = {
+      shellAliases = {
+        g = "git";
+        lg = "lazygit";
+      };
+    };
+
     programs.git = {
       enable = true;
       lfs.enable = cfg.lfs;

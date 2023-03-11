@@ -46,10 +46,6 @@ map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 map("v", "<leader>p", [["_dP]], { desc = "Paste without saving to register" })
 map("v", "<leader>d", [["_d]], { desc = "Delete without saving to register" })
 
--- Add empty lines before and after cursor line
-map("n", "mO", "<cmd>call append(line('.') - 1, repeat([''], v:count1))<cr>", { desc = "Put empty line above" })
-map("n", "mo", "<cmd>call append(line('.'),     repeat([''], v:count1))<cr>", { desc = "Put empty line below" })
-
 -- better indenting
 map("v", "<", "<gv")
 map("v", ">", ">gv")
