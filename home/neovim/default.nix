@@ -38,8 +38,8 @@ in {
     programs.bash = {
       shellAliases = {
         v = "nvim";
-        vn = "XDG_CONFIG_HOME=~/nix/nixos/home/neovim/ nvim ~/notes/";
-        vconf = "XDG_CONFIG_HOME=~/nix/nixos/home/neovim/ nvim ~/nix/nixos/home/neovim/nvim";
+        vn = "nvim ~/notes/";
+        vconf = "XDG_CONFIG_HOME=~/nix/nixconf/home/neovim/ nvim ~/nix/nixos/home/neovim/nvim";
       };
       sessionVariables = {
         EDITOR = "nvim";
@@ -49,8 +49,8 @@ in {
     programs.fish = {
       shellAliases = {
         v = "nvim";
-        vn = "XDG_CONFIG_HOME=~/nix/nixos/home/neovim/ nvim ~/notes/";
-        vconf = "XDG_CONFIG_HOME=~/nix/nixos/home/neovim/ nvim ~/nix/nixos/home/neovim/nvim";
+        vn = "nvim ~/notes/";
+        vconf = "XDG_CONFIG_HOME=~/nix/nixconf/home/neovim/ nvim ~/nix/nixos/home/neovim/nvim";
       };
     };
 

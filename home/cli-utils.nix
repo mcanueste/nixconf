@@ -25,6 +25,7 @@ in {
       pkgs.htop
       pkgs.dive
       pkgs.tealdeer
+      pkgs.ncdu
     ];
     programs.exa = {
       enable = true;

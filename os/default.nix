@@ -27,7 +27,10 @@
 
   # Enable sound with pipewire.
   sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  hardware.pulseaudio = {
+    enable = false;
+    extraModules = [ pkgs.ldacbt ];
+  };
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
