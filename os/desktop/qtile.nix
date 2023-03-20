@@ -4,17 +4,18 @@
   config,
   ...
 }: let
-  cfg = config.nixos.desktop.i3;
+  cfg = config.nixos.desktop.qtile;
 in {
-  options.nixos.desktop.i3 = {
+  options.nixos.desktop.qtile = {
     enable = lib.mkOption {
-      default = false;
+      default = true;
       description = "Enable i3";
       type = lib.types.bool;
     };
   };
 
   config = lib.mkIf cfg.enable {
+    programs.dconf.enable = true;
     services.xserver = {
       # Enable the X11 windowing system.
       enable = true;
@@ -37,20 +38,9 @@ in {
       };
 
       # Enable i3
-      displayManager.defaultSession = "xfce";
-      windowManager.i3 = {
-        enable = true;
-        extraPackages = with pkgs; [
-          lxappearance
-          dmenu
-          i3-gaps
-          i3status
-          i3lock
-          i3blocks
-        ];
-      };
+      displayManager.defaultSession = "xfce+qtile";
+      windowManager.qtile.enable = true;
     };
-    programs.dconf.enable = true;
 
     # services.xserver.videoDrivers = [ "nvidia" ];
     # hardware.opengl.enable = true;
