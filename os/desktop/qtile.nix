@@ -42,6 +42,17 @@ in {
       windowManager.qtile.enable = true;
     };
 
+    environment.systemPackages = with pkgs; [
+      libinput
+      libxkbcommon
+      # pulseaudio
+      # wayland
+      # wlroots
+      python310Packages.dbus-next
+      python310Packages.qtile-extras
+      rofi
+    ];
+
     # services.xserver.videoDrivers = [ "nvidia" ];
     # hardware.opengl.enable = true;
     # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
