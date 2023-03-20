@@ -4,12 +4,14 @@
   config,
   ...
 }: let
-  cfg = config.nixos.desktop.qtile;
+  cfg = config.nixos.desktop.awesome;
+  # https://github.com/cufta22/dotfiles.git -> qtile catppuccin theme
+  # https://github.com/V2BlockBuster2K/Awespuccin -> awesome catppuccin theme
 in {
-  options.nixos.desktop.qtile = {
+  options.nixos.desktop.awesome = {
     enable = lib.mkOption {
-      default = true;
-      description = "Enable i3";
+      default = false;
+      description = "Enable awesome";
       type = lib.types.bool;
     };
   };
@@ -28,28 +30,25 @@ in {
       libinput.enable = true;
 
       # Enable the xfce as desktop manager
-      desktopManager = {
-        xterm.enable = false;
-        xfce = {
-          enable = true;
-          noDesktop = true;
-          enableXfwm = false;
-        };
+      desktopManager = {xterm.enable = false;};
+
+      displayManager = {
+        sddm.enable = true;
+        defaultSession = "none+awesome";
       };
 
-      # Enable i3
-      displayManager.defaultSession = "xfce+qtile";
-      windowManager.qtile.enable = true;
+      windowManager.awesome = {
+        enable = true;
+        luaModules = with pkgs.luaPackages; [
+          luarocks # is the package manager for Lua modules
+          luadbi-mysql # Database abstraction layer
+        ];
+      };
     };
 
     environment.systemPackages = with pkgs; [
       libinput
       libxkbcommon
-      # pulseaudio
-      # wayland
-      # wlroots
-      python310Packages.dbus-next
-      python310Packages.qtile-extras
       rofi
     ];
 

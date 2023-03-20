@@ -8,7 +8,7 @@
 in {
   options.nixos.desktop.gnome = {
     enable = lib.mkOption {
-      default = false;
+      default = true;
       description = "Enable gnome desktop";
       type = lib.types.bool;
     };

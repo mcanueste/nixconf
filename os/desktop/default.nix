@@ -6,6 +6,6 @@
 }: {
   imports = [
     ./gnome.nix
-    ./qtile.nix
+    ./awesome.nix
   ];
 }
