@@ -39,6 +39,38 @@ in {
       gnome3.gnome-tweaks
     ];
 
+    environment.gnome.excludePackages = with pkgs.gnome; [
+      baobab # disk usage analyzer
+      epiphany # web browser
+      gedit # text editor
+      simple-scan # document scanner
+      totem # video player
+      yelp # help viewer
+      geary # email client
+      seahorse # password manager
+      # cheese # photo booth
+      # eog # image viewer
+      # evince # document viewer
+      # file-roller # archive manager
+
+      # these should be self explanatory
+      gnome-clocks
+      gnome-contacts
+      gnome-font-viewer
+      gnome-maps
+      gnome-music
+      gnome-system-monitor
+      gnome-weather
+      gnome-disk-utility
+      gnome-characters
+      pkgs.gnome-photos
+      pkgs.gnome-connections
+      # gnome-calculator
+      # gnome-calendar
+      # gnome-logs
+      # gnome-screenshot
+    ];
+
     # services.xserver.videoDrivers = [ "nvidia" ];
     # hardware.opengl.enable = true;
     # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
