@@ -3,17 +3,12 @@
   lib,
   config,
   ...
-}: let
+}:
+with pkgs.lib.conflib; let
   cfg = config.nixhome.fish;
-  mkBoolOption = description:
-    lib.mkOption {
-      inherit description;
-      type = lib.types.bool;
-      default = true;
-    };
 in {
   options.nixhome.fish = {
-    enable = mkBoolOption "Enable fish config";
+    enable = mkBoolOption {description = "Enable fish config";};
   };
 
   config = lib.mkIf cfg.enable {

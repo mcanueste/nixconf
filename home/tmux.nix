@@ -3,17 +3,15 @@
   lib,
   config,
   ...
-}: let
+}:
+with pkgs.lib.conflib; let
   cfg = config.nixhome.tmux;
-  mkBoolOption = description:
-    lib.mkOption {
-      inherit description;
-      type = lib.types.bool;
-      default = false;
-    };
 in {
   options.nixhome.tmux = {
-    enable = mkBoolOption "Enable tmux";
+    enable = mkBoolOption {
+      description = "Enable tmux";
+      default = false;
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -45,7 +43,7 @@ in {
       disableConfirmationPrompt = true;
       customPaneNavigationAndResize = true;
       extraConfig = ''
-      set -ag terminal-overrides ",xterm-256color:RGB"
+        set -ag terminal-overrides ",xterm-256color:RGB"
       '';
       plugins = with pkgs; [
         tmuxPlugins.open

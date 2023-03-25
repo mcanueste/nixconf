@@ -3,7 +3,7 @@
   lib,
   config,
   ...
-}: let
+}: with pkgs.lib.conflib;  let
   cfg = config.nixhome.alacritty;
 
   genFontConf = font: type: {
@@ -97,11 +97,7 @@
   };
 in {
   options.nixhome.alacritty = {
-    enable = lib.mkOption {
-      description = "Enable alacritty";
-      type = lib.types.bool;
-      default = true;
-    };
+    enable = mkBoolOption { description = "Enable alacritty"; };
   };
 
   config = lib.mkIf cfg.enable {

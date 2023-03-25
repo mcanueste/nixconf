@@ -3,15 +3,12 @@
   lib,
   config,
   ...
-}: let
+}:
+with pkgs.lib.conflib; let
   cfg = config.nixhome.neovim;
 in {
   options.nixhome.neovim = {
-    enable = lib.mkOption {
-      description = "Enable neovim configuration";
-      type = lib.types.bool;
-      default = true;
-    };
+    enable = mkBoolOption {description = "Enable neovim configuration";};
   };
 
   config = lib.mkIf cfg.enable {

@@ -3,17 +3,12 @@
   lib,
   config,
   ...
-}: let
+}:
+with pkgs.lib.conflib; let
   cfg = config.nixhome.zellij;
-  mkBoolOption = description:
-    lib.mkOption {
-      inherit description;
-      type = lib.types.bool;
-      default = true;
-    };
 in {
   options.nixhome.zellij = {
-    enable = mkBoolOption "Enable zellij";
+    enable = mkBoolOption {description = "Enable zellij";};
   };
 
   config = lib.mkIf cfg.enable {

@@ -3,19 +3,13 @@
   lib,
   config,
   ...
-}: let
+}: with pkgs.lib.conflib; let
   cfg = config.nixhome.git;
   usercfg = config.nixhome.user;
-  mkBoolOption = description:
-    lib.mkOption {
-      inherit description;
-      type = lib.types.bool;
-      default = true;
-    };
 in {
   options.nixhome.git = {
-    enable = mkBoolOption "Enable git config";
-    lfs = mkBoolOption "Enable git-lfs";
+    enable = mkBoolOption { description = "Enable git config"; };
+    lfs = mkBoolOption { description = "Enable git-lfs"; };
   };
 
   config = lib.mkIf cfg.enable {

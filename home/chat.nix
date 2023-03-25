@@ -1,41 +1,30 @@
 {
   pkgs,
-  lib,
   config,
   ...
-}: let
+}:
+with pkgs.lib.conflib; let
   cfg = config.nixhome.chat;
-  mkTrueOption = description:
-    lib.mkOption {
-      inherit description;
-      type = lib.types.bool;
-      default = true;
-    };
-  mkFalseOption = description:
-    lib.mkOption {
-      inherit description;
-      type = lib.types.bool;
-      default = true;
-    };
-  getPkgIf = cond: pkg:
-    if cond
-    then pkg
-    else null;
-  filterPkgs = builtins.filter (p: p != null);
 in {
   options.nixhome.chat = {
-    telegram = mkTrueOption "Enable telegram desktop";
-    teams = mkTrueOption "Enable teams";
-    slack = mkFalseOption "Enable slack";
-    discord = mkTrueOption "Enable discord";
+    telegram = mkBoolOption {description = "Enable telegram desktop";};
+    slack = mkBoolOption {
+      description = "Enable slack";
+      default = false;
+    };
+    discord = mkBoolOption {description = "Enable discord";};
+    teams = mkBoolOption {
+      description = "Enable teams";
+      default = false;
+    };
   };
 
   config = {
-    home.packages = filterPkgs [
-      (getPkgIf cfg.telegram pkgs.tdesktop)
-      (getPkgIf cfg.teams pkgs.teams)
-      (getPkgIf cfg.slack pkgs.slack)
-      (getPkgIf cfg.discord pkgs.discord)
+    home.packages = filterPackages [
+      (getPackageIf cfg.telegram pkgs.tdesktop)
+      (getPackageIf cfg.teams pkgs.teams)
+      (getPackageIf cfg.slack pkgs.slack)
+      (getPackageIf cfg.discord pkgs.discord)
     ];
   };
 }

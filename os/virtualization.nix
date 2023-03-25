@@ -1,10 +1,9 @@
 {
   pkgs,
-  lib,
   config,
   ...
 }:
-with lib.conflib; let
+with pkgs.lib.conflib; let
   cfg = config.nixos.virtualisation;
 in {
   options.nixos.virtualisation = {
@@ -32,10 +31,10 @@ in {
     };
 
     environment.systemPackages = filterPackages [
-      (getPackageIf cfg.docker pkgs "docker-compose")
-      (getPackageIf cfg.podman pkgs "podman-compose")
-      (getPackageIf cfg.distrobox pkgs "distrobox")
-      (getPackageIf cfg.virt-manager pkgs "virt-manager")
+      (getPackageIf cfg.docker pkgs.docker-compose)
+      (getPackageIf cfg.podman pkgs.podman-compose)
+      (getPackageIf cfg.distrobox pkgs.distrobox)
+      (getPackageIf cfg.virt-manager pkgs.virt-manager)
     ];
 
     programs.dconf.enable = true;

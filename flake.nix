@@ -28,15 +28,13 @@
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {
-          inherit (pkgs) lib;
-        };
+        specialArgs = {inherit pkgs;};
         modules = [
           ./os
           config.os
           home-manager.nixosModules.home-manager
           {
-            # nixpkgs = {inherit pkgs;};
+            nixpkgs = { inherit pkgs; };
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.${config.user.username}.imports = [

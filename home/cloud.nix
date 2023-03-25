@@ -1,35 +1,30 @@
 {
   pkgs,
-  lib,
   config,
   ...
-}: let
+}:
+with pkgs.lib.conflib; let
   cfg = config.nixhome.cloud;
-  mkBoolOption = description:
-    lib.mkOption {
-      inherit description;
-      type = lib.types.bool;
-      default = true;
-    };
-  getPkgIf = cond: pkg:
-    if cond
-    then pkg
-    else null;
-  filterPkgs = builtins.filter (p: p != null);
 in {
   options.nixhome.cloud = {
-    kubectl = mkBoolOption "Enable kubectl";
-    minikube = mkBoolOption "Enable minikube";
-    gcloud = mkBoolOption "Enable gcloud cli";
-    cfssl = mkBoolOption "Enable CloudFlare SSL CLI";
+    kubectl = mkBoolOption {description = "Enable kubectl";};
+    minikube = mkBoolOption {description = "Enable minikube";};
+    gcloud = mkBoolOption {
+      description = "Enable gcloud cli";
+      default = false;
+    };
+    cfssl = mkBoolOption {
+      description = "Enable CloudFlare SSL CLI";
+      default = false;
+    };
   };
 
   config = {
-    home.packages = filterPkgs [
-      (getPkgIf cfg.kubectl pkgs.kubectl)
-      (getPkgIf cfg.minikube pkgs.minikube)
-      (getPkgIf cfg.gcloud pkgs.google-cloud-sdk)
-      (getPkgIf cfg.cfssl pkgs.cfssl)
+    home.packages = filterPackages [
+      (getPackageIf cfg.kubectl pkgs.kubectl)
+      (getPackageIf cfg.minikube pkgs.minikube)
+      (getPackageIf cfg.gcloud pkgs.google-cloud-sdk)
+      (getPackageIf cfg.cfssl pkgs.cfssl)
     ];
   };
 }

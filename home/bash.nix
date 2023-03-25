@@ -3,17 +3,11 @@
   lib,
   config,
   ...
-}: let
+}: with pkgs.lib.conflib; let
   cfg = config.nixhome.bash;
-  mkBoolOption = description:
-    lib.mkOption {
-      inherit description;
-      type = lib.types.bool;
-      default = true;
-    };
 in {
   options.nixhome.bash = {
-    enable = mkBoolOption "Enable bash config";
+    enable = mkBoolOption { description = "Enable bash config"; };
   };
 
   config = lib.mkIf cfg.enable {

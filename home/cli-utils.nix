@@ -3,17 +3,12 @@
   lib,
   config,
   ...
-}: let
+}:
+with pkgs.lib.conflib; let
   cfg = config.nixhome.cli-utils;
-  mkBoolOption = description:
-    lib.mkOption {
-      inherit description;
-      type = lib.types.bool;
-      default = true;
-    };
 in {
   options.nixhome.cli-utils = {
-    enable = mkBoolOption "Enable cli utils";
+    enable = mkBoolOption {description = "Enable cli utils";};
   };
 
   config = lib.mkIf cfg.enable {

@@ -8,16 +8,10 @@
       type = lib.types.bool;
     };
 
-  getPackage = pkgs: pname:
-    with builtins;
-      if hasAttr pname pkgs
-      then getAttr pname pkgs
-      else getAttr pname pkgs;
-
-  getPackageIf = cond: pkgs: pname:
+  getPackageIf = cond: pkg:
     if cond
-    then getPackage pkgs pname
+    then pkg 
     else null;
 
-  filterPackages = packages: with builtins; filter (p: ! isNull p) packages;
+  filterPackages = packages: with builtins; filter (p: p != null) packages;
 }
