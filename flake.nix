@@ -15,10 +15,7 @@
     home-manager,
     ...
   }: let
-    userConf = import ./configs/users/mcst.nix;
-    osConf = import ./configs/os/mcst-desktop.nix;
-    # homeConf = import ./configs/home/mcst-desktop.nix;
-    wgConf = import ./configs/wireguard/kreo.nix;
+    xpsConf = import ./configs/xps15.nix;
 
     flakePackages = {};
     system = "x86_64-linux";
@@ -39,9 +36,7 @@
         };
         modules = [
           ./os
-          userConf
-          osConf
-          wgConf
+          xpsConf
           home-manager.nixosModules.home-manager
           {
             nixpkgs = {inherit pkgs;};
