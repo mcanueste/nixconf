@@ -9,7 +9,6 @@
     lib.mkOption {
       inherit description;
       type = lib.types.bool;
-      # default = true;
       default = false;
     };
 in {

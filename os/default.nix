@@ -18,6 +18,7 @@
   imports = [
     ./hardware
     ./desktop
+    ./user.nix
     ./packages.nix
     ./sound.nix
     ./locale.nix

@@ -15,7 +15,7 @@
     home-manager,
     ...
   }: let
-    xpsConf = import ./configs/xps15.nix;
+    config = import ./configs/xps15.nix;
 
     flakePackages = {};
     system = "x86_64-linux";
@@ -25,28 +25,29 @@
       overlays = import ./overlays flakePackages;
     };
   in {
-    formatter.${system} = pkgs.alejandra;
-
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
-          inherit pkgs;
           inherit (pkgs) lib;
         };
         modules = [
           ./os
-          xpsConf
+          config.os
           home-manager.nixosModules.home-manager
           {
-            nixpkgs = {inherit pkgs;};
+            # nixpkgs = {inherit pkgs;};
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.mcst = ./home;
-            # config = homeConf;
+            home-manager.users.mcst.imports = [
+              ./home
+              # config.home
+            ];
           }
         ];
       };
     };
+
+    formatter.${system} = pkgs.alejandra;
   };
 }
