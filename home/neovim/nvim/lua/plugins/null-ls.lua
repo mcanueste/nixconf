@@ -12,7 +12,6 @@ return {
         nls.builtins.formatting.prettier,
 
         -- markdown
-        nls.builtins.diagnostics.vale,
         nls.builtins.code_actions.proselint,
 
         -- toml

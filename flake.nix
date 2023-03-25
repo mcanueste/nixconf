@@ -15,14 +15,13 @@
     home-manager,
     ...
   }: let
-    system = "x86_64-linux";
-    flakePackages = {};
-
     userConf = import ./configs/users/mcst.nix;
     osConf = import ./configs/os/mcst-desktop.nix;
-    homeConf = import ./configs/home/mcst-desktop.nix;
+    # homeConf = import ./configs/home/mcst-desktop.nix;
     wgConf = import ./configs/wireguard/kreo.nix;
 
+    flakePackages = {};
+    system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
       config = {allowUnfree = true;};
@@ -53,11 +52,6 @@
           }
         ];
       };
-    };
-
-    homeConfigurations.default = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-      modules = [./home homeConf];
     };
   };
 }

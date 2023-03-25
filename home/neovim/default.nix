@@ -20,21 +20,6 @@ in {
       recursive = true;
     };
 
-    home.file = {
-      ".vale.ini" = {
-        source = ./vale.ini;
-      };
-      ".cache/vale/Vocab/Custom/accept.txt" = {
-        text = ''
-        [Aa]nsible
-        '';
-      };
-      ".cache/vale/Vocab/Custom/reject.txt" = {
-        text = ''
-        '';
-      };
-    };
-
     programs.bash = {
       shellAliases = {
         v = "nvim";
@@ -86,7 +71,6 @@ in {
 
       # markdown
       proselint
-      vale
       marksman
 
       # toml support
