@@ -21,11 +21,11 @@ in {
       settings = {
         shell = {
           program = "fish";
-          # args = [
-          #   "-l"
-          #   "-c"
-          #   "zellij attach || zellij"
-          # ];
+          args = [
+            "-l"
+            "-c"
+            "zellij attach || zellij"
+          ];
         };
       };
     };
@@ -35,7 +35,7 @@ in {
         theme = "catppuccin";
         pane_frames = false;
         default_mode = "locked";
-        default_layout = "compact";
+        # default_layout = "compact";
         default_shell = "fish";
         themes = {
           catppuccin = {
