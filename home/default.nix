@@ -1,16 +1,11 @@
 {
-  pkgs,
-  lib,
-  config,
-  ...
-}: {
   home.stateVersion = "22.11";
   programs.home-manager.enable = true;
 
-  home.username = "mcst";
-  home.homeDirectory = "/home/mcst";
-
   imports = [
+    ./git
+    ./neovim
+    ./user.nix
     ./cli-utils.nix
     ./bash.nix
     ./fish.nix
@@ -22,7 +17,5 @@
     ./chat.nix
     ./cloud.nix
     ./editors.nix
-    ./git
-    ./neovim
   ];
 }

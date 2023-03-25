@@ -39,9 +39,9 @@
             # nixpkgs = {inherit pkgs;};
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.mcst.imports = [
+            home-manager.users.${config.user.username}.imports = [
               ./home
-              # config.home
+              config.home
             ];
           }
         ];

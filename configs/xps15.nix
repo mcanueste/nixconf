@@ -28,7 +28,7 @@ rec {
             kreo = {
               address = ["10.45.0.30/32"];
               dns = ["10.41.0.2"];
-              privateKeyFile = "/home/mcst/.ssh/wireguard/privatekey";
+              privateKeyFile = "${user.home}/.ssh/wireguard/privatekey";
               peers = [
                 {
                   publicKey = "4HvNXgrqfGeFkhFBXjJelFu+uDcvepN+o0bIdCgUBWw=";

@@ -5,6 +5,7 @@
   ...
 }: let
   cfg = config.nixhome.git;
+  usercfg = config.nixhome.user;
   mkBoolOption = description:
     lib.mkOption {
       inherit description;
@@ -49,8 +50,8 @@ in {
       userEmail = "mcanueste@gmail.com";
       includes = [
         {
-          condition = "gitdir:/home/mcst/kreo/";
-          path = "/home/mcst/.config/git/kreo.conf";
+          condition = "gitdir:${usercfg.home}/kreo/";
+          path = "${usercfg.home}/.config/git/kreo.conf";
         }
       ];
       extraConfig = {
