@@ -70,11 +70,5 @@ in {
       # gnome-logs
       # gnome-screenshot
     ];
-
-    # services.xserver.videoDrivers = [ "nvidia" ];
-    # hardware.opengl.enable = true;
-    # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-    # boot.blacklistedKernelModules = [ "nouveau" ];
-    # boot.kernelParams = [ "module_blacklist=i915" ];
   };
 }

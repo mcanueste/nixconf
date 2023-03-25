@@ -3,6 +3,6 @@
     isNormalUser = true;
     home = "/home/mcst";
     description = "mcst";
-    extraGroups = ["wheel" "networkmanager" "docker" "libvirtd"];
+    extraGroups = ["wheel" "video" "networkmanager" "docker" "libvirtd"];
   };
 }
