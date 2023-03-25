@@ -47,7 +47,29 @@ rec {
   home = {
     nixhome = {
       inherit user;
+      fish.enable = true;
       tmux.enable = false;
+      zellij.enable = true;
+      editors = {
+        zotero = true;
+        datagrip = false;
+        pycharm = false;
+      };
+      cloud = {
+        kubectl = true;
+        minikube = true;
+        gcloud = false;
+        cfssl = false;
+      };
+      chat = {
+        telegram = true;
+        teams = false;
+        slack = false;
+        discord = true;
+      };
+      neovim = {
+        enable = true;
+      };
     };
   };
 }
