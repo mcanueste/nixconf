@@ -6,7 +6,6 @@
 }:
 with lib.conflib; let
   cfg = config.nixos.virtualisation;
-  isGnome = config.nixos.desktop.gnome.enable;
 in {
   options.nixos.virtualisation = {
     docker = mkBoolOption {description = "Enable docker";};

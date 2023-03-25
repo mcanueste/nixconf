@@ -15,33 +15,11 @@
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  # System level packages
-  environment.systemPackages = with pkgs; [
-    curl
-    wget
-    unzip
-  ];
-
-  # Enable CUPS to print document
-  services.printing.enable = true;
-
-  # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio = {
-    enable = false;
-    extraModules = [ pkgs.ldacbt ];
-  };
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
-
   imports = [
     ./hardware
     ./desktop
+    ./packages.nix
+    ./sound.nix
     ./locale.nix
     ./networking.nix
     ./virtualization.nix

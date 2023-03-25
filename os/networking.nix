@@ -5,7 +5,7 @@
   ...
 }: let
   cfg = config.nixos.network;
-  mkWgInterfaces = configs: builtins.foldl' (i: c: i // c) {} configs;
+  mkWgInterfaces = builtins.foldl' (i: c: i // c) {};
 in {
   options.nixos.network = {
     hostname = lib.mkOption {
