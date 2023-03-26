@@ -50,6 +50,7 @@ in {
           "${modifier}+Return" = "exec ${terminal}";
           "${modifier}+Shift+q" = "kill";
           "${modifier}+d" = "exec ${pkgs.dmenu}/bin/dmenu_run";
+          "${modifier}+Escape" = "exec ${pkgs.i3lock}/bin/i3lock --color 000000";
 
           "${modifier}+Shift+c" = "reload";
           "${modifier}+Shift+r" = "restart";
@@ -69,8 +70,8 @@ in {
           "${modifier}+s" = "split v";
           "${modifier}+f" = "fullscreen toggle";
           "${modifier}+Shift+s" = "layout toggle split";
-          "${modifier}+Shift+space" = "floating toggle";
-          "${modifier}+space" = "focus mode_toggle";
+          # "${modifier}+Shift+space" = "floating toggle"; TODO
+          # "${modifier}+space" = "focus mode_toggle";
           "${modifier}+Shift+minus" = "move scratchpad";
           "${modifier}+minus" = "scratchpad show";
 
@@ -106,8 +107,8 @@ in {
           ## Output pressed keycode using xev:
           ## nix-shell -p xorg.xev --run "xev | grep -A2 --line-buffered '^KeyRelease' | sed -n '/keycode /s/^.*keycode \([0-9]*\).* (.*, \(.*\)).*$/\1 \2/p'"
           "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer --toggle-mute";
-          "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer --unmute --decrease 2";
-          "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer --unmute --increase 2";
+          "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer --unmute --decrease 5";
+          "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer --unmute --increase 5";
           "XF86AudioMicMute" = "exec ${pkgs.pamixer}/bin/pamixer --default-source --toggle-mute";
           "XF86MonBrightnessDown" = "exec ${pkgs.brightnessctl}/bin/brightnessctl set 5%-";
           "XF86MonBrightnessUp" = "exec ${pkgs.brightnessctl}/bin/brightnessctl set +5%";
@@ -227,7 +228,7 @@ in {
             trayOutput = "primary";
             workspaceButtons = true;
             workspaceNumbers = true;
-            statusCommand = "${pkgs.i3status}/bin/i3status";
+            statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
             fonts = {
               names = ["JetBrainsMono Nerd Font"];
               size = 8.0;
@@ -274,35 +275,77 @@ in {
       };
     };
 
-    programs.i3status = {
+    programs.i3status-rust = {
       enable = true;
-      enableDefault = false;
-      general = {
-        interval = 1;
-        colors = true;
-        color_good = catppuccin.sky;
-        color_degraded = catppuccin.mauve;
-        color_bad = catppuccin.red;
-      };
-      modules = {
-        "wireless wlan0" = {
-          position = 1;
-          settings = {
-            format_up = "W: (%quality at %essid) %ip";
-            format_down = "W: down";
+      bars.default = {
+        icons = "awesome6";
+        # theme = "dracula";
+        settings = {
+          theme = {
+            theme = "dracula";
+            overrides = {
+              idle_bg = catppuccin.base;
+              idle_fg = catppuccin.text;
+              info_bg = catppuccin.sky;
+              info_fg = catppuccin.base;
+              good_bg = catppuccin.green;
+              good_fg = catppuccin.base;
+              warning_bg = catppuccin.peach;
+              warning_fg = catppuccin.base;
+              critical_bg = catppuccin.red;
+              critical_fg = catppuccin.base;
+              # separator = "\ue0b2";
+              # separator_bg = "auto";
+              # separator_fg = "auto";
+            };
           };
         };
-        "battery 0" = {
-          position = 2;
-          settings = {format = "%status %percentage %remaining";};
-        };
-        "tztime berlin" = {
-          position = 3;
-          settings = {
-            format = "%Y-%m-%d %H:%M:%S %Z";
-            timezone = "Europe/Berlin";
-          };
-        };
+        blocks = [
+          {
+            block = "load";
+            interval = 1;
+            format = " $icon  $1m.eng(w:4) ";
+          }
+          {
+            block = "cpu";
+            interval = 1;
+          }
+          {
+            block = "memory";
+            format = " $icon $mem_used_percents.eng(w:1) ";
+            format_alt = " $icon_swap $swap_free.eng(w:3,u:B,p:M)/$swap_total.eng(w:3,u:B,p:M)($swap_used_percents.eng(w:2)) ";
+            interval = 10;
+            warning_mem = 70;
+            critical_mem = 90;
+          }
+          {
+            block = "disk_space";
+            path = "/";
+            info_type = "available";
+            interval = 60;
+            warning = 20.0;
+            alert = 10.0;
+          }
+          {block = "sound";}
+          {
+            block = "backlight";
+            device = "intel_backlight";
+            invert_icons = true;
+          }
+          {
+            block = "battery";
+            format = " $icon $percentage ";
+            good = 60;
+            info = 60;
+            warning = 20;
+            critical = 10;
+          }
+          {
+            block = "time";
+            interval = 60;
+            format = " $timestamp.datetime(f:'%a %d-%m-%Y %R') ";
+          }
+        ];
       };
     };
 
