@@ -5,7 +5,7 @@
 
     # Configure keymap in X11
     layout = "us,de";
-    xkbOptions = "ctrl:swapcaps";
+    xkbOptions = "caps:swapescape";
   };
   console.useXkbConfig = true;
 }

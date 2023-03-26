@@ -16,11 +16,11 @@ in {
       settings = {
         shell = {
           program = "fish";
-          args = [
-            "-l"
-            "-c"
-            "zellij attach || zellij"
-          ];
+          # args = [
+          #   "-l"
+          #   "-c"
+          #   "zellij attach || zellij"
+          # ];
         };
       };
     };

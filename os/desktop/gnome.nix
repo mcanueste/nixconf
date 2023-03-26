@@ -3,15 +3,12 @@
   lib,
   config,
   ...
-}: let
+}:
+with pkgs.lib.conflib; let
   cfg = config.nixos.desktop.gnome;
 in {
   options.nixos.desktop.gnome = {
-    enable = lib.mkOption {
-      default = true;
-      description = "Enable gnome desktop";
-      type = lib.types.bool;
-    };
+    enable = mkBoolOption {description = "Enable gnome desktop";};
   };
 
   config = lib.mkIf cfg.enable {

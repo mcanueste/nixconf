@@ -135,7 +135,7 @@ in {
           bold = genFontConf "JetBrainsMono Nerd Font" "Bold";
           italic = genFontConf "JetBrainsMono Nerd Font" "Italic";
           bold_italic = genFontConf "JetBrainsMono Nerd Font" "Bold Italic";
-          size = 12.0;
+          size = 8.0;
         };
         colors = catppuccin-mocha;
       };

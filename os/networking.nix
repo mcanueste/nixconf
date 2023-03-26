@@ -3,7 +3,8 @@
   lib,
   config,
   ...
-}: let
+}:
+with pkgs.lib.conflib; let
   cfg = config.nixos.network;
   mkWgInterfaces = builtins.foldl' (i: c: i // c) {};
 in {
@@ -14,11 +15,7 @@ in {
       type = lib.types.str;
     };
 
-    wireguard.enable = lib.mkOption {
-      default = true;
-      description = "Enable wireguard";
-      type = lib.types.bool;
-    };
+    wireguard.enable = mkBoolOption {description = "Enable wireguard";};
 
     wireguard.configs = lib.mkOption {
       default = [];

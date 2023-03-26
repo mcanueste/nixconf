@@ -17,8 +17,13 @@ rec {
         distrobox = true;
         virt-manager = false;
       };
-      desktop.gnome = {
-        enable = true;
+      desktop = {
+        gnome = {
+          enable = true;
+        };
+        i3 = {
+          enable = true;
+        };
       };
       network.wireguard = {
         enable = true;
@@ -70,6 +75,7 @@ rec {
       neovim = {
         enable = true;
       };
+      # i3status-rust.enable = true;
     };
   };
 }

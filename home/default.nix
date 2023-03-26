@@ -17,5 +17,7 @@
     ./chat.nix
     ./cloud.nix
     ./editors.nix
+
+    ./desktop
   ];
 }

@@ -3,20 +3,16 @@
   lib,
   config,
   ...
-}: let
+}:
+with pkgs.lib.conflib; let
   cfg = config.nixos.hardware.xps15;
 in {
   options.nixos.hardware.xps15 = {
-    enable = lib.mkOption {
-      default = true;
-      description = "Enable XPS15 hardware configuration";
-      type = lib.types.bool;
-    };
+    enable = mkBoolOption {description = "Enable XPS15 hardware configuration";};
 
-    swap = lib.mkOption {
+    swap = mkBoolOption {
       default = false;
       description = "Enable swap";
-      type = lib.types.bool;
     };
   };
 
