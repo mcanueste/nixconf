@@ -14,6 +14,8 @@ in {
   config = lib.mkIf cfg.enable {
     # links /libexec from derivations to /run/current-system/sw
     environment.pathsToLink = ["/libexec"];
+    # environment.systemPackages = [pkgs.lxappearance];
+    programs.dconf.enable = true;
     services.xserver = {
       enable = true;
       windowManager.i3 = {

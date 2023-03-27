@@ -46,10 +46,15 @@ in {
         modifier = "Mod4";
         terminal = "alacritty";
         workspaceAutoBackAndForth = true;
+        defaultWorkspace = "workspace number 1";
+        menu = "${pkgs.rofi}/bin/rofi";
         keybindings = {
           "${modifier}+Return" = "exec ${terminal}";
           "${modifier}+Shift+q" = "kill";
-          "${modifier}+d" = "exec ${pkgs.dmenu}/bin/dmenu_run";
+          "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show drun";
+          "${modifier}+e" = "exec ${pkgs.rofi}/bin/rofi -show run";
+          "${modifier}+semicolon" = "exec ${pkgs.rofi}/bin/rofi -show window";
+          "${modifier}+p" = "exec ${pkgs.rofi}/bin/rofi -show power-menu -modi power-menu:${pkgs.rofi-power-menu}/bin/rofi-power-menu";
           "${modifier}+Escape" = "exec ${pkgs.i3lock}/bin/i3lock --color 000000";
 
           "${modifier}+Shift+c" = "reload";
@@ -66,14 +71,14 @@ in {
           "${modifier}+Shift+l" = "move right";
 
           # layout
+          "${modifier}+w" = "layout toggle split";
           "${modifier}+v" = "split h";
           "${modifier}+s" = "split v";
           "${modifier}+f" = "fullscreen toggle";
-          "${modifier}+Shift+s" = "layout toggle split";
-          # "${modifier}+Shift+space" = "floating toggle"; TODO
-          # "${modifier}+space" = "focus mode_toggle";
-          "${modifier}+Shift+minus" = "move scratchpad";
-          "${modifier}+minus" = "scratchpad show";
+          "${modifier}+a" = "scratchpad show";
+          "${modifier}+Shift+a" = "move scratchpad";
+          "${modifier}+g" = "focus mode_toggle";
+          "${modifier}+Shift+g" = "floating toggle";
 
           # workspace
           "${modifier}+1" = "workspace number 1";
@@ -96,7 +101,8 @@ in {
           "${modifier}+Shift+8" = "move container to workspace number 8";
           "${modifier}+Shift+9" = "move container to workspace number 9";
           "${modifier}+Shift+0" = "move container to workspace number 10";
-          "${modifier}+a" = "workspace back_and_forth";
+
+          "${modifier}+o" = "workspace back_and_forth";
           "${modifier}+Ctrl+h" = "workspace prev";
           "${modifier}+Ctrl+l" = "workspace next";
           "${modifier}+Ctrl+Shift+h" = "move workspace to output left";
@@ -271,6 +277,16 @@ in {
             always = true;
             notification = false;
           }
+          {
+            command = "${pkgs.blueman}/bin/blueman-applet";
+            always = true;
+            notification = false;
+          }
+          {
+            command = "${pkgs.networkmanagerapplet}/bin/nm-applet";
+            always = true;
+            notification = false;
+          }
         ];
       };
     };
@@ -279,7 +295,6 @@ in {
       enable = true;
       bars.default = {
         icons = "awesome6";
-        # theme = "dracula";
         settings = {
           theme = {
             theme = "dracula";
@@ -294,9 +309,6 @@ in {
               warning_fg = catppuccin.base;
               critical_bg = catppuccin.red;
               critical_fg = catppuccin.base;
-              # separator = "\ue0b2";
-              # separator_bg = "auto";
-              # separator_fg = "auto";
             };
           };
         };
@@ -349,13 +361,162 @@ in {
       };
     };
 
-    home.pointerCursor = {
-      name = "Adwaita";
-      package = pkgs.gnome.adwaita-icon-theme;
-      size = 12;
-      x11 = {
-        enable = true;
-        defaultCursor = "Adwaita";
+    programs.rofi = {
+      enable = true;
+      font = "JetBrainsMono Nerd Font 10";
+      terminal = "${pkgs.alacritty}/bin/alacritty";
+      extraConfig = {
+        modi = "run,drun,window";
+        show-icons = true;
+        sidebar-mode = true;
+        hide-scrollbar = true;
+        disable-history = false;
+        icon-theme = "Oranchelo";
+        display-run = "   Run ";
+        display-drun = "   Apps ";
+        display-window = " 﩯  Window";
+        drun-display-format = "{icon} {name}";
+      };
+      theme = with config.lib.formats.rasi; {
+        "*" = {
+          width = 600;
+          bg-col = mkLiteral "#1e1e2e";
+          bg-col-light = mkLiteral "#1e1e2e";
+          border-col = mkLiteral "#1e1e2e";
+          selected-col = mkLiteral "#1e1e2e";
+          blue = mkLiteral "#89b4fa";
+          fg-col = mkLiteral "#cdd6f4";
+          fg-col2 = mkLiteral "#f38ba8";
+          grey = mkLiteral "#6c7086";
+        };
+        element-text = {
+          background-color = mkLiteral "inherit";
+          text-color = mkLiteral "inherit";
+        };
+        element-icon = {
+          background-color = mkLiteral "inherit";
+          text-color = mkLiteral "inherit";
+        };
+        mode-switcher = {
+          background-color = mkLiteral "inherit";
+          text-color = mkLiteral "inherit";
+        };
+        window = {
+          height = mkLiteral "360px";
+          border = mkLiteral "3px";
+          border-color = mkLiteral "@border-col";
+          background-color = mkLiteral "@bg-col";
+        };
+        mainbox = {background-color = mkLiteral "@bg-col";};
+        inputbar = {
+          children = map mkLiteral ["prompt" "entry"];
+          background-color = mkLiteral "@bg-col";
+          border-radius = mkLiteral "5px";
+          padding = mkLiteral "2px";
+        };
+        prompt = {
+          background-color = mkLiteral "@blue";
+          padding = mkLiteral "6px";
+          text-color = mkLiteral "@bg-col";
+          border-radius = mkLiteral "3px";
+          margin = mkLiteral "20px 0px 0px 20px";
+        };
+        textbox-prompt-colon = {
+          expand = false;
+          str = ":";
+        };
+        entry = {
+          padding = mkLiteral "6px";
+          margin = mkLiteral "20px 0px 0px 10px";
+          text-color = mkLiteral "@fg-col";
+          background-color = mkLiteral "@bg-col";
+        };
+        listview = {
+          border = mkLiteral "0px 0px 0px";
+          padding = mkLiteral "6px 0px 0px";
+          margin = mkLiteral "10px 0px 0px 20px";
+          columns = 2;
+          lines = 5;
+          background-color = mkLiteral "@bg-col";
+        };
+        element = {
+          padding = mkLiteral "5px";
+          background-color = mkLiteral "@bg-col";
+          text-color = mkLiteral "@fg-col";
+        };
+        element-icon = {size = mkLiteral "25px";};
+        "element selected" = {
+          background-color = mkLiteral "@selected-col";
+          text-color = mkLiteral "@fg-col2";
+        };
+        mode-switcher = {spacing = 0;};
+        button = {
+          padding = mkLiteral "10px";
+          background-color = mkLiteral "@bg-col-light";
+          text-color = mkLiteral "@grey";
+          vertical-align = mkLiteral "0.5";
+          horizontal-align = mkLiteral "0.5";
+        };
+        "button selected" = {
+          background-color = mkLiteral "@bg-col";
+          text-color = mkLiteral "@blue";
+        };
+        message = {
+          background-color = mkLiteral "@bg-col-light";
+          margin = mkLiteral "2px";
+          padding = mkLiteral "2px";
+          border-radius = mkLiteral "5px";
+        };
+        textbox = {
+          padding = mkLiteral "6px";
+          margin = mkLiteral "20px 0px 0px 20px";
+          text-color = mkLiteral "@blue";
+          background-color = mkLiteral "@bg-col-light";
+        };
+      };
+    };
+
+    # TODO: Configure properly?
+    services.dunst = {
+      enable = true;
+      iconTheme = {
+        package = pkgs.hicolor-icon-theme;
+        name = "hicolor";
+        size = "32x32";
+      };
+      settings = {
+        global = {
+          follow = "keyboard";
+          mouse_left_click = "do_action";
+          mouse_middle_click = "close_all";
+          mouse_right_click = "close_current";
+          notification_limit = 5;
+          format = "<b> %a: %s </b> \\n\\n %b";
+          font = "JetBrainsMono Nerd Font 10";
+          frame_color = "#89B4FA";
+          icon_position = "left";
+          origin = "top-right";
+          corner_radius = 6;
+          frame_width = 2;
+          padding = 15;
+          width = 500;
+          height = 200;
+          timeout = 0;
+          # offset = "${var.GAPSPX}x${builtins.toString (22 + lib.strings.toInt var.GAPSPX)}";
+        };
+        urgency_low = {
+          background = "#1E1E2E";
+          foreground = "#CDD6F4";
+        };
+        urgency_normal = {
+          background = "#1E1E2E";
+          foreground = "#CDD6F4";
+        };
+        urgency_critical = {
+          background = "#1E1E2E";
+          foreground = "#CDD6F4";
+          frame_color = "#FAB387";
+        };
       };
     };
   };
