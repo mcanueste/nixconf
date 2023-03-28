@@ -87,6 +87,10 @@ in {
         # in home and in the ~/projects folder
         # CDPATH = ".:~/Projects";
       };
+      shellAliases = {
+        ngc = "sudo nix-collect-garbage";
+        nsw = "sudo nixos-rebuild switch --flake ~/nix/nixconf/";
+      };
     };
 
     programs.dircolors = {
