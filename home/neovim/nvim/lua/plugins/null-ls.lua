@@ -2,7 +2,13 @@ return {
   "jose-elias-alvarez/null-ls.nvim",
   event = { "BufReadPre", "BufNewFile" },
   keys = {
-    { "<leader>cf", function() vim.lsp.buf.format() end, desc = "Format" },
+    {
+      "<leader>cf",
+      function()
+        vim.lsp.buf.format()
+      end,
+      desc = "Format",
+    },
   },
   opts = function()
     local nls = require("null-ls")
@@ -17,13 +23,13 @@ return {
         -- toml
         nls.builtins.formatting.taplo,
 
-        -- yaml
+        -- yaml TODO: might be causing weird errors
         nls.builtins.diagnostics.yamllint,
 
         -- docker
         nls.builtins.diagnostics.hadolint,
 
-        -- ansible
+        -- ansible TODO: might be causing weird errors
         nls.builtins.diagnostics.ansiblelint,
 
         -- terraform

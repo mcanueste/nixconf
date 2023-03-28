@@ -38,7 +38,7 @@ return {
     lsp.configure("yamlls", { force_setup = true })
     -- docker lsp
     lsp.configure("dockerls", { force_setup = true })
-    -- ansible lsp
+    -- ansible lsp TODO: might be causing weird errors
     lsp.configure("ansiblels", { force_setup = true })
     -- terraform lsp
     lsp.configure("terraformls", { force_setup = true })

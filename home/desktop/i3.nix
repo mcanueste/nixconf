@@ -42,6 +42,9 @@ in {
   config = lib.mkIf cfg.enable {
     xsession.windowManager.i3 = {
       enable = true;
+      extraConfig = ''
+        for_window [instance="_scratchpad_term"] move scratchpad
+      '';
       config = rec {
         modifier = "Mod4";
         terminal = "alacritty";
@@ -295,6 +298,11 @@ in {
           }
           {
             command = "${pkgs.networkmanagerapplet}/bin/nm-applet";
+            always = true;
+            notification = false;
+          }
+          {
+            command = "${pkgs.alacritty}/bin/alacritty --class='_scratchpad_term'";
             always = true;
             notification = false;
           }
