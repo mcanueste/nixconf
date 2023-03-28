@@ -146,10 +146,10 @@ map("n", "<leader>oL", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit all" })
 
 map("n", "<leader>ot", function()
-  utils.float_term(nil, { cwd = utils.get_root() })
+  utils.float_term("fish", { cwd = utils.get_root() })
 end, { desc = "Terminal (root dir)" })
 map("n", "<leader>oT", function()
-  utils.float_term()
+  utils.float_term("fish")
 end, { desc = "Terminal (cwd)" })
 map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
 
