@@ -3,7 +3,7 @@ local utils = require("config.utils")
 return {
   "nvim-telescope/telescope.nvim",
   cmd = "Telescope",
-  event = "VeryLazy",
+  -- event = "VeryLazy",
   version = false, -- telescope did only one release, so use HEAD for now
   keys = {
     { "<leader><space>", "<cmd>Telescope resume<cr>",                               desc = "Resume" },
@@ -41,15 +41,15 @@ return {
     { "<leader>sC",      utils.telescope("colorscheme", { enable_preview = true }), desc = "Colorscheme with preview" },
     { "<leader>sf",      "<cmd>Telescope filetypes<cr>",                            desc = "Filetypes" },
     -- lsp
-    { "<leader>fll", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
-    { "<leader>fld", "<cmd>Telescope lsp_definitions<cr>", desc = "Definitions"},
-    { "<leader>flr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
-    { "<leader>fli", "<cmd>Telescope lsp_implementations<cr>", desc = "Implementations" },
-    { "<leader>flt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Definition" },
-    { "<leader>flw", "<cmd>Telescope lsp_workspace_symbols<CR>", desc = "Workspace Symbols" },
-    { "<leader>flW", "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>", desc = "Dynamic Workspace Symbols" },
-    { "<leader>flc", "<cmd>Telescope lsp_incoming_calls<CR>", desc = "Incoming Calls" },
-    { "<leader>flC", "<cmd>Telescope lsp_outgoing_calls<CR>", desc = "Outgoing Calls" },
+    { "<leader>fll",     "<cmd>Telescope diagnostics<cr>",                          desc = "Diagnostics" },
+    { "<leader>fld",     "<cmd>Telescope lsp_definitions<cr>",                      desc = "Definitions" },
+    { "<leader>flr",     "<cmd>Telescope lsp_references<cr>",                       desc = "References" },
+    { "<leader>fli",     "<cmd>Telescope lsp_implementations<cr>",                  desc = "Implementations" },
+    { "<leader>flt",     "<cmd>Telescope lsp_type_definitions<cr>",                 desc = "Definition" },
+    { "<leader>flw",     "<cmd>Telescope lsp_workspace_symbols<CR>",                desc = "Workspace Symbols" },
+    { "<leader>flW",     "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>",        desc = "Dynamic Workspace Symbols" },
+    { "<leader>flc",     "<cmd>Telescope lsp_incoming_calls<CR>",                   desc = "Incoming Calls" },
+    { "<leader>flC",     "<cmd>Telescope lsp_outgoing_calls<CR>",                   desc = "Outgoing Calls" },
     {
       "<leader>fls",
       utils.telescope("lsp_document_symbols", {
@@ -75,33 +75,33 @@ return {
       selection_caret = " ",
       mappings = {
         i = {
-              ["<M-t>"] = function(...)
+          ["<M-t>"] = function(...)
             return require("trouble.providers.telescope").open_with_trouble(...)
           end,
-              ["<C-M-t>"] = function(...)
+          ["<C-M-t>"] = function(...)
             return require("trouble.providers.telescope").open_selected_with_trouble(...)
           end,
-              ["<M-g>"] = function()
+          ["<M-g>"] = function()
             Util.telescope("find_files", { no_ignore = true })()
           end,
-              ["<M-.>"] = function()
+          ["<M-.>"] = function()
             Util.telescope("find_files", { hidden = true })()
           end,
-              ["<C-M-k>"] = function(...)
+          ["<C-M-k>"] = function(...)
             return require("telescope.actions").cycle_history_next(...)
           end,
-              ["<C-M-j>"] = function(...)
+          ["<C-M-j>"] = function(...)
             return require("telescope.actions").cycle_history_prev(...)
           end,
-              ["<C-f>"] = function(...)
+          ["<C-f>"] = function(...)
             return require("telescope.actions").preview_scrolling_down(...)
           end,
-              ["<C-b>"] = function(...)
+          ["<C-b>"] = function(...)
             return require("telescope.actions").preview_scrolling_up(...)
           end,
         },
         n = {
-              ["q"] = function(...)
+          ["q"] = function(...)
             return require("telescope.actions").close(...)
           end,
         },

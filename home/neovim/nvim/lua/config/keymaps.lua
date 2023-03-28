@@ -12,7 +12,7 @@ local function map(mode, lhs, rhs, opts)
 end
 
 ------------------------- Movements
--- Move only sideways in command mode. 
+-- Move only sideways in command mode.
 map("c", "<M-h>", "<Left>", { silent = false, desc = "Left" })
 map("c", "<M-l>", "<Right>", { silent = false, desc = "Right" })
 
@@ -22,11 +22,10 @@ map("i", "<M-h>", "<Left>", { noremap = false, desc = "Left" })
 map("i", "<M-j>", "<Down>", { noremap = false, desc = "Down" })
 map("i", "<M-k>", "<Up>", { noremap = false, desc = "Up" })
 map("i", "<M-l>", "<Right>", { noremap = false, desc = "Right" })
-map("t", "<M-h>", "<Left>", { desc = "Left" })
 
+map("t", "<M-h>", "<Left>", { desc = "Left" })
 map("t", "<M-j>", "<Down>", { desc = "Down" })
 map("t", "<M-k>", "<Up>", { desc = "Up" })
-map("t", "<M-l>", "<Right>", { desc = "Right" })
 map("t", "<M-l>", "<Right>", { desc = "Right" })
 
 -- better up/down
@@ -34,17 +33,17 @@ map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 -- Move Lines
-map("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
-map("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
-map("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
-map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
-map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
-map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+map("n", "<C-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
+map("n", "<C-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
+map("i", "<C-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
+map("i", "<C-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
+map("v", "<C-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
+map("v", "<C-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 ------------------------- Aux
 -- Paste/Delete selected text without changing the register
-map("v", "<leader>p", [["_dP]], { desc = "Paste without saving to register" })
-map("v", "<leader>d", [["_d]], { desc = "Delete without saving to register" })
+map("v", "gp", [["_dP]], { desc = "Paste without saving to register" })
+-- map("v", "gx", [["_d]], { desc = "Delete without saving to register" })
 
 -- better indenting
 map("v", "<", "<gv")
@@ -58,14 +57,17 @@ map("v", ">", ">gv")
 -- Search inside visually highlighted text
 map("v", "g/", "<esc>/\\%V", { silent = false, desc = "Search inside visual selection" })
 
+-- Search & Replace word under cursor
+map(
+  "n",
+  "<leader>cR",
+  [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+  { desc = "Search & Replace word under cursor" }
+)
+
 -- Search visually selected text (slightly better than builtins in Neovim>=0.8)
 map("v", "*", [[y/\V<C-R>=escape(@", '/\')<CR><CR>]])
 map("v", "#", [[y?\V<C-R>=escape(@", '?\')<CR><CR>]])
-
--- Search & Replace word under cursor
--- map("n", "gwr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Search & Replace word under cursor" })
-
--- map({ "n", "x" }, "gw", "*N", { desc = "Search word under cursor" })
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 map("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
@@ -94,11 +96,13 @@ map("n", "<leader>bx", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make cur
 map("n", "<leader>bs", "<cmd>w<cr><esc>", { desc = "Save buffer" })
 map({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 
-
 ------------------------- Windows
 map("n", "<leader>ws", "<C-w>s", { desc = "Split window" })
+map("n", "<A-s>", "<C-w>s", { desc = "Split window" })
 map("n", "<leader>wv", "<C-w>v", { desc = "Split window vertically" })
+map("n", "<A-v>", "<C-w>v", { desc = "Split window vertically" })
 map("n", "<leader>wq", "<C-w>q", { desc = "Quit a window" })
+map("n", "<A-q>", "<C-w>q", { desc = "Quit a window" })
 map("n", "<leader>wx", "<C-w>x", { desc = "Swap current with next" })
 map("n", "<leader>wT", "<C-w>T", { desc = "Break out into new tab" })
 
@@ -107,6 +111,10 @@ map("n", "<leader>wh", "<C-w>h", { desc = "Go to left window" })
 map("n", "<leader>wj", "<C-w>j", { desc = "Go to down window" })
 map("n", "<leader>wk", "<C-w>k", { desc = "Go to up window" })
 map("n", "<leader>wl", "<C-w>l", { desc = "Go to right window" })
+map("n", "<A-h>", "<C-w>h", { desc = "Go to left window" })
+map("n", "<A-j>", "<C-w>j", { desc = "Go to down window" })
+map("n", "<A-k>", "<C-w>k", { desc = "Go to up window" })
+map("n", "<A-l>", "<C-w>l", { desc = "Go to right window" })
 
 map("n", "<leader>w+", "<C-w>+", { desc = "Increase height" })
 map("n", "<leader>w-", "<C-w>-", { desc = "Decrease height" })
@@ -143,18 +151,24 @@ end, { desc = "Terminal (root dir)" })
 map("n", "<leader>oT", function()
   utils.float_term()
 end, { desc = "Terminal (cwd)" })
-map("t", "<esc><esc>", "<c-\\><c-n>", {desc = "Enter Normal Mode"})
+map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
 
-map("n", "<leader>gg", function() utils.float_term({ "lazygit" }, { cwd = utils.get_root() }) end, { desc = "Lazygit (root dir)" })
-map("n", "<leader>gG", function() utils.float_term({ "lazygit" }) end, { desc = "Lazygit (cwd)" })
+map("n", "<leader>gg", function()
+  utils.float_term({ "lazygit" }, { cwd = utils.get_root() })
+end, { desc = "Lazygit (root dir)" })
+map("n", "<leader>gG", function()
+  utils.float_term({ "lazygit" })
+end, { desc = "Lazygit (cwd)" })
 
 ------------------------- Toggles
 map("n", "<leader>us", "<cmd>set spell!<cr>", { desc = "Toggle Spelling" })
 map("n", "<leader>uw", "<cmd>set wrap!<cr>", { desc = "Toggle Word Wrap" })
 map("n", "<leader>ul", "<cmd>set relativenumber!<cr>", { desc = "Toggle Line Numbers" })
 map("n", "<leader>ud", utils.toggle_diagnostics, { desc = "Toggle Diagnostics" })
-local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
-map("n", "<leader>uc", function() utils.toggle("conceallevel", false, {0, conceallevel}) end, { desc = "Toggle Conceal" })
+-- local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
+-- map("n", "<leader>uc", function()
+--   utils.toggle("conceallevel", false, { 0, conceallevel })
+-- end, { desc = "Toggle Conceal" })
 
 -- Add undo break-points ??
 -- map("i", ",", ",<c-g>u")

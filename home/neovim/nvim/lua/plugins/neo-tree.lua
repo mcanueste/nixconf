@@ -3,8 +3,11 @@ local utils = require("config.utils")
 return {
   "nvim-neo-tree/neo-tree.nvim",
   cmd = "Neotree",
-  event = "VeryLazy",
-  dependencies = { { "MunifTanjim/nui.nvim" } },
+  -- event = "VeryLazy",
+  dependencies = {
+    { "MunifTanjim/nui.nvim" },
+    { "nvim-tree/nvim-web-devicons" },
+  },
   keys = {
     {
       "<leader>oe",
