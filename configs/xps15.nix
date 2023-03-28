@@ -56,9 +56,12 @@ rec {
       tmux.enable = false;
       zellij.enable = true;
       editors = {
-        zotero = true;
         datagrip = false;
         pycharm = false;
+      };
+      gui-tools = {
+        zotero = true;
+        todoist = true;
       };
       cloud = {
         kubectl = true;

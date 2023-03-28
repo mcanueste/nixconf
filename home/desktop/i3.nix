@@ -61,6 +61,10 @@ in {
           "${modifier}+Shift+r" = "restart";
           "${modifier}+Shift+e" = "exec i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'i3-msg exit'";
 
+          # shortcuts
+          "${modifier}+b" = "exec brave";
+          "${modifier}+n" = "exec obsidian ~/notes";
+
           "${modifier}+h" = "focus left";
           "${modifier}+j" = "focus down";
           "${modifier}+k" = "focus up";
@@ -166,6 +170,9 @@ in {
             "Escape" = "mode default";
             "Return" = "mode default";
           };
+        };
+        assigns = {
+          "10" = [{class = "obsidian";}];
         };
         window = {
           titlebar = false;

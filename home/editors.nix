@@ -7,7 +7,7 @@ with pkgs.lib.conflib; let
   cfg = config.nixhome.editors;
 in {
   options.nixhome.editors = {
-    zotero = mkBoolOption {description = "Enable zotero";};
+    obsidian = mkBoolOption {description = "Enable Obsidian";};
     datagrip = mkBoolOption {
       description = "Enable JetBrains Datagrip";
       default = false;
@@ -20,7 +20,7 @@ in {
 
   config = {
     home.packages = filterPackages [
-      (getPackageIf cfg.zotero pkgs.zotero)
+      (getPackageIf cfg.obsidian pkgs.obsidian)
       (getPackageIf cfg.datagrip pkgs.jetbrains.datagrip)
       (getPackageIf cfg.pycharm pkgs.jetbrains.pycharm-professional)
     ];

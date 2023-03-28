@@ -17,6 +17,7 @@
     ./chat.nix
     ./cloud.nix
     ./editors.nix
+    ./gui-tools.nix
 
     ./desktop
   ];
