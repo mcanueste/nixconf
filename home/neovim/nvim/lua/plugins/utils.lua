@@ -15,12 +15,12 @@ return {
   { "tpope/vim-sleuth",            event = "VeryLazy" },
 
   -- calculate startup time
-  {
-    "dstein64/vim-startuptime",
-    cmd = "StartupTime",
-    event = "VeryLazy",
-    config = function()
-      vim.g.startuptime_tries = 10
-    end,
-  },
+  -- {
+  --   "dstein64/vim-startuptime",
+  --   cmd = "StartupTime",
+  --   event = "VeryLazy",
+  --   config = function()
+  --     vim.g.startuptime_tries = 10
+  --   end,
+  -- },
 }
