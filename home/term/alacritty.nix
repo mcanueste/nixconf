@@ -3,8 +3,9 @@
   lib,
   config,
   ...
-}: with pkgs.lib.conflib;  let
-  cfg = config.nixhome.alacritty;
+}:
+with pkgs.lib.conflib; let
+  cfg = config.nixhome.term.alacritty;
 
   genFontConf = font: type: {
     family = font;
@@ -96,14 +97,25 @@
     ];
   };
 in {
-  options.nixhome.alacritty = {
-    enable = mkBoolOption { description = "Enable alacritty"; };
+  options.nixhome.term.alacritty = {
+    enable = mkBoolOption {description = "Enable alacritty";};
+    shell = mkEnumOption {
+      description = "Default shell to use with alacritty.";
+      default = "fish";
+      values = ["fish" "bash"];
+    };
   };
 
   config = lib.mkIf cfg.enable {
     programs.alacritty = {
       enable = true;
       settings = {
+        shell = {
+          program = cfg.shell;
+          args = [
+            "-l"
+          ];
+        };
         live_config_reload = true;
         visual_bell.duration = 0;
         dynamic_title = true;

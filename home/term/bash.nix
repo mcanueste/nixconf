@@ -3,16 +3,17 @@
   lib,
   config,
   ...
-}: with pkgs.lib.conflib; let
-  cfg = config.nixhome.bash;
+}:
+with pkgs.lib.conflib; let
+  cfg = config.nixhome.term;
 in {
-  options.nixhome.bash = {
-    enable = mkBoolOption { description = "Enable bash config"; };
+  options.nixhome.term = {
+    bash = mkBoolOption {description = "Enable bash config";};
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.bash {
     programs.bash = {
-      inherit (cfg) enable;
+      enable = true;
       enableCompletion = true;
       historySize = 100000;
       historyFileSize = 100000;

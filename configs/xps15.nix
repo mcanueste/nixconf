@@ -52,9 +52,23 @@ rec {
   home = {
     nixhome = {
       inherit user;
-      fish.enable = true;
-      tmux.enable = false;
-      zellij.enable = false;
+
+      term = {
+        alacritty = {
+          enable = true;
+          shell = "fish";
+        };
+        bash = true;
+        fish = true;
+        tmux = {
+          enable = false;
+          attachAlacritty = false;
+        };
+        # zellij = {
+        #   enable = false;
+        #   attachAlacritty = false;
+        # };
+      };
 
       browsers = {
         brave = true;

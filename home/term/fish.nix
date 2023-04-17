@@ -5,13 +5,13 @@
   ...
 }:
 with pkgs.lib.conflib; let
-  cfg = config.nixhome.fish;
+  cfg = config.nixhome.term;
 in {
-  options.nixhome.fish = {
-    enable = mkBoolOption {description = "Enable fish config";};
+  options.nixhome.term = {
+    fish = mkBoolOption {description = "Enable fish config";};
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.fish {
     programs.fish = {
       enable = true;
       interactiveShellInit = ''
