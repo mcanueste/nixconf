@@ -54,31 +54,51 @@ rec {
       inherit user;
       fish.enable = true;
       tmux.enable = false;
-      zellij.enable = true;
+      zellij.enable = false;
+
+      browsers = {
+        brave = true;
+        firefox = false;
+        chrome = false;
+      };
+
       editors = {
         datagrip = false;
         pycharm = false;
       };
+
+      neovim = {
+        enable = true;
+      };
+
+      devops = {
+        k8s = {
+          kubectl = true;
+          minikube = true;
+        };
+        hashicorp = {
+          terraform = true;
+          packer = true;
+        };
+        cloud = {
+          aws = false;
+          gcloud = false;
+          azure = false;
+          cfssl = false;
+        };
+      };
+
       gui-tools = {
         zotero = true;
         todoist = true;
       };
-      cloud = {
-        kubectl = true;
-        minikube = true;
-        gcloud = false;
-        cfssl = false;
-      };
+
       chat = {
         telegram = true;
         teams = false;
         slack = false;
         discord = true;
       };
-      neovim = {
-        enable = true;
-      };
-      # i3status-rust.enable = true;
     };
   };
 }

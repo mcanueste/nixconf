@@ -15,10 +15,12 @@
     ./zellij.nix
     ./browsers.nix
     ./chat.nix
-    ./cloud.nix
     ./editors.nix
     ./gui-tools.nix
 
     ./desktop
+
+
+    ./devops
   ];
 }
