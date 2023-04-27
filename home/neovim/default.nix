@@ -25,7 +25,6 @@ in {
       };
       sessionVariables = {
         EDITOR = "nvim";
-        GOPATH = "~/.go";
       };
     };
 
@@ -39,12 +38,10 @@ in {
 
     home.sessionVariables = {
       EDITOR = "nvim";
-      GOPATH = "~/.go";
     };
 
     systemd.user.sessionVariables = {
       EDITOR = "nvim";
-      GOPATH = "~/.go";
     };
 
     home.packages = with pkgs; [

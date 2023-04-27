@@ -13,5 +13,6 @@
     ./chat.nix
     ./desktop
     ./devops
+    ./dev
   ];
 }
