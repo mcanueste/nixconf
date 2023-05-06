@@ -8,13 +8,13 @@ with pkgs.lib.conflib; let
 in {
   options.nixhome.gui-tools = {
     zotero = mkBoolOption {description = "Enable zotero";};
-    todoist = mkBoolOption {description = "Enable todoist desktop app";};
+    foliate = mkBoolOption {description = "Enable foliate epub reader";};
   };
 
   config = {
     home.packages = filterPackages [
       (getPackageIf cfg.zotero pkgs.zotero)
-      (getPackageIf cfg.todoist pkgs.todoist-electron)
+      (getPackageIf cfg.foliate pkgs.foliate)
     ];
   };
 }

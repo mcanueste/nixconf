@@ -67,7 +67,6 @@ in {
           # shortcuts
           "${modifier}+b" = "exec brave";
           "${modifier}+n" = "exec obsidian ~/notes";
-          "${modifier}+t" = "exec todoist-electron";
           "${modifier}+c" = "exec discord";
 
           "${modifier}+h" = "focus left";
@@ -178,7 +177,6 @@ in {
         };
         assigns = {
           "8" = [{class = "discord";}];
-          "9" = [{class = "Todoist";}];
           "10" = [{class = "obsidian";}];
         };
         window = {
