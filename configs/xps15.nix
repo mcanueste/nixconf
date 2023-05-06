@@ -104,7 +104,7 @@ rec {
 
       gui-tools = {
         zotero = true;
-        foliate = true;
+        calibre = true;
       };
 
       chat = {
