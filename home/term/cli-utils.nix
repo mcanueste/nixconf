@@ -21,6 +21,8 @@ in {
       pkgs.dive
       pkgs.tealdeer
       pkgs.ncdu
+      pkgs.dig
+      pkgs.traceroute
     ];
     programs.exa = {
       enable = true;
