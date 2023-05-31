@@ -1,4 +1,4 @@
-{lib, ...}: rec {
+{lib, ...}: {
   mkBoolOption = {
     description,
     default ? true,
