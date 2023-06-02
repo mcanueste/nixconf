@@ -91,8 +91,9 @@ rec {
           minikube = true;
         };
         hashicorp = {
-          terraform = true;
+          vagrant = true;
           packer = true;
+          terraform = true;
         };
         cloud = {
           aws = false;
