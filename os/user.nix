@@ -24,7 +24,7 @@ in {
       isNormalUser = true;
       home = "${cfg.home}";
       description = "${cfg.username}";
-      extraGroups = ["wheel" "video" "networkmanager" "docker" "libvirtd"];
+      extraGroups = ["wheel" "video" "audio" "disk" "networkmanager" "docker" "libvirtd" "qemu-libvirtd"];
     };
   };
 }
