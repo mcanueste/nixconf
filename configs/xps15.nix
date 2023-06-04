@@ -15,7 +15,7 @@ rec {
         docker = true;
         podman = false;
         distrobox = true;
-        virt-manager = false;
+        virt-manager = true;
       };
       desktop = {
         gnome = {
@@ -79,6 +79,17 @@ rec {
 
       neovim = {
         enable = true;
+      };
+
+      dev = {
+        go = {
+          enable = true;
+          hugo = true;
+        };
+        python = {
+          enable = true;
+          poetry = true;
+        };
       };
 
       devops = {

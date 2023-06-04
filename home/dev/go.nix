@@ -9,12 +9,13 @@ with pkgs.lib.conflib; let
 in {
   options.nixhome.dev.go = {
     enable = mkBoolOption {description = "Enable go";};
+    hugo = mkBoolOption {description = "Enable hugo";};
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [
+    home.packages = filterPackages [
       pkgs.go
-      pkgs.hugo
+      (getPackageIf cfg.hugo pkgs.hugo)
     ];
 
     programs.bash = {
