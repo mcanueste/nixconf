@@ -87,8 +87,8 @@ rec {
           hugo = true;
         };
         python = {
-          enable = true;
-          poetry = true;
+          enable = false;
+          poetry = false;
         };
       };
 
