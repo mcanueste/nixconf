@@ -9,7 +9,7 @@
     ./user.nix
     ./browsers.nix
     ./editors.nix
-    ./gui-tools.nix
+    ./media.nix
     ./chat.nix
     ./desktop
     ./devops

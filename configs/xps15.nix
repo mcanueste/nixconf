@@ -64,10 +64,6 @@ rec {
           enable = false;
           attachAlacritty = false;
         };
-        # zellij = {
-        #   enable = false;
-        #   attachAlacritty = false;
-        # };
       };
 
       browsers = {
@@ -103,7 +99,8 @@ rec {
         };
       };
 
-      gui-tools = {
+      media = {
+        spotify = true;
         zotero = true;
         calibre = true;
       };
