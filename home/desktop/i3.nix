@@ -196,8 +196,8 @@ in {
           names = ["JetBrainsMono Nerd Font"];
         };
         gaps = {
-          smartGaps = true;
-          inner = 6;
+          smartGaps = false;
+          inner = 8;
           outer = -2;
         };
         colors = {
@@ -249,7 +249,7 @@ in {
             statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-default.toml";
             fonts = {
               names = ["JetBrainsMono Nerd Font"];
-              size = 8.0;
+              size = 10.0;
             };
             colors = {
               background = catppuccin.base;
