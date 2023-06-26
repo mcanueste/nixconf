@@ -3,15 +3,8 @@
   lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.term;
-in {
-  options.nixhome.term = {
-    bash = mkBoolOption {description = "Enable bash config";};
-  };
-
-  config = lib.mkIf cfg.bash {
+}: {
+  config = {
     programs.bash = {
       enable = true;
       enableCompletion = true;

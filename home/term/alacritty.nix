@@ -5,7 +5,30 @@
   ...
 }:
 with pkgs.lib.conflib; let
-  cfg = config.nixhome.term.alacritty;
+  cfg = config.nixhome.term;
+
+  shell =
+    if cfg.tmux
+    then {
+      program = "dash";
+      args = [
+        "-l"
+        "-c"
+        "tmux attach || tmux"
+      ];
+    }
+    else
+      (
+        if cfg.fish
+        then {
+          program = "fish";
+          args = ["-l"];
+        }
+        else {
+          program = "bash";
+          args = ["-l"];
+        }
+      );
 
   genFontConf = font: type: {
     family = font;
@@ -97,27 +120,15 @@ with pkgs.lib.conflib; let
     ];
   };
 in {
-  options.nixhome.term.alacritty = {
-    enable = mkBoolOption {description = "Enable alacritty";};
-    shell = mkEnumOption {
-      description = "Default shell to use with alacritty.";
-      default = "fish";
-      values = ["fish" "bash"];
-    };
-    shellArgs = lib.mkOption {
-      description = "Default shell args to use when starting alacrity.";
-      default = ["-l"];
-    };
+  options.nixhome.term = {
+    alacritty = mkBoolOption {description = "Enable alacritty";};
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.alacritty {
     programs.alacritty = {
       enable = true;
       settings = {
-        shell = {
-          program = cfg.shell;
-          args = cfg.shellArgs;
-        };
+        inherit shell;
         live_config_reload = true;
         visual_bell.duration = 0;
         dynamic_title = true;

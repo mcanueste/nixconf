@@ -13,6 +13,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = [
+      pkgs.dash
       pkgs.rsync
       pkgs.gnumake
       pkgs.ripgrep

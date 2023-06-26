@@ -54,16 +54,7 @@ rec {
       inherit user;
 
       term = {
-        alacritty = {
-          enable = true;
-          shell = "fish";
-          shellArgs = [
-            "-l"
-            "-c"
-            "tmux attach || tmux"
-          ];
-        };
-        bash = true;
+        alacritty = true;
         fish = true;
         tmux = true;
       };
