@@ -49,6 +49,9 @@ in {
         bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
         bind '"' split-window -v -c "#{pane_current_path}"
         bind % split-window -h -c "#{pane_current_path}"
+        set -Fg "status-format[1]" "#{status-format[0]}"
+        set -g "status-format[0]" ""
+        set -g status 2
       '';
     };
   };
