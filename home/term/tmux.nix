@@ -41,7 +41,7 @@ in {
         tmuxPlugins.catppuccin
       ];
       extraConfig = ''
-        set -ag terminal-overrides ",xterm-256color:RGB"
+        set-option -sa terminal-overrides ",xterm*:Tc"
         bind -n M-h previous-window
         bind -n M-l next-window
         bind-key -T copy-mode-vi v send-keys -X begin-selection
