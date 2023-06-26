@@ -5,7 +5,7 @@
     enableFishIntegration = true;
     settings = {
       scan_timeout = 10;
-      add_newline = false;
+      add_newline = true;
       azure = {disabled = true;};
       battery = {disabled = true;};
       buf = {disabled = true;};
