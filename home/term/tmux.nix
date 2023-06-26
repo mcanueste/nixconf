@@ -5,18 +5,14 @@
   ...
 }:
 with pkgs.lib.conflib; let
-  cfg = config.nixhome.term.tmux;
-  shell = config.nixhome.term.alacritty.shell;
+  cfg = config.nixhome.term;
 in {
-  options.nixhome.term.tmux = {
-    enable = mkBoolOption {description = "Enable tmux";};
-    attachAlacritty = mkBoolOption {
-      description = "Attach or create tmux session on alacritty start";
-    };
+  options.nixhome.term = {
+    tmux = mkBoolOption {description = "Enable tmux";};
   };
 
   config =
-    lib.mkIf cfg.enable {
+    lib.mkIf cfg.tmux {
       programs.tmux = {
         enable = true;
         mouse = true;
@@ -43,22 +39,4 @@ in {
         ];
       };
     };
-    # // (
-    #   if cfg.enable && cfg.attachAlacritty
-    #   then {
-    #     programs.alacritty = {
-    #       settings = {
-    #         shell = {
-    #           program = shell;
-    #           args = [
-    #             "-l"
-    #             "-c"
-    #             "tmux attach || tmux"
-    #           ];
-    #         };
-    #       };
-    #     };
-    #   }
-    #   else {}
-    # );
 }

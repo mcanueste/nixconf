@@ -104,6 +104,10 @@ in {
       default = "fish";
       values = ["fish" "bash"];
     };
+    shellArgs = lib.mkOption {
+      description = "Default shell args to use when starting alacrity.";
+      default = ["-l"];
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -112,9 +116,7 @@ in {
       settings = {
         shell = {
           program = cfg.shell;
-          args = [
-            "-l"
-          ];
+          args = cfg.shellArgs;
         };
         live_config_reload = true;
         visual_bell.duration = 0;

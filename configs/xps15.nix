@@ -57,13 +57,15 @@ rec {
         alacritty = {
           enable = true;
           shell = "fish";
+          shellArgs = [
+            "-l"
+            "-c"
+            "tmux attach || tmux"
+          ];
         };
         bash = true;
         fish = true;
-        tmux = {
-          enable = false;
-          attachAlacritty = false;
-        };
+        tmux = true;
       };
 
       browsers = {
