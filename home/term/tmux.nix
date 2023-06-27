@@ -22,7 +22,7 @@ in {
       mouse = true;
       baseIndex = 1;
       keyMode = "vi";
-      prefix = "M-a";
+      prefix = "C-a";
       clock24 = true;
       escapeTime = 0;
       newSession = true;
@@ -42,16 +42,17 @@ in {
       ];
       extraConfig = ''
         set-option -sa terminal-overrides ",xterm*:Tc"
-        bind -n M-h previous-window
-        bind -n M-l next-window
-        bind-key -T copy-mode-vi v send-keys -X begin-selection
-        bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
-        bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
-        bind '"' split-window -v -c "#{pane_current_path}"
-        bind % split-window -h -c "#{pane_current_path}"
         set -Fg "status-format[1]" "#{status-format[0]}"
         set -g "status-format[0]" ""
         set -g status 2
+        bind -n M-h previous-window
+        bind -n M-l next-window
+        bind C-l send-keys 'C-l'
+        bind '"' split-window -v -c "#{pane_current_path}"
+        bind % split-window -h -c "#{pane_current_path}"
+        bind-key -T copy-mode-vi v send-keys -X begin-selection
+        bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+        bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
       '';
     };
   };
