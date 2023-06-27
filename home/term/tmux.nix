@@ -22,7 +22,7 @@ in {
       mouse = true;
       baseIndex = 1;
       keyMode = "vi";
-      shortcut = "a";
+      prefix = "M-a";
       clock24 = true;
       escapeTime = 0;
       newSession = true;
