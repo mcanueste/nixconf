@@ -26,6 +26,7 @@ in {
       pkgs.dig
       pkgs.traceroute
       pkgs.tree
+      pkgs.entr
     ];
     programs.exa = {
       enable = true;
@@ -36,12 +37,14 @@ in {
     programs.bat = {
       enable = true;
       extraPackages = with pkgs.bat-extras; [
-        batgrep
-        batman
-        batpipe
-        batwatch
-        batdiff
         prettybat
+        batgrep
+
+        # requires config - TODO
+        # batwatch
+        # batpipe
+        # batman
+        # batdiff
       ];
       themes = {
         catppuccin = builtins.readFile (pkgs.fetchFromGitHub {
@@ -91,7 +94,27 @@ in {
     programs.direnv = {
       enable = true;
       enableBashIntegration = true;
-      # enableFishIntegration = termCfg.fish;
+    };
+    # home.sessionVariables = {
+    #   EDITOR = "nvim";
+    # };
+    # systemd.user.sessionVariables = {
+    #   EDITOR = "nvim";
+    # };
+    programs.bash = {
+      shellAliases = {
+        pretty = "prettybat";
+        brg = "batgrep";
+      };
+      # sessionVariables = {
+      #   EDITOR = "nvim";
+      # };
+    };
+    programs.fish = {
+      shellAliases = {
+        pretty = "prettybat";
+        brg = "batgrep";
+      };
     };
   };
 }
