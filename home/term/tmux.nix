@@ -42,9 +42,6 @@ in {
       ];
       extraConfig = ''
         set-option -sa terminal-overrides ",xterm*:Tc"
-        set -Fg "status-format[1]" "#{status-format[0]}"
-        set -g "status-format[0]" ""
-        set -g status 2
         bind -n M-h previous-window
         bind -n M-l next-window
         bind C-l send-keys 'C-l'
