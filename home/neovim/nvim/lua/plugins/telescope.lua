@@ -24,12 +24,6 @@ return {
     { "<leader>fq", "<cmd>Telescope quickfix<cr>", desc = "Quickfix" },
     { "<leader>fQ", "<cmd>Telescope quickfixhistory<cr>", desc = "Quickfix History" },
     { "<leader>fS", "<cmd>Telescope spell_suggests<cr>", desc = "Spell Suggestions" },
-    -- git
-    { "<leader>gfc", "<cmd>Telescope git_commits<CR>", desc = "Commits" },
-    { "<leader>gfC", "<cmd>Telescope git_bcommits<CR>", desc = "Buffer Commits" },
-    { "<leader>gfs", "<cmd>Telescope git_status<CR>", desc = "Status" },
-    { "<leader>gfS", "<cmd>Telescope git_stash<CR>", desc = "Stash" },
-    { "<leader>gfb", "<cmd>Telescope git_branches<CR>", desc = "Branches" },
     -- search
     { "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
     { "<leader>sc", "<cmd>Telescope commands<cr>", desc = "Commands" },
@@ -40,22 +34,28 @@ return {
     { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
     { "<leader>sC", utils.telescope("colorscheme", { enable_preview = true }), desc = "Colorscheme with preview" },
     { "<leader>sf", "<cmd>Telescope filetypes<cr>", desc = "Filetypes" },
+    -- git
+    { "<leader>vfc", "<cmd>Telescope git_commits<CR>", desc = "Commits" },
+    { "<leader>vfC", "<cmd>Telescope git_bcommits<CR>", desc = "Buffer Commits" },
+    { "<leader>vfs", "<cmd>Telescope git_status<CR>", desc = "Status" },
+    { "<leader>vfS", "<cmd>Telescope git_stash<CR>", desc = "Stash" },
+    { "<leader>vfb", "<cmd>Telescope git_branches<CR>", desc = "Branches" },
     -- lsp
-    { "<leader>fll", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
-    { "<leader>fld", "<cmd>Telescope lsp_definitions<cr>", desc = "Definitions" },
-    { "<leader>flr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
-    { "<leader>fli", "<cmd>Telescope lsp_implementations<cr>", desc = "Implementations" },
-    { "<leader>flt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Definition" },
-    { "<leader>flw", "<cmd>Telescope lsp_workspace_symbols<CR>", desc = "Workspace Symbols" },
+    { "<leader>gfl", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics" },
+    { "<leader>gfd", "<cmd>Telescope lsp_definitions<cr>", desc = "Definitions" },
+    { "<leader>gfr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
+    { "<leader>gfi", "<cmd>Telescope lsp_implementations<cr>", desc = "Implementations" },
+    { "<leader>gft", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Definition" },
+    { "<leader>gfw", "<cmd>Telescope lsp_workspace_symbols<CR>", desc = "Workspace Symbols" },
     {
-      "<leader>flW",
+      "<leader>gfW",
       "<cmd>Telescope lsp_dynamic_workspace_symbols<CR>",
       desc = "Dynamic Workspace Symbols",
     },
-    { "<leader>flc", "<cmd>Telescope lsp_incoming_calls<CR>", desc = "Incoming Calls" },
-    { "<leader>flC", "<cmd>Telescope lsp_outgoing_calls<CR>", desc = "Outgoing Calls" },
+    { "<leader>gfc", "<cmd>Telescope lsp_incoming_calls<CR>", desc = "Incoming Calls" },
+    { "<leader>gfC", "<cmd>Telescope lsp_outgoing_calls<CR>", desc = "Outgoing Calls" },
     {
-      "<leader>fls",
+      "<leader>gfs",
       utils.telescope("lsp_document_symbols", {
         symbols = {
           "Class",

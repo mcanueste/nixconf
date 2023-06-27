@@ -60,7 +60,7 @@ map("v", "g/", "<esc>/\\%V", { silent = false, desc = "Search inside visual sele
 -- Search & Replace word under cursor
 map(
   "n",
-  "<leader>cR",
+  "<leader>gR",
   [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
   { desc = "Search & Replace word under cursor" }
 )
@@ -97,43 +97,19 @@ map("n", "<leader>bs", "<cmd>w<cr><esc>", { desc = "Save buffer" })
 map({ "i", "v", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 
 ------------------------- Windows
-map("n", "<leader>ws", "<C-w>s", { desc = "Split window" })
-map("n", "<A-s>", "<C-w>s", { desc = "Split window" })
-map("n", "<leader>wv", "<C-w>v", { desc = "Split window vertically" })
-map("n", "<A-v>", "<C-w>v", { desc = "Split window vertically" })
-map("n", "<leader>wq", "<C-w>q", { desc = "Quit a window" })
-map("n", "<A-q>", "<C-w>q", { desc = "Quit a window" })
-map("n", "<leader>wx", "<C-w>x", { desc = "Swap current with next" })
-map("n", "<leader>wT", "<C-w>T", { desc = "Break out into new tab" })
-
-map("n", "<leader>ww", "<C-W>w", { desc = "Switch windows" })
-map("n", "<leader>wh", "<C-w>h", { desc = "Go to left window" })
-map("n", "<leader>wj", "<C-w>j", { desc = "Go to down window" })
-map("n", "<leader>wk", "<C-w>k", { desc = "Go to up window" })
-map("n", "<leader>wl", "<C-w>l", { desc = "Go to right window" })
-map("n", "<A-h>", "<C-w>h", { desc = "Go to left window" })
-map("n", "<A-j>", "<C-w>j", { desc = "Go to down window" })
-map("n", "<A-k>", "<C-w>k", { desc = "Go to up window" })
-map("n", "<A-l>", "<C-w>l", { desc = "Go to right window" })
-
-map("n", "<leader>w+", "<C-w>+", { desc = "Increase height" })
-map("n", "<leader>w-", "<C-w>-", { desc = "Decrease height" })
-map("n", "<leader>w>", "<C-w>>", { desc = "Increase width" })
-map("n", "<leader>w<", "<C-w><", { desc = "Decrease width" })
-map("n", "<leader>w_", "<C-w>_", { desc = "Max out the height" })
-map("n", "<leader>w|", "<C-w>|", { desc = "Max out the width" })
-map("n", "<leader>w=", "<C-w>=", { desc = "Equally high and wide" })
-
-map("n", "<C-A-k>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
-map("n", "<C-A-j>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
-map("n", "<C-A-h>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
-map("n", "<C-A-l>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
+map("n", "<C-j>", "<C-w>j", { desc = "Go to down window" })
+map("n", "<C-k>", "<C-w>k", { desc = "Go to up window" })
+map("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
+map("n", "<C-K>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+map("n", "<C-J>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+map("n", "<C-H>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+map("n", "<C-L>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 ------------------------- Tabs
 map("n", "]<tab>", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "[<tab>", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 map("n", "<leader><tab>n", "<cmd>tabnew<cr>", { desc = "New Tab" })
-map("n", "<leader><tab>q", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
 map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
 
@@ -153,10 +129,10 @@ map("n", "<leader>oT", function()
 end, { desc = "Terminal (cwd)" })
 map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
 
-map("n", "<leader>gg", function()
+map("n", "<leader>og", function()
   utils.float_term({ "lazygit" }, { cwd = utils.get_root() })
 end, { desc = "Lazygit (root dir)" })
-map("n", "<leader>gG", function()
+map("n", "<leader>oG", function()
   utils.float_term({ "lazygit" })
 end, { desc = "Lazygit (cwd)" })
 

@@ -62,8 +62,8 @@ return {
       local opts = function(desc)
         return { buffer = bufnr, remap = false, desc = desc }
       end
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, opts("Show Docs"))
-      vim.keymap.set("n", "<Ctrl-k>", vim.lsp.buf.signature_help, opts("Show Signature"))
+      vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, opts("Show Signature"))
+      vim.keymap.set("n", "gS", vim.lsp.buf.hover, opts("Show Docs"))
 
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts("Goto definition"))
       vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts("Goto declaration"))
@@ -73,16 +73,16 @@ return {
       vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts("Next diagnostic"))
       vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts("Previous diagnostic"))
 
-      vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, opts("Show diagnostic"))
-      vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts("Code actions"))
-      vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts("Rename"))
-      vim.keymap.set("n", "<leader>cs", function()
+      vim.keymap.set("n", "<leader>gd", vim.diagnostic.open_float, opts("Show diagnostic"))
+      vim.keymap.set("n", "<leader>ga", vim.lsp.buf.code_action, opts("Code actions"))
+      vim.keymap.set("n", "<leader>gr", vim.lsp.buf.rename, opts("Rename"))
+      vim.keymap.set("n", "<leader>gls", function()
         vim.lsp.buf.workspace_symbol()
       end, opts("List workspace symbol"))
 
-      vim.keymap.set("n", "<space>cwa", vim.lsp.buf.add_workspace_folder, opts("Add to workspace folders"))
-      vim.keymap.set("n", "<space>cwr", vim.lsp.buf.remove_workspace_folder, opts("Remove from workspace folders"))
-      vim.keymap.set("n", "<space>cwl", function()
+      vim.keymap.set("n", "<leader>gwa", vim.lsp.buf.add_workspace_folder, opts("Add to workspace folders"))
+      vim.keymap.set("n", "<leader>gwr", vim.lsp.buf.remove_workspace_folder, opts("Remove from workspace folders"))
+      vim.keymap.set("n", "<leader>gwl", function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
       end, opts("List workspace folders"))
     end)

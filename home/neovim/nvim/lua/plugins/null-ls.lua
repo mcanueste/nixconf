@@ -3,7 +3,7 @@ return {
   event = { "BufReadPre", "BufNewFile" },
   keys = {
     {
-      "<leader>cf",
+      "gG",
       function()
         vim.lsp.buf.format()
       end,
