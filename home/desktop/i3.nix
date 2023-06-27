@@ -55,14 +55,15 @@ in {
           "${modifier}+Return" = "exec ${terminal}";
           "${modifier}+Shift+q" = "kill";
           "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show drun";
-          "${modifier}+e" = "exec ${pkgs.rofi}/bin/rofi -show run";
-          "${modifier}+semicolon" = "exec ${pkgs.rofi}/bin/rofi -show window";
           "${modifier}+p" = "exec ${pkgs.rofi}/bin/rofi -show power-menu -modi power-menu:${pkgs.rofi-power-menu}/bin/rofi-power-menu";
           "${modifier}+Escape" = "exec ${pkgs.i3lock}/bin/i3lock --color 000000";
-
           "${modifier}+Shift+c" = "reload";
           "${modifier}+Shift+r" = "restart";
           "${modifier}+Shift+e" = "exec i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'i3-msg exit'";
+
+          # not using much
+          "${modifier}+e" = "exec ${pkgs.rofi}/bin/rofi -show run";
+          "${modifier}+semicolon" = "exec ${pkgs.rofi}/bin/rofi -show window";
 
           # shortcuts
           "${modifier}+b" = "exec brave";
@@ -111,12 +112,12 @@ in {
           "${modifier}+Shift+0" = "move container to workspace number 10";
 
           "${modifier}+o" = "workspace back_and_forth";
-          "${modifier}+Ctrl+h" = "workspace prev";
-          "${modifier}+Ctrl+l" = "workspace next";
-          "${modifier}+Ctrl+Shift+h" = "move workspace to output left";
-          "${modifier}+Ctrl+Shift+j" = "move workspace to output down";
-          "${modifier}+Ctrl+Shift+k" = "move workspace to output up";
-          "${modifier}+Ctrl+Shift+l" = "move workspace to output right";
+          "${modifier}+Alt+h" = "workspace prev";
+          "${modifier}+Alt+l" = "workspace next";
+          "${modifier}+Alt+Shift+h" = "move workspace to output left";
+          "${modifier}+Alt+Shift+j" = "move workspace to output down";
+          "${modifier}+Alt+Shift+k" = "move workspace to output up";
+          "${modifier}+Alt+Shift+l" = "move workspace to output right";
 
           ## Output pressed keycode using xev:
           ## nix-shell -p xorg.xev --run "xev | grep -A2 --line-buffered '^KeyRelease' | sed -n '/keycode /s/^.*keycode \([0-9]*\).* (.*, \(.*\)).*$/\1 \2/p'"
