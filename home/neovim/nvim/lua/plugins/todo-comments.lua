@@ -7,8 +7,8 @@ return {
   keys = {
     { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
     { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
-    { "<leader>glt", "<cmd>TodoTrouble<cr>", desc = "Todo (Trouble)" },
-    { "<leader>glT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
-    { "<leader>gft", "<cmd>TodoTelescope<cr>", desc = "Todo" },
+    { "<leader>lt", "<cmd>TodoTrouble<cr>", desc = "Todo (Trouble)" },
+    { "<leader>lT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
+    { "<leader>ft", "<cmd>TodoTelescope<cr>", desc = "Todo" },
   },
 }

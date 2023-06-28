@@ -42,8 +42,8 @@ in {
       ];
       extraConfig = ''
         set-option -sa terminal-overrides ",xterm*:Tc"
-        bind -n M-h previous-window
-        bind -n M-l next-window
+        # bind -n M-h previous-window
+        # bind -n M-l next-window
         bind C-l send-keys 'C-l'
         bind '"' split-window -v -c "#{pane_current_path}"
         bind % split-window -h -c "#{pane_current_path}"
