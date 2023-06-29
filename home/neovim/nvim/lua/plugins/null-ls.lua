@@ -18,24 +18,24 @@ return {
         nls.builtins.formatting.prettier,
 
         -- markdown
-        nls.builtins.code_actions.proselint,
+        -- nls.builtins.code_actions.proselint,
 
         -- toml
         nls.builtins.formatting.taplo,
 
         -- yaml TODO: might be causing weird errors
-        nls.builtins.diagnostics.yamllint,
+        -- nls.builtins.diagnostics.yamllint,
 
         -- docker
         nls.builtins.diagnostics.hadolint,
 
         -- ansible TODO: might be causing weird errors
-        nls.builtins.diagnostics.ansiblelint,
+        -- nls.builtins.diagnostics.ansiblelint,
 
         -- terraform
-        nls.builtins.formatting.terraform_fmt,
-        nls.builtins.diagnostics.tfsec,
-        nls.builtins.diagnostics.terraform_validate,
+        -- nls.builtins.formatting.terraform_fmt,
+        -- nls.builtins.diagnostics.tfsec,
+        -- nls.builtins.diagnostics.terraform_validate,
 
         -- bash
         nls.builtins.formatting.beautysh,

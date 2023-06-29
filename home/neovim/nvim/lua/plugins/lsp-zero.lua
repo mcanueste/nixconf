@@ -35,13 +35,13 @@ return {
     -- toml lsp
     lsp.configure("taplo", { force_setup = true })
     -- yaml lsp
-    lsp.configure("yamlls", { force_setup = true })
+    -- lsp.configure("yamlls", { force_setup = true })
     -- docker lsp
     lsp.configure("dockerls", { force_setup = true })
     -- ansible lsp TODO: might be causing weird errors
-    lsp.configure("ansiblels", { force_setup = true })
+    -- lsp.configure("ansiblels", { force_setup = true })
     -- terraform lsp
-    lsp.configure("terraformls", { force_setup = true })
+    -- lsp.configure("terraformls", { force_setup = true })
     -- bash lsp
     lsp.configure("bashls", { force_setup = true })
     -- go lsp
@@ -67,7 +67,7 @@ return {
 
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts("Goto definition"))
       vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts("Goto declaration"))
-      vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts("Goto implementation"))
+      vim.keymap.set("n", "gI", vim.lsp.buf.implementation, opts("Goto implementation"))
       vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts("Goto type definition"))
       vim.keymap.set("n", "gr", vim.lsp.buf.references, opts("References"))
       vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts("Next diagnostic"))

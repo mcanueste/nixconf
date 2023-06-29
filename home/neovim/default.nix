@@ -64,27 +64,27 @@ in {
       nodePackages.prettier
 
       # markdown
-      proselint
+      # proselint
       marksman
 
       # toml support
       taplo
 
       # yaml
-      yamllint
-      nodePackages.yaml-language-server
+      # yamllint
+      # nodePackages.yaml-language-server
 
       # docker support
       hadolint
       nodePackages.dockerfile-language-server-nodejs
 
       # ansible
-      ansible-lint
-      ansible-language-server
+      # ansible-lint
+      # ansible-language-server
 
       # terraform support
-      tfsec
-      terraform-ls
+      # tfsec
+      # terraform-ls
 
       # bash support
       beautysh

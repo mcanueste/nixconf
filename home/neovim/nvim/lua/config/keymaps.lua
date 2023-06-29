@@ -71,19 +71,29 @@ map("n", "L", "$", { desc = "Move end of line" })
 map("v", "H", "^", { desc = "Move beginning of line" })
 map("v", "L", "g_", { desc = "Move end of line" })
 
+-- logical opposite of J
+map("n", "K", "i <enter><esc>k$x", { desc = "Move beginning of line" })
+map("n", "gK", "i<enter><esc>k$", { desc = "Move end of line" })
+
 -- Move Lines
--- map("n", "<C-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
--- map("n", "<C-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
--- map("i", "<C-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
--- map("i", "<C-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
--- map("v", "<C-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
--- map("v", "<C-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+map("n", "<C-J>", "<cmd>m .+1<cr>==", { desc = "Move down" })
+map("n", "<C-K>", "<cmd>m .-2<cr>==", { desc = "Move up" })
+map("i", "<C-J>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
+map("i", "<C-K>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
+map("v", "<C-J>", "<cmd>m '>+1<cr>gv=gv", { desc = "Move down" })
+map("v", "<C-K>", "<cmd>m '<-2<cr>gv=gv", { desc = "Move up" })
+-- map("n", "<C-H>", "<cmd><<<cr>", { desc = "Shift left" }) TODO ?
+-- map("n", "<C-L>", "<cmd>>><cr>", { desc = "Shift right" })
+-- map("i", "<C-H>", "<cmd><<cr>gi", { desc = "Shift left" })
+-- map("i", "<C-L>", "<cmd>><cr>gi", { desc = "Shift right" })
+-- map("v", "<C-H>", "<cmd>'<,'><<cr>", { desc = "Shift left" })
+-- map("v", "<C-L>", "<cmd>'<,'>><cr>", { desc = "Shift right" })
 
 ------------------------- Windows
--- map("n", "<C-K>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
--- map("n", "<C-J>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
--- map("n", "<C-H>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
--- map("n", "<C-L>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+map("n", "<C-M-k>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+map("n", "<C-M-j>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+map("n", "<C-M-h>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+map("n", "<C-M-l>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 ------------------------- Tabs
 map("n", "]<tab>", "<cmd>tabnext<cr>", { desc = "Next Tab" })
@@ -91,13 +101,6 @@ map("n", "[<tab>", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 map("n", "<leader><tab>n", "<cmd>tabnew<cr>", { desc = "New Tab" })
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
 map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
-
-------------------------- Lists
--- We use trouble.nvim instead
--- map("n", "[q", vim.cmd.cprev, { desc = "Previous quickfix" })
--- map("n", "]q", vim.cmd.cnext, { desc = "Next quickfix" })
--- map("n", "<leader>ll", "<cmd>lopen<cr>", { desc = "Location List" })
--- map("n", "<leader>lq", "<cmd>copen<cr>", { desc = "Quickfix List" })
 
 ------------------------- Open
 map("n", "<leader>oL", "<cmd>:Lazy<cr>", { desc = "Lazy" })
