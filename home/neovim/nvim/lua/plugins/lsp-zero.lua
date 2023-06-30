@@ -31,30 +31,30 @@ return {
       suggest_lsp_servers = false,
     })
     -- markdown lsp
-    lsp.configure("marksman", { force_setup = true })
+    -- lsp.configure("marksman", { force_setup = true })
     -- toml lsp
-    lsp.configure("taplo", { force_setup = true })
+    -- lsp.configure("taplo", { force_setup = true })
     -- yaml lsp
     -- lsp.configure("yamlls", { force_setup = true })
     -- docker lsp
-    lsp.configure("dockerls", { force_setup = true })
+    -- lsp.configure("dockerls", { force_setup = true })
     -- ansible lsp TODO: might be causing weird errors
     -- lsp.configure("ansiblels", { force_setup = true })
     -- terraform lsp
     -- lsp.configure("terraformls", { force_setup = true })
     -- bash lsp
-    lsp.configure("bashls", { force_setup = true })
+    -- lsp.configure("bashls", { force_setup = true })
     -- go lsp
     lsp.configure("gopls", { force_setup = true })
     -- rust lsp
-    lsp.configure("rust_analyzer", { force_setup = true })
+    -- lsp.configure("rust_analyzer", { force_setup = true })
     -- lua lsp
     lsp.configure("lua_ls", {
       force_setup = true,
       settings = { Lua = { diagnostics = { globals = { "vim" } } } },
     })
     -- python
-    lsp.configure("pyright", { force_setup = true })
+    -- lsp.configure("pyright", { force_setup = true })
     -- nix lsp
     lsp.configure("nil_ls", { force_setup = true })
     lsp.nvim_workspace()

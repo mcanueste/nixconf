@@ -61,22 +61,22 @@ in {
       lazygit
 
       # generic formatting
-      nodePackages.prettier
+      # nodePackages.prettier
 
       # markdown
       # proselint
-      marksman
+      # marksman
 
       # toml support
-      taplo
+      # taplo
 
       # yaml
       # yamllint
       # nodePackages.yaml-language-server
 
       # docker support
-      hadolint
-      nodePackages.dockerfile-language-server-nodejs
+      # hadolint
+      # nodePackages.dockerfile-language-server-nodejs
 
       # ansible
       # ansible-lint
@@ -87,24 +87,26 @@ in {
       # terraform-ls
 
       # bash support
-      beautysh
-      shellcheck
-      shellharden
-      nodePackages.bash-language-server
+      # beautysh
+      # shellcheck
+      # shellharden
+      # nodePackages.bash-language-server
 
       # go support
       go
-      gopls
-      gofumpt
-      gotools
-      golines
-      golangci-lint
+      gofumpt # formatter
+      golines # formatter
+      golangci-lint # linter
+      gotools # linter: staticcheck + other tools?
+      gomodifytags # code action
+      impl # code action
+      gopls # lsp
 
       # rust support
-      cargo
-      rustc
-      rustfmt
-      rust-analyzer
+      # cargo
+      # rustc
+      # rustfmt
+      # rust-analyzer
 
       # lua support
       stylua
@@ -114,19 +116,19 @@ in {
       lua-language-server
 
       # javascript support
-      nodejs
-      nodePackages.npm
-      nodePackages.neovim
+      # nodejs
+      # nodePackages.npm
+      # nodePackages.neovim
 
       # pyright support
-      (python311.withPackages (pp: [
-        pp.pip
-        pp.pynvim
-        pp.black
-        pp.mypy
-      ]))
-      ruff
-      nodePackages.pyright
+      # (python311.withPackages (pp: [
+      #   pp.pip
+      #   pp.pynvim
+      #   pp.black
+      #   pp.mypy
+      # ]))
+      # ruff
+      # nodePackages.pyright
 
       # nix support
       alejandra
