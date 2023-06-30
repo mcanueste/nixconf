@@ -3,16 +3,15 @@
   programs.home-manager.enable = true;
 
   imports = [
-    ./term
-    ./git
-    ./neovim
     ./user.nix
     ./browsers.nix
-    ./editors.nix
     ./media.nix
     ./chat.nix
-    ./desktop
-    ./devops
+    ./term
+    ./git
+    ./editors
     ./dev
+    ./devops
+    ./desktop
   ];
 }
