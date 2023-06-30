@@ -15,7 +15,7 @@ in {
       type = lib.types.str;
     };
 
-    wireguard.enable = mkBoolOption {description = "Enable wireguard";};
+    wireguard.enable = mkBoolOption {description = "Enable wireguard"; default = false;};
 
     wireguard.configs = lib.mkOption {
       default = [];
