@@ -20,7 +20,7 @@ in {
     programs.bash = {
       shellAliases = {
         v = "nvim";
-        vconf = "XDG_CONFIG_HOME=~/nix/nixconf/home/neovim/ nvim ~/nix/nixos/home/neovim/nvim";
+        vconf = "XDG_CONFIG_HOME=$HOME/nix/nixconf/home/editors/ nvim ~/nix/nixconf/home/editors/neovim.nix";
       };
       sessionVariables = {
         EDITOR = "nvim";
@@ -30,7 +30,7 @@ in {
     programs.fish = {
       shellAliases = {
         v = "nvim";
-        vconf = "XDG_CONFIG_HOME=~/nix/nixconf/home/neovim/ nvim ~/nix/nixos/home/neovim/nvim";
+        vconf = "XDG_CONFIG_HOME=$HOME/nix/nixconf/home/editors/ nvim ~/nix/nixconf/home/editors/neovim.nix";
       };
     };
 

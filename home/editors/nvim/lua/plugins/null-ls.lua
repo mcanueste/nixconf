@@ -48,7 +48,6 @@ return {
         nls.builtins.formatting.golines,
         nls.builtins.formatting.goimports,
         nls.builtins.diagnostics.golangci_lint,
-        nls.builtins.diagnostics.staticheck, -- TODO do we need this?
         nls.builtins.code_actions.gomodifytags,
         nls.builtins.code_actions.impl,
         -- nls.builtins.code_actions.refactoring, -- TODO
