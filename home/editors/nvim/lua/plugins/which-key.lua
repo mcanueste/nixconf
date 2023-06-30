@@ -9,8 +9,7 @@ return {
       wk.setup(opts)
       local keymaps = {
         mode = { "n", "v" },
-        ["g"] = { name = "+goto" },
-        -- ["gz"] = { name = "+surround" },
+        ["g"] = { name = "+g" },
         ["]"] = { name = "+next" },
         ["["] = { name = "+prev" },
         ["<leader><tab>"] = { name = "+tabs" },
