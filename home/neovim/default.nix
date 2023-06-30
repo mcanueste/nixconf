@@ -5,9 +5,9 @@
   ...
 }:
 with pkgs.lib.conflib; let
-  cfg = config.nixhome.neovim;
+  cfg = config.nixhome.editors.neovim;
 in {
-  options.nixhome.neovim = {
+  options.nixhome.editors.neovim = {
     enable = mkBoolOption {description = "Enable neovim configuration";};
   };
 
@@ -20,7 +20,6 @@ in {
     programs.bash = {
       shellAliases = {
         v = "nvim";
-        vn = "nvim ~/notes/";
         vconf = "XDG_CONFIG_HOME=~/nix/nixconf/home/neovim/ nvim ~/nix/nixos/home/neovim/nvim";
       };
       sessionVariables = {
@@ -31,7 +30,6 @@ in {
     programs.fish = {
       shellAliases = {
         v = "nvim";
-        vn = "nvim ~/notes/";
         vconf = "XDG_CONFIG_HOME=~/nix/nixconf/home/neovim/ nvim ~/nix/nixos/home/neovim/nvim";
       };
     };

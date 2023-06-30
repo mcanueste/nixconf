@@ -32,25 +32,24 @@ rec {
     nixhome = {
       inherit user;
 
-      term = {
-        alacritty = true;
-        fish = true;
-        tmux = true;
-      };
-
       browsers = {
         brave = true;
         firefox = false;
         chrome = false;
       };
 
+      term = {
+        alacritty = true;
+        fish = true;
+        tmux = true;
+      };
+
       editors = {
         datagrip = false;
         pycharm = false;
-      };
-
-      neovim = {
-        enable = true;
+        neovim = {
+          enable = true;
+        };
       };
 
       dev = {
