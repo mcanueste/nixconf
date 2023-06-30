@@ -20,16 +20,16 @@ in {
 
     programs.bash = {
       sessionVariables = {
-        GOPATH = "~/.go";
+        GOPATH = "$HOME/.go";
       };
     };
 
     home.sessionVariables = {
-      GOPATH = "~/.go";
+      GOPATH = "$HOME/.go";
     };
 
     systemd.user.sessionVariables = {
-      GOPATH = "~/.go";
+      GOPATH = "$HOME/.go";
     };
   };
 }
