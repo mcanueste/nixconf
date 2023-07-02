@@ -6,132 +6,224 @@
 }:
 with pkgs.lib.conflib; let
   cfg = config.nixhome.editors.neovim;
+
+  nvim-config = pkgs.vimUtils.buildVimPlugin {
+    name = "config";
+    src = ./nvim;
+  };
+
+  shellAliases = {
+    v = "nvim";
+  };
 in {
   options.nixhome.editors.neovim = {
     enable = mkBoolOption {description = "Enable neovim configuration";};
   };
 
   config = lib.mkIf cfg.enable {
-    xdg.configFile."nvim/" = {
-      source = ./nvim;
-      recursive = true;
+    programs.bash = {inherit shellAliases;};
+    programs.fish = {inherit shellAliases;};
+    xdg.configFile."yamlfmt/.yamlfmt".text = ''
+    formatter:
+      retain_line_breaks: true
+    '';
+
+    programs.neovim = {
+      enable = true;
+      viAlias = true;
+      vimAlias = true;
+      vimdiffAlias = true;
+      defaultEditor = true;
+      withNodeJs = false;
+      withRuby = false;
+      withPython3 = false;
+
+      plugins = with pkgs.vimPlugins;
+        [
+          # utils used by other plugins and keymaps
+          nui-nvim
+          plenary-nvim
+          FTerm-nvim
+
+          # theme
+          catppuccin-nvim
+          lualine-nvim
+          gitsigns-nvim
+          nvim-web-devicons
+          which-key-nvim
+
+          # tools
+          vim-sleuth # no setup
+          vim-repeat # no setup
+          telescope-nvim
+          trouble-nvim
+          mini-nvim
+          harpoon
+          # nvim-spectre -- TODO: check later
+
+          # languages
+          (nvim-treesitter.withPlugins
+            (p: [
+              p.bash
+              p.bibtex
+              p.c
+              p.cmake
+              p.cpp
+              p.css
+              p.diff
+              p.dockerfile
+              p.fish
+              p.git_config
+              p.git_rebase
+              p.gitattributes
+              p.gitcommit
+              p.gitignore
+              p.go
+              p.gomod
+              p.gosum
+              p.gowork
+              p.graphql
+              p.html
+              p.htmldjango
+              p.http
+              p.ini
+              p.javascript
+              p.jq
+              p.json
+              p.latex
+              p.lua
+              p.make
+              p.markdown
+              p.markdown_inline
+              p.meson
+              p.ninja
+              p.nix
+              p.norg
+              p.ocaml
+              p.ocaml_interface
+              p.ocamllex
+              p.python
+              p.tree-sitter-query
+              p.rasi
+              p.regex
+              p.rst
+              p.ruby
+              p.rust
+              p.sql
+              p.svelte
+              p.terraform
+              p.toml
+              p.tsx
+              p.typescript
+              p.vim
+              p.vimdoc
+              p.vue
+              p.yaml
+              p.zig
+            ]))
+          nvim-treesitter-context
+          null-ls-nvim
+          nvim-lspconfig
+          luasnip
+          friendly-snippets
+          nvim-cmp
+          cmp-nvim-lsp
+          cmp-buffer
+          cmp-path
+          cmp_luasnip
+          rust-tools-nvim
+          SchemaStore-nvim
+
+          # extras
+          # (vimPlugins.ChatGPT-nvim.overrideAttrs (old: {
+          #   src = fetchFromGitHub {
+          #     owner = "jackMort";
+          #     repo = "ChatGPT.nvim";
+          #     rev = "f499559f636676498692a2f19e74b077cbf52839";
+          #     sha256 = "sha256-98daaRkdrTZyNZuQPciaeRNuzyS52bsha4yyyAALcog=";
+          #   };
+          # }))
+          # vimPlugins.copilot-lua
+        ]
+        ++ [nvim-config];
+
+      extraConfig = ''
+        lua << EOF
+          require('config').init()
+        EOF
+      '';
+
+      extraPackages = with pkgs; [
+        gcc
+        stdenv
+        wget
+        curl
+        gzip
+        gnutar
+        git
+        xclip
+        xsel
+        wl-clipboard
+        fd
+        ripgrep
+        lazygit
+        lazydocker
+
+        # nix support
+        alejandra
+        nil
+
+        # lua support
+        stylua
+        (luajit.withPackages (lp: [
+          lp.luarocks
+        ]))
+        lua-language-server
+
+        # go support
+        gomodifytags
+        impl
+        gofumpt
+        gotools
+        gopls
+        golangci-lint-langserver
+
+        # python support
+        black
+        djhtml
+        mypy
+        ruff
+        ruff-lsp
+        nodePackages.pyright
+
+        # rust support
+        rustfmt
+        rust-analyzer
+        graphviz
+
+        # bash support
+        beautysh
+        shellharden
+        shellcheck
+        nodePackages.bash-language-server
+
+        # docker support
+        hadolint
+        nodePackages.dockerfile-language-server-nodejs
+        docker-compose-language-service
+
+        # terraform support
+        tfsec
+        terraform-ls
+
+        # ansible support
+        ansible-lint
+        ansible-language-server
+
+        # yaml support
+        yamlfmt
+        nodePackages.yaml-language-server
+      ];
     };
-
-    programs.bash = {
-      shellAliases = {
-        v = "nvim";
-        vconf = "XDG_CONFIG_HOME=$HOME/nix/nixconf/home/editors/ nvim ~/nix/nixconf/home/editors/neovim.nix";
-      };
-      sessionVariables = {
-        EDITOR = "nvim";
-      };
-    };
-
-    programs.fish = {
-      shellAliases = {
-        v = "nvim";
-        vconf = "XDG_CONFIG_HOME=$HOME/nix/nixconf/home/editors/ nvim ~/nix/nixconf/home/editors/neovim.nix";
-      };
-    };
-
-    home.sessionVariables = {
-      EDITOR = "nvim";
-    };
-
-    systemd.user.sessionVariables = {
-      EDITOR = "nvim";
-    };
-
-    home.packages = with pkgs; [
-      neovim
-      gcc
-      stdenv
-      xclip
-      xsel
-      wl-clipboard
-      git
-      ripgrep
-      fd
-      wget
-      curl
-      gzip
-      gnutar
-      lazygit
-
-      # generic formatting
-      # nodePackages.prettier
-
-      # markdown
-      # proselint
-      # marksman
-
-      # toml support
-      # taplo
-
-      # yaml
-      # yamllint
-      # nodePackages.yaml-language-server
-
-      # docker support
-      # hadolint
-      # nodePackages.dockerfile-language-server-nodejs
-
-      # ansible
-      # ansible-lint
-      # ansible-language-server
-
-      # terraform support
-      # tfsec
-      # terraform-ls
-
-      # bash support
-      # beautysh
-      # shellcheck
-      # shellharden
-      # nodePackages.bash-language-server
-
-      # go support
-      go
-      gofumpt # formatter
-      golines # formatter
-      golangci-lint # linter
-      gotools # linter: staticcheck + other tools?
-      gomodifytags # code action
-      impl # code action
-      gopls # lsp
-
-      # rust support
-      # cargo
-      # rustc
-      # rustfmt
-      # rust-analyzer
-
-      # lua support
-      stylua
-      (luajit.withPackages (lp: [
-        lp.luarocks
-      ]))
-      lua-language-server
-
-      # javascript support
-      # nodejs
-      # nodePackages.npm
-      # nodePackages.neovim
-
-      # pyright support
-      # (python311.withPackages (pp: [
-      #   pp.pip
-      #   pp.pynvim
-      #   pp.black
-      #   pp.mypy
-      # ]))
-      # ruff
-      # nodePackages.pyright
-
-      # nix support
-      alejandra
-      statix
-      nil
-    ];
   };
 }
