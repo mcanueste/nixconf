@@ -22,7 +22,7 @@ in {
       mouse = true;
       baseIndex = 1;
       keyMode = "vi";
-      prefix = "C-a";
+      prefix = "M-a"; # we use alt for tmux stuff
       clock24 = true;
       escapeTime = 0;
       newSession = true;
@@ -35,21 +35,25 @@ in {
       sensibleOnTop = true;
       plugins = with pkgs; [
         tmuxPlugins.yank
-        tmuxPlugins.vim-tmux-navigator
-        tmuxPlugins.resurrect
         tmuxPlugins.continuum
+        tmuxPlugins.resurrect
         tmuxPlugins.catppuccin
+        tmuxPlugins.vim-tmux-navigator
       ];
+      # we need session switcher
       extraConfig = ''
         set-option -sa terminal-overrides ",xterm*:Tc"
-        bind -n M-h previous-window
-        bind -n M-l next-window
-        bind C-l send-keys 'C-l'
-        bind '"' split-window -v -c "#{pane_current_path}"
-        bind % split-window -h -c "#{pane_current_path}"
         bind-key -T copy-mode-vi v send-keys -X begin-selection
         bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
         bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+        bind C-l send-keys 'C-l'
+        bind -N "Split vertical" v split-window -h -c "#{pane_current_path}"
+        bind -N "Split horizontal" s split-window -v -c "#{pane_current_path}"
+        bind -n M-h previous-window
+        bind -n M-l next-window
+        bind -n M-j switch-client -n
+        bind -n M-k switch-client -p
+        bind q kill-pane
       '';
     };
   };
