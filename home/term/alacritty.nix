@@ -163,6 +163,28 @@ in {
           size = 10.0;
         };
         colors = catppuccin-mocha;
+        key_bindings = [
+          {
+            key = "H";
+            mods = "Control|Shift";
+            chars = "\\x1b[72;6u";
+          }
+          {
+            key = "J";
+            mods = "Control|Shift";
+            chars = "\\x1b[74;6u";
+          }
+          {
+            key = "K";
+            mods = "Control|Shift";
+            chars = "\\x1b[75;6u";
+          }
+          {
+            key = "L";
+            mods = "Control|Shift";
+            chars = "\\x1b[76;6u";
+          }
+        ];
       };
     };
     fonts.fontconfig.enable = true;

@@ -17,9 +17,8 @@ local function init()
         mappings = {
             basic = true,
             option_toggle_prefix = "<leader>u",
-            -- Window navigation with <C-hjkl>, resize with <C-arrow>
-            windows = true,
-            move_with_alt = true,
+            windows = false, -- we use vim-tmux-navigator anyway
+            move_with_alt = false, -- TODO: conflicts with tmux maps
         },
         autocommands = {
             basic = true,
@@ -27,24 +26,24 @@ local function init()
         },
         silent = false, -- Whether to disable showing non-error feedback
     })
+    vim.keymap.del({ "n", "x" }, "gy") -- delete mini.basics binding
+    vim.keymap.del({ "n", "x" }, "gp") -- delete mini.basics binding
 
     move.setup({
         mappings = {
             -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
-            left = "<M-h>",
-            right = "<M-l>",
-            down = "<M-j>",
-            up = "<M-k>",
+            left = "<C-S-h>",
+            right = "<C-S-l>",
+            down = "<C-S-j>",
+            up = "<C-S-k>",
 
             -- Move current line in Normal mode
-            line_left = "<M-h>",
-            line_right = "<M-l>",
-            line_down = "<M-j>",
-            line_up = "<M-k>",
+            line_left = "<C-S-h>",
+            line_right = "<C-S-l>",
+            line_down = "<C-S-j>",
+            line_up = "<C-S-k>",
         },
     })
-    vim.keymap.del({ "n", "x" }, "gy") -- delete mini.basics binding
-    vim.keymap.del({ "n", "x" }, "gp") -- delete mini.basics binding
 
     bracketed.setup({
         buffer = { suffix = "b", options = {} },
@@ -80,8 +79,6 @@ local function init()
     vim.opt.tabstop = 4 -- Number of spaces tabs count for
     vim.opt.relativenumber = true -- Relative line numbers
 
-    vim.opt.winminwidth = 5 -- Minimum window width
-    vim.opt.scrolloff = 8 -- Lines of context
     vim.opt.sidescrolloff = 8 -- Columns of context
     vim.opt.conceallevel = 3 -- Hide * markup for bold and italic
 
@@ -163,6 +160,32 @@ local function init()
 
     -------------------------------------------- Keymaps
     vim.keymap.set({ "n", "i" }, "<esc>", "<cmd>noh<cr><esc>", { noremap = true, desc = "Clear search" })
+
+    -- TODO maybe remap these keys to something else?
+    vim.keymap.set(
+        "n",
+        "<C-Left>",
+        '"<Cmd>vertical resize -" . v:count5 . "<CR>"',
+        { expr = true, replace_keycodes = false, desc = "Decrease window width" }
+    )
+    vim.keymap.set(
+        "n",
+        "<C-Down>",
+        '"<Cmd>resize -"          . v:count5 . "<CR>"',
+        { expr = true, replace_keycodes = false, desc = "Decrease window height" }
+    )
+    vim.keymap.set(
+        "n",
+        "<C-Up>",
+        '"<Cmd>resize +"          . v:count5 . "<CR>"',
+        { expr = true, replace_keycodes = false, desc = "Increase window height" }
+    )
+    vim.keymap.set(
+        "n",
+        "<C-Right>",
+        '"<Cmd>vertical resize +" . v:count5 . "<CR>"',
+        { expr = true, replace_keycodes = false, desc = "Increase window width" }
+    )
 
     vim.keymap.set({ "i", "v", "n", "s" }, "<C-q><C-q>", "<cmd>qa<cr>", { noremap = true, desc = "Quit all" })
 

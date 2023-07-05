@@ -43,7 +43,7 @@ in {
           # utils used by other plugins and keymaps
           nui-nvim
           plenary-nvim
-          FTerm-nvim
+          vim-tmux-navigator
 
           # theme
           catppuccin-nvim
@@ -59,6 +59,7 @@ in {
           trouble-nvim
           mini-nvim
           harpoon
+          FTerm-nvim
           # nvim-spectre -- TODO: check later
 
           # languages
