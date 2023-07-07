@@ -4,7 +4,10 @@ local miniai = require("mini.ai")
 
 local function init()
     treesitter.setup({
-        highlight = { enable = true, disable = { "comment" } },
+        highlight = {
+            enable = true,
+            additional_vim_regex_highlighting = { "markdown" },
+        },
         indent = { enable = true, disable = { "python" } },
         context_commentstring = { enable = true, enable_autocmd = false },
         incremental_selection = {

@@ -12,6 +12,16 @@ with pkgs.lib.conflib; let
     src = ./nvim;
   };
 
+  capture-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
+    name = "capture-nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "mcanueste";
+      repo = "capture.nvim";
+      rev = "ea4ed03278a405439dac0fe9b1aed28b43124e37";
+      sha256 = "sha256-tsI/D6O5nUWLHgtXtX8iPaiSb6MRx1d4uLKYf1onGh4=";
+    };
+  };
+
   shellAliases = {
     v = "nvim";
   };
@@ -24,8 +34,8 @@ in {
     programs.bash = {inherit shellAliases;};
     programs.fish = {inherit shellAliases;};
     xdg.configFile."yamlfmt/.yamlfmt".text = ''
-    formatter:
-      retain_line_breaks: true
+      formatter:
+        retain_line_breaks: true
     '';
 
     programs.neovim = {
@@ -146,7 +156,7 @@ in {
           # }))
           # vimPlugins.copilot-lua
         ]
-        ++ [nvim-config];
+        ++ [nvim-config capture-nvim];
 
       extraConfig = ''
         lua << EOF
