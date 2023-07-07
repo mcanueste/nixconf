@@ -6,7 +6,7 @@ local function init()
         capture.capture()
     end, { noremap = true, desc = "Capture" })
     vim.keymap.set("n", "<leader>ng", function()
-        telescope.live_grep("~/projects/notes/capture/")
+        telescope.live_grep({ cwd = "~/projects/notes/capture/"})
     end, { noremap = true, desc = "Grep" })
 end
 
