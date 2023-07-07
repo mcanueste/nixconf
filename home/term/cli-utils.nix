@@ -27,6 +27,7 @@ in {
       pkgs.traceroute
       pkgs.tree
       pkgs.entr
+      pkgs.manix
     ];
     programs.exa = {
       enable = true;
