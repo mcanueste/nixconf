@@ -14,6 +14,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = [
+      pkgs.openssl
       pkgs.dash
       pkgs.rsync
       pkgs.gnumake
@@ -93,7 +94,7 @@ in {
       enableFishIntegration = termCfg.fish;
     };
     programs.direnv = {
-      enable = true;
+      enable = false;
       enableBashIntegration = true;
     };
     # home.sessionVariables = {
