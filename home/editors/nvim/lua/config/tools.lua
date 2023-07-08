@@ -46,6 +46,7 @@ local function init()
         },
     })
     vim.keymap.set("n", "<leader>ot", "<CMD>lua require('FTerm').toggle()<CR>", { noremap = true, desc = "Terminal" })
+    vim.keymap.set("t", "<C-q><C-q>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
     vim.keymap.set("n", "<leader>og", function()
         lazygit:toggle()
     end, { noremap = true, desc = "Lazygit" })
