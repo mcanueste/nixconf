@@ -51,17 +51,6 @@ rec {
         };
       };
 
-      dev = {
-        go = {
-          enable = true;
-          hugo = true;
-        };
-        python = {
-          enable = false;
-          poetry = false;
-        };
-      };
-
       devops = {
         k8s = {
           kubectl = true;

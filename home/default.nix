@@ -10,7 +10,6 @@
     ./term
     ./git
     ./editors
-    ./dev
     ./devops
     ./desktop
     ./tools
