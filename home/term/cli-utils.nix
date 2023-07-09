@@ -13,6 +13,8 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = [
+      pkgs.gitlab-runner
+      pkgs.github-runner
       pkgs.openssl
       pkgs.dash
       pkgs.rsync

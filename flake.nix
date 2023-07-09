@@ -21,7 +21,12 @@
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
-      config = {allowUnfree = true;};
+      config = {
+        allowUnfree = true;
+        permittedInsecurePackages = [
+          "nodejs-16.20.1" # for github-runenr
+        ];
+      };
       overlays = import ./overlays flakePackages;
     };
   in {
