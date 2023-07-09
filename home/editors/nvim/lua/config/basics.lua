@@ -1,6 +1,7 @@
 local bracketed = require("mini.bracketed")
 local bufremove = require("mini.bufremove")
 local basics = require("mini.basics")
+local utils = require("config.utils")
 local move = require("mini.move")
 
 local function augroup(name)
@@ -80,7 +81,9 @@ local function init()
     vim.opt.relativenumber = true -- Relative line numbers
 
     vim.opt.sidescrolloff = 8 -- Columns of context
-    vim.opt.conceallevel = 3 -- Hide * markup for bold and italic
+    vim.opt.conceallevel = 0 -- Hide * markup for bold and italic (if incremented)
+
+    vim.opt.list = false -- hide listchars
 
     vim.opt.spell = false
     vim.opt.spelllang = { "en" }
@@ -160,6 +163,8 @@ local function init()
 
     -------------------------------------------- Keymaps
     vim.keymap.set({ "n", "i" }, "<esc>", "<cmd>noh<cr><esc>", { noremap = true, desc = "Clear search" })
+
+    vim.keymap.set({ "n" }, "<leader>uu", function() utils.toggle_conceal() end, { noremap = true, desc = "Clear search" })
 
     -- TODO maybe remap these keys to something else?
     vim.keymap.set(

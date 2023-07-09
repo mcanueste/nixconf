@@ -143,7 +143,6 @@ in {
           cmp-buffer
           cmp-path
           cmp_luasnip
-          rust-tools-nvim
           SchemaStore-nvim
 
           # extras
@@ -182,15 +181,22 @@ in {
         lazydocker
 
         # nix support
+        # TODO: comments don't work properly
         alejandra
         nil
 
-        # lua support
+        # lua support : works well
         stylua
         (luajit.withPackages (lp: [
           lp.luarocks
         ]))
         lua-language-server
+
+        # bash support
+        beautysh
+        shellharden
+        shellcheck
+        nodePackages.bash-language-server
 
         # go support
         gomodifytags
@@ -208,16 +214,6 @@ in {
         ruff-lsp
         nodePackages.pyright
 
-        # rust support
-        rustfmt
-        rust-analyzer
-        graphviz
-
-        # bash support
-        beautysh
-        shellharden
-        shellcheck
-        nodePackages.bash-language-server
 
         # docker support
         hadolint

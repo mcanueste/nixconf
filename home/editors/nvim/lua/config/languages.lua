@@ -4,7 +4,6 @@ local cmpnvim = require("cmp_nvim_lsp")
 local lspconfig = require("lspconfig")
 local luasnip = require("luasnip")
 local trouble = require("trouble")
-local rt = require("rust-tools")
 local nls = require("null-ls")
 local cmp = require("cmp")
 
@@ -28,9 +27,6 @@ local function init()
             nls.builtins.formatting.ruff,
             nls.builtins.formatting.djhtml,
             nls.builtins.diagnostics.mypy,
-
-            -- rust
-            nls.builtins.formatting.rustfmt,
 
             -- bash
             nls.builtins.formatting.beautysh,
@@ -91,18 +87,6 @@ local function init()
     -- Setup python lsp
     lspconfig.ruff_lsp.setup({})
     lspconfig.pyright.setup({}) -- remove if duplicates with ruff
-
-    -- Setup rust lsp
-    rt.setup({
-        server = {
-            on_attach = function(_, bufnr)
-                -- Hover actions
-                vim.keymap.set("n", "<leader>lh", rt.hover_actions.hover_actions, { buffer = bufnr })
-                -- Code action groups
-                vim.keymap.set("n", "<leader>lA", rt.code_action_group.code_action_group, { buffer = bufnr })
-            end,
-        },
-    })
 
     -- Setup bash lsp
     lspconfig.bashls.setup({})

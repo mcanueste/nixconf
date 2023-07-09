@@ -1,14 +1,5 @@
 local M = {}
 
-function M.toggle_diagnostics()
-    enabled = not enabled
-    if enabled then
-        vim.diagnostic.enable()
-    else
-        vim.diagnostic.disable()
-    end
-end
-
 function M.toggle_conceal()
     local winnr = vim.api.nvim_get_current_win()
     local conceallevel = vim.api.nvim_win_get_option(winnr, "conceallevel")
@@ -70,14 +61,6 @@ function M.telescope(builtin, opts)
         end
         require("telescope.builtin")[builtin](opts)
     end
-end
-
--- Opens a floating terminal (interactive by default)
-function M.float_term(cmd, opts)
-    opts = vim.tbl_deep_extend("force", {
-        size = { width = 0.9, height = 0.9 },
-    }, opts or {})
-    -- require("lazy.util").float_term(cmd, opts) -- TODO
 end
 
 return M
