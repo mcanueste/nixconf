@@ -49,7 +49,11 @@ in {
         c = "commit";
         cm = "commit -m";
 
+        cl = "clone";
+        clb = "clone --bare";
+
         b = "branch";
+
         co = "checkout";
         cob = "checkout -b";
 
@@ -57,8 +61,13 @@ in {
         r2 = "rebase -i HEAD~2";
 
         re = "restore";
+        res = "restore --staged";
 
         d = "diff";
+
+        wa = "worktree add";
+        wr = "worktree remove";
+        wrf = "worktree remove --force";
       };
     };
   };

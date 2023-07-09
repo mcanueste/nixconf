@@ -30,6 +30,7 @@ in {
     enable = mkBoolOption {description = "Enable neovim configuration";};
   };
 
+  # TODO: git-worktree plugin
   config = lib.mkIf cfg.enable {
     programs.bash = {inherit shellAliases;};
     programs.fish = {inherit shellAliases;};
