@@ -14,7 +14,6 @@ rec {
       virtualisation = {
         docker = true;
         podman = false;
-        distrobox = true;
         virt-manager = true;
       };
       desktop = {

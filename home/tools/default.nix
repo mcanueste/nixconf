@@ -8,5 +8,6 @@
     ./lazygit.nix
     ./lazydocker.nix
     ./k9s.nix
+    ./distrobox.nix
   ];
 }

@@ -12,7 +12,6 @@ in {
       description = "Enable podman";
       default = false;
     };
-    distrobox = mkBoolOption {description = "Enable distrobox";};
     virt-manager = mkBoolOption {
       description = "Enable virt-manager";
       default = false;
@@ -33,7 +32,6 @@ in {
     environment.systemPackages = filterPackages [
       (getPackageIf cfg.docker pkgs.docker-compose)
       (getPackageIf cfg.podman pkgs.podman-compose)
-      (getPackageIf cfg.distrobox pkgs.distrobox)
       (getPackageIf cfg.virt-manager pkgs.virt-manager)
     ];
 
