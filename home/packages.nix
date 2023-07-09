@@ -8,7 +8,6 @@
     home.packages = [
       pkgs.dash
 
-      pkgs.openssl
       pkgs.rsync
       pkgs.gnumake
       pkgs.dig
