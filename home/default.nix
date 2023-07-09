@@ -14,5 +14,6 @@
     ./devops
     ./desktop
     ./tools
+    ./font.nix
   ];
 }

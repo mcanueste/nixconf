@@ -6,6 +6,7 @@
 }:
 with pkgs.lib.conflib; let
   cfg = config.nixhome.term;
+  fontCfg = config.nixhome.font;
 
   shell =
     if cfg.tmux
@@ -30,8 +31,8 @@ with pkgs.lib.conflib; let
         }
       );
 
-  genFontConf = font: type: {
-    family = font;
+  genFontConf = type: {
+    family = "${fontCfg.font} Nerd Font";
     style = type;
   };
 
@@ -156,10 +157,10 @@ in {
           auto_scroll = false;
         };
         font = {
-          normal = genFontConf "JetBrainsMono Nerd Font" "Regular";
-          bold = genFontConf "JetBrainsMono Nerd Font" "Bold";
-          italic = genFontConf "JetBrainsMono Nerd Font" "Italic";
-          bold_italic = genFontConf "JetBrainsMono Nerd Font" "Bold Italic";
+          normal = genFontConf "Regular";
+          bold = genFontConf "Bold";
+          italic = genFontConf "Italic";
+          bold_italic = genFontConf "Bold Italic";
           size = 10.0;
         };
         colors = catppuccin-mocha;
@@ -187,13 +188,5 @@ in {
         ];
       };
     };
-    fonts.fontconfig.enable = true;
-    home.packages = [
-      (pkgs.nerdfonts.override {
-        fonts = [
-          "JetBrainsMono"
-        ];
-      })
-    ];
   };
 }
