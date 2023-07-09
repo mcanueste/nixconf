@@ -81,6 +81,10 @@ rec {
         };
       };
 
+      tools = {
+        direnv = {enable = false;};
+      };
+
       media = {
         spotify = true;
         zotero = true;
