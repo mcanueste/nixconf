@@ -17,15 +17,6 @@ in {
       interactiveShellInit = ''
         set fish_greeting # Disable greeting
       '';
-      shellAliases = {
-        ngc = "sudo nix-collect-garbage";
-        nsw = "sudo nixos-rebuild switch --flake ~/nix/nixconf/";
-      };
-    };
-
-    programs.dircolors = {
-      enable = true;
-      enableFishIntegration = true;
     };
   };
 }

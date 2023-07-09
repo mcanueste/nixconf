@@ -1,9 +1,11 @@
 {
   imports = [
-    ./alacritty.nix
     ./bash.nix
     ./fish.nix
+    ./dircolors.nix
+    ./aliases.nix
     ./starship.nix
+    ./alacritty.nix
     ./tmux.nix
     ./cli-utils.nix
   ];
