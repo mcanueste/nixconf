@@ -5,17 +5,17 @@
   ...
 }:
 with pkgs.lib.conflib; let
-  cfg = config.nixhome.tools.lazygit;
+  cfg = config.nixhome.tools;
 
   shellAliases = {
     lg = "lazygit";
   };
 in {
-  options.nixhome.tools.lazygit = {
-    enable = mkBoolOption {description = "Enable lazygit";};
+  options.nixhome.tools = {
+    lazygit = mkBoolOption {description = "Enable lazygit";};
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.lazygit {
     programs.bash = {inherit shellAliases;};
     programs.fish = {inherit shellAliases;};
 

@@ -5,13 +5,13 @@
   ...
 }:
 with pkgs.lib.conflib; let
-  cfg = config.nixhome.tools.direnv;
+  cfg = config.nixhome.tools;
 in {
-  options.nixhome.tools.direnv = {
-    enable = mkBoolOption {description = "Enable direnv";};
+  options.nixhome.tools = {
+    direnv = mkBoolOption {description = "Enable direnv";};
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.direnv {
     programs.direnv = {
       enable = true;
       enableBashIntegration = true;

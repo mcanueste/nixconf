@@ -5,17 +5,17 @@
   ...
 }:
 with pkgs.lib.conflib; let
-  cfg = config.nixhome.tools.bat;
+  cfg = config.nixhome.tools;
   shellAliases = {
     pretty = "prettybat";
     brg = "batgrep";
   };
 in {
-  options.nixhome.tools.bat = {
-    enable = mkBoolOption {description = "Enable bat";};
+  options.nixhome.tools = {
+    bat = mkBoolOption {description = "Enable bat";};
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.bat {
     programs.bash = {inherit shellAliases;};
     programs.fish = {inherit shellAliases;};
     programs.bat = {

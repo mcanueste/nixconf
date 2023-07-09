@@ -5,14 +5,14 @@
   ...
 }:
 with pkgs.lib.conflib; let
-  cfg = config.nixhome.tools.fzf;
+  cfg = config.nixhome.tools;
   termCfg = config.nixhome.term;
 in {
-  options.nixhome.tools.fzf = {
-    enable = mkBoolOption {description = "Enable fzf";};
+  options.nixhome.tools = {
+    fzf = mkBoolOption {description = "Enable fzf";};
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.fzf {
     programs.fzf = {
       enable = true;
       enableBashIntegration = true;

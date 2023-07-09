@@ -5,13 +5,13 @@
   ...
 }:
 with pkgs.lib.conflib; let
-  cfg = config.nixhome.tools.exa;
+  cfg = config.nixhome.tools;
 in {
-  options.nixhome.tools.exa = {
-    enable = mkBoolOption {description = "Enable exa";};
+  options.nixhome.tools = {
+    exa = mkBoolOption {description = "Enable exa";};
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.exa {
     programs.exa = {
       enable = true;
       enableAliases = true;

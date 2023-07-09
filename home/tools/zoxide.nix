@@ -5,14 +5,14 @@
   ...
 }:
 with pkgs.lib.conflib; let
-  cfg = config.nixhome.tools.zoxide;
+  cfg = config.nixhome.tools;
   termCfg = config.nixhome.term;
 in {
-  options.nixhome.tools.zoxide = {
-    enable = mkBoolOption {description = "Enable zoxide";};
+  options.nixhome.tools = {
+    zoxide = mkBoolOption {description = "Enable zoxide";};
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.zoxide {
     programs.zoxide = {
       enable = true;
       enableBashIntegration = true;

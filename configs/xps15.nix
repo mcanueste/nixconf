@@ -82,7 +82,7 @@ rec {
       };
 
       tools = {
-        direnv = {enable = false;};
+        direnv = false;
       };
 
       media = {
