@@ -4,7 +4,8 @@
     ./bat.nix
     ./zoxide.nix
     ./fzf.nix
-    ./lazygit.nix
     ./direnv.nix
+    ./lazygit.nix
+    ./k9s.nix
   ];
 }
