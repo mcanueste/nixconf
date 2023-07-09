@@ -7,6 +7,5 @@
     ./starship.nix
     ./alacritty.nix
     ./tmux.nix
-    ./cli-utils.nix
   ];
 }

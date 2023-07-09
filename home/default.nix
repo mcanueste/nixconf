@@ -15,5 +15,6 @@
     ./desktop
     ./tools
     ./font.nix
+    ./packages.nix
   ];
 }
