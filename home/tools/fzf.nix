@@ -3,12 +3,13 @@
   lib,
   config,
   ...
-}: with pkgs.lib.conflib; let
+}:
+with pkgs.lib.conflib; let
   cfg = config.nixhome.tools.fzf;
   termCfg = config.nixhome.term;
 in {
   options.nixhome.tools.fzf = {
-    enable = mkBoolOption { description = "Enable fzf"; };
+    enable = mkBoolOption {description = "Enable fzf";};
   };
 
   config = lib.mkIf cfg.enable {
@@ -24,7 +25,8 @@ in {
       ];
       changeDirWidgetCommand = "${pkgs.fd}/bin/fd --type d";
       changeDirWidgetOptions = ["--preview '${pkgs.tree}/bin/tree -C {} | head -200'"];
-      colors = { # catppuccin theme
+      colors = {
+        # catppuccin theme
         "bg+" = "#313244";
         bg = "#1e1e2e";
         spinner = "#f5e0dc";

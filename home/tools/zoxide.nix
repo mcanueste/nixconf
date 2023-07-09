@@ -8,7 +8,7 @@ with pkgs.lib.conflib; let
   cfg = config.nixhome.tools.zoxide;
   termCfg = config.nixhome.term;
 in {
-  options.nixhome.tools.zoxide= {
+  options.nixhome.tools.zoxide = {
     enable = mkBoolOption {description = "Enable zoxide";};
   };
 
