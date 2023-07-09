@@ -13,5 +13,6 @@
     ./dev
     ./devops
     ./desktop
+    ./tools
   ];
 }
