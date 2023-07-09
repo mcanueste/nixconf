@@ -6,6 +6,7 @@
     ./fzf.nix
     ./direnv.nix
     ./lazygit.nix
+    ./lazydocker.nix
     ./k9s.nix
   ];
 }
