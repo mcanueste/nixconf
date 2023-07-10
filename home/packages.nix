@@ -24,6 +24,7 @@
       pkgs.htop
       pkgs.ncdu
       pkgs.dive
+      pkgs.just
     ];
   };
 }
