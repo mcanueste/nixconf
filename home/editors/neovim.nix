@@ -180,6 +180,21 @@ in {
         lazygit
         lazydocker
 
+        # bash support
+        beautysh
+        shellharden
+        shellcheck
+        nodePackages.bash-language-server
+
+        # docker support
+        hadolint
+        docker-compose-language-service
+        nodePackages.dockerfile-language-server-nodejs
+
+        # terraform support
+        tfsec
+        terraform-ls
+
         # nix support
         # TODO: comments don't work properly
         alejandra
@@ -192,20 +207,6 @@ in {
         ]))
         lua-language-server
 
-        # bash support
-        beautysh
-        shellharden
-        shellcheck
-        nodePackages.bash-language-server
-
-        # go support
-        gomodifytags
-        impl
-        gofumpt
-        gotools
-        gopls
-        golangci-lint-langserver
-
         # python support
         black
         djhtml
@@ -214,15 +215,13 @@ in {
         ruff-lsp
         nodePackages.pyright
 
-
-        # docker support
-        hadolint
-        nodePackages.dockerfile-language-server-nodejs
-        docker-compose-language-service
-
-        # terraform support
-        tfsec
-        terraform-ls
+        # go support
+        gomodifytags
+        impl
+        gofumpt
+        gotools
+        gopls
+        golangci-lint-langserver
 
         # ansible support
         ansible-lint

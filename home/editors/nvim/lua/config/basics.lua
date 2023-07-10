@@ -164,7 +164,7 @@ local function init()
     -------------------------------------------- Keymaps
     vim.keymap.set({ "n", "i" }, "<esc>", "<cmd>noh<cr><esc>", { noremap = true, desc = "Clear search" })
 
-    vim.keymap.set({ "n" }, "<leader>uu", function() utils.toggle_conceal() end, { noremap = true, desc = "Clear search" })
+    vim.keymap.set({ "n" }, "<leader>uu", function() utils.toggle_conceal() end, { noremap = true, desc = "Toggle 'conceallevel'" })
 
     -- TODO maybe remap these keys to something else?
     vim.keymap.set(
