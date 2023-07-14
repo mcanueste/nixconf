@@ -4,14 +4,13 @@
   config,
   ...
 }: with pkgs.lib.conflib; let
-  cfg = config.nixhome.git;
+  cfg = config.nixhome.tools;
 in {
-  options.nixhome.git = {
-    enable = mkBoolOption { description = "Enable git config"; };
-    lfs = mkBoolOption { description = "Enable git-lfs"; };
+  options.nixhome.tools = {
+    git = mkBoolOption { description = "Enable git config"; };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.git {
     programs.bash = {
       shellAliases = {
         g = "git";
@@ -26,7 +25,7 @@ in {
 
     programs.git = {
       enable = true;
-      lfs.enable = cfg.lfs;
+      lfs.enable = true;
 
       delta.enable = true;
       userName = "mcanueste";

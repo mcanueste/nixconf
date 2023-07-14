@@ -8,7 +8,6 @@
     ./media.nix
     ./chat.nix
     ./term
-    ./git
     ./editors
     ./devops
     ./desktop

@@ -1,5 +1,6 @@
 {
   imports = [
+    ./git.nix
     ./exa.nix
     ./bat.nix
     ./zoxide.nix
