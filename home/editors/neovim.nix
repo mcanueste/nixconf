@@ -75,7 +75,7 @@ in {
 
           # tools
           vim-sleuth # no setup
-          vim-repeat # no setup
+          # vim-repeat
           telescope-nvim
           trouble-nvim
           mini-nvim
