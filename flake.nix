@@ -16,13 +16,13 @@
     ...
   }: let
     config = import ./configs/xps15.nix;
-
-    flakePackages = {};
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
       config = {allowUnfree = true;};
-      overlays = import ./overlays flakePackages;
+      overlays = [
+        (final: prev: prev.lib.attrsets.recursiveUpdate prev {lib.conflib = import ./lib {inherit (prev) lib;};})
+      ];
     };
   in {
     nixosConfigurations = {
