@@ -36,38 +36,35 @@ with pkgs.lib.conflib; let
   };
 in {
   options.nixhome.desktop = {
-    i3 = mkBoolOption {description = "Enable i3 config";};
+    sway = mkBoolOption {description = "Enable sway config";};
   };
 
-  config = lib.mkIf cfg.i3 {
-    xsession.windowManager.i3 = {
+  config = lib.mkIf cfg.sway {
+    wayland.windowManager.sway = {
       enable = true;
-      extraConfig = ''
-        for_window [instance="_scratchpad_term"] move scratchpad
-      '';
       config = rec {
-        modifier = "Mod4";
+        modifier = "Mod4"; # Super key
         terminal = "alacritty";
         workspaceAutoBackAndForth = true;
         defaultWorkspace = "workspace number 1";
-        menu = "${pkgs.rofi}/bin/rofi";
+        menu = "${pkgs.wofi}/bin/wofi";
         keybindings = {
           "${modifier}+Return" = "exec ${terminal}";
           "${modifier}+Shift+q" = "kill";
-          "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show drun";
-          "${modifier}+p" = "exec ${pkgs.rofi}/bin/rofi -show power-menu -modi power-menu:${pkgs.rofi-power-menu}/bin/rofi-power-menu";
-          "${modifier}+Escape" = "exec ${pkgs.i3lock}/bin/i3lock --color 000000";
+          # "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show drun";
+          # "${modifier}+p" = "exec ${pkgs.rofi}/bin/rofi -show power-menu -modi power-menu:${pkgs.rofi-power-menu}/bin/rofi-power-menu";
+          # "${modifier}+Escape" = "exec ${pkgs.i3lock}/bin/i3lock --color 000000";
           "${modifier}+Shift+c" = "reload";
           "${modifier}+Shift+r" = "restart";
-          "${modifier}+Shift+e" = "exec i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'i3-msg exit'";
+          "${modifier}+Shift+e" = "exec swaynag -t warning -m 'Do you want to exit?' -b 'Yes' 'swaymsg exit'";
 
           # not using much
-          "${modifier}+e" = "exec ${pkgs.rofi}/bin/rofi -show run";
-          "${modifier}+semicolon" = "exec ${pkgs.rofi}/bin/rofi -show window";
+          # "${modifier}+e" = "exec ${pkgs.rofi}/bin/rofi -show run";
+          # "${modifier}+semicolon" = "exec ${pkgs.rofi}/bin/rofi -show window";
 
           # shortcuts
           "${modifier}+b" = "exec brave";
-          "${modifier}+n" = "exec obsidian ~/notes";
+          # "${modifier}+n" = "exec obsidian ~/notes";
           "${modifier}+c" = "exec discord";
 
           "${modifier}+h" = "focus left";
@@ -84,8 +81,8 @@ in {
           "${modifier}+v" = "split h";
           "${modifier}+s" = "split v";
           "${modifier}+f" = "fullscreen toggle";
-          "${modifier}+a" = "scratchpad show";
-          "${modifier}+Shift+a" = "move scratchpad";
+          # "${modifier}+a" = "scratchpad show";
+          # "${modifier}+Shift+a" = "move scratchpad";
           "${modifier}+g" = "focus mode_toggle";
           "${modifier}+Shift+g" = "floating toggle";
 
@@ -282,27 +279,130 @@ in {
         ];
         startup = [
           {
-            command = "${pkgs.feh}/bin/feh --bg-fill ${./wallpaper.png}";
-            always = true;
-            notification = false;
-          }
-          {
             command = "${pkgs.blueman}/bin/blueman-applet";
             always = true;
-            notification = false;
           }
           {
             command = "${pkgs.networkmanagerapplet}/bin/nm-applet";
             always = true;
-            notification = false;
-          }
-          {
-            command = "${pkgs.alacritty}/bin/alacritty --class='_scratchpad_term'";
-            always = true;
-            notification = false;
           }
         ];
       };
+    };
+
+    programs.wofi = {
+      enable = true;
+      # font = "JetBrainsMono Nerd Font 10";
+      # terminal = "${pkgs.alacritty}/bin/alacritty";
+      # extraConfig = {
+      #   modi = "run,drun,window";
+      #   show-icons = true;
+      #   sidebar-mode = true;
+      #   hide-scrollbar = true;
+      #   disable-history = false;
+      #   icon-theme = "Oranchelo";
+      #   display-run = "   Run ";
+      #   display-drun = "   Apps ";
+      #   display-window = " 﩯  Window";
+      #   drun-display-format = "{icon} {name}";
+      # };
+      # theme = with config.lib.formats.rasi; {
+      #   "*" = {
+      #     width = 600;
+      #     bg-col = mkLiteral "#1e1e2e";
+      #     bg-col-light = mkLiteral "#1e1e2e";
+      #     border-col = mkLiteral "#1e1e2e";
+      #     selected-col = mkLiteral "#1e1e2e";
+      #     blue = mkLiteral "#89b4fa";
+      #     fg-col = mkLiteral "#cdd6f4";
+      #     fg-col2 = mkLiteral "#f38ba8";
+      #     grey = mkLiteral "#6c7086";
+      #   };
+      #   element-text = {
+      #     background-color = mkLiteral "inherit";
+      #     text-color = mkLiteral "inherit";
+      #   };
+      #   element-icon = {
+      #     background-color = mkLiteral "inherit";
+      #     text-color = mkLiteral "inherit";
+      #   };
+      #   mode-switcher = {
+      #     background-color = mkLiteral "inherit";
+      #     text-color = mkLiteral "inherit";
+      #   };
+      #   window = {
+      #     height = mkLiteral "360px";
+      #     border = mkLiteral "3px";
+      #     border-color = mkLiteral "@border-col";
+      #     background-color = mkLiteral "@bg-col";
+      #   };
+      #   mainbox = {background-color = mkLiteral "@bg-col";};
+      #   inputbar = {
+      #     children = map mkLiteral ["prompt" "entry"];
+      #     background-color = mkLiteral "@bg-col";
+      #     border-radius = mkLiteral "5px";
+      #     padding = mkLiteral "2px";
+      #   };
+      #   prompt = {
+      #     background-color = mkLiteral "@blue";
+      #     padding = mkLiteral "6px";
+      #     text-color = mkLiteral "@bg-col";
+      #     border-radius = mkLiteral "3px";
+      #     margin = mkLiteral "20px 0px 0px 20px";
+      #   };
+      #   textbox-prompt-colon = {
+      #     expand = false;
+      #     str = ":";
+      #   };
+      #   entry = {
+      #     padding = mkLiteral "6px";
+      #     margin = mkLiteral "20px 0px 0px 10px";
+      #     text-color = mkLiteral "@fg-col";
+      #     background-color = mkLiteral "@bg-col";
+      #   };
+      #   listview = {
+      #     border = mkLiteral "0px 0px 0px";
+      #     padding = mkLiteral "6px 0px 0px";
+      #     margin = mkLiteral "10px 0px 0px 20px";
+      #     columns = 2;
+      #     lines = 5;
+      #     background-color = mkLiteral "@bg-col";
+      #   };
+      #   element = {
+      #     padding = mkLiteral "5px";
+      #     background-color = mkLiteral "@bg-col";
+      #     text-color = mkLiteral "@fg-col";
+      #   };
+      #   element-icon = {size = mkLiteral "25px";};
+      #   "element selected" = {
+      #     background-color = mkLiteral "@selected-col";
+      #     text-color = mkLiteral "@fg-col2";
+      #   };
+      #   mode-switcher = {spacing = 0;};
+      #   button = {
+      #     padding = mkLiteral "10px";
+      #     background-color = mkLiteral "@bg-col-light";
+      #     text-color = mkLiteral "@grey";
+      #     vertical-align = mkLiteral "0.5";
+      #     horizontal-align = mkLiteral "0.5";
+      #   };
+      #   "button selected" = {
+      #     background-color = mkLiteral "@bg-col";
+      #     text-color = mkLiteral "@blue";
+      #   };
+      #   message = {
+      #     background-color = mkLiteral "@bg-col-light";
+      #     margin = mkLiteral "2px";
+      #     padding = mkLiteral "2px";
+      #     border-radius = mkLiteral "5px";
+      #   };
+      #   textbox = {
+      #     padding = mkLiteral "6px";
+      #     margin = mkLiteral "20px 0px 0px 20px";
+      #     text-color = mkLiteral "@blue";
+      #     background-color = mkLiteral "@bg-col-light";
+      #   };
+      # };
     };
 
     programs.i3status-rust = {
@@ -347,165 +447,6 @@ in {
             format = " $timestamp.datetime(f:'%a %d-%m-%Y %R') ";
           }
         ];
-      };
-    };
-
-    programs.rofi = {
-      enable = true;
-      font = "JetBrainsMono Nerd Font 10";
-      terminal = "${pkgs.alacritty}/bin/alacritty";
-      extraConfig = {
-        modi = "run,drun,window";
-        show-icons = true;
-        sidebar-mode = true;
-        hide-scrollbar = true;
-        disable-history = false;
-        icon-theme = "Oranchelo";
-        display-run = "   Run ";
-        display-drun = "   Apps ";
-        display-window = " 﩯  Window";
-        drun-display-format = "{icon} {name}";
-      };
-      theme = with config.lib.formats.rasi; {
-        "*" = {
-          width = 600;
-          bg-col = mkLiteral "#1e1e2e";
-          bg-col-light = mkLiteral "#1e1e2e";
-          border-col = mkLiteral "#1e1e2e";
-          selected-col = mkLiteral "#1e1e2e";
-          blue = mkLiteral "#89b4fa";
-          fg-col = mkLiteral "#cdd6f4";
-          fg-col2 = mkLiteral "#f38ba8";
-          grey = mkLiteral "#6c7086";
-        };
-        element-text = {
-          background-color = mkLiteral "inherit";
-          text-color = mkLiteral "inherit";
-        };
-        element-icon = {
-          background-color = mkLiteral "inherit";
-          text-color = mkLiteral "inherit";
-        };
-        mode-switcher = {
-          background-color = mkLiteral "inherit";
-          text-color = mkLiteral "inherit";
-        };
-        window = {
-          height = mkLiteral "360px";
-          border = mkLiteral "3px";
-          border-color = mkLiteral "@border-col";
-          background-color = mkLiteral "@bg-col";
-        };
-        mainbox = {background-color = mkLiteral "@bg-col";};
-        inputbar = {
-          children = map mkLiteral ["prompt" "entry"];
-          background-color = mkLiteral "@bg-col";
-          border-radius = mkLiteral "5px";
-          padding = mkLiteral "2px";
-        };
-        prompt = {
-          background-color = mkLiteral "@blue";
-          padding = mkLiteral "6px";
-          text-color = mkLiteral "@bg-col";
-          border-radius = mkLiteral "3px";
-          margin = mkLiteral "20px 0px 0px 20px";
-        };
-        textbox-prompt-colon = {
-          expand = false;
-          str = ":";
-        };
-        entry = {
-          padding = mkLiteral "6px";
-          margin = mkLiteral "20px 0px 0px 10px";
-          text-color = mkLiteral "@fg-col";
-          background-color = mkLiteral "@bg-col";
-        };
-        listview = {
-          border = mkLiteral "0px 0px 0px";
-          padding = mkLiteral "6px 0px 0px";
-          margin = mkLiteral "10px 0px 0px 20px";
-          columns = 2;
-          lines = 5;
-          background-color = mkLiteral "@bg-col";
-        };
-        element = {
-          padding = mkLiteral "5px";
-          background-color = mkLiteral "@bg-col";
-          text-color = mkLiteral "@fg-col";
-        };
-        element-icon = {size = mkLiteral "25px";};
-        "element selected" = {
-          background-color = mkLiteral "@selected-col";
-          text-color = mkLiteral "@fg-col2";
-        };
-        mode-switcher = {spacing = 0;};
-        button = {
-          padding = mkLiteral "10px";
-          background-color = mkLiteral "@bg-col-light";
-          text-color = mkLiteral "@grey";
-          vertical-align = mkLiteral "0.5";
-          horizontal-align = mkLiteral "0.5";
-        };
-        "button selected" = {
-          background-color = mkLiteral "@bg-col";
-          text-color = mkLiteral "@blue";
-        };
-        message = {
-          background-color = mkLiteral "@bg-col-light";
-          margin = mkLiteral "2px";
-          padding = mkLiteral "2px";
-          border-radius = mkLiteral "5px";
-        };
-        textbox = {
-          padding = mkLiteral "6px";
-          margin = mkLiteral "20px 0px 0px 20px";
-          text-color = mkLiteral "@blue";
-          background-color = mkLiteral "@bg-col-light";
-        };
-      };
-    };
-
-    # TODO: Configure properly?
-    services.dunst = {
-      enable = true;
-      iconTheme = {
-        package = pkgs.hicolor-icon-theme;
-        name = "hicolor";
-        size = "32x32";
-      };
-      settings = {
-        global = {
-          follow = "keyboard";
-          mouse_left_click = "do_action";
-          mouse_middle_click = "close_all";
-          mouse_right_click = "close_current";
-          notification_limit = 5;
-          format = "<b> %a: %s </b> \\n\\n %b";
-          font = "JetBrainsMono Nerd Font 10";
-          frame_color = "#89B4FA";
-          icon_position = "left";
-          origin = "top-right";
-          corner_radius = 6;
-          frame_width = 2;
-          padding = 15;
-          width = 500;
-          height = 200;
-          timeout = 0;
-          # offset = "${var.GAPSPX}x${builtins.toString (22 + lib.strings.toInt var.GAPSPX)}";
-        };
-        urgency_low = {
-          background = "#1E1E2E";
-          foreground = "#CDD6F4";
-        };
-        urgency_normal = {
-          background = "#1E1E2E";
-          foreground = "#CDD6F4";
-        };
-        urgency_critical = {
-          background = "#1E1E2E";
-          foreground = "#CDD6F4";
-          frame_color = "#FAB387";
-        };
       };
     };
   };

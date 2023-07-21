@@ -5,13 +5,13 @@
   ...
 }:
 with pkgs.lib.conflib; let
-  cfg = config.nixos.desktop.gnome;
+  cfg = config.nixos.desktop;
 in {
-  options.nixos.desktop.gnome = {
-    enable = mkBoolOption {description = "Enable gnome desktop";};
+  options.nixos.desktop = {
+    gnome = mkBoolOption {description = "Enable gnome desktop";};
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.gnome {
     services.xserver = {
       # Enable the X11 windowing system.
       enable = true;

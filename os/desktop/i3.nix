@@ -5,13 +5,13 @@
   ...
 }:
 with pkgs.lib.conflib; let
-  cfg = config.nixos.desktop.i3;
+  cfg = config.nixos.desktop;
 in {
-  options.nixos.desktop.i3 = {
-    enable = mkBoolOption {description = "Enable i3 window manager";};
+  options.nixos.desktop = {
+    i3 = mkBoolOption {description = "Enable i3 window manager";};
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.i3 {
     # links /libexec from derivations to /run/current-system/sw
     environment.pathsToLink = ["/libexec"];
     # environment.systemPackages = [pkgs.lxappearance];

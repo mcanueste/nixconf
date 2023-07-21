@@ -17,12 +17,9 @@ rec {
         virt-manager = true;
       };
       desktop = {
-        gnome = {
-          enable = true;
-        };
-        i3 = {
-          enable = true;
-        };
+        gnome = false;
+        i3 = false;
+        greetd = true;
       };
     };
   };
@@ -30,6 +27,11 @@ rec {
   home = {
     nixhome = {
       inherit user;
+
+      desktop = {
+        i3 = true;
+        sway = true;
+      };
 
       browsers = {
         brave = true;
