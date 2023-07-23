@@ -19,6 +19,8 @@ in {
   };
 
   config = {
+    programs.dconf.enable = true;
+    services.qemuGuest.enable = true;
     virtualisation = {
       docker.enable = cfg.docker;
       podman = {
@@ -26,7 +28,15 @@ in {
         dockerCompat = cfg.podman;
         defaultNetwork.settings.dns_enabled = cfg.podman;
       };
-      libvirtd.enable = cfg.virt-manager;
+      libvirtd = {
+        enable = cfg.virt-manager;
+        qemu = {
+          ovmf.enable = true;
+          runAsRoot = true;
+        };
+        onBoot = "ignore";
+        onShutdown = "shutdown";
+      };
     };
 
     environment.systemPackages = filterPackages [
@@ -34,7 +44,5 @@ in {
       (getPackageIf cfg.podman pkgs.podman-compose)
       (getPackageIf cfg.virt-manager pkgs.virt-manager)
     ];
-
-    programs.dconf.enable = true;
   };
 }
