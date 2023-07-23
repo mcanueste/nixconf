@@ -17,6 +17,12 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.settings = {
+	  General = {
+		  Enable = "Source,Sink,Media,Socket";
+	  };
+  };
   services.blueman.enable = true;
   nixpkgs.config.pulseaudio = true;
 }

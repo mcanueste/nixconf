@@ -1,8 +1,9 @@
 {
   imports = [
+    ./greetd.nix
     ./gnome.nix
     ./i3.nix
-    ./greetd.nix
+    ./sway.nix
   ];
 
   security.polkit.enable = true;

@@ -20,6 +20,7 @@ rec {
         gnome = false;
         i3 = false;
         greetd = true;
+        sway = true;
       };
     };
   };
@@ -29,7 +30,12 @@ rec {
       inherit user;
 
       desktop = {
+        status = true;
+
         i3 = true;
+        rofi = true;
+        dunst = true;
+
         sway = true;
       };
 
