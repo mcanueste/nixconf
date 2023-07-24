@@ -13,6 +13,14 @@ in {
   };
 
   config = lib.mkIf cfg.sway {
+    home.packages = [
+      # screenshot
+      pkgs.grim
+      pkgs.slurp
+      pkgs.swappy
+
+      pkgs.pcmanfm # file manager
+    ];
     wayland.windowManager.sway = {
       enable = true;
       systemd.enable = true;
@@ -47,6 +55,20 @@ in {
           // {
             "${modifier}+Shift+e" = "exec swaynag -t warning -m 'Do you want to exit?' -b 'Yes' 'swaymsg exit'";
             "${modifier}+Escape" = "exec ${pkgs.swaylock}/bin/swaylock";
+
+            # Screenshot
+            "Print" = ''exec grim -g "$(slurp)" $HOME/Pictures/Screenshots/$(date -u +'%Y%m%d-%H%M%SZ').png'';
+            "Shift+Print" = ''exec grim -g "$(slurp)" - | swappy -o $HOME/Pictures/Screenshots/$(date -u +'%Y%m%d-%H%M%SZ').png -f -'';
+
+            ## Screen recording
+            # "${modifier}+Print" = "exec wayrecorder --notify screen";
+            # "${modifier}+Shift+Print" = "exec wayrecorder --notify --input area";
+            # "${modifier}+Alt+Print" = "exec wayrecorder --notify --input active";
+            # "${modifier}+Shift+Alt+Print" = "exec wayrecorder --notify --input window";
+            # "${modifier}+Ctrl+Print" = "exec wayrecorder --notify --clipboard --input screen";
+            # "${modifier}+Ctrl+Shift+Print" = "exec wayrecorder --notify --clipboard --input area";
+            # "${modifier}+Ctrl+Alt+Print" = "exec wayrecorder --notify --clipboard --input active";
+            # "${modifier}+Ctrl+Shift+Alt+Print" = "exec wayrecorder --notify --clipboard --input window";
           };
         startup = [
           {

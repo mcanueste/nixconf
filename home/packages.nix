@@ -25,9 +25,6 @@
       pkgs.ncdu
       pkgs.dive
       pkgs.just
-
-      # desktop related
-      pkgs.pcmanfm
     ];
   };
 }

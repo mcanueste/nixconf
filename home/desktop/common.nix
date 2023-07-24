@@ -98,20 +98,6 @@ in rec {
     "Control+XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl -s position 30+";
     "Control+XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl -s stop";
 
-    # Screenshot
-    "Print" = ''exec ${pkgs.flameshot}/bin/flameshot gui -p "$HOME/Pictures/Screenshots/$(date -u +'%Y%m%d-%H%M%SZ').png"'';
-    "Shift+Print" = ''exec ${pkgs.flameshot}/bin/flameshot full -p "$HOME/Pictures/Screenshots/$(date -u +'%Y%m%d-%H%M%SZ').png"'';
-
-    ## Screen recording
-    # "${modifier}+Print" = "exec wayrecorder --notify screen";
-    # "${modifier}+Shift+Print" = "exec wayrecorder --notify --input area";
-    # "${modifier}+Alt+Print" = "exec wayrecorder --notify --input active";
-    # "${modifier}+Shift+Alt+Print" = "exec wayrecorder --notify --input window";
-    # "${modifier}+Ctrl+Print" = "exec wayrecorder --notify --clipboard --input screen";
-    # "${modifier}+Ctrl+Shift+Print" = "exec wayrecorder --notify --clipboard --input area";
-    # "${modifier}+Ctrl+Alt+Print" = "exec wayrecorder --notify --clipboard --input active";
-    # "${modifier}+Ctrl+Shift+Alt+Print" = "exec wayrecorder --notify --clipboard --input window";
-
     "${modifier}+r" = "mode resize";
   };
   modes = {
