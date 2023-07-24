@@ -161,7 +161,7 @@ in {
           bold = genFontConf "Bold";
           italic = genFontConf "Italic";
           bold_italic = genFontConf "Bold Italic";
-          size = 10.0;
+          size = 12.0;
         };
         colors = catppuccin-mocha;
         key_bindings = [
