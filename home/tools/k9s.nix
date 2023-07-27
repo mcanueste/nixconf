@@ -19,7 +19,7 @@ in {
         owner = "catppuccin";
         repo = "k9s";
         rev = "main";
-        sha256 = "sha256-GrRCOwCgM8BFhY8TzO3/WDTUnGtqkhvlDWE//ox2GxI=";
+        sha256 = "sha256-PtBJRBNbLkj7D2ko7ebpEjbfK9Ywjs7zbE+Y8FQVEfA=";
       }
       + "/dist/mocha.yml");
   };
