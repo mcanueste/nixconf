@@ -5,6 +5,7 @@
     ./bat.nix
     ./zoxide.nix
     ./fzf.nix
+    ./todoist.nix
     ./direnv.nix
     ./lazygit.nix
     ./lazydocker.nix
