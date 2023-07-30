@@ -8,6 +8,7 @@ with pkgs.lib.conflib; let
 in {
   options.nixhome.editors = {
     obsidian = mkBoolOption {description = "Enable Obsidian";};
+    anki = mkBoolOption {description = "Enable anki";};
     gimp = mkBoolOption {description = "Enable gimp";};
     datagrip = mkBoolOption {
       description = "Enable JetBrains Datagrip";
@@ -22,6 +23,7 @@ in {
   config = {
     home.packages = filterPackages [
       (getPackageIf cfg.obsidian pkgs.obsidian)
+      (getPackageIf cfg.anki pkgs.anki)
       (getPackageIf cfg.gimp pkgs.gimp)
       (getPackageIf cfg.datagrip pkgs.jetbrains.datagrip)
       (getPackageIf cfg.pycharm pkgs.jetbrains.pycharm-professional)
