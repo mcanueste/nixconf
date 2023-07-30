@@ -1,6 +1,6 @@
 let
   shellAliases = {
-    nsw = "sudo nixos-rebuild switch --flake ~/nix/nixconf/";
+    nsw = "sudo nixos-rebuild switch --flake ~/nixconf/";
     ngc = "sudo nix-collect-garbage";
     nfu = "nix flake update";
   };
