@@ -9,10 +9,13 @@
       services = {
         notes-backup = {
           Install.WantedBy = ["default.target"];
-          Unit.Description = "Backup notes everyday.";
-          Service.ExecStart = ''
-            ${pkgs.bash}/bin/bash -c "cd ~/notes/ && git add . && git commit -m 'Backup: $(date +%Y-%m-%d)' && git push"
-          '';
+          Unit.Description = "Backup notes.";
+          Service.ExecStart = "${pkgs.bash}/bin/bash -c 'notebackup'";
+        };
+        blog-sync = {
+          Install.WantedBy = ["default.target"];
+          Unit.Description = "Sync blog.";
+          Service.ExecStart = "${pkgs.bash}/bin/bash -c 'blogsync'";
         };
         eye-strain-notify = {
           Install.WantedBy = ["default.target"];
@@ -28,9 +31,17 @@
       timers = {
         notes-backup = {
           Install.WantedBy = ["timers.target"];
-          Unit.Description = "Backup notes daily.";
+          Unit.Description = "Backup notes daily at 8 AM and 8 PM.";
           Timer = {
-            OnCalendar = "*-*-* 03:00:00";
+            OnCalendar = "*-*-* 08,20:00:00";
+            Persistent = true;
+          };
+        };
+        blog-sync = {
+          Install.WantedBy = ["timers.target"];
+          Unit.Description = "Sync blog daily at 8 AM and 8 PM.";
+          Timer = {
+            OnCalendar = "*-*-* 08,20:00:00";
             Persistent = true;
           };
         };

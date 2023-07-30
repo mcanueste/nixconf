@@ -11,5 +11,6 @@
     ./lazydocker.nix
     ./k9s.nix
     ./distrobox.nix
+    ./hugo.nix
   ];
 }
