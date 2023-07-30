@@ -14,5 +14,6 @@
     ./tools
     ./font.nix
     ./packages.nix
+    ./systemd.nix
   ];
 }
