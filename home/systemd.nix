@@ -7,16 +7,6 @@
   config = {
     systemd.user = {
       services = {
-        notes-backup = {
-          Install.WantedBy = ["default.target"];
-          Unit.Description = "Backup notes.";
-          Service.ExecStart = "${pkgs.bash}/bin/bash -c 'notebackup'";
-        };
-        blog-sync = {
-          Install.WantedBy = ["default.target"];
-          Unit.Description = "Sync blog.";
-          Service.ExecStart = "${pkgs.bash}/bin/bash -c 'blogsync'";
-        };
         eye-strain-notify = {
           Install.WantedBy = ["default.target"];
           Unit.Description = "Send notification to take 20sec break for preventing eye strain.";
@@ -29,22 +19,6 @@
         };
       };
       timers = {
-        notes-backup = {
-          Install.WantedBy = ["timers.target"];
-          Unit.Description = "Backup notes daily at 8 AM and 8 PM.";
-          Timer = {
-            OnCalendar = "*-*-* 08,20:00:00";
-            Persistent = true;
-          };
-        };
-        blog-sync = {
-          Install.WantedBy = ["timers.target"];
-          Unit.Description = "Sync blog daily at 8 AM and 8 PM.";
-          Timer = {
-            OnCalendar = "*-*-* 08,20:00:00";
-            Persistent = true;
-          };
-        };
         eye-strain-notify = {
           Install.WantedBy = ["timers.target"];
           Unit.Description = "Trigger eye strain notification on 20 and 40 min mark of every hour.";
