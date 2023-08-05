@@ -9,5 +9,7 @@
     curl
     wget
     unzip
+    coreutils
+    lsof
   ];
 }
