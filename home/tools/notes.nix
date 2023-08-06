@@ -14,7 +14,7 @@ with pkgs.lib.conflib; let
       export XDG_CONFIG_DIRS="$XDG_CONFIG_DIRS:/home/mcst/.config"
       export PATH="$PATH:/run/current-system/sw/bin"
       echo "Syncing blog notes from Obsidian vault to blog repository..."
-      rsync ./notes/blog/*.md ~/Projects/blog/content/blog/
+      rsync ~/notes/blog/*.md ~/Projects/blog/content/blog/
       cd ~/Projects/blog/
       hugo
       git add .
