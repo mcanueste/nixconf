@@ -25,6 +25,8 @@
       pkgs.ncdu
       pkgs.dive
       pkgs.just
+
+      pkgs.pdftk
     ];
   };
 }

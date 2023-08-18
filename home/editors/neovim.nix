@@ -197,7 +197,7 @@ in {
         nodePackages.bash-language-server
 
         # docker support
-        hadolint
+        # hadolint
         docker-compose-language-service
         nodePackages.dockerfile-language-server-nodejs
 
