@@ -70,6 +70,7 @@ in rec {
     # shortcuts
     "${modifier}+b" = "exec brave";
     "${modifier}+n" = "exec obsidian ~/notes";
+    "${modifier}+z" = "exec obsidian ~/german";
     "${modifier}+c" = "exec discord";
 
     ## Output pressed keycode using xev:
