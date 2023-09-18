@@ -1,7 +1,7 @@
 {
   imports = [
     ./git.nix
-    ./exa.nix
+    ./eza.nix
     ./bat.nix
     ./zoxide.nix
     ./fzf.nix

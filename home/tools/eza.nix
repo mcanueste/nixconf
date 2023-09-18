@@ -8,11 +8,11 @@ with pkgs.lib.conflib; let
   cfg = config.nixhome.tools;
 in {
   options.nixhome.tools = {
-    exa = mkBoolOption {description = "Enable exa";};
+    eza = mkBoolOption {description = "Enable eza";};
   };
 
-  config = lib.mkIf cfg.exa {
-    programs.exa = {
+  config = lib.mkIf cfg.eza {
+    programs.eza = {
       enable = true;
       enableAliases = true;
       git = true;
