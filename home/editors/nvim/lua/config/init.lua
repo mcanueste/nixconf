@@ -8,6 +8,7 @@ local function init()
     require("config.treesitter").init()
     require("config.languages").init()
     require("config.notes").init()
+    require("config.ai").init()
 end
 
 return { init = init }

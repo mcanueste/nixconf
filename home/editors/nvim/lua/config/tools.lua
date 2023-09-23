@@ -68,9 +68,11 @@ local function init()
             excluded_filetypes = { "harpoon" },
         },
     })
+
     vim.cmd([[ autocmd Filetype harpoon setlocal cursorline ]])
     vim.cmd([[ hi HarpoonWindow guibg=#1E1E2E ]])
-    vim.cmd([[ hi HarpoonBorder guibg=#1E1E2E guifg=#CDD6F4 ]])
+    vim.cmd([[ hi HarpoonBorder guibg=#1E1E2E guifg=#89B4FA ]])
+
     vim.keymap.set("n", "<leader>hh", function()
         require("harpoon.mark").add_file()
     end, { noremap = true, desc = "Mark file" })

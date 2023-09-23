@@ -156,15 +156,7 @@ in {
           SchemaStore-nvim
 
           # extras
-          # (vimPlugins.ChatGPT-nvim.overrideAttrs (old: {
-          #   src = fetchFromGitHub {
-          #     owner = "jackMort";
-          #     repo = "ChatGPT.nvim";
-          #     rev = "f499559f636676498692a2f19e74b077cbf52839";
-          #     sha256 = "sha256-98daaRkdrTZyNZuQPciaeRNuzyS52bsha4yyyAALcog=";
-          #   };
-          # }))
-          # vimPlugins.copilot-lua
+          ChatGPT-nvim
         ]
         ++ [nvim-config capture-nvim vim-just];
 
