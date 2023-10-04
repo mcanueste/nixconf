@@ -12,7 +12,7 @@ with pkgs.lib.conflib; let
     src = ./nvim;
   };
 
-  capture-nvim = pkgs.vimUtils.buildVimPluginFrom2Nix {
+  capture-nvim = pkgs.vimUtils.buildVimPlugin {
     name = "capture-nvim";
     src = pkgs.fetchFromGitHub {
       owner = "mcanueste";

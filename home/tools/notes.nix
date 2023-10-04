@@ -52,7 +52,7 @@ with pkgs.lib.conflib; let
   };
 
   germanbackup = pkgs.writeShellApplication {
-    name = "germanbackup";
+    name = "";
     runtimeInputs = [pkgs.git];
     text = ''
       export XDG_CONFIG_DIRS="$XDG_CONFIG_DIRS:/home/mcst/.config"
@@ -81,38 +81,38 @@ in {
     home.packages = filterPackages [
       (getPackageIf cfg.obsidian pkgs.obsidian)
       (getPackageIf cfg.obsidian notebackup)
-      (getPackageIf cfg.obsidian germanbackup)
+      # (getPackageIf cfg.obsidian germanbackup)
       (getPackageIf cfg.hugo pkgs.hugo)
-      (getPackageIf cfg.hugo blogsync)
+      # (getPackageIf cfg.hugo blogsync)
     ];
 
     systemd.user = {
       services = {
-        german-backup = {
-          Install.WantedBy = ["default.target"];
-          Unit.Description = "Backup German notes.";
-          Service.ExecStart = "${germanbackup}/bin/germanbackup";
-        };
+        # german-backup = {
+        #   Install.WantedBy = ["default.target"];
+        #   Unit.Description = "Backup German notes.";
+        #   Service.ExecStart = "${germanbackup}/bin/germanbackup";
+        # };
         notes-backup = {
           Install.WantedBy = ["default.target"];
           Unit.Description = "Backup notes.";
           Service.ExecStart = "${notebackup}/bin/notebackup";
         };
-        blog-sync = {
-          Install.WantedBy = ["default.target"];
-          Unit.Description = "Sync blog.";
-          Service.ExecStart = "${blogsync}/bin/blogsync";
-        };
+        # blog-sync = {
+        #   Install.WantedBy = ["default.target"];
+        #   Unit.Description = "Sync blog.";
+        #   Service.ExecStart = "${blogsync}/bin/blogsync";
+        # };
       };
       timers = {
-        german-backup = {
-          Install.WantedBy = ["timers.target"];
-          Unit.Description = "Backup German notes hourly (if there is a change).";
-          Timer = {
-            OnCalendar = "*-*-* *:00:00";
-            Persistent = true;
-          };
-        };
+        # german-backup = {
+        #   Install.WantedBy = ["timers.target"];
+        #   Unit.Description = "Backup German notes hourly (if there is a change).";
+        #   Timer = {
+        #     OnCalendar = "*-*-* *:00:00";
+        #     Persistent = true;
+        #   };
+        # };
         notes-backup = {
           Install.WantedBy = ["timers.target"];
           Unit.Description = "Backup notes hourly (if there is a change).";
@@ -121,14 +121,14 @@ in {
             Persistent = true;
           };
         };
-        blog-sync = {
-          Install.WantedBy = ["timers.target"];
-          Unit.Description = "Sync blog hourly (if there is a change).";
-          Timer = {
-            OnCalendar = "*-*-* *:00:00";
-            Persistent = true;
-          };
-        };
+        # blog-sync = {
+        #   Install.WantedBy = ["timers.target"];
+        #   Unit.Description = "Sync blog hourly (if there is a change).";
+        #   Timer = {
+        #     OnCalendar = "*-*-* *:00:00";
+        #     Persistent = true;
+        #   };
+        # };
       };
     };
   };
