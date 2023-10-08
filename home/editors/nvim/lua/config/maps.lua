@@ -1,0 +1,54 @@
+local whichkey = require("which-key")
+local utils = require("config.utils")
+local move = require("mini.move")
+
+local function init()
+    -------------------------------------------- Basic
+    -- mini.move for moving current line or visual selection
+    -- See: https://github.com/echasnovski/mini.move
+    move.setup()
+
+    -- Clear search with ESC
+    vim.keymap.set({ "n", "i" }, "<esc>", "<cmd>noh<cr><esc>", { noremap = true, desc = "Clear search" })
+
+    -- Move to the beginning or end of line with H and L
+    vim.keymap.set({ "n", "v" }, "H", "^", { noremap = true, desc = "Move beginning of line" })
+    vim.keymap.set("n", "L", "$", { noremap = true, desc = "Move end of line" })
+    vim.keymap.set("v", "L", "g_", { noremap = true, desc = "Move end of line" })
+
+    -------------------------------------------- Toggles
+    whichkey.register({ t = { name = "toggle" } }, { prefix = "<leader>" })
+
+    -- add missing conceallevel toggle
+    vim.keymap.set({ "n" }, "<leader>tu", function()
+        utils.toggle_conceal()
+    end, { noremap = true, desc = "Toggle 'conceallevel'" })
+
+    -------------------------------------------- Buffers
+    whichkey.register({ b = { name = "buffer" } }, { prefix = "<leader>" })
+
+    -- Switch to other buffer
+    vim.keymap.set("n", "<leader>bb", "<cmd>e #<cr>", { noremap = true, desc = "Switch to Other Buffer" })
+
+    -------------------------------------------- File Edit
+    whichkey.register({ e = { name = "edit" } }, { prefix = "<leader>" })
+
+    -- Make file executable
+    vim.keymap.set(
+        "n",
+        "<leader>ex",
+        "<cmd>!chmod +x %<CR>",
+        { silent = true, noremap = true, desc = "Make file executable" }
+    )
+
+    -- Paste without saving the selected text to register
+    vim.keymap.set("v", "<leader>ep", [["_dP]], { noremap = true, desc = "Paste w/o register" })
+
+    -- Cut word under cursor without saving to register
+    vim.keymap.set("n", "<leader>ed", [[viw"_d]], { noremap = true, desc = "Delete word w/o register" })
+
+    -- Cut selected text without saving to register
+    vim.keymap.set("v", "<leader>ed", [["_d]], { noremap = true, desc = "Delete w/o register" })
+end
+
+return { init = init }

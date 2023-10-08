@@ -11,6 +11,7 @@ local function init()
             untracked = { text = "▎" },
         },
         on_attach = function(bufnr)
+            require("which-key").register({ v = { name = "vcs" } }, { prefix = "<leader>" })
             local gs = package.loaded.gitsigns
 
             local function map(mode, l, r, desc, opts)
@@ -58,8 +59,15 @@ local function init()
             map("n", "<leader>vD", function()
                 gs.diffthis("~")
             end, "Show diff ~")
+
             -- Text object
             map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Select hunk")
+
+            -- Telescope
+            map("n", "<leader>vc", "<cmd>Telescope git_commits<CR>", { noremap = true, desc = "Commits" })
+            map("n", "<leader>vC", "<cmd>Telescope git_bcommits<CR>", { noremap = true, desc = "Buffer Commits" })
+            map("n", "<leader>vt", "<cmd>Telescope git_stash<CR>", { noremap = true, desc = "Stash" })
+            map("n", "<leader>vr", "<cmd>Telescope git_branches<CR>", { noremap = true, desc = "Branches" })
         end,
     })
 end

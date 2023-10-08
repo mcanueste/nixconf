@@ -12,25 +12,15 @@ with pkgs.lib.conflib; let
     src = ./nvim;
   };
 
-  capture-nvim = pkgs.vimUtils.buildVimPlugin {
-    name = "capture-nvim";
-    src = pkgs.fetchFromGitHub {
-      owner = "mcanueste";
-      repo = "capture.nvim";
-      rev = "ea4ed03278a405439dac0fe9b1aed28b43124e37";
-      sha256 = "sha256-tsI/D6O5nUWLHgtXtX8iPaiSb6MRx1d4uLKYf1onGh4=";
-    };
-  };
-
-  vim-just = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-just";
-    src = pkgs.fetchFromGitHub {
-      owner = "NoahTheDuke";
-      repo = "vim-just";
-      rev = "10de9ebf0bd8df8ff8593b0b87ec8bf3b715326f";
-      sha256 = "sha256-NGhWF4/SEPww9e/wCDghGMSPZmmAbms6tn/IHqDMDkI=";
-    };
-  };
+  # capture-nvim = pkgs.vimUtils.buildVimPlugin {
+  #   name = "capture-nvim";
+  #   src = pkgs.fetchFromGitHub {
+  #     owner = "mcanueste";
+  #     repo = "capture.nvim";
+  #     rev = "ea4ed03278a405439dac0fe9b1aed28b43124e37";
+  #     sha256 = "sha256-tsI/D6O5nUWLHgtXtX8iPaiSb6MRx1d4uLKYf1onGh4=";
+  #   };
+  # };
 
   shellAliases = {
     v = "nvim";
@@ -72,10 +62,11 @@ in {
           gitsigns-nvim
           nvim-web-devicons
           which-key-nvim
+          noice-nvim
+          nvim-notify
 
           # tools
           vim-sleuth # no setup
-          # vim-repeat
           telescope-nvim
           trouble-nvim
           mini-nvim
@@ -83,7 +74,7 @@ in {
           FTerm-nvim
           # nvim-spectre -- TODO: check later
 
-          # languages
+          # treesitter
           (nvim-treesitter.withPlugins
             (p: [
               p.bash
@@ -143,8 +134,10 @@ in {
               p.yaml
               p.zig
             ]))
+          nvim-treesitter-refactor
           nvim-treesitter-context
-          null-ls-nvim
+          nvim-ts-context-commentstring
+
           nvim-lspconfig
           luasnip
           friendly-snippets
@@ -154,11 +147,10 @@ in {
           cmp-path
           cmp_luasnip
           SchemaStore-nvim
-
-          # extras
+          null-ls-nvim
           ChatGPT-nvim
         ]
-        ++ [nvim-config capture-nvim vim-just];
+        ++ [nvim-config];
 
       extraConfig = ''
         lua << EOF

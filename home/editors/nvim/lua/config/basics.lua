@@ -1,69 +1,66 @@
-local bracketed = require("mini.bracketed")
 local bufremove = require("mini.bufremove")
 local basics = require("mini.basics")
-local utils = require("config.utils")
-local move = require("mini.move")
 
 local function augroup(name)
     return vim.api.nvim_create_augroup("config_" .. name, { clear = true })
 end
 
 local function init()
+    -- mini.basics for setting up defaults
+    -- See: https://github.com/echasnovski/mini.basics
     basics.setup({
+        -- Whether to disable showing non-error feedback
+        silent = false,
+
         options = {
+            -- Basic options ('termguicolors', 'number', 'ignorecase', and many more)
+            -- See: https://github.com/echasnovski/mini.basics/blob/c31a4725710db9733e8a8edb420f51fd617d72a3/lua/mini/basics.lua#L436
             basic = true,
-            extra_ui = true,
+
+            -- Extra UI features ('winblend', 'cmdheight=0', ...)
+            -- NOTE: Not using. Messes up floating windows background
+            -- See: https://github.com/echasnovski/mini.basics/blob/c31a4725710db9733e8a8edb420f51fd617d72a3/lua/mini/basics.lua#L489
+            extra_ui = false,
+
+            -- Consistent bold single line window borders
+            -- See: https://github.com/echasnovski/mini.basics/blob/c31a4725710db9733e8a8edb420f51fd617d72a3/lua/mini/basics.lua#L502
             win_borders = "bold",
         },
         mappings = {
+            -- Basic mappings (better 'jk', save with Ctrl+S, ...)
+            -- See: https://github.com/echasnovski/mini.basics/blob/c31a4725710db9733e8a8edb420f51fd617d72a3/lua/mini/basics.lua#L541C32-L541C32
             basic = true,
-            option_toggle_prefix = "<leader>u",
-            windows = false, -- we use vim-tmux-navigator anyway
-            move_with_alt = false, -- TODO: conflicts with tmux maps
+
+            -- Prefix for mappings common options toggles ('wrap', 'spell', ...).
+            option_toggle_prefix = "<leader>t",
+
+            -- Window navigation with <C-hjkl>, resize with <C-arrow>
+            -- Using vim-tmux-navigator as well
+            windows = true,
+
+            -- Move cursor in Insert, Command, and Terminal mode with <M-hjkl>
+            move_with_alt = true,
         },
         autocommands = {
+            -- Basic autocommands (highlight on yank, start Insert in terminal, ...)
+            -- See: https://github.com/echasnovski/mini.basics/blob/c31a4725710db9733e8a8edb420f51fd617d72a3/lua/mini/basics.lua#L716
             basic = true,
-            relnum_in_visual_mode = true,
-        },
-        silent = false, -- Whether to disable showing non-error feedback
-    })
-    vim.keymap.del({ "n", "x" }, "gy") -- delete mini.basics binding
-    vim.keymap.del({ "n", "x" }, "gp") -- delete mini.basics binding
 
-    move.setup({
-        mappings = {
-            -- Move visual selection in Visual mode. Defaults are Alt (Meta) + hjkl.
-            left = "<C-S-h>",
-            right = "<C-S-l>",
-            down = "<C-S-j>",
-            up = "<C-S-k>",
-
-            -- Move current line in Normal mode
-            line_left = "<C-S-h>",
-            line_right = "<C-S-l>",
-            line_down = "<C-S-j>",
-            line_up = "<C-S-k>",
+            -- Set 'relativenumber' only in linewise and blockwise Visual mode
+            -- Disable to have relative numbers all the time
+            relnum_in_visual_mode = false,
         },
     })
 
-    bracketed.setup({
-        buffer = { suffix = "b", options = {} },
-        comment = { suffix = "c", options = {} },
-        conflict = { suffix = "x", options = {} },
-        diagnostic = { suffix = "d", options = {} },
-        location = { suffix = "l", options = {} },
-        indent = { suffix = "", options = {} },
-        file = { suffix = "", options = {} },
-        jump = { suffix = "", options = {} },
-        oldfile = { suffix = "", options = {} },
-        quickfix = { suffix = "", options = {} },
-        treesitter = { suffix = "", options = {} },
-        undo = { suffix = "", options = {} },
-        window = { suffix = "", options = {} },
-        yank = { suffix = "", options = {} },
-    })
+    -- delete mini.basics binding for sys clipboard yank and paste (using global clipboard)
+    vim.keymap.del({ "n", "x" }, "gy")
+    vim.keymap.del({ "n", "x" }, "gp")
 
+    -- mini.bufremove for deciding which buffer to show in windows after removal of current buffer
+    -- See: https://github.com/echasnovski/mini.bufremove
     bufremove.setup()
+
+    -- TODO: remove unused builtin nvim plugins. see nvchad configs for more details
 
     -------------------------------------------- Options
     vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
@@ -85,7 +82,7 @@ local function init()
 
     vim.opt.list = false -- hide listchars
 
-    vim.opt.spell = false
+    vim.opt.spell = false -- TODO: enable with AI support?
     vim.opt.spelllang = { "en" }
 
     vim.opt.timeout = true
@@ -103,6 +100,8 @@ local function init()
     vim.opt.isfname:append("@-@") -- Filename for gf and other file commands
 
     vim.opt.formatoptions = "jql1tcron"
+
+    vim.opt.foldenable = false -- disable folds at startup
 
     -------------------------------------------- Autocommands
     -- Check if we need to reload the file when it changed
@@ -135,15 +134,14 @@ local function init()
     vim.api.nvim_create_autocmd("FileType", {
         group = augroup("close_with_q"),
         pattern = {
-            "PlenaryTestPopup",
             "help",
             "lspinfo",
             "man",
-            "startuptime",
-            "tsplayground",
-            "query", -- :InspectTree
             "harpoon",
-            "spectre_panel",
+            "FTerm"
+            -- "spectre_panel",
+            -- "PlenaryTestPopup",
+            -- TODO: add floating term and other tools here
         },
         callback = function(event)
             vim.bo[event.buf].buflisted = false
@@ -160,66 +158,6 @@ local function init()
             vim.opt_local.spell = true
         end,
     })
-
-    -------------------------------------------- Keymaps
-    vim.keymap.set({ "n", "i" }, "<esc>", "<cmd>noh<cr><esc>", { noremap = true, desc = "Clear search" })
-
-    vim.keymap.set({ "n" }, "<leader>uu", function() utils.toggle_conceal() end, { noremap = true, desc = "Toggle 'conceallevel'" })
-
-    -- TODO maybe remap these keys to something else?
-    vim.keymap.set(
-        "n",
-        "<C-Left>",
-        '"<Cmd>vertical resize -" . v:count5 . "<CR>"',
-        { expr = true, replace_keycodes = false, desc = "Decrease window width" }
-    )
-    vim.keymap.set(
-        "n",
-        "<C-Down>",
-        '"<Cmd>resize -"          . v:count5 . "<CR>"',
-        { expr = true, replace_keycodes = false, desc = "Decrease window height" }
-    )
-    vim.keymap.set(
-        "n",
-        "<C-Up>",
-        '"<Cmd>resize +"          . v:count5 . "<CR>"',
-        { expr = true, replace_keycodes = false, desc = "Increase window height" }
-    )
-    vim.keymap.set(
-        "n",
-        "<C-Right>",
-        '"<Cmd>vertical resize +" . v:count5 . "<CR>"',
-        { expr = true, replace_keycodes = false, desc = "Increase window width" }
-    )
-
-    vim.keymap.set({ "i", "v", "n", "s" }, "<C-q><C-q>", "<cmd>qa<cr>", { noremap = true, desc = "Quit all" })
-
-    vim.keymap.set({ "n", "v" }, "H", "^", { noremap = true, desc = "Move beginning of line" })
-    vim.keymap.set("n", "L", "$", { noremap = true, desc = "Move end of line" })
-    vim.keymap.set("v", "L", "g_", { noremap = true, desc = "Move end of line" })
-
-    vim.keymap.set("n", "]<tab>", "<cmd>tabnext<cr>", { noremap = true, desc = "Next Tab" })
-    vim.keymap.set("n", "[<tab>", "<cmd>tabprevious<cr>", { noremap = true, desc = "Previous Tab" })
-    vim.keymap.set("n", "<leader><tab>n", "<cmd>tabnew<cr>", { noremap = true, desc = "New Tab" })
-    vim.keymap.set("n", "<leader><tab>l", "<cmd>tablast<cr>", { noremap = true, desc = "Last Tab" })
-    vim.keymap.set("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { noremap = true, desc = "First Tab" })
-
-    vim.keymap.set("v", "gp", [["_dP]], { noremap = true, desc = "Paste w/o register" })
-    vim.keymap.set("v", "gx", [["_d]], { noremap = true, desc = "Delete w/oregister" })
-    vim.keymap.set(
-        "n",
-        "gr",
-        [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-        { noremap = true, desc = "Search & Replace word under cursor" }
-    )
-
-    vim.keymap.set("n", "<leader>gg", "<cmd>e #<cr>", { noremap = true, desc = "Switch to Other Buffer" })
-    vim.keymap.set(
-        "n",
-        "<leader>gx",
-        "<cmd>!chmod +x %<CR>",
-        { silent = true, noremap = true, desc = "Make file executable" }
-    )
 end
 
 return { init = init }

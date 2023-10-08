@@ -12,6 +12,7 @@ in {
     azure = mkBoolOption {description = "Enable Azure CLI";};
     digital-ocean = mkBoolOption {description = "Enable Digital Ocean CLI";};
     cfssl = mkBoolOption {description = "Enable CloudFlare SSL CLI";};
+    localstack = mkBoolOption {description = "Enable localstack for local cloud";};
   };
 
   config = {
@@ -21,6 +22,7 @@ in {
       (getPackageIf cfg.azure pkgs.azure-cli)
       (getPackageIf cfg.digital-ocean pkgs.doctl)
       (getPackageIf cfg.cfssl pkgs.cfssl)
+      (getPackageIf cfg.localstack pkgs.localstack)
     ];
   };
 }
