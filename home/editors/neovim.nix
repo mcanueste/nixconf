@@ -12,15 +12,15 @@ with pkgs.lib.conflib; let
     src = ./nvim;
   };
 
-  # capture-nvim = pkgs.vimUtils.buildVimPlugin {
-  #   name = "capture-nvim";
-  #   src = pkgs.fetchFromGitHub {
-  #     owner = "mcanueste";
-  #     repo = "capture.nvim";
-  #     rev = "ea4ed03278a405439dac0fe9b1aed28b43124e37";
-  #     sha256 = "sha256-tsI/D6O5nUWLHgtXtX8iPaiSb6MRx1d4uLKYf1onGh4=";
-  #   };
-  # };
+  obsidian-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "obsidian-nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "epwalsh";
+      repo = "obsidian.nvim";
+      rev = "main";
+      sha256 = "sha256-GmfstS3XisMh2/Wzo4zvFz4OYDDPh1QKi9Ap3Y3EuOo=";
+    };
+  };
 
   shellAliases = {
     v = "nvim";
@@ -68,6 +68,7 @@ in {
           # tools
           vim-sleuth # no setup
           telescope-nvim
+          telescope-file-browser-nvim
           trouble-nvim
           mini-nvim
           harpoon
@@ -150,7 +151,7 @@ in {
           null-ls-nvim
           ChatGPT-nvim
         ]
-        ++ [nvim-config];
+        ++ [nvim-config obsidian-nvim];
 
       extraConfig = ''
         lua << EOF

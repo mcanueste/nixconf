@@ -1,6 +1,9 @@
+local whichkey = require("which-key")
 local chatgpt = require("chatgpt")
 
 local function init()
+    whichkey.register({ v = { name = "vcs" } }, { prefix = "<leader>" })
+
     local home = vim.fn.expand("$HOME")
     chatgpt.setup({
         api_key_cmd = "cat " .. home .. "/.ssh/chatgpt.key",

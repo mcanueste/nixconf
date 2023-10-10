@@ -1,5 +1,6 @@
 local M = {}
 
+--------------------------------------------- Toggle utils
 function M.toggle_conceal()
     local winnr = vim.api.nvim_get_current_win()
     local conceallevel = vim.api.nvim_win_get_option(winnr, "conceallevel")
@@ -7,6 +8,7 @@ function M.toggle_conceal()
     vim.opt.conceallevel = newconceallevel
 end
 
+--------------------------------------------- Telescope utils
 M.root_patterns = { ".git" }
 
 function M.get_root()

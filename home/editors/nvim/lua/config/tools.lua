@@ -5,7 +5,7 @@ local telescope = require("telescope")
 local whichkey = require("which-key")
 local utils = require("config.utils")
 local pairs = require("mini.pairs")
-local files = require("mini.files")
+-- local files = require("mini.files")
 local trouble = require("trouble")
 local harpoon = require("harpoon")
 
@@ -39,10 +39,10 @@ local function init()
 
     -- mini.files for small file explorer
     -- See: https://github.com/echasnovski/mini.files
-    files.setup()
-    vim.keymap.set("n", "<leader>oe", function()
-        files.open()
-    end, { noremap = true, desc = "Files" })
+    -- files.setup()
+    -- vim.keymap.set("n", "<leader>oe", function()
+    --     files.open()
+    -- end, { noremap = true, desc = "Files" })
 
     -------------------------------------------- Harpoon
     whichkey.register({ h = { name = "harpoon" } }, { prefix = "<leader>" })
@@ -110,6 +110,7 @@ local function init()
     end, { noremap = true, desc = "Next trouble/quickfix item" })
 
     -------------------------------------------- Telescope
+
     -- telescope for fuzzy find
     -- See: https://github.com/nvim-telescope/telescope.nvim
     --
@@ -125,7 +126,7 @@ local function init()
             mappings = {
                 i = {
                     ["<C-t>"] = function(...)
-                      return require("trouble.providers.telescope").smart_open_with_trouble(...)
+                        return require("trouble.providers.telescope").smart_open_with_trouble(...)
                     end,
                     -- ["<M-g>"] = function() -- FIXME: toggles for ignored files and hidden files
                     --     utils.telescope("find_files", { no_ignore = true })()
@@ -139,12 +140,27 @@ local function init()
                         return require("telescope.actions").close(...)
                     end,
                     ["<C-t>"] = function(...)
-                      return require("trouble.providers.telescope").smart_open_with_trouble(...)
+                        return require("trouble.providers.telescope").smart_open_with_trouble(...)
                     end,
                 },
             },
         },
     })
+    telescope.load_extension("file_browser") -- add file browser extension
+
+    vim.api.nvim_set_keymap(
+        "n",
+        "<space>oe",
+        ":Telescope file_browser<CR>",
+        { noremap = true, desc = "File Browser" }
+    )
+    vim.api.nvim_set_keymap(
+        "n",
+        "<space>oE",
+        ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
+        { noremap = true, desc = "File Browser (cwd)" }
+    )
+
     vim.keymap.set("n", "<leader><space>", "<cmd>Telescope resume<cr>", { noremap = true, desc = "Resume Telescope" })
 
     -------------------------------------------- Find

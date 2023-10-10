@@ -1,6 +1,9 @@
+local whichkey = require("which-key")
 local gitsigns = require("gitsigns")
 
 local function init()
+    whichkey.register({ v = { name = "vcs" } }, { prefix = "<leader>" })
+
     gitsigns.setup({
         signs = {
             add = { text = "▎" },
