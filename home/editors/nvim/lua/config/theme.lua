@@ -32,17 +32,15 @@ local function init()
             which_key = true,
             noice = true,
             notify = true,
-            telescope = {
+            semantic_tokens = true,
+            telescope = { enabled = true },
+            dap = {
                 enabled = true,
-                -- style = "nvchad"
+                enable_ui = true,
             },
-            -- dap = {
-            --     enabled = true,
-            --     enable_ui = true, -- enable nvim-dap-ui
-            -- },
             native_lsp = {
                 enabled = true,
-                virtual_text = { -- FIXME: might be too distracting
+                virtual_text = {
                     errors = { "italic" },
                     hints = { "italic" },
                     warnings = { "italic" },
@@ -67,13 +65,12 @@ local function init()
     ---@diagnostic disable-next-line: undefined-field
     lualine.setup({
         options = {
-            icons_enabled = true,
             theme = "catppuccin",
             component_separators = { left = "", right = "" },
             section_separators = { left = "", right = "" },
             globalstatus = true,
         },
-        extensions = { "fzf", "quickfix", "neo-tree" },
+        extensions = { "quickfix", "man", "nvim-dap-ui", "trouble" },
     })
 
     -- mini.hipatterns for highlighting based on regex
@@ -90,11 +87,13 @@ local function init()
         },
     })
 
-    -- TODO: add keymaps for disabling and removing notifications?
     -- notify-nvim for notifications
     -- See: https://github.com/folke/noice.nvim
     notify.setup({
-        background_colour = "#1E1E2E",
+        background_colour = "FloatShadow",
+        stages = "fade_in_slide_out",
+        render = "wrapped-compact",
+        timeout = 3000,
     })
 
     -- noice.nvim for fancy gui
@@ -114,7 +113,7 @@ local function init()
             command_palette = true, -- position the cmdline and popupmenu together
             long_message_to_split = true, -- long messages will be sent to a split
             inc_rename = false, -- enables an input dialog for inc-rename.nvim
-            lsp_doc_border = false, -- add a border to hover docs and signature help
+            lsp_doc_border = true, -- add a border to hover docs and signature help
         },
     })
 

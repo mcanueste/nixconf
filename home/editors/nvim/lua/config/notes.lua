@@ -1,13 +1,13 @@
-local telescope = require("telescope.builtin")
 local whichkey = require("which-key")
 local obsidian = require("obsidian")
-local utils = require("config.utils")
 
 local function init()
+    -- Obsidian.nvim setup
+    -- See: https://github.com/epwalsh/obsidian.nvim
+    -- Also see: https://mcanueste.com/posts/obsidian-nvim-customizations-for-capture-notes
+
     local home = vim.fn.expand("$HOME")
     local vault_path = home .. "/notes"
-    local capture_path = home .. "/notes/capture"
-
     ---@diagnostic disable-next-line: missing-fields
     local client = obsidian.setup({
         dir = vault_path,

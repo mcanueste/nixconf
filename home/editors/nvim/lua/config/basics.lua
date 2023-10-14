@@ -8,29 +8,14 @@ end
 local function init()
     -- mini.basics for setting up defaults
     -- See: https://github.com/echasnovski/mini.basics
+    -- Only included non-default options here.
     basics.setup({
-        -- Whether to disable showing non-error feedback
-        silent = false,
-
         options = {
-            -- Basic options ('termguicolors', 'number', 'ignorecase', and many more)
-            -- See: https://github.com/echasnovski/mini.basics/blob/c31a4725710db9733e8a8edb420f51fd617d72a3/lua/mini/basics.lua#L436
-            basic = true,
-
-            -- Extra UI features ('winblend', 'cmdheight=0', ...)
-            -- NOTE: Not using. Messes up floating windows background
-            -- See: https://github.com/echasnovski/mini.basics/blob/c31a4725710db9733e8a8edb420f51fd617d72a3/lua/mini/basics.lua#L489
-            extra_ui = false,
-
             -- Consistent bold single line window borders
             -- See: https://github.com/echasnovski/mini.basics/blob/c31a4725710db9733e8a8edb420f51fd617d72a3/lua/mini/basics.lua#L502
             win_borders = "bold",
         },
         mappings = {
-            -- Basic mappings (better 'jk', save with Ctrl+S, ...)
-            -- See: https://github.com/echasnovski/mini.basics/blob/c31a4725710db9733e8a8edb420f51fd617d72a3/lua/mini/basics.lua#L541C32-L541C32
-            basic = true,
-
             -- Prefix for mappings common options toggles ('wrap', 'spell', ...).
             option_toggle_prefix = "<leader>t",
 
@@ -40,15 +25,6 @@ local function init()
 
             -- Move cursor in Insert, Command, and Terminal mode with <M-hjkl>
             move_with_alt = true,
-        },
-        autocommands = {
-            -- Basic autocommands (highlight on yank, start Insert in terminal, ...)
-            -- See: https://github.com/echasnovski/mini.basics/blob/c31a4725710db9733e8a8edb420f51fd617d72a3/lua/mini/basics.lua#L716
-            basic = true,
-
-            -- Set 'relativenumber' only in linewise and blockwise Visual mode
-            -- Disable to have relative numbers all the time
-            relnum_in_visual_mode = false,
         },
     })
 
@@ -60,7 +36,7 @@ local function init()
     -- See: https://github.com/echasnovski/mini.bufremove
     bufremove.setup()
 
-    -- TODO: remove unused builtin nvim plugins. see nvchad configs for more details
+    -- TODO: remove unused builtin nvim plugins. see nvchad/lazy configs for more details
 
     -------------------------------------------- Options
     vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
@@ -82,7 +58,7 @@ local function init()
 
     vim.opt.list = false -- hide listchars
 
-    vim.opt.spell = false -- TODO: enable with AI support?
+    vim.opt.spell = false -- disable by default
     vim.opt.spelllang = { "en" }
 
     vim.opt.timeout = true
@@ -101,7 +77,7 @@ local function init()
 
     vim.opt.formatoptions = "jql1tcron"
 
-    vim.opt.foldenable = false -- disable folds at startup
+    vim.opt.foldenable = false -- disable folds by default
 
     -------------------------------------------- Autocommands
     -- Check if we need to reload the file when it changed

@@ -53,7 +53,7 @@ local function init()
                     smart_rename = "<leader>er", -- add to 'edit' prefix
                 },
             },
-            -- navigation = {
+            -- navigation = { TODO: what dis?
             --     enable = true,
             --     -- Assign keymaps to false to disable them, e.g. `goto_definition = false`.
             --     keymaps = {
@@ -111,14 +111,8 @@ local function init()
         },
     })
 
-    -- mini.bracketed for moving forward/backward with brackets TODO: might move to another file?
+    -- mini.bracketed for moving forward/backward with brackets
     -- See: https://github.com/echasnovski/mini.bracketed
-    -- [B [b ]b ]B -> buffer
-    -- [C [c ]c ]C -> comment block
-    -- [X [x ]x ]X -> conflict marker (git)
-    -- [D [d ]d ]D -> diagnostics
-    -- [I [i ]i ]I -> indent change
-    -- [J [j ]j ]J -> jump from jumplist inside current buffer
     bracketed.setup({
         buffer = { suffix = "b", options = {} },
         comment = { suffix = "c", options = {} },

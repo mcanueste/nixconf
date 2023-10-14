@@ -24,6 +24,10 @@ local function init()
         utils.toggle_conceal()
     end, { noremap = true, desc = "Toggle 'conceallevel'" })
 
+    vim.keymap.set({ "n" }, "<leader>uN", function()
+        require("notify").dismiss({ silent = true, pending = true })
+    end, { noremap = true, desc = "Dismiss all Notifications" })
+
     -------------------------------------------- Buffers
     whichkey.register({ b = { name = "buffer" } }, { prefix = "<leader>" })
 

@@ -37,13 +37,6 @@ local function init()
     -------------------------------------------- File explorer
     whichkey.register({ o = { name = "open" } }, { prefix = "<leader>" })
 
-    -- mini.files for small file explorer
-    -- See: https://github.com/echasnovski/mini.files
-    -- files.setup()
-    -- vim.keymap.set("n", "<leader>oe", function()
-    --     files.open()
-    -- end, { noremap = true, desc = "Files" })
-
     -------------------------------------------- Harpoon
     whichkey.register({ h = { name = "harpoon" } }, { prefix = "<leader>" })
 
@@ -190,10 +183,6 @@ local function init()
         "<cmd>Telescope command_history<cr>",
         { noremap = true, desc = "Command History" }
     )
-
-    -------------------------------------------- Grep
-    whichkey.register({ g = { name = "grep" } }, { prefix = "<leader>" })
-
     vim.keymap.set("n", "<leader>fg", utils.telescope("live_grep"), { noremap = true, desc = "Grep (root dir)" })
     vim.keymap.set(
         "n",
@@ -201,10 +190,10 @@ local function init()
         utils.telescope("live_grep", { cwd = false }),
         { noremap = true, desc = "Grep (cwd)" }
     )
-    vim.keymap.set("n", "<leader>gw", utils.telescope("grep_string"), { noremap = true, desc = "Word (root dir)" })
+    vim.keymap.set("n", "<leader>fw", utils.telescope("grep_string"), { noremap = true, desc = "Word (root dir)" })
     vim.keymap.set(
         "n",
-        "<leader>gW",
+        "<leader>fW",
         utils.telescope("grep_string", { cwd = false }),
         { noremap = true, desc = "Word (cwd)" }
     )

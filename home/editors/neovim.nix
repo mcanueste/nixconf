@@ -51,22 +51,22 @@ in {
 
       plugins = with pkgs.vimPlugins;
         [
-          # utils used by other plugins and keymaps
+          # UI & theme
           nui-nvim
           plenary-nvim
-          vim-tmux-navigator
-
-          # theme
+          nvim-web-devicons
           catppuccin-nvim
           lualine-nvim
-          gitsigns-nvim
-          nvim-web-devicons
-          which-key-nvim
-          noice-nvim
           nvim-notify
+          noice-nvim
+          which-key-nvim
+
+          # vcs
+          gitsigns-nvim
 
           # tools
           vim-sleuth # no setup
+          vim-tmux-navigator
           telescope-nvim
           telescope-file-browser-nvim
           trouble-nvim
@@ -139,16 +139,38 @@ in {
           nvim-treesitter-context
           nvim-ts-context-commentstring
 
+          # lsp
           nvim-lspconfig
-          luasnip
-          friendly-snippets
+          null-ls-nvim
+          neodev-nvim
+          rust-tools-nvim
+          SchemaStore-nvim
+
+          # completion
           nvim-cmp
           cmp-nvim-lsp
+          cmp-nvim-lua
+          cmp-nvim-lsp-signature-help
           cmp-buffer
           cmp-path
+          cmp-cmdline
+          cmp-dap
+          cmp-emoji
+
+          # snippet
+          luasnip
           cmp_luasnip
-          SchemaStore-nvim
-          null-ls-nvim
+          friendly-snippets
+
+          # debugger
+          nvim-dap
+          nvim-dap-ui
+          nvim-dap-virtual-text
+          nvim-dap-go
+          nvim-dap-python
+          telescope-dap-nvim
+
+          # AI
           ChatGPT-nvim
         ]
         ++ [nvim-config obsidian-nvim];
@@ -182,8 +204,8 @@ in {
         nodePackages.bash-language-server
 
         # docker support
-        # hadolint
-        docker-compose-language-service
+        hadolint
+        # docker-compose-language-service
         nodePackages.dockerfile-language-server-nodejs
 
         # terraform support
@@ -191,16 +213,15 @@ in {
         terraform-ls
 
         # nix support
-        # TODO: comments don't work properly
-        alejandra
         nil
+        alejandra
 
-        # lua support : works well
-        stylua
+        # lua support
         (luajit.withPackages (lp: [
           lp.luarocks
         ]))
         lua-language-server
+        stylua
 
         # python support
         black
@@ -211,20 +232,22 @@ in {
         nodePackages.pyright
 
         # go support
-        gomodifytags
-        impl
-        gofumpt
-        gotools
         gopls
         golangci-lint-langserver
+        gofumpt
+        gotools
+        goimports-reviser
+        delve
+        # gomodifytags
+        # impl
 
         # ansible support
-        ansible-lint
-        ansible-language-server
+        # ansible-lint
+        # ansible-language-server
 
         # yaml support
-        yamlfmt
-        nodePackages.yaml-language-server
+        # yamlfmt
+        # nodePackages.yaml-language-server
       ];
     };
   };

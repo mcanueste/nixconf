@@ -1,7 +1,8 @@
 local fterm = require("FTerm")
 
 local function init()
-    -------------------------------------------- Floating term
+    -- Fterm.nvim setup
+    -- See: https://github.com/numToStr/FTerm.nvim
     ---@diagnostic disable-next-line: missing-fields
     fterm.setup({
         ---Filetype of the terminal buffer
@@ -46,10 +47,6 @@ local function init()
     vim.keymap.set("n", "<leader>od", function()
         lazydocker:toggle()
     end, { noremap = true, desc = "Lazydocker" })
-
-    -- vim.keymap.set('n', '<leader>ok', '<CMD>FloatermNew --autoclose=2 --height=0.9 --width=0.9 k9s<CR>', { noremap = true, desc = "K9s" })
-    -- vim.keymap.set('n', '<leader>ob', '<CMD>FloatermNew --autoclose=2 --height=0.9 --width=0.9 btm<CR>', { noremap = true, desc = "Bottom" })
-    -- vim.keymap.set('n', '<leader>on', '<CMD>FloatermNew --autoclose=2 --height=0.75 --width=0.75 nnn -Hde<CR>', { noremap = true, desc = "NNN" })
 end
 
 return { init = init }
