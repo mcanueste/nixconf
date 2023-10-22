@@ -3,6 +3,7 @@ local bracketed = require("mini.bracketed")
 local indent = require("mini.indentscope")
 local whichkey = require("which-key")
 local miniai = require("mini.ai")
+local treesitter_context = require("treesitter-context")
 
 local function init()
     -------------------------------------------- Treesitter
@@ -69,6 +70,14 @@ local function init()
     -- TS fold support FIXME
     vim.opt.foldmethod = "expr"
     vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+
+    -------------------------------------------- TS Context setup
+    treesitter_context.setup({
+        max_lines = 5, -- How many lines the window should span. Values <= 0 mean no limit.
+        min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+        multiline_threshold = 5, -- Maximum number of lines to show for a single context
+        zindex = 20, -- The Z-index of the context window
+    })
 
     -------------------------------------------- Additional TS objects and keymaps
 

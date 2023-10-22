@@ -54,6 +54,7 @@ local function init()
     vim.opt.relativenumber = true -- Relative line numbers
 
     vim.opt.sidescrolloff = 8 -- Columns of context
+    vim.opt.scrolloff = 10 -- Rows of context
     vim.opt.conceallevel = 0 -- Hide * markup for bold and italic (if incremented)
 
     vim.opt.list = false -- hide listchars

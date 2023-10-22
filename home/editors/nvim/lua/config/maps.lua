@@ -16,6 +16,12 @@ local function init()
     vim.keymap.set("n", "L", "$", { noremap = true, desc = "Move end of line" })
     vim.keymap.set("v", "L", "g_", { noremap = true, desc = "Move end of line" })
 
+    -- Center cursor after jumps
+    vim.keymap.set("n", "<C-d>", "<C-d>zz", { noremap = true, desc = "Center cursor after jump" })
+    vim.keymap.set("n", "<C-u>", "<C-u>zz", { noremap = true, desc = "Center cursor after jump" })
+    vim.keymap.set("n", "n", "nzzzv", { noremap = true, desc = "Center cursor after jump" })
+    vim.keymap.set("n", "N", "Nzzzv", { noremap = true, desc = "Center cursor after jump" })
+
     -------------------------------------------- Toggles
     whichkey.register({ t = { name = "toggle" } }, { prefix = "<leader>" })
 
