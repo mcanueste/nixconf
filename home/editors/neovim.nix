@@ -68,6 +68,7 @@ in {
           vim-sleuth # no setup
           vim-tmux-navigator
           telescope-nvim
+          telescope-fzf-native-nvim
           telescope-file-browser-nvim
           trouble-nvim
           mini-nvim
