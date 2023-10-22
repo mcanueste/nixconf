@@ -1,4 +1,5 @@
 local luasnipvscode = require("luasnip.loaders.from_vscode")
+local symbols_outline = require("symbols-outline")
 local lspconfig_util = require("lspconfig/util")
 local rusttools = require("rust-tools")
 local cmpnvim = require("cmp_nvim_lsp")
@@ -17,6 +18,46 @@ local function init()
     -- cmp-nvim-lsp: https://github.com/hrsh7th/cmp-nvim-lsp -- LSP source for nvim-cmp
     -- cmp_luasnip: https://github.com/saadparwaiz1/cmp_luasnip -- Snippets source for nvim-cmp
     -- LuaSnip: https://github.com/L3MON4D3/LuaSnip -- Snippets plugin
+
+    --------------------------------------------- Symbols outline
+    symbols_outline.setup({
+        highlight_hovered_item = true,
+        show_guides = true,
+        auto_preview = false,
+        position = "right",
+        relative_width = true,
+        width = 25,
+        auto_close = false,
+        show_numbers = false,
+        show_relative_numbers = false,
+        show_symbol_details = true,
+        preview_bg_highlight = "Pmenu",
+        autofold_depth = nil,
+        auto_unfold_hover = true,
+        keymaps = { -- These keymaps can be a string or a table for multiple keys
+            close = { "<Esc>", "q" },
+            goto_location = "<Cr>",
+            focus_location = "o",
+            hover_symbol = "<C-space>",
+            toggle_preview = "K",
+            rename_symbol = "r",
+            code_actions = "a",
+            fold = "h",
+            unfold = "l",
+            fold_all = "W",
+            unfold_all = "E",
+            fold_reset = "R",
+        },
+        lsp_blacklist = {},
+        symbol_blacklist = {},
+        symbols = {
+            File = { icon = "󰈔", hl = "@text.uri" },
+            Namespace = { icon = "󰅪", hl = "@namespace" },
+            Package = { icon = "󰏗", hl = "@namespace" },
+            Array = { icon = "󰅪", hl = "@constant" },
+            Event = { icon = "", hl = "@type" },
+        },
+    })
 
     ---------------------- Completion and diagnostics UI modifications
     vim.opt.completeopt = { "menu", "menuone", "noselect" }
@@ -350,9 +391,10 @@ local function init()
             )
             vim.keymap.set("n", "<leader>lc", "<cmd>Telescope lsp_incoming_calls<CR>", { desc = "Incoming Calls" })
             vim.keymap.set("n", "<leader>lC", "<cmd>Telescope lsp_outgoing_calls<CR>", { desc = "Outgoing Calls" })
+            vim.keymap.set("n", "<leader>ls", "<cmd>SymbolsOutline<CR>", { desc = "Symbols Outline" })
             vim.keymap.set(
                 "n",
-                "<leader>ls",
+                "<leader>lS",
                 utils.telescope("lsp_document_symbols", {
                     symbols = {
                         "Class",

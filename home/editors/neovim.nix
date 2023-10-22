@@ -146,6 +146,7 @@ in {
           neodev-nvim
           rust-tools-nvim
           SchemaStore-nvim
+          symbols-outline-nvim
 
           # completion
           nvim-cmp
