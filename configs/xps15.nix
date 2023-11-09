@@ -65,8 +65,8 @@ rec {
           minikube = true;
         };
         hashicorp = {
-          vagrant = true;
-          packer = true;
+          vagrant = false;
+          packer = false;
           terraform = true;
         };
         cloud = {
@@ -83,7 +83,7 @@ rec {
 
       media = {
         spotify = true;
-        zotero = true;
+        zotero = false;
         calibre = true;
       };
 

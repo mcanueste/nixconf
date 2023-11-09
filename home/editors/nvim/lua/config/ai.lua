@@ -12,8 +12,8 @@ local function init()
             max_tokens = 300,
         },
         openai_edit_params = {
-            model = "gpt-3.5-turbo",
-            -- model = "gpt-4", NOTE: don't have access now for some weird reason
+            -- model = "gpt-3.5-turbo",
+            model = "gpt-4", -- NOTE: don't have access now for some weird reason
         },
     })
 
