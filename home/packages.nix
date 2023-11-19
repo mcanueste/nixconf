@@ -24,9 +24,9 @@
       pkgs.htop
       pkgs.ncdu
       pkgs.dive
-      pkgs.just
 
-      pkgs.pdftk
+      # pkgs.pdftk
+      # pkgs.imagemagick
     ];
   };
 }
