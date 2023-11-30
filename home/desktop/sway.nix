@@ -46,7 +46,8 @@ in {
           "*" = {
             xkb_layout = "us,de";
             xkb_model = "pc105";
-            xkb_options = "caps:swapescape,grp:win_space_toggle";
+            # xkb_options = "caps:swapescape,grp:win_space_toggle";
+            xkb_options = "caps:escape,grp:win_space_toggle";
           };
         };
         output = {"*" = {bg = "${./wallpaper.png} fill";};};

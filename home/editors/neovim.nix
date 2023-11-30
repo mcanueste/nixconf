@@ -18,7 +18,7 @@ with pkgs.lib.conflib; let
       owner = "epwalsh";
       repo = "obsidian.nvim";
       rev = "main";
-      sha256 = "sha256-K2AQUlaxXmllbXFKG7fAz0lwGlD0JdeRa9eqF8Gso7k=";
+      sha256 = "sha256-ZHFodXYpX8eeJ6Y4NxQ3bE5XmIcl3rWJdfXUaO0dsgI=";
     };
   };
 
