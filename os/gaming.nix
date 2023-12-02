@@ -17,7 +17,6 @@ in {
       remotePlay.openFirewall = cfg.steam; # Open ports in the firewall for Steam Remote Play
       dedicatedServer.openFirewall = cfg.steam; # Open ports in the firewall for Source Dedicated Server
     };
-    hardware.opengl.driSupport32Bit = cfg.steam; # Enables support for 32bit libs that steam uses
     # environment.systemPackages = with pkgs; [
     #   steam
     #   steam-original
