@@ -12,5 +12,6 @@
     coreutils
     lsof
     pciutils
+    libva-utils
   ];
 }

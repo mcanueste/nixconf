@@ -62,6 +62,23 @@ in {
       cpu.intel.updateMicrocode = true;
     };
 
-    powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+    # powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+    powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
+
+    # intel gpu video acceleration setup
+    # https://nixos.wiki/wiki/Accelerated_Video_Playback
+    # nixpkgs.config.packageOverrides = pkg: {
+    #   vaapiIntel = pkg.vaapiIntel.override {enableHybridCodec = true;};
+    # };
+    # See flake.nix for this override
+    hardware.opengl = {
+      enable = true;
+      extraPackages = with pkgs; [
+        intel-media-driver # LIBVA_DRIVER_NAME=iHD
+        vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+        vaapiVdpau
+        libvdpau-va-gl
+      ];
+    };
   };
 }

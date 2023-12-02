@@ -19,7 +19,12 @@
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       inherit system;
-      config = {allowUnfree = true;};
+      config = {
+        allowUnfree = true;
+        packageOverrides = pkg: {
+          vaapiIntel = pkg.vaapiIntel.override {enableHybridCodec = true;};
+        };
+      };
       overlays = [
         (final: prev: prev.lib.attrsets.recursiveUpdate prev {lib.conflib = import ./lib {inherit (prev) lib;};})
       ];
