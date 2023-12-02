@@ -11,5 +11,6 @@
     unzip
     coreutils
     lsof
+    pciutils
   ];
 }

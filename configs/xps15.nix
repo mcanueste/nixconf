@@ -22,6 +22,9 @@ rec {
         greetd = true;
         sway = true;
       };
+      gaming = {
+        steam = true;
+      };
     };
   };
 

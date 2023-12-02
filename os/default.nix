@@ -36,5 +36,6 @@
     ./locale.nix
     ./networking.nix
     ./virtualization.nix
+    ./gaming.nix
   ];
 }
