@@ -12,5 +12,6 @@
     ./k9s.nix
     ./distrobox.nix
     ./notes.nix
+    ./scripts.nix
   ];
 }

@@ -14,5 +14,6 @@
     pciutils
     libva-utils
     lshw
+    glxinfo
   ];
 }
