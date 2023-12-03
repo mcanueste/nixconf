@@ -54,6 +54,20 @@ in {
   # for various URI schemes and MIME types.
   services.tumbler.enable = true;
 
+  # ----- Default packages to install at system level
+  # System level packages
+  environment.systemPackages = with pkgs; [
+    curl
+    wget
+    unzip
+    coreutils
+    lsof
+    pciutils
+    lshw
+    libva-utils
+    glxinfo
+  ];
+
   # ----- Nix Specific
   system.stateVersion = "23.11"; # not considered since we use unstable via flake, but anyways
   nix = {
