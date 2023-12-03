@@ -50,6 +50,36 @@ in {
   };
 
   config = lib.mkIf cfg.sway {
+    # ------ Use greetd with sway
+    services.greetd = {
+      enable = true;
+      settings = {
+        default_session.command = ''
+          ${pkgs.greetd.tuigreet}/bin/tuigreet \
+            --time \
+            --asterisks \
+            --user-menu \
+            --cmd 'sway --unsupported-gpu'
+        '';
+      };
+    };
+
+    # fix bootlogs and error dumps on greetd
+    systemd.services.greetd.serviceConfig = {
+      Type = "idle";
+      StandardInput = "tty";
+      StandardOutput = "tty";
+
+      # Without this errors will spam on screen
+      StandardError = "journal";
+
+      # Without these bootlogs will spam on screen
+      TTYReset = true;
+      TTYVHangup = true;
+      TTYVTDisallocate = true;
+    };
+
+    # ------ Setup sway
     programs.dconf.enable = true;
     programs.sway = {
       enable = true;
@@ -84,11 +114,6 @@ in {
       xdg-utils # for opening default programs when clicking links
       # dracula-theme # gtk theme
       # gnome3.adwaita-icon-theme # default gnome cursors
-      # swaylock
-      # swayidle
-      # grim # screenshot functionality
-      # slurp # screenshot functionality
-      # wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
       # wdisplays # tool to configure displays
     ];
   };

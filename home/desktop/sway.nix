@@ -18,9 +18,21 @@ in {
       pkgs.grim
       pkgs.slurp
       pkgs.swappy
-
-      pkgs.pcmanfm # file manager
     ];
+
+    gtk = {
+      enable = true;
+      theme = {
+        name = "Catppuccin-Mocha-Compact-Pink-Dark";
+        package = pkgs.catppuccin-gtk.override {
+          accents = ["pink"];
+          # size = "standard";
+          # tweaks = ["rimless" "black"];
+          variant = "mocha";
+        };
+      };
+    };
+
     wayland.windowManager.sway = {
       enable = true;
       systemd.enable = true;

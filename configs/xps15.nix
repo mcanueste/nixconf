@@ -4,23 +4,29 @@ rec {
     home = "/home/mcst";
   };
 
+  desktop = {
+    gnome = false;
+    i3 = false;
+    sway = true;
+  };
+
   os = {
     nixos = {
-      inherit user;
-      hardware.xps15 = {
-        enable = true;
-        swap = false;
+      inherit user desktop;
+      network = {
+        hostname = "nixos";
+      };
+      hardware = {
+        bluetooth = true;
+        xps15 = {
+          enable = true;
+          swap = false;
+        };
       };
       virtualisation = {
         docker = true;
         podman = false;
         virt-manager = true;
-      };
-      desktop = {
-        gnome = false;
-        i3 = false;
-        greetd = true;
-        sway = true;
       };
       gaming = {
         steam = true;

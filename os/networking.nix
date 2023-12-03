@@ -31,9 +31,10 @@ in {
   };
 
   config = {
-    networking.hostName = "nixos";
-    networking.useDHCP = lib.mkDefault true;
+    networking.hostName = "${cfg.hostname}";
     networking.networkmanager = {enable = true;};
+
+    # --- Wireguard config
     networking.wg-quick.interfaces = mkWgInterfaces cfg.wireguard.configs;
     security.pki.certificateFiles = cfg.wireguard.certs;
   };

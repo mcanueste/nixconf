@@ -61,68 +61,91 @@ in {
         "i915.enable_psr=2"
       ];
       extraModulePackages = with config.boot.kernelPackages; [acpi_call];
-      blacklistedKernelModules = ["nouveau" "bbswitch"];
     };
 
     hardware = {
       enableRedistributableFirmware = true;
       cpu.intel.updateMicrocode = true;
+    };
 
-      # intel gpu video acceleration setup
-      # https://nixos.wiki/wiki/Accelerated_Video_Playback
-      # nixpkgs.config.packageOverrides = pkg: {
-      #   vaapiIntel = pkg.vaapiIntel.override {enableHybridCodec = true;};
-      # };
-      # See flake.nix for this override
-      opengl = {
-        enable = true;
-        driSupport = true;
-        driSupport32Bit = true;
-        extraPackages = with pkgs; [
-          intel-media-driver # LIBVA_DRIVER_NAME=iHD
-          vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium) # replace with intel-vaapi-driver if necessary
-          vaapiVdpau
-          libvdpau-va-gl
-        ];
-      };
+    services = {
+      # For ssd life
+      fstrim.enable = true;
 
-      # NVIDIA Optimus Prime setup
-      nvidia = {
-        # Modesetting is required.
-        modesetting.enable = true;
+      # Hard disk protection if the laptop falls:
+      hdapsd.enable = true;
 
-        # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-        powerManagement.enable = false;
-        # Fine-grained power management. Turns off GPU when not in use.
-        # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-        powerManagement.finegrained = false;
+      # Enable touchpad support
+      xserver.libinput.enable = true;
+    };
 
-        # Use the NVidia open source kernel module (not to be confused with the
-        # independent third-party "nouveau" open source driver).
-        # Support is limited to the Turing and later architectures. Full list of
-        # supported GPUs is at:
-        # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-        # Only available from driver 515.43.04+
-        # Currently alpha-quality/buggy, so false is currently the recommended setting.
-        open = false;
+    # ------------------------ Power setup
+    powerManagement.cpuFreqGovernor = "ondemand";
 
-        # Enable the Nvidia settings menu,
-        # accessible via `nvidia-settings`.
-        nvidiaSettings = true;
+    services = {
+      # This will save you money and possibly your life!
+      thermald.enable = true;
 
-        # Optionally, you may need to select the appropriate driver version for your specific GPU.
-        package = config.boot.kernelPackages.nvidiaPackages.stable;
+      # Enable power-profiles-daemon for switching power profiles
+      power-profiles-daemon.enable = true;
+    };
 
-        # Optimus PRIME config for offloading
-        prime = {
-          offload = {
-            enable = true;
-            enableOffloadCmd = true;
-          };
-          # Make sure to use the correct Bus ID values for your system!
-          intelBusId = "PCI:0:2:0";
-          nvidiaBusId = "PCI:1:0:0";
+    # ------------------------ GPU setup
+
+    # intel gpu video acceleration setup
+    # https://nixos.wiki/wiki/Accelerated_Video_Playback
+    # nixpkgs.config.packageOverrides = pkg: {
+    #   vaapiIntel = pkg.vaapiIntel.override {enableHybridCodec = true;};
+    # };
+    # See flake.nix for this override
+    hardware.opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+      extraPackages = with pkgs; [
+        intel-media-driver # LIBVA_DRIVER_NAME=iHD
+        vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium) # replace with intel-vaapi-driver if necessary
+        vaapiVdpau
+        libvdpau-va-gl
+      ];
+    };
+
+    # NVIDIA Optimus Prime setup
+    hardware.nvidia = {
+      # Modesetting is required.
+      modesetting.enable = true;
+
+      # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
+      powerManagement.enable = false;
+      # Fine-grained power management. Turns off GPU when not in use.
+      # Experimental and only works on modern Nvidia GPUs (Turing or newer).
+      powerManagement.finegrained = false;
+
+      # Use the NVidia open source kernel module (not to be confused with the
+      # independent third-party "nouveau" open source driver).
+      # Support is limited to the Turing and later architectures. Full list of
+      # supported GPUs is at:
+      # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
+      # Only available from driver 515.43.04+
+      # Currently alpha-quality/buggy, so false is currently the recommended setting.
+      open = false;
+
+      # Enable the Nvidia settings menu,
+      # accessible via `nvidia-settings`.
+      nvidiaSettings = true;
+
+      # Optionally, you may need to select the appropriate driver version for your specific GPU.
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+      # Optimus PRIME config for offloading
+      prime = {
+        offload = {
+          enable = true;
+          enableOffloadCmd = true;
         };
+        # Make sure to use the correct Bus ID values for your system!
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
       };
     };
 
@@ -131,26 +154,8 @@ in {
       VDPAU_DRIVER = "va_gl";
     };
 
-    powerManagement.cpuFreqGovernor = "ondemand";
-
-    services = {
-      # This will save you money and possibly your life!
-      thermald.enable = true;
-
-      # For ssd life
-      fstrim.enable = true;
-
-      # Hard disk protection if the laptop falls:
-      hdapsd.enable = true;
-
-      # Enable touchpad etc.
-      xserver.libinput.enable = true;
-
-      # Enable power-profiles-daemon for switching power profiles
-      power-profiles-daemon.enable = true;
-
-      # Enable GPU drivers
-      xserver.videoDrivers = ["intel" "nvidia"];
-    };
+    # Enable GPU drivers
+    services.xserver.videoDrivers = ["intel" "nvidia"];
+    boot.blacklistedKernelModules = ["nouveau" "bbswitch"];
   };
 }

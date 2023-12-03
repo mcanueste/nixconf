@@ -1,6 +1,6 @@
 {
   imports = [
-    ./keyboard.nix
+    ./bluetooth.nix
     ./xps-15-9570.nix
   ];
 }
