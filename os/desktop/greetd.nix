@@ -25,7 +25,7 @@ in {
       };
     };
     environment.etc."greetd/environments".text = ''
-      sway
+      sway --unsupported-gpu
     '';
   };
 }

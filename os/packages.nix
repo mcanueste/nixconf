@@ -13,5 +13,6 @@
     lsof
     pciutils
     libva-utils
+    lshw
   ];
 }
