@@ -43,20 +43,19 @@ in {
       # we need session switcher
       extraConfig = ''
         set-option -sa terminal-overrides ",xterm*:Tc"
+
         bind-key -T copy-mode-vi v send-keys -X begin-selection
         bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
         bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+
         bind C-l send-keys 'C-l'
+
         bind -N "Split vertical" v split-window -h -c "#{pane_current_path}"
         bind -N "Split horizontal" s split-window -v -c "#{pane_current_path}"
         bind -N "Move to previous window" h previous-window
         bind -N "Move to next window" l next-window
         bind -N "Move to previous session" j switch-client -n
         bind -N "Move to next session" k switch-client -p
-        # bind -n M-h previous-window
-        # bind -n M-l next-window
-        # bind -n M-j switch-client -n
-        # bind -n M-k switch-client -p
         bind q kill-pane
       '';
     };

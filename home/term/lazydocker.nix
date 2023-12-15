@@ -5,20 +5,22 @@
   ...
 }:
 with pkgs.lib.conflib; let
-  cfg = config.nixhome.tools;
+  cfg = config.nixhome.term;
+
   shellAliases = {
-    t = "todoist";
+    ld = "lazydocker";
   };
 in {
-  options.nixhome.tools = {
-    todoist = mkBoolOption {description = "Enable todoist";};
+  options.nixhome.term = {
+    lazydocker = mkBoolOption {description = "Enable lazydocker";};
   };
 
-  config = lib.mkIf cfg.git {
+  config = lib.mkIf cfg.lazydocker {
     programs.bash = {inherit shellAliases;};
     programs.fish = {inherit shellAliases;};
+
     home.packages = [
-      pkgs.todoist
+      pkgs.lazydocker
     ];
   };
 }

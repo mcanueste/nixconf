@@ -5,10 +5,9 @@
   ...
 }:
 with pkgs.lib.conflib; let
-  cfg = config.nixhome.tools;
-  termCfg = config.nixhome.term;
+  cfg = config.nixhome.term;
 in {
-  options.nixhome.tools = {
+  options.nixhome.term = {
     zoxide = mkBoolOption {description = "Enable zoxide";};
   };
 
@@ -16,7 +15,7 @@ in {
     programs.zoxide = {
       enable = true;
       enableBashIntegration = true;
-      enableFishIntegration = termCfg.fish;
+      enableFishIntegration = cfg.fish;
     };
   };
 }

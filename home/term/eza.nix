@@ -5,9 +5,9 @@
   ...
 }:
 with pkgs.lib.conflib; let
-  cfg = config.nixhome.tools;
+  cfg = config.nixhome.term;
 in {
-  options.nixhome.tools = {
+  options.nixhome.term = {
     eza = mkBoolOption {description = "Enable eza";};
   };
 

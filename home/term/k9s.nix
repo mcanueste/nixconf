@@ -5,9 +5,9 @@
   ...
 }:
 with pkgs.lib.conflib; let
-  cfg = config.nixhome.tools;
+  cfg = config.nixhome.term;
 in {
-  options.nixhome.tools = {
+  options.nixhome.term = {
     k9s = mkBoolOption {description = "Enable k9s";};
   };
 

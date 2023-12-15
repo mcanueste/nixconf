@@ -4,9 +4,9 @@
   config,
   ...
 }: with pkgs.lib.conflib; let
-  cfg = config.nixhome.tools;
+  cfg = config.nixhome.term;
 in {
-  options.nixhome.tools = {
+  options.nixhome.term= {
     git = mkBoolOption { description = "Enable git config"; };
   };
 
@@ -28,7 +28,7 @@ in {
       lfs.enable = true;
 
       delta.enable = true;
-      userName = "mcanueste";
+      userName = "mcanueste"; # TODO: get these vals from config
       userEmail = "mcanueste@gmail.com";
       extraConfig = {
         core = {

@@ -54,18 +54,13 @@ rec {
         chrome = false;
       };
 
-      term = {
-        alacritty = true;
-        fish = true;
-        tmux = true;
-      };
-
       editors = {
         datagrip = false;
         pycharm = false;
         neovim = {
           enable = true;
         };
+        obsidian = true;
       };
 
       devops = {
@@ -84,10 +79,6 @@ rec {
           azure = false;
           cfssl = false;
         };
-      };
-
-      tools = {
-        direnv = false;
       };
 
       media = {

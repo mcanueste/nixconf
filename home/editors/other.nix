@@ -16,6 +16,7 @@ in {
       description = "Enable JetBrains PyCharm Professional";
       default = false;
     };
+    obsidian = mkBoolOption {description = "Enable obsidian";};
   };
 
   config = {
@@ -23,6 +24,7 @@ in {
       (getPackageIf cfg.gimp pkgs.gimp)
       (getPackageIf cfg.datagrip pkgs.jetbrains.datagrip)
       (getPackageIf cfg.pycharm pkgs.jetbrains.pycharm-professional)
+      (getPackageIf cfg.obsidian pkgs.obsidian)
     ];
   };
 }

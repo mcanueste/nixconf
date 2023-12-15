@@ -62,7 +62,7 @@ local function init()
             end
             return out
         end,
-        overwrite_mappings = true,
+        -- overwrite_mappings = true,
         mappings = {
             -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
             ["gf"] = {

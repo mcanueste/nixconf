@@ -5,10 +5,9 @@
   ...
 }:
 with pkgs.lib.conflib; let
-  cfg = config.nixhome.tools;
-  termCfg = config.nixhome.term;
+  cfg = config.nixhome.term;
 in {
-  options.nixhome.tools = {
+  options.nixhome.term = {
     fzf = mkBoolOption {description = "Enable fzf";};
   };
 
@@ -16,7 +15,7 @@ in {
     programs.fzf = {
       enable = true;
       enableBashIntegration = true;
-      enableFishIntegration = termCfg.fish;
+      enableFishIntegration = cfg.fish;
       tmux.enableShellIntegration = true;
       defaultCommand = "${pkgs.fd}/bin/fd --type f";
       fileWidgetCommand = "${pkgs.fd}/bin/fd --type f";

@@ -5,13 +5,13 @@
   ...
 }:
 with pkgs.lib.conflib; let
-  cfg = config.nixhome.tools;
+  cfg = config.nixhome.term;
 
   shellAliases = {
     lg = "lazygit";
   };
 in {
-  options.nixhome.tools = {
+  options.nixhome.term = {
     lazygit = mkBoolOption {description = "Enable lazygit";};
   };
 
@@ -19,7 +19,6 @@ in {
     programs.bash = {inherit shellAliases;};
     programs.fish = {inherit shellAliases;};
 
-    # TODO: install with home-manager module and check out settings
     home.packages = [
       pkgs.lazygit
     ];

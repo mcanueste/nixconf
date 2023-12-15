@@ -5,13 +5,13 @@
   ...
 }:
 with pkgs.lib.conflib; let
-  cfg = config.nixhome.tools;
+  cfg = config.nixhome.term;
   shellAliases = {
     pretty = "prettybat";
     brg = "batgrep";
   };
 in {
-  options.nixhome.tools = {
+  options.nixhome.term = {
     bat = mkBoolOption {description = "Enable bat";};
   };
 
@@ -24,20 +24,22 @@ in {
         prettybat
         batgrep
 
-        # requires config - TODO
+        # requires config - TODO: check if needed
         # batwatch
         # batpipe
         # batman
         # batdiff
       ];
       themes = {
-        catppuccin = builtins.readFile (pkgs.fetchFromGitHub {
+        catppuccin = {
+          src = pkgs.fetchFromGitHub {
             owner = "catppuccin";
             repo = "bat";
             rev = "main";
             sha256 = "6WVKQErGdaqb++oaXnY3i6/GuH2FhTgK0v4TN4Y0Wbw=";
-          }
-          + "/Catppuccin-mocha.tmTheme");
+          };
+          file = "Catppuccin-mocha.tmTheme";
+        };
       };
       config = {
         theme = "catppuccin";

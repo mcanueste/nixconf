@@ -1,5 +1,6 @@
 {
   imports = [
+    ./packages.nix
     ./bash.nix
     ./fish.nix
     ./dircolors.nix
@@ -7,5 +8,17 @@
     ./starship.nix
     ./alacritty.nix
     ./tmux.nix
+    ./git.nix
+    ./eza.nix
+    ./bat.nix
+    ./fzf.nix
+    ./zoxide.nix
+    ./direnv.nix
+    ./lazygit.nix
+    ./lazydocker.nix
+    ./k9s.nix
+    ./scripts.nix
+    ./systemd.nix
+    ./todoist.nix
   ];
 }
