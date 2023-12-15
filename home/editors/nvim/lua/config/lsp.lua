@@ -503,7 +503,7 @@ local function init()
             -- go
             nls.builtins.formatting.gofumpt,
             nls.builtins.formatting.goimports_reviser,
-            nls.builtins.code_actions.golines,
+            -- nls.builtins.code_actions.golines,
             -- nls.builtins.code_actions.gomodifytags,
             -- nls.builtins.code_actions.impl,
             -- nls.builtins.code_actions.refactoring, -- install if needed

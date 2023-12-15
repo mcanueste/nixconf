@@ -28,7 +28,7 @@ local function init()
         indent = { enable = true, disable = { "python" } },
 
         -- enable commentstring plugin support for context aware commentstring
-        context_commentstring = { enable = true, enable_autocmd = false },
+        -- context_commentstring = { enable = true, enable_autocmd = false },
 
         -- enable incremental visual selection
         incremental_selection = {

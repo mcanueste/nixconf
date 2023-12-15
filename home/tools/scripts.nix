@@ -21,11 +21,11 @@ with pkgs.lib.conflib; let
   };
 in {
   options.nixhome.scripts = {
-    enable = mkBoolOption {description = "Enable scripts";};
+    enabled = mkBoolOption {description = "Enable scripts";};
     nvidia-offload = mkBoolOption {description = "Enable nvidia-offload script";};
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enabled {
     home.packages = filterPackages [
       (getPackageIf cfg.nvidia-offload nvidia-offload)
     ];

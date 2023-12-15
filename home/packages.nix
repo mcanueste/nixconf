@@ -27,6 +27,7 @@
 
       # pkgs.pdftk
       # pkgs.imagemagick
+      # pkgs.foliate
     ];
   };
 }
