@@ -17,10 +17,9 @@ in {
       remotePlay.openFirewall = cfg.steam; # Open ports in the firewall for Steam Remote Play
       dedicatedServer.openFirewall = cfg.steam; # Open ports in the firewall for Source Dedicated Server
     };
-    # environment.systemPackages = with pkgs; [
-    #   steam
-    #   steam-original
-    #   steam-run
-    # ];
+    environment.systemPackages = with pkgs; [
+      steamcmd
+      steam-tui
+    ];
   };
 }

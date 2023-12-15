@@ -23,6 +23,13 @@
         allowUnfree = true;
         packageOverrides = pkg: {
           vaapiIntel = pkg.vaapiIntel.override {enableHybridCodec = true;};
+          steam = pkg.steam.override {
+            extraPkgs = pkg:
+              with pkg; [
+                gamescope
+                mangohud
+              ];
+          };
         };
       };
       overlays = [

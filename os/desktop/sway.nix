@@ -85,7 +85,7 @@ in {
       enable = true;
       wrapperFeatures.gtk = true;
       extraSessionCommands = ''
-        export SDL_VIDEODRIVER=wayland
+        # export SDL_VIDEODRIVER=wayland
         export QT_QPA_PLATFORM=wayland
         export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
         export _JAVA_AWT_WM_NONREPARENTING=1
@@ -114,7 +114,7 @@ in {
       xdg-utils # for opening default programs when clicking links
       # dracula-theme # gtk theme
       # gnome3.adwaita-icon-theme # default gnome cursors
-      # wdisplays # tool to configure displays
+      wdisplays # tool to configure displays
     ];
   };
 }

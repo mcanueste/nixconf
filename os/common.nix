@@ -68,6 +68,14 @@ in {
     glxinfo
   ];
 
+  # ----- For logitech devices
+  hardware.logitech = {
+    wireless = {
+      enable = true;
+      enableGraphical = true;
+    };
+  };
+
   # ----- Nix Specific
   system.stateVersion = "23.11"; # not considered since we use unstable via flake, but anyways
   nix = {
