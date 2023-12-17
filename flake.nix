@@ -21,6 +21,9 @@
       inherit system;
       config = {
         allowUnfree = true;
+        permittedInsecurePackages = [ # obsidian 1.4.16 depends on this EOL electron?????
+          "electron-25.9.0"
+        ];
         packageOverrides = pkg: {
           vaapiIntel = pkg.vaapiIntel.override {enableHybridCodec = true;};
           steam = pkg.steam.override {
