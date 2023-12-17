@@ -36,7 +36,7 @@
         };
       };
       overlays = [
-        (final: prev: prev.lib.attrsets.recursiveUpdate prev {lib.conflib = import ./lib {inherit (prev) lib;};})
+        (final: prev: prev.lib.attrsets.recursiveUpdate prev {lib.conflib = import ./modules/lib {inherit (prev) lib;};})
       ];
     };
   in {
@@ -53,7 +53,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.${config.user.username}.imports = [
-              ./home
+              ./modules/home
               config.home
             ];
           }
