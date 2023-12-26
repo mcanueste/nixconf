@@ -1,30 +1,38 @@
 {
   pkgs,
+  lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.editors;
-in {
-  options.nixhome.editors = {
-    gimp = mkBoolOption {description = "Enable gimp";};
-    datagrip = mkBoolOption {
-      description = "Enable JetBrains Datagrip";
+}: {
+  options.nixconf.editor = {
+    gimp = lib.mkOption {
+      type = lib.types.bool;
       default = false;
+      description = "Enable GIMP";
     };
-    pycharm = mkBoolOption {
-      description = "Enable JetBrains PyCharm Professional";
+    datagrip = lib.mkOption {
+      type = lib.types.bool;
       default = false;
+      description = "Enable DataGrip";
     };
-    obsidian = mkBoolOption {description = "Enable obsidian";};
+    pycharm = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable PyCharm";
+    };
+    obsidian = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable Obsidian";
+    };
   };
 
   config = {
-    home.packages = filterPackages [
-      (getPackageIf cfg.gimp pkgs.gimp)
-      (getPackageIf cfg.datagrip pkgs.jetbrains.datagrip)
-      (getPackageIf cfg.pycharm pkgs.jetbrains.pycharm-professional)
-      (getPackageIf cfg.obsidian pkgs.obsidian)
+    home.packages = lib.lists.flatten [
+      (lib.lists.optional config.nixconf.editor.gimp pkgs.gimp)
+      (lib.lists.optional config.nixconf.editor.datagrip pkgs.jetbrains.datagrip)
+      (lib.lists.optional config.nixconf.editor.pycharm pkgs.jetbrains.pycharm-professional)
+      (lib.lists.optional config.nixconf.editor.obsidian pkgs.obsidian)
     ];
   };
 }

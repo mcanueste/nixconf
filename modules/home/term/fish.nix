@@ -1,17 +1,17 @@
 {
-  pkgs,
   lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.term;
-in {
-  options.nixhome.term = {
-    fish = mkBoolOption {description = "Enable fish config";};
+}: {
+  options.nixconf.term = {
+    fish = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable fish";
+    };
   };
 
-  config = lib.mkIf cfg.fish {
+  config = lib.mkIf config.nixconf.term.fish {
     programs.fish = {
       enable = true;
       interactiveShellInit = ''

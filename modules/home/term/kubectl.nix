@@ -5,23 +5,20 @@
   ...
 }: let
   shellAliases = {
-    ld = "lazydocker";
+    k = "kubectl";
   };
 in {
   options.nixconf.term = {
-    lazydocker = lib.mkOption {
+    kubectl = lib.mkOption {
       type = lib.types.bool;
       default = true;
-      description = "Enable lazydocker";
+      description = "Enable kubectl";
     };
   };
 
-  config = lib.mkIf config.nixconf.term.lazydocker {
+  config = lib.mkIf config.nixconf.term.kubectl {
+    home.packages = [pkgs.kubectl];
     programs.bash = {inherit shellAliases;};
     programs.fish = {inherit shellAliases;};
-
-    home.packages = [
-      pkgs.lazydocker
-    ];
   };
 }

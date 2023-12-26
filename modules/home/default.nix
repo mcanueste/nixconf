@@ -1,5 +1,8 @@
 {
-  home.stateVersion = "23.11";
+  # not considered since we use unstable via flake,
+  # but need to give it here so the error msg is gone.
+  home.stateVersion = "24.05";
+
   programs.home-manager.enable = true;
 
   imports = [
@@ -7,10 +10,10 @@
     ./browsers.nix
     ./media.nix
     ./chat.nix
-    ./term
-    ./editors
-    ./devops
-    ./desktop
     ./font.nix
+    ./desktop
+    ./term
+    ./tools
+    ./editors
   ];
 }

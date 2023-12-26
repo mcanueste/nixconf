@@ -1,21 +1,21 @@
 {
-  pkgs,
   lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.term;
-in {
-  options.nixhome.term = {
-    dircolors = mkBoolOption {description = "Enable dircolors";};
+}: {
+  options.nixconf.term = {
+    dircolors = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable dircolors";
+    };
   };
 
-  config = lib.mkIf cfg.dircolors {
+  config = lib.mkIf config.nixconf.term.dircolors {
     programs.dircolors = {
       enable = true;
       enableBashIntegration = true;
-      enableFishIntegration = cfg.fish;
+      enableFishIntegration = config.nixconf.term.fish;
     };
   };
 }

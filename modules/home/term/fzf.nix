@@ -3,19 +3,20 @@
   lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.term;
-in {
-  options.nixhome.term = {
-    fzf = mkBoolOption {description = "Enable fzf";};
+}: {
+  options.nixconf.term = {
+    fzf = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable fzf";
+    };
   };
 
-  config = lib.mkIf cfg.fzf {
+  config = lib.mkIf config.nixconf.term.fzf {
     programs.fzf = {
       enable = true;
       enableBashIntegration = true;
-      enableFishIntegration = cfg.fish;
+      enableFishIntegration = config.nixconf.term.fish;
       tmux.enableShellIntegration = true;
       defaultCommand = "${pkgs.fd}/bin/fd --type f";
       fileWidgetCommand = "${pkgs.fd}/bin/fd --type f";

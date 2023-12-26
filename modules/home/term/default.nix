@@ -1,24 +1,29 @@
 {
   imports = [
-    ./packages.nix
-    ./bash.nix
-    ./fish.nix
-    ./dircolors.nix
-    ./aliases.nix
-    ./starship.nix
     ./alacritty.nix
-    ./tmux.nix
-    ./git.nix
-    ./eza.nix
+    ./aliases.nix
+    ./bash.nix
     ./bat.nix
-    ./fzf.nix
-    ./zoxide.nix
+    ./cloud.nix
+    ./dircolors.nix
     ./direnv.nix
-    ./lazygit.nix
-    ./lazydocker.nix
+    ./eza.nix
+    ./fish.nix
+    ./fzf.nix
+    ./git.nix
     ./k9s.nix
+    ./kubectl.nix
+    ./lazydocker.nix
+    ./lazygit.nix
+    ./packages.nix
+    ./packer.nix
     ./scripts.nix
+    ./starship.nix
     ./systemd.nix
+    ./terraform.nix
+    ./tmux.nix
     ./todoist.nix
+    ./vagrant.nix
+    ./zoxide.nix
   ];
 }

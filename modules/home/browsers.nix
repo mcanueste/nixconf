@@ -1,28 +1,32 @@
 {
   pkgs,
+  lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.browsers;
-in {
-  options.nixhome.browsers = {
-    brave = mkBoolOption {description = "Enable brave browser";};
-    firefox = mkBoolOption {
-      description = "Enable firefox browser";
-      default = false;
+}: {
+  options.nixconf.browser = {
+    brave = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable Brave browser";
     };
-    chrome = mkBoolOption {
-      description = "Enable chrome browser";
+    firefox = lib.mkOption {
+      type = lib.types.bool;
       default = false;
+      description = "Enable Firefox browser";
+    };
+    chrome = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable Chrome browser";
     };
   };
 
   config = {
-    home.packages = filterPackages [
-      (getPackageIf cfg.brave pkgs.brave)
-      (getPackageIf cfg.firefox pkgs.firefox)
-      (getPackageIf cfg.chrome pkgs.google-chrome)
+    home.packages = lib.lists.flatten [
+      (lib.lists.optional config.nixconf.browser.brave pkgs.brave)
+      (lib.lists.optional config.nixconf.browser.firefox pkgs.firefox)
+      (lib.lists.optional config.nixconf.browser.chrome pkgs.google-chrome)
     ];
   };
 }

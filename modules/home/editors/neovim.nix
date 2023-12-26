@@ -3,10 +3,7 @@
   lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.editors.neovim;
-
+}: let
   nvim-config = pkgs.vimUtils.buildVimPlugin {
     name = "config";
     src = ./nvim;
@@ -26,12 +23,16 @@ with pkgs.lib.conflib; let
     v = "nvim";
   };
 in {
-  options.nixhome.editors.neovim = {
-    enable = mkBoolOption {description = "Enable neovim configuration";};
+  options.nixconf.editor = {
+    neovim = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable neovim";
+    };
   };
 
   # TODO: git-worktree plugin
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf config.nixconf.editor.neovim {
     programs.bash = {inherit shellAliases;};
     programs.fish = {inherit shellAliases;};
     xdg.configFile."yamlfmt/.yamlfmt".text = ''

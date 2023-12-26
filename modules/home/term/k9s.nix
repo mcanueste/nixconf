@@ -3,15 +3,16 @@
   lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.term;
-in {
-  options.nixhome.term = {
-    k9s = mkBoolOption {description = "Enable k9s";};
+}: {
+  options.nixconf.term = {
+    k9s = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable k9s";
+    };
   };
 
-  config = lib.mkIf cfg.k9s {
+  config = lib.mkIf config.nixconf.term.k9s {
     home.packages = [
       pkgs.k9s
     ];

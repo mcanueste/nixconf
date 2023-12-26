@@ -3,10 +3,7 @@
   lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.term.scripts;
-
+}: let
   nvidia-offload = pkgs.writeShellApplication {
     name = "nvidia-offload";
     runtimeInputs = [];
@@ -89,20 +86,21 @@ with pkgs.lib.conflib; let
     '';
   };
 in {
-  options.nixhome.term.scripts = {
-    enabled = mkBoolOption {description = "Enable scripts";};
-    nvidia-offload = mkBoolOption {description = "Enable nvidia-offload script";};
-    sync-notes = mkBoolOption {description = "Enable sync-notes script for pushing notes to gitlab";};
-    sync-german = mkBoolOption {description = "Enable sync-german script for pushing German notes to gitlab";};
-    sync-blog = mkBoolOption {description = "Enable sync-blog script for moving blog notes from Obsidian vault and pushing changes to github";};
+  options.nixconf.term = {
+    # TODO: refactor these options when using multiple workstations
+    scripts = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable scripts";
+    };
   };
 
-  config = lib.mkIf cfg.enabled {
-    home.packages = filterPackages [
-      (getPackageIf cfg.nvidia-offload nvidia-offload)
-      (getPackageIf cfg.sync-notes sync-notes)
-      (getPackageIf cfg.sync-german sync-german)
-      (getPackageIf cfg.sync-blog sync-blog)
+  config = lib.mkIf config.nixconf.term.scripts {
+    home.packages = [
+      nvidia-offload
+      sync-notes
+      sync-german
+      sync-blog
     ];
   };
 }

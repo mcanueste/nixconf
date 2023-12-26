@@ -1,16 +1,17 @@
 {
-  pkgs,
   lib,
   config,
   ...
-}: with pkgs.lib.conflib; let
-  cfg = config.nixhome.term;
-in {
-  options.nixhome.term= {
-    git = mkBoolOption { description = "Enable git config"; };
+}: {
+  options.nixconf.term = {
+    git = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable git config";
+    };
   };
 
-  config = lib.mkIf cfg.git {
+  config = lib.mkIf config.nixconf.term.git {
     programs.bash = {
       shellAliases = {
         g = "git";

@@ -3,19 +3,20 @@
   lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.term;
-
+}: let
   shellAliases = {
     lg = "lazygit";
   };
 in {
-  options.nixhome.term = {
-    lazygit = mkBoolOption {description = "Enable lazygit";};
+  options.nixconf.term = {
+    lazygit = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable lazygit";
+    };
   };
 
-  config = lib.mkIf cfg.lazygit {
+  config = lib.mkIf config.nixconf.term.lazygit {
     programs.bash = {inherit shellAliases;};
     programs.fish = {inherit shellAliases;};
 

@@ -1,98 +1,60 @@
-rec {
-  user = {
-    username = "mcst";
-    home = "/home/mcst";
-  };
+{
+  nixconf = {
+    user = {
+      username = "mcst";
+      home = "/home/mcst";
+    };
 
-  desktop = {
-    gnome = false;
-    i3 = false;
-    sway = true;
-  };
-
-  os = {
-    nixos = {
-      inherit user desktop;
-      network = {
-        hostname = "nixos";
-      };
-      hardware = {
-        bluetooth = true;
-        xps15 = {
-          enable = true;
-          swap = false;
-        };
-      };
-      virtualisation = {
-        docker = true;
-        podman = false;
-        virt-manager = true;
-      };
-      gaming = {
-        steam = true;
+    hardware = {
+      xps15 = {
+        enable = true;
+        swap = false;
       };
     };
-  };
 
-  home = {
-    nixhome = {
-      inherit user;
-
-      desktop = {
-        status = true;
-
-        i3 = true;
-        rofi = true;
-        dunst = true;
-
-        sway = true;
+    network = {
+      hostname = "nixos";
+      hosts = "";
+      wireguard = {
+        enable = false;
+        configs = [];
       };
+      exportMtr = false;
+    };
 
-      browsers = {
-        brave = true;
-        firefox = false;
-        chrome = false;
-      };
+    security = {
+      certs = [];
+      openssh = false;
+      sftp = false;
+      sshd = false;
+      gvfs = true;
+    };
 
-      editors = {
-        datagrip = false;
-        pycharm = false;
-        neovim = {
-          enable = true;
-        };
-        obsidian = true;
-      };
+    printer = {
+      enable = false;
+      printerDrivers = [];
+      scanner = false;
+      scannerBackends = [];
+    };
 
-      devops = {
-        k8s = {
-          kubectl = true;
-          minikube = true;
-        };
-        hashicorp = {
-          vagrant = false;
-          packer = false;
-          terraform = true;
-        };
-        cloud = {
-          aws = false;
-          gcloud = false;
-          azure = false;
-          cfssl = false;
-        };
-      };
+    virtualisation = {
+      docker = true;
+      podman = false;
+      virt-manager = true;
+    };
 
-      media = {
-        spotify = true;
-        zotero = false;
-        calibre = true;
+    desktop = {
+      gnome = false;
+      greetd = {
+        enable = true;
+        command = "sway --unsupported-gpu";
       };
+      sway = true;
+      thunar = true;
+    };
 
-      chat = {
-        telegram = true;
-        teams = false;
-        slack = false;
-        discord = true;
-      };
+    gaming = {
+      steam = true;
     };
   };
 }

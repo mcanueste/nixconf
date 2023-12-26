@@ -3,10 +3,7 @@
   config,
   lib,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.term.systemd;
-  scriptsCfg = config.nixhome.term.scripts;
+}: let
   setupServices = builtins.foldl' (a: b: lib.recursiveUpdate a b) {};
 
   eye-strain-notify-service = {
@@ -48,7 +45,7 @@ with pkgs.lib.conflib; let
     services.sync-notes = {
       Install.WantedBy = ["default.target"];
       Unit.Description = "Backup notes.";
-      Service.ExecStart = "/etc/profiles/per-user/${config.nixhome.user.username}/bin/sync-notes";
+      Service.ExecStart = "/etc/profiles/per-user/${config.nixconf.user.username}/bin/sync-notes";
     };
     timers.sync-notes = hourly-timer;
   };
@@ -57,7 +54,7 @@ with pkgs.lib.conflib; let
     services.sync-german = {
       Install.WantedBy = ["default.target"];
       Unit.Description = "Backup German notes.";
-      Service.ExecStart = "/etc/profiles/per-user/${config.nixhome.user.username}/bin/sync-german";
+      Service.ExecStart = "/etc/profiles/per-user/${config.nixconf.user.username}/bin/sync-german";
     };
     timers.sync-german = hourly-timer;
   };
@@ -66,46 +63,73 @@ with pkgs.lib.conflib; let
     services.sync-blog = {
       Install.WantedBy = ["default.target"];
       Unit.Description = "Sync blog notes and push changes.";
-      Service.ExecStart = "/etc/profiles/per-user/${config.nixhome.user.username}/bin/sync-blog";
+      Service.ExecStart = "/etc/profiles/per-user/${config.nixconf.user.username}/bin/sync-blog";
     };
     timers.sync-blog = hourly-timer;
   };
 in {
-  options.nixhome.term.systemd = {
-    enabled = mkBoolOption {description = "Enable user space systemd services";};
+  options.nixconf.term.systemd = {
+    enabled = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable user space systemd services";
+    };
 
-    eye-strain-notify = mkBoolOption {description = "Enable eye strain notification timer";};
-    stretch-notify = mkBoolOption {description = "Enable stretch notification timer";};
+    eye-strain-notify = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable eye strain notification timer";
+    };
 
-    sync-notes = mkBoolOption {description = "Enable sync-notes script for pushing notes to gitlab";};
-    sync-german = mkBoolOption {description = "Enable sync-german script for pushing German notes to gitlab";};
-    sync-blog = mkBoolOption {description = "Enable sync-blog script for moving blog notes from Obsidian vault and pushing changes to github";};
+    stretch-notify = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable stretch notification timer";
+    };
+
+    sync-notes = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable sync-notes script for pushing notes to gitlab";
+    };
+
+    sync-german = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable sync-german script for pushing German notes to gitlab";
+    };
+
+    sync-blog = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable sync-blog script for moving blog notes from Obsidian vault and pushing changes to github";
+    };
   };
 
-  config = lib.mkIf cfg.enabled {
+  config = lib.mkIf config.nixconf.term.systemd.enabled {
     systemd.user = setupServices (builtins.filter (p: p != null) [
       (
-        if cfg.eye-strain-notify
+        if config.nixconf.term.systemd.eye-strain-notify
         then eye-strain-notify-service
         else null
       )
       (
-        if cfg.stretch-notify
+        if config.nixconf.term.systemd.stretch-notify
         then stretch-notify-service
         else null
       )
       (
-        if cfg.sync-notes && scriptsCfg.sync-notes
+        if config.nixconf.term.systemd.sync-notes
         then sync-notes-service
         else null
       )
       (
-        if cfg.sync-german && scriptsCfg.sync-german
+        if config.nixconf.term.systemd.sync-german
         then sync-german-service
         else null
       )
       (
-        if cfg.sync-blog && scriptsCfg.sync-blog
+        if config.nixconf.term.systemd.sync-blog
         then sync-blog-service
         else null
       )

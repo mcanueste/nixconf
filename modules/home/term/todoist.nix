@@ -3,18 +3,20 @@
   lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.term;
+}: let
   shellAliases = {
     t = "todoist";
   };
 in {
-  options.nixhome.term = {
-    todoist = mkBoolOption {description = "Enable todoist";};
+  options.nixconf.term = {
+    todoist = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable todoist";
+    };
   };
 
-  config = lib.mkIf cfg.todoist {
+  config = lib.mkIf config.nixconf.term.todoist {
     programs.bash = {inherit shellAliases;};
     programs.fish = {inherit shellAliases;};
     home.packages = [

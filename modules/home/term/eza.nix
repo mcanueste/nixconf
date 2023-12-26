@@ -1,17 +1,17 @@
 {
-  pkgs,
   lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.term;
-in {
-  options.nixhome.term = {
-    eza = mkBoolOption {description = "Enable eza";};
+}: {
+  options.nixconf.term = {
+    eza = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable eza";
+    };
   };
 
-  config = lib.mkIf cfg.eza {
+  config = lib.mkIf config.nixconf.term.eza {
     programs.eza = {
       enable = true;
       enableAliases = true;

@@ -1,22 +1,34 @@
 {
   pkgs,
+  lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.media;
-in {
-  options.nixhome.media = {
-    spotify = mkBoolOption {description = "Enable spotify";};
-    zotero = mkBoolOption {description = "Enable zotero";};
-    calibre = mkBoolOption {description = "Enable calibre";};
+}: {
+  options.nixconf.media = {
+    spotify = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable Spotify";
+    };
+
+    zotero = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable Zotero";
+    };
+
+    calibre = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable Calibre";
+    };
   };
 
   config = {
-    home.packages = filterPackages [
-      (getPackageIf cfg.spotify pkgs.spotify)
-      (getPackageIf cfg.zotero pkgs.zotero)
-      (getPackageIf cfg.calibre pkgs.calibre)
+    home.packages = lib.lists.flatten [
+      (lib.lists.optional config.nixconf.media.spotify pkgs.spotify)
+      (lib.lists.optional config.nixconf.media.zotero pkgs.zotero)
+      (lib.lists.optional config.nixconf.media.calibre pkgs.calibre)
     ];
   };
 }

@@ -3,19 +3,21 @@
   lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.term;
+}: let
   shell =
-    if cfg.fish
+    if config.nixconf.term.fish
     then "${pkgs.fish}/bin/fish"
     else "${pkgs.bash}/bin/bash";
 in {
-  options.nixhome.term = {
-    tmux = mkBoolOption {description = "Enable tmux";};
+  options.nixconf.term = {
+    tmux = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable tmux";
+    };
   };
 
-  config = lib.mkIf cfg.tmux {
+  config = lib.mkIf config.nixconf.term.tmux {
     programs.tmux = {
       enable = true;
       inherit shell;

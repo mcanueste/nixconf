@@ -1,11 +1,10 @@
 {
   lib,
   config,
+  homeConfig,
   ...
-}: let
-  cfg = config.nixos.user;
-in {
-  options.nixos.user = {
+}: {
+  options.nixconf.user = {
     username = lib.mkOption {
       type = lib.types.str;
       default = "mcst";
@@ -20,11 +19,17 @@ in {
   };
 
   config = {
-    users.users.${cfg.username} = {
+    users.users.${config.nixconf.user.username} = {
       isNormalUser = true;
-      home = "${cfg.home}";
-      description = "${cfg.username}";
-      extraGroups = ["wheel" "video" "audio" "disk" "networkmanager" "docker" "libvirtd" "qemu-libvirtd"];
+      home = config.nixconf.user.home;
+      extraGroups = ["wheel" "video" "audio" "disk"];
+      description = config.nixconf.user.username;
     };
+
+    home-manager.users.${config.nixconf.user.username}.imports = [
+      # TODO: Fix this properly
+      ../home
+      homeConfig
+    ];
   };
 }

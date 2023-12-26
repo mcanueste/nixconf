@@ -3,24 +3,25 @@
   config,
   lib,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.font;
-in {
-  options.nixhome.font = {
-    enable = mkBoolOption {description = "Enable fontconfig";};
-    font = lib.mkOption {
+}: {
+  options.nixconf.font = {
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable fontconfig";
+    };
+    fonts = lib.mkOption {
       description = "Font to install";
-      default = "JetBrainsMono";
-      type = lib.types.str;
+      default = ["JetBrainsMono"];
+      type = lib.types.listOf lib.types.str;
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf config.nixconf.font.enable {
     fonts.fontconfig.enable = true;
     home.packages = [
       (pkgs.nerdfonts.override {
-        fonts = [ cfg.font ];
+        fonts = config.nixconf.font.fonts;
       })
     ];
   };

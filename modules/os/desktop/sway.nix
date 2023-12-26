@@ -3,10 +3,7 @@
   lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixos.desktop;
-
+}: let
   # bash script to let dbus know about important env variables and
   # propagate them to relevent services run at the end of sway config
   # see
@@ -45,42 +42,16 @@ with pkgs.lib.conflib; let
     '';
   };
 in {
-  options.nixos.desktop = {
-    sway = mkBoolOption {description = "Enable sway window manager";};
+  options.nixconf.desktop = {
+    sway = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable sway window manager";
+    };
   };
 
-  config = lib.mkIf cfg.sway {
-    # ------ Use greetd with sway
-    services.greetd = {
-      enable = true;
-      settings = {
-        default_session.command = ''
-          ${pkgs.greetd.tuigreet}/bin/tuigreet \
-            --time \
-            --asterisks \
-            --user-menu \
-            --cmd 'sway --unsupported-gpu'
-        '';
-      };
-    };
-
-    # fix bootlogs and error dumps on greetd
-    systemd.services.greetd.serviceConfig = {
-      Type = "idle";
-      StandardInput = "tty";
-      StandardOutput = "tty";
-
-      # Without this errors will spam on screen
-      StandardError = "journal";
-
-      # Without these bootlogs will spam on screen
-      TTYReset = true;
-      TTYVHangup = true;
-      TTYVTDisallocate = true;
-    };
-
-    # ------ Setup sway
-    programs.dconf.enable = true;
+  config = lib.mkIf config.nixconf.desktop.sway {
+    # Setup sway
     programs.sway = {
       enable = true;
       wrapperFeatures.gtk = true;
@@ -92,6 +63,7 @@ in {
         export MOZ_ENABLE_WAYLAND=1
       '';
     };
+
     # xdg-desktop-portal works by exposing a series of D-Bus interfaces
     # known as portals under a well-known name
     # (org.freedesktop.portal.Desktop) and object path

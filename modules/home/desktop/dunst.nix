@@ -3,16 +3,18 @@
   lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.desktop;
+}: let
   theme = import ./catppuccin.nix;
 in {
-  options.nixhome.desktop = {
-    dunst = mkBoolOption {description = "Enable dunst config";};
+  options.nixconf.desktop = {
+    dunst = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable Dunst Config";
+    };
   };
 
-  config = lib.mkIf cfg.dunst {
+  config = lib.mkIf config.nixconf.desktop.dunst {
     services.dunst = {
       enable = true;
       iconTheme = {

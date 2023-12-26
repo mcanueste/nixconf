@@ -3,16 +3,18 @@
   lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.desktop;
+}: let
   theme = import ./catppuccin.nix;
 in {
-  options.nixhome.desktop = {
-    rofi = mkBoolOption {description = "Enable rofi config";};
+  options.nixconf.desktop = {
+    rofi = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable Rofi Config";
+    };
   };
 
-  config = lib.mkIf cfg.rofi {
+  config = lib.mkIf config.nixconf.desktop.rofi {
     programs.rofi = {
       enable = true;
       package = pkgs.rofi-wayland;

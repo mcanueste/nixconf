@@ -1,17 +1,17 @@
 {
-  pkgs,
   lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.term;
-in {
-  options.nixhome.term = {
-    direnv = mkBoolOption {description = "Enable direnv";};
+}: {
+  options.nixconf.term = {
+    direnv = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable direnv";
+    };
   };
 
-  config = lib.mkIf cfg.direnv {
+  config = lib.mkIf config.nixconf.term.direnv {
     programs.direnv = {
       enable = true;
       enableBashIntegration = true;

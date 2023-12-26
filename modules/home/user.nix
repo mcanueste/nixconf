@@ -2,10 +2,8 @@
   lib,
   config,
   ...
-}: let
-  cfg = config.nixhome.user;
-in {
-  options.nixhome.user = {
+}: {
+  options.nixconf.user = {
     username = lib.mkOption {
       type = lib.types.str;
       default = "mcst";
@@ -20,7 +18,9 @@ in {
   };
 
   config = {
-    home.username = cfg.username;
-    home.homeDirectory = cfg.home;
+    home = {
+      username = config.nixconf.user.username;
+      homeDirectory = config.nixconf.user.home;
+    };
   };
 }

@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -12,16 +12,17 @@
   outputs = {
     self,
     nixpkgs,
-    home-manager,
     ...
-  }: let
-    config = import ./configs/xps15.nix;
+  } @ inputs: let
     system = "x86_64-linux";
+    config = import ./configs/xps15.nix;
+    homeConfig = import ./configs/home.nix;
     pkgs = import nixpkgs {
       inherit system;
       config = {
         allowUnfree = true;
-        permittedInsecurePackages = [ # obsidian 1.4.16 depends on this EOL electron?????
+        permittedInsecurePackages = [
+          # obsidian 1.4.16 depends on this EOL electron?????
           "electron-25.9.0"
         ];
         packageOverrides = pkg: {
@@ -40,27 +41,18 @@
       ];
     };
   in {
+    formatter.${system} = pkgs.alejandra;
+
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit pkgs;};
+        specialArgs = {inherit pkgs inputs homeConfig;};
         modules = [
+          inputs.home-manager.nixosModules.default
           ./modules/os
-          config.os
-          home-manager.nixosModules.home-manager
-          {
-            nixpkgs = {inherit pkgs;};
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.${config.user.username}.imports = [
-              ./modules/home
-              config.home
-            ];
-          }
+          config
         ];
       };
     };
-
-    formatter.${system} = pkgs.alejandra;
   };
 }

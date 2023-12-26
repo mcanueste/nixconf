@@ -1,15 +1,15 @@
 {
-  pkgs,
   lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.term;
-  fontCfg = config.nixhome.font;
+}: let
+  genFontConf = type: {
+    family = "JetBrainsMono Nerd Font"; # TODO: set this from options
+    style = type;
+  };
 
   shell =
-    if cfg.tmux
+    if config.nixconf.term.tmux
     then {
       program = "dash";
       args = [
@@ -20,7 +20,7 @@ with pkgs.lib.conflib; let
     }
     else
       (
-        if cfg.fish
+        if config.nixconf.term.fish
         then {
           program = "fish";
           args = ["-l"];
@@ -30,11 +30,6 @@ with pkgs.lib.conflib; let
           args = ["-l"];
         }
       );
-
-  genFontConf = type: {
-    family = "${fontCfg.font} Nerd Font";
-    style = type;
-  };
 
   catppuccin-mocha = {
     primary = {
@@ -121,11 +116,15 @@ with pkgs.lib.conflib; let
     ];
   };
 in {
-  options.nixhome.term = {
-    alacritty = mkBoolOption {description = "Enable alacritty";};
+  options.nixconf.term = {
+    alacritty = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable Alacritty";
+    };
   };
 
-  config = lib.mkIf cfg.alacritty {
+  config = lib.mkIf config.nixconf.term.alacritty {
     programs.alacritty = {
       enable = true;
       settings = {

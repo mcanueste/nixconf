@@ -1,30 +1,38 @@
 {
   pkgs,
+  lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.chat;
-in {
-  options.nixhome.chat = {
-    telegram = mkBoolOption {description = "Enable telegram desktop";};
-    slack = mkBoolOption {
-      description = "Enable slack";
-      default = false;
+}: {
+  options.nixconf.chat = {
+    telegram = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable Telegram Desktop";
     };
-    discord = mkBoolOption {description = "Enable discord";};
-    teams = mkBoolOption {
-      description = "Enable teams";
+    discord = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable Discord";
+    };
+    slack = lib.mkOption {
+      type = lib.types.bool;
       default = false;
+      description = "Enable Slack";
+    };
+    teams = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable Teams";
     };
   };
 
   config = {
-    home.packages = filterPackages [
-      (getPackageIf cfg.telegram pkgs.tdesktop)
-      (getPackageIf cfg.teams pkgs.teams)
-      (getPackageIf cfg.slack pkgs.slack)
-      (getPackageIf cfg.discord pkgs.discord)
+    home.packages = lib.lists.flatten [
+      (lib.lists.optional config.nixconf.chat.telegram pkgs.tdesktop)
+      (lib.lists.optional config.nixconf.chat.teams pkgs.teams)
+      (lib.lists.optional config.nixconf.chat.slack pkgs.slack)
+      (lib.lists.optional config.nixconf.chat.discord pkgs.discord)
     ];
   };
 }

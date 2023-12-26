@@ -3,19 +3,21 @@
   lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.term;
+}: let
   shellAliases = {
     pretty = "prettybat";
     brg = "batgrep";
   };
 in {
-  options.nixhome.term = {
-    bat = mkBoolOption {description = "Enable bat";};
+  options.nixconf.term = {
+    bat = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable bat";
+    };
   };
 
-  config = lib.mkIf cfg.bat {
+  config = lib.mkIf config.nixconf.term.bat {
     programs.bash = {inherit shellAliases;};
     programs.fish = {inherit shellAliases;};
     programs.bat = {

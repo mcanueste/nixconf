@@ -1,21 +1,21 @@
 {
-  pkgs,
   lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.term;
-in {
-  options.nixhome.term = {
-    zoxide = mkBoolOption {description = "Enable zoxide";};
+}: {
+  options.nixconf.term = {
+    zoxide = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable zoxide";
+    };
   };
 
-  config = lib.mkIf cfg.zoxide {
+  config = lib.mkIf config.nixconf.term.zoxide {
     programs.zoxide = {
       enable = true;
       enableBashIntegration = true;
-      enableFishIntegration = cfg.fish;
+      enableFishIntegration = config.nixconf.term.fish;
     };
   };
 }

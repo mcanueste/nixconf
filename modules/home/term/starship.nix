@@ -1,21 +1,21 @@
 {
-  pkgs,
   lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixhome.term;
-in {
-  options.nixhome.term = {
-    starship = mkBoolOption {description = "Enable starship";};
+}: {
+  options.nixconf.term = {
+    starship = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable starship";
+    };
   };
 
-  config = lib.mkIf cfg.starship {
+  config = lib.mkIf config.nixconf.term.starship {
     programs.starship = {
       enable = true;
       enableBashIntegration = true;
-      enableFishIntegration = cfg.fish;
+      enableFishIntegration = config.nixconf.term.fish;
       settings = {
         scan_timeout = 10;
         add_newline = true;

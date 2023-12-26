@@ -5,23 +5,20 @@
   ...
 }: let
   shellAliases = {
-    ld = "lazydocker";
+    tf = "terraform";
   };
 in {
   options.nixconf.term = {
-    lazydocker = lib.mkOption {
+    terraform = lib.mkOption {
       type = lib.types.bool;
       default = true;
-      description = "Enable lazydocker";
+      description = "Enable terraform";
     };
   };
 
-  config = lib.mkIf config.nixconf.term.lazydocker {
+  config = lib.mkIf config.nixconf.term.terraform {
+    home.packages = [pkgs.terraform];
     programs.bash = {inherit shellAliases;};
     programs.fish = {inherit shellAliases;};
-
-    home.packages = [
-      pkgs.lazydocker
-    ];
   };
 }

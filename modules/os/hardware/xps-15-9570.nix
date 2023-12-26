@@ -3,20 +3,31 @@
   lib,
   config,
   ...
-}:
-with pkgs.lib.conflib; let
-  cfg = config.nixos.hardware.xps15;
-in {
-  options.nixos.hardware.xps15 = {
-    enable = mkBoolOption {description = "Enable XPS15 hardware configuration";};
+}: {
+  # This sets up hardware specific configuration for XPS15 9560-9570
+  # - Boot/fs setup
+  # - Kernel parameters
+  # - Power management
+  # - Touchpad and other aux devices
+  # - SSD specific settings
+  # - Bluetooth
+  # - Intel/Nvidia Prime setup
 
-    swap = mkBoolOption {
+  options.nixconf.hardware.xps15 = {
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable XPS15 hardware configuration";
+    };
+
+    swap = lib.mkOption {
+      type = lib.types.bool;
       default = false;
       description = "Enable swap";
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf config.nixconf.hardware.xps15.enable {
     fileSystems = {
       "/boot/efi" = {
         device = "/dev/disk/by-label/BOOT";
@@ -29,7 +40,7 @@ in {
     };
 
     swapDevices =
-      if cfg.swap
+      if config.nixconf.hardware.xps15.swap
       then [{device = "/dev/disk/by-label/swap";}]
       else [];
 
@@ -78,6 +89,9 @@ in {
       # Enable touchpad support
       xserver.libinput.enable = true;
     };
+
+    # enable britghtness control
+    programs.light.enable = true;
 
     # ------------------------ Power setup
     powerManagement.cpuFreqGovernor = "ondemand";
@@ -157,5 +171,29 @@ in {
     # Enable GPU drivers
     services.xserver.videoDrivers = ["intel" "nvidia"];
     boot.blacklistedKernelModules = ["nouveau" "bbswitch"];
+
+    # Bluetooth setup
+    services.blueman.enable = true;
+    hardware.bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+      settings = {
+        General = {
+          Enable = "Source,Sink,Media,Socket";
+        };
+      };
+    };
+
+    # Wireplumber config for sound codecs with bluetooth headphones
+    environment.etc = {
+      "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
+        bluez_monitor.properties = {
+        	["bluez5.enable-sbc-xq"] = true,
+        	["bluez5.enable-msbc"] = true,
+        	["bluez5.enable-hw-volume"] = true,
+        	["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
+        }
+      '';
+    };
   };
 }

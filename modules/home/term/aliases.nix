@@ -5,10 +5,6 @@ let
     nfu = "nix flake update";
   };
 in {
-  programs.bash = {
-    inherit shellAliases;
-  };
-  programs.fish = {
-    inherit shellAliases;
-  };
+  programs.bash = {inherit shellAliases;};
+  programs.fish = {inherit shellAliases;};
 }

@@ -5,23 +5,20 @@
   ...
 }: let
   shellAliases = {
-    ld = "lazydocker";
+    vg = "vagrant";
   };
 in {
   options.nixconf.term = {
-    lazydocker = lib.mkOption {
+    vagrant = lib.mkOption {
       type = lib.types.bool;
       default = true;
-      description = "Enable lazydocker";
+      description = "Enable vagrant";
     };
   };
 
-  config = lib.mkIf config.nixconf.term.lazydocker {
+  config = lib.mkIf config.nixconf.term.vagrant {
+    home.packages = [pkgs.vagrant];
     programs.bash = {inherit shellAliases;};
     programs.fish = {inherit shellAliases;};
-
-    home.packages = [
-      pkgs.lazydocker
-    ];
   };
 }

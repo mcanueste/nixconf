@@ -5,23 +5,20 @@
   ...
 }: let
   shellAliases = {
-    ld = "lazydocker";
+    pk = "packer";
   };
 in {
   options.nixconf.term = {
-    lazydocker = lib.mkOption {
+    packer = lib.mkOption {
       type = lib.types.bool;
       default = true;
-      description = "Enable lazydocker";
+      description = "Enable packer";
     };
   };
 
-  config = lib.mkIf config.nixconf.term.lazydocker {
+  config = lib.mkIf config.nixconf.term.packer {
+    home.packages = [pkgs.packer];
     programs.bash = {inherit shellAliases;};
     programs.fish = {inherit shellAliases;};
-
-    home.packages = [
-      pkgs.lazydocker
-    ];
   };
 }
