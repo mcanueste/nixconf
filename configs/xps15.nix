@@ -1,9 +1,6 @@
 {
   nixconf = {
-    user = {
-      username = "mcst";
-      home = "/home/mcst";
-    };
+    user = "mcst";
 
     hardware = {
       xps15 = {
