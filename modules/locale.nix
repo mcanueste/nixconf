@@ -1,27 +1,55 @@
-let
-  timezone = "Europe/Berlin";
-  language = "en_US.UTF-8";
-  format = "de_DE.UTF-8";
-in {
-  time.timeZone = timezone;
-  i18n.defaultLocale = language;
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = format;
-    LC_IDENTIFICATION = format;
-    LC_MEASUREMENT = format;
-    LC_MONETARY = format;
-    LC_NAME = format;
-    LC_NUMERIC = format;
-    LC_PAPER = format;
-    LC_TELEPHONE = format;
-    LC_TIME = format;
+{
+  lib,
+  config,
+  ...
+}: {
+  options.nixconf.locale = {
+    timezone = lib.mkOption {
+      type = lib.types.str;
+      default = "Europe/Berlin";
+      description = "Timezone to use for the system";
+    };
+
+    language = lib.mkOption {
+      type = lib.types.str;
+      default = "en_US.UTF-8";
+      description = "Language to use for the system";
+    };
+
+    format = lib.mkOption {
+      type = lib.types.str;
+      default = "de_DE.UTF-8";
+      description = "Format to use for the system";
+    };
+
+    layout = lib.mkOption {
+      type = lib.types.str;
+      default = "us,de";
+      description = "List of keyboard layouts to use";
+    };
   };
 
-  # Configure keymap in X11 just in case we decide to use X11 based WM
-  services.xserver = {
-    layout = "us,de";
-    xkbModel = "pc105";
-    xkbOptions = "caps:escape,grp:win_space_toggle";
+  config = {
+    time.timeZone = config.nixconf.locale.timezone;
+    i18n.defaultLocale = config.nixconf.locale.language;
+    i18n.extraLocaleSettings = {
+      LC_ADDRESS = config.nixconf.locale.format;
+      LC_IDENTIFICATION = config.nixconf.locale.format;
+      LC_MEASUREMENT = config.nixconf.locale.format;
+      LC_MONETARY = config.nixconf.locale.format;
+      LC_NAME = config.nixconf.locale.format;
+      LC_NUMERIC = config.nixconf.locale.format;
+      LC_PAPER = config.nixconf.locale.format;
+      LC_TELEPHONE = config.nixconf.locale.format;
+      LC_TIME = config.nixconf.locale.format;
+    };
+
+    # Configure keymap in X11 just in case we decide to use X11 based WM
+    services.xserver = {
+      layout = config.nixconf.locale.layout;
+      xkbModel = "pc105";
+      xkbOptions = "caps:escape,grp:win_space_toggle";
+    };
+    console.useXkbConfig = true;
   };
-  console.useXkbConfig = true;
 }

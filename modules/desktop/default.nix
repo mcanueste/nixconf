@@ -1,8 +1,11 @@
 {
   imports = [
+    ./common.nix
     ./gnome.nix
     ./greetd.nix
-    ./sway.nix
-    ./thunar.nix
+    ./hyprland.nix
+    ./rofi.nix
+    ./swaync.nix
+    ./waybar.nix
   ];
 }

@@ -5,19 +5,19 @@
   ...
 }: {
   options.nixconf.font = {
-    enable = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Enable fontconfig";
-    };
     fonts = lib.mkOption {
-      description = "Font to install";
-      default = ["JetBrainsMono"];
       type = lib.types.listOf lib.types.str;
+      default = ["JetBrainsMono"];
+      description = "Font to install";
+    };
+    mainFont = lib.mkOption {
+      type = lib.types.str;
+      default = "JetBrainsMono";
+      description = "Main font to use with other configs.";
     };
   };
 
-  config = lib.mkIf config.nixconf.font.enable {
+  config = {
     home-manager.users.${config.nixconf.user} = {
       fonts.fontconfig.enable = true;
       home.packages = [

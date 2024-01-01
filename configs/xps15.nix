@@ -41,13 +41,14 @@
     };
 
     desktop = {
+      enable = true;
       gnome = false;
       greetd = {
         enable = true;
-        command = "sway --unsupported-gpu";
+        command = "Hyprland";
       };
-      sway = true;
-      thunar = true;
+      hyprland = true;
+      swaync = true;
     };
 
     gaming = {

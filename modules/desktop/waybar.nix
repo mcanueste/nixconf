@@ -3,16 +3,22 @@
   lib,
   config,
   ...
-}: {
+}: let
+  theme = pkgs.catppuccin.override {
+    accent = "sky";
+    variant = "mocha";
+    themeList = ["waybar"];
+  };
+in {
   options.nixconf.desktop = {
     waybar = lib.mkOption {
       type = lib.types.bool;
       default = true;
-      description = "Enable Waybar Config";
+      description = "Enable Waybar";
     };
   };
 
-  config = lib.mkIf config.nixconf.desktop.waybar {
+  config = lib.mkIf (config.nixconf.desktop.enable && config.nixconf.desktop.waybar) {
     home-manager.users.${config.nixconf.user} = {
       programs.waybar = {
         enable = true;
@@ -20,19 +26,14 @@
           mainBar = {
             layer = "top"; # Waybar at top layer
             position = "top"; # Waybar position (top|bottom|left|right)
-            height = 20; # Waybar height (to be removed for auto height)
-            # width= 1280; # Waybar width
+            height = 28; # Waybar height (to be removed for auto height)
             spacing = 4; # Gaps between modules (4px)
-            # Choose the order of the modules
-            modules-left = ["sway/workspaces" "sway/mode"];
-            # modules-center = ["custom/media"];
-            modules-right = ["pulseaudio" "backlight" "battery" "sway/language" "clock" "tray"];
+            modules-left = ["hyprland/workspaces"];
+            modules-center = ["clock"]; # "custom/media"
+            modules-right = ["hyprland/language" "pulseaudio" "backlight" "cpu" "memory" "battery" "tray"];
             # Modules configuration
-            "sway/workspaces" = {
-              disable-scroll = true;
+            "hyprland/workspaces" = {
               all-outputs = true;
-              warp-on-scroll = false;
-              format = "{name}";
             };
             pulseaudio = {
               format = "{volume}% {icon} {format_source}";
@@ -50,7 +51,7 @@
                 car = "";
                 default = ["" "" ""];
               };
-              on-click = "${pkgs.pavucontrol}";
+              # on-click = "${pkgs.pavucontrol}";
             };
             backlight = {
               format = "{percent}% {icon}";
@@ -69,8 +70,19 @@
             };
             clock = {
               timezone = "Europe/Berlin";
+              format = "{:%H:%M - %d.%m.%Y}";
+              format-alt = "{:%H:%M - %d.%m.%Y}";
               tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-              format-alt = "{:%Y-%m-%d}";
+            };
+            cpu = {
+              interval = 10;
+              format = "{usage}% ";
+              max-length = 10;
+            };
+            memory = {
+              interval = 30;
+              format = "{percentage}% ";
+              max-length = 10;
             };
             tray = {
               icon-size = 16;
@@ -80,41 +92,12 @@
         };
 
         style = ''
-          @define-color base   #1e1e2e;
-          @define-color mantle #181825;
-          @define-color crust  #11111b;
-
-          @define-color text     #cdd6f4;
-          @define-color subtext0 #a6adc8;
-          @define-color subtext1 #bac2de;
-
-          @define-color surface0 #313244;
-          @define-color surface1 #45475a;
-          @define-color surface2 #585b70;
-
-          @define-color overlay0 #6c7086;
-          @define-color overlay1 #7f849c;
-          @define-color overlay2 #9399b2;
-
-          @define-color blue      #89b4fa;
-          @define-color lavender  #b4befe;
-          @define-color sapphire  #74c7ec;
-          @define-color sky       #89dceb;
-          @define-color teal      #94e2d5;
-          @define-color green     #a6e3a1;
-          @define-color yellow    #f9e2af;
-          @define-color peach     #fab387;
-          @define-color maroon    #eba0ac;
-          @define-color red       #f38ba8;
-          @define-color mauve     #cba6f7;
-          @define-color pink      #f5c2e7;
-          @define-color flamingo  #f2cdcd;
-          @define-color rosewater #f5e0dc;
+          @import "${theme}/waybar/mocha.css";
 
           * {
               /* `otf-font-awesome` is required to be installed for icons */
-              font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
-              font-size: 13px;
+              font-family: ${config.nixconf.font.mainFont}, FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+              font-size: 14px;
           }
 
           window#waybar {
@@ -153,7 +136,7 @@
               background: @subtext1;
           }
 
-          #workspaces button.focused {
+          #workspaces button.active {
               background-color: @surface0;
               box-shadow: inset 0 -3px @text;
           }
@@ -173,6 +156,8 @@
           #network,
           #pulseaudio,
           #tray,
+          #cpu,
+          #memory,
           #mode {
               padding: 0 10px;
               color: @text;
@@ -186,11 +171,6 @@
           /* If workspaces is the leftmost module, omit left margin */
           .modules-left > widget:first-child > #workspaces {
               margin-left: 0;
-          }
-
-          /* If workspaces is the rightmost module, omit right margin */
-          .modules-right > widget:last-child > #workspaces {
-              margin-right: 0;
           }
 
           #clock {

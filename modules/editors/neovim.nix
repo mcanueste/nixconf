@@ -137,6 +137,7 @@ in {
                 p.vimdoc
                 p.vue
                 p.yaml
+                p.yuck
                 p.zig
               ]))
             nvim-treesitter-refactor

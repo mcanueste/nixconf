@@ -12,7 +12,7 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.desktop.gnome {
+  config = lib.mkIf (config.nixconf.desktop.enable && config.nixconf.desktop.gnome) {
     services.xserver = {
       # Enable the X11 windowing system.
       enable = true;

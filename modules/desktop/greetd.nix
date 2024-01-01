@@ -13,12 +13,12 @@
 
     command = lib.mkOption {
       type = lib.types.str;
-      default = "sway --unsupported-gpu";
+      default = "Hyprland"; # sway --unsupported-gpu
       description = "Command to use with greetd login manager";
     };
   };
 
-  config = lib.mkIf config.nixconf.desktop.greetd.enable {
+  config = lib.mkIf (config.nixconf.desktop.enable && config.nixconf.desktop.greetd.enable) {
     services.greetd = {
       enable = true;
       settings = {

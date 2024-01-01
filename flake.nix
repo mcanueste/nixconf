@@ -7,6 +7,8 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland.url = "github:hyprwm/Hyprland";
+    gBar.url = "github:scorpion-26/gBar";
   };
 
   outputs = {
@@ -16,21 +18,15 @@
   } @ inputs: let
     system = "x86_64-linux";
     config = import ./configs/xps15.nix;
-    homeConfig = import ./configs/home.nix;
 
-    pkgs = import nixpkgs {
-      inherit system;
-      config = {
-        allowUnfree = true;
-      };
-    };
+    pkgs = import nixpkgs {inherit system;};
   in {
     formatter.${system} = pkgs.alejandra;
 
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit inputs homeConfig;};
+        specialArgs = {inherit inputs;};
         modules = [
           inputs.home-manager.nixosModules.default
           ./modules

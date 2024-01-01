@@ -3,77 +3,62 @@
   inputs,
   ...
 }: {
-  # not considered since we use unstable via flake,
-  # but need to give it here so the error msg is gone.
-  system.stateVersion = "24.05";
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  nix = {
-    # Automate garbage collection
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
+  # Flakes settings
+  nix.package = pkgs.nixVersions.unstable;
+  nix.registry.nixpkgs.flake = inputs.nixpkgs;
+  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.warn-dirty = false;
 
-    # optimise nix store daily
-    optimise.automatic = true;
+  # Optimise store
+  nix.optimise.automatic = true;
+  nix.settings.auto-optimise-store = true;
 
-    # Flakes settings
-    package = pkgs.nixVersions.unstable;
-    registry.nixpkgs.flake = inputs.nixpkgs;
+  # Automate garbage collection
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
+  # Avoid unwanted garbage collection when using nix-direnv
+  nix.settings.keep-outputs = true;
+  nix.settings.keep-derivations = true;
 
-    settings = {
-      # optimise nix store after each build
-      auto-optimise-store = true;
-
-      # Enable flakes
-      experimental-features = ["nix-command" "flakes"];
-      warn-dirty = false;
-
-      # Avoid unwanted garbage collection when using nix-direnv
-      keep-outputs = true;
-      keep-derivations = true;
-
-      # Binary caches
-      substituters = [
-        "https://cache.nixos.org"
-        "https://cache.garnix.io"
-      ];
-      trusted-public-keys = [
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
-      ];
-    };
+  # Binary caches
+  nix.settings = {
+    substituters = [
+      "https://cache.nixos.org"
+      "https://cache.garnix.io"
+      "https://hyprland.cachix.org"
+    ];
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    ];
   };
 
   imports = [
-    ./user.nix
-    ./locale.nix
-    ./sound.nix
-    ./networking.nix
-    ./security.nix
-    ./printer.nix
-    ./logitech.nix
-    ./virtualization.nix
-    ./hardware
-    ./desktop
-    ./gaming.nix
     ./browsers.nix
     ./chat.nix
-    ./font.nix
-    ./media.nix
+    ./desktop
     ./editors
-    ./tools
-    ./term
+    ./font.nix
+    ./gaming.nix
+    ./hardware
+    ./locale.nix
+    ./logitech.nix
+    ./media.nix
+    ./networking.nix
     ./packages.nix
+    ./printer.nix
+    ./security.nix
+    ./sound.nix
+    ./term
+    ./tools
+    ./user.nix
+    ./virtualization.nix
   ];
-
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    extraSpecialArgs = {inherit inputs;};
-  };
 }

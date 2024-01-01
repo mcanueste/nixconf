@@ -10,17 +10,17 @@ in {
     rofi = lib.mkOption {
       type = lib.types.bool;
       default = true;
-      description = "Enable Rofi Config";
+      description = "Enable Rofi";
     };
   };
 
-  config = lib.mkIf config.nixconf.desktop.rofi {
+  config = lib.mkIf (config.nixconf.desktop.enable && config.nixconf.desktop.rofi) {
     home-manager.users.${config.nixconf.user} = {
       programs.rofi = {
         enable = true;
         package = pkgs.rofi-wayland;
-        font = "JetBrainsMono Nerd Font 10";
-        terminal = "${pkgs.alacritty}/bin/alacritty";
+        font = "${config.nixconf.font.mainFont} Nerd Font 10";
+        terminal = "alacritty";
         extraConfig = {
           modi = "run,drun";
           show-icons = true;
@@ -33,7 +33,7 @@ in {
           display-window = " 﩯  Window";
           drun-display-format = "{icon} {name}";
         };
-        theme = with config.lib.formats.rasi; {
+        theme = with config.home-manager.users.${config.nixconf.user}.lib.formats.rasi; {
           "*" = {
             width = 600;
             bg-col = mkLiteral theme.base;

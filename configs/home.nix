@@ -1,5 +1,0 @@
-{
-  nixconf = {
-    user = "mcst";
-  };
-}
