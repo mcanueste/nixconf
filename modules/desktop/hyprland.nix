@@ -27,9 +27,6 @@ in {
     };
 
     home-manager.users.${config.nixconf.user} = {
-      # TODO: checkout xdg desktop portal usage and authentication agent
-      # TODO: also check qt5-wayland and qt6-wayland for nix
-
       home.packages = lib.lists.flatten [
         # Assumes wireplumber for sound
         pkgs.playerctl
@@ -200,6 +197,7 @@ in {
             "$mod, o, exec, obsidian"
             "$mod, t, exec, thunar"
             "$mod, d, exec, rofi -show drun"
+            "$mod, s, exec, rofi -show run"
             "$mod, p, exec, rofi -show power-menu -modi power-menu:${pkgs.rofi-power-menu}/bin/rofi-power-menu"
             "$mod, v, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
             "$mod, n, exec, swaync-client -t"
