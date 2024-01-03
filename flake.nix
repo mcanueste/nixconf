@@ -19,7 +19,7 @@
     config = import ./configs/xps15.nix;
 
     pkgs = import nixpkgs {inherit system;};
-  in {
+  in rec {
     formatter.${system} = pkgs.alejandra;
 
     nixosConfigurations = {
@@ -32,6 +32,10 @@
           config
         ];
       };
+    };
+
+    homeConfigurations = {
+      nixos = nixosConfigurations.nixos.home-manager.users.${config.nixconf.user}.home;
     };
   };
 }
