@@ -49,7 +49,6 @@
     ./gaming.nix
     ./hardware
     ./locale.nix
-    ./logitech.nix
     ./media.nix
     ./networking.nix
     ./packages.nix
