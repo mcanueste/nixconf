@@ -33,7 +33,6 @@ in {
       extraSpecialArgs = {inherit inputs;};
       users.${config.nixconf.user} = {
         programs.home-manager.enable = true;
-        imports = [inputs.gBar.homeManagerModules.x86_64-linux.default];
         home = {
           inherit stateVersion;
           username = config.nixconf.user;

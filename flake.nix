@@ -8,7 +8,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
-    gBar.url = "github:scorpion-26/gBar";
   };
 
   outputs = {
