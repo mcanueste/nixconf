@@ -37,5 +37,12 @@
     homeConfigurations = {
       nixos = nixosConfigurations.nixos.home-manager.users.${config.nixconf.user}.home;
     };
+
+    templates = {
+      pypoetry = {
+        description = "Python with Poetry dev environment flake template.";
+        path = ./templates/pyflake.nix;
+      };
+    };
   };
 }
