@@ -42,10 +42,14 @@ in {
           tmuxPlugins.resurrect
           tmuxPlugins.catppuccin
           tmuxPlugins.vim-tmux-navigator
+          tmuxPlugins.tmux-fzf
         ];
         # we need session switcher
         extraConfig = ''
           set-option -sa terminal-overrides ",xterm*:Tc"
+          set-option -g status-interval 5
+          set-option -g automatic-rename on
+          set-option -g automatic-rename-format '#{b:pane_current_path}'
 
           bind-key -T copy-mode-vi v send-keys -X begin-selection
           bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
@@ -60,6 +64,8 @@ in {
           bind -N "Move to previous session" j switch-client -n
           bind -N "Move to next session" k switch-client -p
           bind q kill-pane
+
+          set -g @continuum-restore 'on'
         '';
       };
     };
