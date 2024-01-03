@@ -1,43 +1,21 @@
 {
   nixconf = {
     user = "mcst";
+    network.hostname = "nixos";
 
     hardware = {
       xps15 = {
         enable = true;
         swap = false;
       };
-    };
-
-    network = {
-      hostname = "nixos";
-      hosts = "";
-      wireguard = {
-        enable = false;
-        configs = [];
-      };
-      exportMtr = false;
-    };
-
-    security = {
-      certs = [];
-      openssh = false;
-      sftp = false;
-      sshd = false;
-      gvfs = true;
-    };
-
-    printer = {
-      enable = false;
-      printerDrivers = [];
-      scanner = false;
-      scannerBackends = [];
+      logitech = true;
     };
 
     virtualisation = {
       docker = true;
-      podman = false;
+      dockerAutoPrune = true;
       virt-manager = true;
+      podman = false;
     };
 
     desktop = {
@@ -48,11 +26,31 @@
         command = "Hyprland";
       };
       hyprland = true;
+      waybar = true;
       swaync = true;
+      rofi = true;
     };
 
-    gaming = {
-      steam = true;
+    gaming = true;
+
+    tools = {
+      k9s = true;
+      kubectl = true;
+      localstack = true;
+      lazydocker = true;
+      lazygit = true;
+      minikube = true;
+      packer = false;
+      terraform = true;
+      todoist = true;
+      vagrant = false;
+
+      # Cloud CLIs
+      aws = true;
+      gcloud = false;
+      azure = false;
+      digital-ocean = false;
+      cfssl = false;
     };
   };
 }

@@ -16,6 +16,7 @@
       default = true;
       description = "Enable docker";
     };
+
     dockerAutoPrune = lib.mkOption {
       type = lib.types.bool;
       default = true;

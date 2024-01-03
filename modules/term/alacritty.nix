@@ -4,7 +4,7 @@
   ...
 }: let
   genFontConf = type: {
-    family = "JetBrainsMono Nerd Font"; # TODO: set this from options
+    family = "${config.nixconf.font.mainFont} Nerd Font";
     style = type;
   };
 

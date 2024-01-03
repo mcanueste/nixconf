@@ -60,8 +60,8 @@ in {
             nvim-web-devicons
             catppuccin-nvim
             lualine-nvim
-            nvim-notify
-            noice-nvim
+            # nvim-notify
+            # noice-nvim
             which-key-nvim
 
             # vcs
@@ -137,7 +137,6 @@ in {
                 p.vimdoc
                 p.vue
                 p.yaml
-                p.yuck
                 p.zig
               ]))
             nvim-treesitter-refactor

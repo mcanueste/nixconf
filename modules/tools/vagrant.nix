@@ -5,20 +5,20 @@
   ...
 }: let
   shellAliases = {
-    pk = "packer";
+    vg = "vagrant";
   };
 in {
-  options.nixconf.term = {
-    packer = lib.mkOption {
+  options.nixconf.tools = {
+    vagrant = lib.mkOption {
       type = lib.types.bool;
-      default = true;
-      description = "Enable packer";
+      default = false;
+      description = "Enable vagrant";
     };
   };
 
-  config = lib.mkIf config.nixconf.term.packer {
+  config = lib.mkIf config.nixconf.tools.vagrant {
     home-manager.users.${config.nixconf.user} = {
-      home.packages = [pkgs.packer];
+      home.packages = [pkgs.vagrant];
       programs.bash = {inherit shellAliases;};
       programs.fish = {inherit shellAliases;};
     };

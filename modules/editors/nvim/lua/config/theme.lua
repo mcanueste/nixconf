@@ -3,8 +3,8 @@ local hipatterns = require("mini.hipatterns")
 local catppuccin = require("catppuccin")
 local whichkey = require("which-key")
 local lualine = require("lualine")
-local notify = require("notify")
-local noice = require("noice")
+-- local notify = require("notify")
+-- local noice = require("noice")
 
 local function init()
     -- Setup web-devicons
@@ -30,8 +30,8 @@ local function init()
             lsp_trouble = true,
             cmp = true,
             which_key = true,
-            noice = true,
-            notify = true,
+            -- noice = true,
+            -- notify = true,
             semantic_tokens = true,
             telescope = { enabled = true },
             dap = {
@@ -89,33 +89,38 @@ local function init()
 
     -- notify-nvim for notifications
     -- See: https://github.com/folke/noice.nvim
-    notify.setup({
-        background_colour = "FloatShadow",
-        stages = "fade_in_slide_out",
-        render = "wrapped-compact",
-        timeout = 3000,
-    })
+    -- notify.setup({
+    --     background_colour = "FloatShadow",
+    --     stages = "fade_in_slide_out",
+    --     render = "wrapped-compact",
+    --     timeout = 3000,
+    -- })
 
     -- noice.nvim for fancy gui
     -- See: https://github.com/folke/noice.nvim
-    noice.setup({
-        lsp = {
-            -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-            override = {
-                ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-                ["vim.lsp.util.stylize_markdown"] = true,
-                ["cmp.entry.get_documentation"] = true,
-            },
-        },
-        -- you can enable a preset for easier configuration
-        presets = {
-            bottom_search = true, -- use a classic bottom cmdline for search
-            command_palette = true, -- position the cmdline and popupmenu together
-            long_message_to_split = true, -- long messages will be sent to a split
-            inc_rename = false, -- enables an input dialog for inc-rename.nvim
-            lsp_doc_border = true, -- add a border to hover docs and signature help
-        },
-    })
+    -- noice.setup({
+    --     cmdline = {
+    --         enabled = true, -- enables the Noice cmdline UI
+    --         -- view = "cmdline_popup",
+    --         view = "cmdline", -- # TODO: checking if this causes the lags
+    --     },
+    --     lsp = {
+    --         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+    --         override = {
+    --             ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+    --             ["vim.lsp.util.stylize_markdown"] = true,
+    --             ["cmp.entry.get_documentation"] = true,
+    --         },
+    --     },
+    --     -- you can enable a preset for easier configuration
+    --     presets = {
+    --         bottom_search = true, -- use a classic bottom cmdline for search
+    --         command_palette = true, -- position the cmdline and popupmenu together
+    --         long_message_to_split = true, -- long messages will be sent to a split
+    --         inc_rename = false, -- enables an input dialog for inc-rename.nvim
+    --         lsp_doc_border = true, -- add a border to hover docs and signature help
+    --     },
+    -- })
 
     -- Setup whichkey first in 'basics' and register helpers later on
     -- See: https://github.com/folke/which-key.nvim

@@ -17,15 +17,15 @@
     '';
   };
 in {
-  options.nixconf.gaming = {
-    steam = lib.mkOption {
+  options.nixconf = {
+    gaming = lib.mkOption {
       type = lib.types.bool;
       default = true;
-      description = "Enable steam";
+      description = "Enable gaming";
     };
   };
 
-  config = lib.mkIf config.nixconf.gaming.steam {
+  config = lib.mkIf config.nixconf.gaming {
     nixpkgs.config.packageOverrides = pkgs: {
       steam = pkgs.steam.override {
         extraPkgs = pkg:

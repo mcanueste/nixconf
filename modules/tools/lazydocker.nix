@@ -5,24 +5,24 @@
   ...
 }: let
   shellAliases = {
-    lg = "lazygit";
+    ld = "lazydocker";
   };
 in {
-  options.nixconf.term = {
-    lazygit = lib.mkOption {
+  options.nixconf.tools = {
+    lazydocker = lib.mkOption {
       type = lib.types.bool;
-      default = true;
-      description = "Enable lazygit";
+      default = false;
+      description = "Enable lazydocker";
     };
   };
 
-  config = lib.mkIf config.nixconf.term.lazygit {
+  config = lib.mkIf config.nixconf.tools.lazydocker {
     home-manager.users.${config.nixconf.user} = {
       programs.bash = {inherit shellAliases;};
       programs.fish = {inherit shellAliases;};
 
       home.packages = [
-        pkgs.lazygit
+        pkgs.lazydocker
       ];
     };
   };

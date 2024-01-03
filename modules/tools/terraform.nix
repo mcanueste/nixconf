@@ -5,20 +5,20 @@
   ...
 }: let
   shellAliases = {
-    vg = "vagrant";
+    tf = "terraform";
   };
 in {
-  options.nixconf.term = {
-    vagrant = lib.mkOption {
+  options.nixconf.tools = {
+    terraform = lib.mkOption {
       type = lib.types.bool;
-      default = true;
-      description = "Enable vagrant";
+      default = false;
+      description = "Enable terraform";
     };
   };
 
-  config = lib.mkIf config.nixconf.term.vagrant {
+  config = lib.mkIf config.nixconf.tools.terraform {
     home-manager.users.${config.nixconf.user} = {
-      home.packages = [pkgs.vagrant];
+      home.packages = [pkgs.terraform];
       programs.bash = {inherit shellAliases;};
       programs.fish = {inherit shellAliases;};
     };

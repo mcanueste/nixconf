@@ -5,6 +5,11 @@
   ...
 }: {
   options.nixconf.font = {
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable nerd fonts";
+    };
     fonts = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = ["JetBrainsMono"];
@@ -17,7 +22,7 @@
     };
   };
 
-  config = {
+  config = lib.mkIf config.nixconf.font.enable {
     home-manager.users.${config.nixconf.user} = {
       fonts.fontconfig.enable = true;
       home.packages = [

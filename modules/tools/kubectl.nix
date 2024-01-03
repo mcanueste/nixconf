@@ -8,15 +8,15 @@
     k = "kubectl";
   };
 in {
-  options.nixconf.term = {
+  options.nixconf.tools = {
     kubectl = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Enable kubectl";
     };
   };
 
-  config = lib.mkIf config.nixconf.term.kubectl {
+  config = lib.mkIf config.nixconf.tools.kubectl {
     home-manager.users.${config.nixconf.user} = {
       home.packages = [pkgs.kubectl];
       programs.bash = {inherit shellAliases;};

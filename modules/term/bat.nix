@@ -8,6 +8,12 @@
     pretty = "prettybat";
     brg = "batgrep";
   };
+
+  theme = pkgs.catppuccin.override {
+    accent = "sky";
+    variant = "mocha";
+    themeList = ["bat"];
+  };
 in {
   options.nixconf.term = {
     bat = lib.mkOption {
@@ -33,19 +39,12 @@ in {
           # batman
           # batdiff
         ];
+        config.theme = "catppuccin";
         themes = {
           catppuccin = {
-            src = pkgs.fetchFromGitHub {
-              owner = "catppuccin";
-              repo = "bat";
-              rev = "main";
-              sha256 = "6WVKQErGdaqb++oaXnY3i6/GuH2FhTgK0v4TN4Y0Wbw=";
-            };
+            src = "${theme}/bat/";
             file = "Catppuccin-mocha.tmTheme";
           };
-        };
-        config = {
-          theme = "catppuccin";
         };
       };
     };

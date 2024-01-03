@@ -4,10 +4,10 @@
   config,
   ...
 }: {
-  options.nixconf.term = {
+  options.nixconf.tools = {
     aws = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Enable AWS CLI";
     };
 
@@ -39,11 +39,11 @@
   config = {
     home-manager.users.${config.nixconf.user} = {
       home.packages = lib.lists.flatten [
-        (lib.lists.optional config.nixconf.term.aws pkgs.awscli2)
-        (lib.lists.optional config.nixconf.term.gcloud pkgs.google-cloud-sdk)
-        (lib.lists.optional config.nixconf.term.azure pkgs.azure-cli)
-        (lib.lists.optional config.nixconf.term.digital-ocean pkgs.doctl)
-        (lib.lists.optional config.nixconf.term.cfssl pkgs.cfssl)
+        (lib.lists.optional config.nixconf.tools.aws pkgs.awscli2)
+        (lib.lists.optional config.nixconf.tools.gcloud pkgs.google-cloud-sdk)
+        (lib.lists.optional config.nixconf.tools.azure pkgs.azure-cli)
+        (lib.lists.optional config.nixconf.tools.digital-ocean pkgs.doctl)
+        (lib.lists.optional config.nixconf.tools.cfssl pkgs.cfssl)
       ];
     };
   };

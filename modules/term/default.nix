@@ -4,26 +4,18 @@
     ./aliases.nix
     ./bash.nix
     ./bat.nix
-    ./cloud.nix
     ./dircolors.nix
     ./direnv.nix
     ./eza.nix
     ./fish.nix
     ./fzf.nix
     ./git.nix
-    ./k9s.nix
-    ./kubectl.nix
-    ./lazydocker.nix
-    ./lazygit.nix
     ./packages.nix
-    ./packer.nix
     ./scripts.nix
     ./starship.nix
     ./systemd.nix
-    ./terraform.nix
     ./tmux.nix
-    ./todoist.nix
-    ./vagrant.nix
+    ./wezterm.nix # TODO doesn't work on hyprland/wayland?
     ./zoxide.nix
   ];
 }
