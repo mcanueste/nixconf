@@ -41,7 +41,7 @@
     templates = {
       pypoetry = {
         description = "Python with Poetry dev environment flake template.";
-        path = ./templates/pyflake.nix;
+        path = ./templates/pypoetry;
       };
     };
   };
