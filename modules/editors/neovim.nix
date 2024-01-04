@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }: let
   shellAliases = {
@@ -12,18 +13,7 @@
     name = "config";
     src = ./nvim;
   };
-
   # TODO: git-worktree plugin
-  obsidian-nvim = pkgs.vimUtils.buildVimPlugin {
-    # TODO get as input with flake
-    name = "obsidian-nvim";
-    src = pkgs.fetchFromGitHub {
-      owner = "epwalsh";
-      repo = "obsidian.nvim";
-      rev = "main";
-      sha256 = "sha256-dhAOJmuICqKvX0bb0lLmuNmcZpOeP1ROH7FA0VqVHSE=";
-    };
-  };
 in {
   options.nixconf.editor = {
     neovim = lib.mkOption {
@@ -176,9 +166,13 @@ in {
             telescope-dap-nvim
 
             # AI
+            # codeium-nvim
             ChatGPT-nvim
+
+            # Note taking
+            obsidian-nvim
           ]
-          ++ [nvim-config obsidian-nvim];
+          ++ [nvim-config inputs.codeium-nvim.packages.x86_64-linux.vimPlugins.codeium-nvim];
 
         extraConfig = ''
           lua << EOF
@@ -253,6 +247,9 @@ in {
           # yaml support
           # yamlfmt
           # nodePackages.yaml-language-server
+
+          # AI
+          # codeium
         ];
       };
     };

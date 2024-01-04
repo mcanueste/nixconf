@@ -1,10 +1,13 @@
 local whichkey = require("which-key")
 local chatgpt = require("chatgpt")
+local codeium = require("codeium")
 
 local function init()
-    whichkey.register({ v = { name = "vcs" } }, { prefix = "<leader>" })
-
     local home = vim.fn.expand("$HOME")
+    whichkey.register({ a = { name = "ai" } }, { prefix = "<leader>" })
+
+    codeium.setup({})
+
     chatgpt.setup({
         api_key_cmd = "cat " .. home .. "/.ssh/chatgpt.key",
         openai_params = {
@@ -67,6 +70,7 @@ local function init()
         "<cmd>ChatGPTRun grammar_correction<cr>",
         { noremap = true, desc = "ChatGPT Grammar Correction" }
     )
+
 end
 
 return { init = init }
