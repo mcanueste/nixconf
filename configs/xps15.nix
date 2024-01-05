@@ -52,5 +52,10 @@
       digital-ocean = false;
       cfssl = false;
     };
+
+    editor = {
+      neovim = true;
+      obsidian = true;
+    };
   };
 }

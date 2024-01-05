@@ -115,7 +115,7 @@ local function init()
             "lspinfo",
             "man",
             "harpoon",
-            "FTerm"
+            "FTerm",
             -- "spectre_panel",
             -- "PlenaryTestPopup",
             -- TODO: add floating term and other tools here
