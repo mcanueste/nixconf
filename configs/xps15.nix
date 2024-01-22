@@ -36,7 +36,7 @@
     tools = {
       k9s = true;
       kubectl = true;
-      localstack = true;
+      localstack = false;
       lazydocker = true;
       lazygit = true;
       minikube = true;
