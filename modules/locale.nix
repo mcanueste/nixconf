@@ -46,9 +46,11 @@
 
     # Configure keymap in X11 just in case we decide to use X11 based WM
     services.xserver = {
-      layout = config.nixconf.locale.layout;
-      xkbModel = "pc105";
-      xkbOptions = "caps:escape,grp:win_space_toggle";
+      xkb = {
+        model = "pc105";
+        options = "caps:escape,grp:win_space_toggle";
+        layout = config.nixconf.locale.layout;
+      };
     };
     console.useXkbConfig = true;
   };

@@ -52,9 +52,11 @@ in {
         pkgs.udiskie
         pkgs.wl-clipboard
         pkgs.cliphist
-        pkgs.grim
-        pkgs.slurp
+
+        # pkgs.grim
+        # pkgs.slurp
         pkgs.swappy
+        pkgs.grimblast
       ];
 
       wayland.windowManager.hyprland = {
@@ -203,9 +205,24 @@ in {
             "$mod, n, exec, swaync-client -t"
             "$mod SHIFT, n, exec, swaync-client -C"
 
-            ", Print, exec, grim -g '$(slurp)' $HOME/Pictures/Screenshots/$(date -u +'%Y%m%d-%H%M%SZ').png"
-            "SHIFT, Print, exec, grim -g '$(slurp)' - | swappy -o $HOME/Pictures/Screenshots/$(date -u +'%Y%m%d-%H%M%SZ').png -f -"
+            ", Print, exec, grimblast --notify save area"
+            "CTRL, Print, exec, grimblast --notify save active"
+            "ALT, Print, exec, grimblast --notify save output"
+            "SHIFT, Print, exec, swappy -o $HOME/Pictures/Edited/$(date -u +'%Y%m%d-%H%M%SZ').png -f $(grimblast --notify save area)"
+            "CTRL SHIFT, Print, exec, swappy -o $HOME/Pictures/Edited/$(date -u +'%Y%m%d-%H%M%SZ').png -f $(grimblast --notify save active)"
+            "ALT SHIFT, Print, exec, swappy -o $HOME/Pictures/Edited/$(date -u +'%Y%m%d-%H%M%SZ').png -f $(grimblast --notify save output)"
+
             ", XF86Calculator, exec, galculator"
+
+            # ## Screen recording
+            # "${modifier}+Print" = "exec wayrecorder --notify screen";
+            # "${modifier}+Shift+Print" = "exec wayrecorder --notify --input area";
+            # "${modifier}+Alt+Print" = "exec wayrecorder --notify --input active";
+            # "${modifier}+Shift+Alt+Print" = "exec wayrecorder --notify --input window";
+            # "${modifier}+Ctrl+Print" = "exec wayrecorder --notify --clipboard --input screen";
+            # "${modifier}+Ctrl+Shift+Print" = "exec wayrecorder --notify --clipboard --input area";
+            # "${modifier}+Ctrl+Alt+Print" = "exec wayrecorder --notify --clipboard --input active";
+            # "${modifier}+Ctrl+Shift+Alt+Print" = "exec wayrecorder --notify --clipboard --input window";
           ];
           bindm = [
             # Move/resize windows with mainMod + LMB/RMB and dragging

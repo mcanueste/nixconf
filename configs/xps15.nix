@@ -31,6 +31,11 @@
       rofi = true;
     };
 
+    browser = {
+      brave = true;
+      firefox = true;
+    };
+
     gaming = true;
 
     tools = {

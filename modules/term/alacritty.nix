@@ -55,10 +55,10 @@
         foreground = "#1E1E2E";
         background = "#A6E3A1";
       };
-      footer_bar = {
-        foreground = "#1E1E2E";
-        background = "#A6ADC8";
-      };
+      # footer_bar = {
+      #   foreground = "#1E1E2E";
+      #   background = "#A6ADC8";
+      # };
     };
     hints = {
       start = {
@@ -131,10 +131,10 @@ in {
         settings = {
           inherit shell;
           live_config_reload = true;
-          visual_bell.duration = 0;
-          dynamic_title = true;
+          # visual_bell.duration = 0;
+          # dynamic_title = true;
           cursor.style = "block";
-          draw_bold_text_with_bright_colors = true;
+          # colors.draw_bold_text_with_bright_colors = true;
           cursor.unfocused_hollow = true;
           env = {
             TERM = "xterm-256color";
@@ -154,7 +154,7 @@ in {
           };
           scrolling = {
             history = 50000;
-            auto_scroll = false;
+            # auto_scroll = false;
           };
           font = {
             normal = genFontConf "Regular";
@@ -164,28 +164,28 @@ in {
             size = 12.0;
           };
           colors = catppuccin-mocha;
-          key_bindings = [
-            {
-              key = "H";
-              mods = "Control|Shift";
-              chars = "\\x1b[72;6u";
-            }
-            {
-              key = "J";
-              mods = "Control|Shift";
-              chars = "\\x1b[74;6u";
-            }
-            {
-              key = "K";
-              mods = "Control|Shift";
-              chars = "\\x1b[75;6u";
-            }
-            {
-              key = "L";
-              mods = "Control|Shift";
-              chars = "\\x1b[76;6u";
-            }
-          ];
+          # key_bindings = [
+          #   {
+          #     key = "H";
+          #     mods = "Control|Shift";
+          #     chars = "\\x1b[72;6u";
+          #   }
+          #   {
+          #     key = "J";
+          #     mods = "Control|Shift";
+          #     chars = "\\x1b[74;6u";
+          #   }
+          #   {
+          #     key = "K";
+          #     mods = "Control|Shift";
+          #     chars = "\\x1b[75;6u";
+          #   }
+          #   {
+          #     key = "L";
+          #     mods = "Control|Shift";
+          #     chars = "\\x1b[76;6u";
+          #   }
+          # ];
         };
       };
     };
