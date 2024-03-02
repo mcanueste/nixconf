@@ -1,6 +1,6 @@
 {
   imports = [
-    ./xps-15-9570.nix
+    ./xps-15.nix
     ./logitech.nix
   ];
 }

@@ -54,22 +54,26 @@
       };
       initrd = {
         availableKernelModules = [
-          "xhci_pci"
-          "ahci"
-          "nvme"
-          "usb_storage"
-          "usbhid"
-          "sd_mod"
-          "rtsx_pci_sdmmc"
+          "xhci_pci" # USB 1,2, and 3 support
+          "ahci" # SATA Device support
+          "nvme" # NVME Device support
+          "sd_mod" # SCSI Disk support
+          "usb_storage" # USB Storage support
+          "usbhid" # USB Human Interface Device support, i.e. mouse, keyboard...
+          "rtsx_pci_sdmmc" # Realtek SD/MMC Card support
         ];
-        kernelModules = ["i915"];
+        kernelModules = [
+          "i915" # For Intel GPU
+        ];
       };
       kernelModules = [
-        "kvm-intel"
-        "acpi_call"
-        "acpi_rev_override"
-        "i915.enable_fbc=1"
-        "i915.enable_psr=2"
+        "kvm-intel" # Virtualization support
+        "acpi_call" # Allow ACPI calls, power management.
+        "acpi_rev_override" # Might not be needed anymore, see below
+        # https://github.com/Bumblebee-Project/bbswitch/issues/148
+
+        "i915.enable_fbc=1" # Frame Buffer Compression for iGPU power saving.
+        "i915.enable_psr=1" # Panel Self Refresh for iGPU power saving. Disable (0) if there are flickers.
       ];
       extraModulePackages = with config.boot.kernelPackages; [acpi_call];
     };
@@ -161,7 +165,6 @@
         intelBusId = "PCI:0:2:0";
         nvidiaBusId = "PCI:1:0:0";
       };
-
     };
 
     # Set VDPAU driver for intel gpu
