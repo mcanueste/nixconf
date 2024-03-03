@@ -6,7 +6,7 @@
     hardware = {
       xps15 = {
         enable = true;
-        swap = false;
+        swap = true;
       };
       logitech = true;
     };
@@ -36,7 +36,7 @@
       firefox = true;
     };
 
-    gaming = true;
+    gaming = false;
 
     tools = {
       k9s = true;
@@ -45,14 +45,14 @@
       lazydocker = true;
       lazygit = true;
       minikube = true;
-      packer = false;
+      packer = true;
       terraform = true;
       todoist = true;
       vagrant = false;
 
       # Cloud CLIs
       aws = true;
-      gcloud = false;
+      gcloud = true;
       azure = false;
       digital-ocean = false;
       cfssl = false;
@@ -61,6 +61,10 @@
     editor = {
       neovim = true;
       obsidian = true;
+    };
+
+    chat = {
+      slack = true;
     };
   };
 }

@@ -29,12 +29,12 @@
 
   config = lib.mkIf config.nixconf.hardware.xps15.enable {
     fileSystems = {
-      "/boot/efi" = {
-        device = "/dev/disk/by-label/BOOT";
+      "/boot" = {
+        device = "/dev/disk/by-partlabel/BOOT";
         fsType = "vfat";
       };
       "/" = {
-        device = "/dev/disk/by-label/nixos";
+        device = "/dev/disk/by-label/root";
         fsType = "ext4";
       };
     };
@@ -49,14 +49,22 @@
         systemd-boot.enable = true;
         efi = {
           canTouchEfiVariables = true;
-          efiSysMountPoint = "/boot/efi";
         };
       };
       initrd = {
+        luks.devices = {
+          crypted = {
+            device = "/dev/disk/by-partlabel/LUKS";
+            preLVM = true;
+            allowDiscards = true;
+          };
+        };
         availableKernelModules = [
           "xhci_pci" # USB 1,2, and 3 support
           "ahci" # SATA Device support
           "nvme" # NVME Device support
+	  "vmd"
+	  "thunderbolt"
           "sd_mod" # SCSI Disk support
           "usb_storage" # USB Storage support
           "usbhid" # USB Human Interface Device support, i.e. mouse, keyboard...
@@ -70,9 +78,8 @@
         "kvm-intel" # Virtualization support
         "acpi_call" # Allow ACPI calls, power management.
         "acpi_rev_override" # Might not be needed anymore, see below
-        # https://github.com/Bumblebee-Project/bbswitch/issues/148
-
-        "i915.enable_fbc=1" # Frame Buffer Compression for iGPU power saving.
+        # https://github.com/Bumblebee-Project/bbswitch/issues/148 
+	"i915.enable_fbc=1" # Frame Buffer Compression for iGPU power saving.
         "i915.enable_psr=1" # Panel Self Refresh for iGPU power saving. Disable (0) if there are flickers.
       ];
       extraModulePackages = with config.boot.kernelPackages; [acpi_call];
