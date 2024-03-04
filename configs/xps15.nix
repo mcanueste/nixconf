@@ -4,10 +4,8 @@
     network.hostname = "nixos";
 
     hardware = {
-      xps15 = {
-        enable = true;
-        swap = true;
-      };
+      boot.swap = true;
+      nvidia.enable = true;
       logitech = true;
     };
 

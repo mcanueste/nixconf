@@ -1,6 +1,8 @@
 {
   imports = [
-    ./xps-15.nix
+    ./boot.nix
+    ./nvidia.nix
+    ./wireless.nix
     ./logitech.nix
   ];
 }
