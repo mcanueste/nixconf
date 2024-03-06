@@ -4,15 +4,15 @@
   config,
   ...
 }: {
-  options.nixconf.hardware.nvidia = {
-    enable = lib.mkOption {
+  options.nixconf.hardware = {
+    nvidia = lib.mkOption {
       type = lib.types.bool;
       default = true;
       description = "Enable nvidia gpu configuration";
     };
   };
 
-  config = lib.mkIf config.nixconf.hardware.nvidia.enable {
+  config = lib.mkIf config.nixconf.hardware.nvidia {
     # intel gpu video acceleration setup
     # https://nixos.wiki/wiki/Accelerated_Video_Playback
     nixpkgs.config.packageOverrides = pkg: {

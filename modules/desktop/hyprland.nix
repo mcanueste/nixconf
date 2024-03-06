@@ -38,6 +38,7 @@ in {
 
         # Sound
         pkgs.pamixer
+        pkgs.audacity
 
         # Applets
         pkgs.blueman

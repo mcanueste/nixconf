@@ -5,7 +5,7 @@
 
     hardware = {
       boot.swap = true;
-      nvidia.enable = true;
+      nvidia = true;
       logitech = true;
     };
 
@@ -32,6 +32,7 @@
     browser = {
       brave = true;
       firefox = true;
+      chrome = true;
     };
 
     gaming = false;

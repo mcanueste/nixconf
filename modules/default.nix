@@ -52,9 +52,7 @@
     ./media.nix
     ./networking.nix
     ./packages.nix
-    ./printer.nix
     ./security.nix
-    ./sound.nix
     ./term
     ./tools
     ./user.nix

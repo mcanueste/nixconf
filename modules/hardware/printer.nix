@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.nixconf.printer = {
+  options.nixconf.hardware.printer = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -34,21 +34,21 @@
     services = {
       # Find printers/scanners on local network
       avahi = {
-        enable = config.nixconf.printer.enable;
-        nssmdns4 = config.nixconf.printer.enable;
+        enable = config.nixconf.hardware.printer.enable;
+        nssmdns4 = config.nixconf.hardware.printer.enable;
       };
 
       # Enable CUPS to print documents.
       printing = {
-        enable = config.nixconf.printer.enable;
-        drivers = lib.lists.forEach config.nixconf.printer.printerDrivers (p: pkgs."${p}");
+        enable = config.nixconf.hardware.printer.enable;
+        drivers = lib.lists.forEach config.nixconf.hardware.printer.printerDrivers (p: pkgs."${p}");
       };
     };
 
     # Enable scanner backends
     hardware.sane = {
-      enable = config.nixconf.printer.scanner;
-      extraBackends = lib.lists.forEach config.nixconf.printer.scannerBackends (p: pkgs."${p}");
+      enable = config.nixconf.hardware.printer.scanner;
+      extraBackends = lib.lists.forEach config.nixconf.hardware.printer.scannerBackends (p: pkgs."${p}");
     };
   };
 }
