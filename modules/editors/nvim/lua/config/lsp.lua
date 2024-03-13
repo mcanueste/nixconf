@@ -110,10 +110,10 @@ local function init()
         Event = "",
         Operator = "󰆕",
         TypeParameter = "󰅲",
-        Codeium = "",
+        -- Codeium = "",
     }
-    local catppuccin_mocha = require("catppuccin.palettes").get_palette("mocha")
-    vim.api.nvim_set_hl(0, "CmpItemKindCodeium", { fg = catppuccin_mocha.sky })
+    -- local catppuccin_mocha = require("catppuccin.palettes").get_palette("mocha")
+    -- vim.api.nvim_set_hl(0, "CmpItemKindCodeium", { fg = catppuccin_mocha.sky })
 
     local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
     cmp.setup({
@@ -132,7 +132,7 @@ local function init()
             format = function(entry, vim_item)
                 vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
                 vim_item.menu = ({
-                    codeium = "[AI]",
+                    -- codeium = "[AI]",
                     buffer = "[Buf]",
                     nvim_lsp = "[LSP]",
                     luasnip = "[Snip]",
@@ -203,7 +203,7 @@ local function init()
             end, { "i", "s" }),
         }),
         sources = cmp.config.sources({
-            { name = "codeium" },
+            -- { name = "codeium" },
             { name = "nvim_lsp" },
             { name = "nvim_lsp_signature_help" },
             { name = "nvim_lua" }, -- FIXME: might not need this anymore due to neodev.nvim

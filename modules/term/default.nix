@@ -1,5 +1,6 @@
 {
   imports = [
+    ./ai.nix
     ./alacritty.nix
     ./aliases.nix
     ./bash.nix

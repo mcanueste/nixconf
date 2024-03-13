@@ -1,12 +1,50 @@
 local whichkey = require("which-key")
+local copilot = require("copilot")
 local chatgpt = require("chatgpt")
-local codeium = require("codeium")
 
 local function init()
     local home = vim.fn.expand("$HOME")
     whichkey.register({ a = { name = "ai" } }, { prefix = "<leader>" })
 
-    codeium.setup({})
+    require("copilot").setup({
+        panel = {
+            enabled = true,
+            auto_refresh = false,
+            keymap = {
+                jump_prev = "[[",
+                jump_next = "]]",
+                accept = "<CR>",
+                refresh = "gr",
+                open = "<M-CR>",
+            },
+            layout = {
+                position = "bottom", -- | top | left | right
+                ratio = 0.4,
+            },
+        },
+        suggestion = {
+            auto_trigger = true,
+            keymap = {
+                accept = "<M-l>",
+                dismiss = "<M-h>",
+                next = "<M-j>",
+                prev = "<M-k>",
+                accept_word = false,
+                accept_line = false,
+            },
+        },
+        filetypes = {
+            yaml = true,
+            markdown = true,
+            help = false,
+            gitcommit = true,
+            gitrebase = false,
+            hgcommit = false,
+            svn = false,
+            cvs = false,
+            ["."] = false,
+        },
+    })
 
     chatgpt.setup({
         api_key_cmd = "cat " .. home .. "/.ssh/chatgpt.key",
@@ -70,7 +108,6 @@ local function init()
         "<cmd>ChatGPTRun grammar_correction<cr>",
         { noremap = true, desc = "ChatGPT Grammar Correction" }
     )
-
 end
 
 return { init = init }

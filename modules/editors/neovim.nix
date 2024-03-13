@@ -38,7 +38,7 @@ in {
         vimAlias = true;
         vimdiffAlias = true;
         defaultEditor = true;
-        withNodeJs = false;
+        withNodeJs = true;
         withRuby = false;
         withPython3 = false;
 
@@ -166,13 +166,14 @@ in {
             telescope-dap-nvim
 
             # AI
-            # codeium-nvim
+            copilot-lua
             ChatGPT-nvim
 
             # Note taking
             obsidian-nvim
           ]
-          ++ [nvim-config inputs.codeium-nvim.packages.x86_64-linux.vimPlugins.codeium-nvim];
+          ++ [nvim-config];
+        # inputs.codeium-nvim.packages.x86_64-linux.vimPlugins.codeium-nvim
 
         extraConfig = ''
           lua << EOF

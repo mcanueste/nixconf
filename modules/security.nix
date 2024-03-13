@@ -13,20 +13,20 @@
 
     openssh = lib.mkOption {
       type = lib.types.bool;
-      default = false;
+      default = true;
       description = "Enable openssh for remote connections to host";
+    };
+
+    sshd = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable sshd for remote connections to host";
     };
 
     sftp = lib.mkOption {
       type = lib.types.bool;
       default = false;
       description = "Enable openssh SFTP for remote connections to host";
-    };
-
-    sshd = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable sshd for remote connections to host";
     };
 
     gvfs = lib.mkOption {

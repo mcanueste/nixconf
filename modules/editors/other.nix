@@ -20,6 +20,11 @@
       default = false;
       description = "Enable PyCharm";
     };
+    vscode = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable VSCode";
+    };
     obsidian = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -38,6 +43,7 @@
         (lib.lists.optional config.nixconf.editor.gimp pkgs.gimp)
         (lib.lists.optional config.nixconf.editor.datagrip pkgs.jetbrains.datagrip)
         (lib.lists.optional config.nixconf.editor.pycharm pkgs.jetbrains.pycharm-professional)
+        (lib.lists.optional config.nixconf.editor.vscode pkgs.vscode)
         # Remove this override if obsidian releases with Electron 27...
         (lib.lists.optional config.nixconf.editor.obsidian (pkgs.obsidian.override {electron = pkgs.electron_24;}))
       ];
