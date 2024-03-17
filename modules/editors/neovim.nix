@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  inputs,
   ...
 }: let
   shellAliases = {
@@ -128,6 +127,7 @@ in {
                 p.vue
                 p.yaml
                 p.zig
+                p.hcl
               ]))
             nvim-treesitter-refactor
             nvim-treesitter-context
@@ -248,9 +248,9 @@ in {
           # yaml support
           # yamlfmt
           # nodePackages.yaml-language-server
-
-          # AI
-          # codeium
+          
+          # html/htmx support
+          htmx-lsp
         ];
       };
     };

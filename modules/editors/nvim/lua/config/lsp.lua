@@ -339,13 +339,16 @@ local function init()
     })
     lspconfig.golangci_lint_ls.setup({})
 
-    ---------------------- Go
+    ---------------------- Rust
     -- Setup rust_analyzer via rust-tools.nvim
     rusttools.setup({
         server = {
             capabilities = capabilities,
         },
     })
+
+    ---------------------- HTMX
+    lspconfig.htmx.setup()
 
     -- TODO: Setup jsonls https://github.com/neovim/nvim-lspconfig/wiki/User-contributed-tips#jsonls
 
