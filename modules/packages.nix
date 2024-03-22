@@ -11,6 +11,6 @@
     lshw
     libva-utils
     glxinfo
-    kitty
+    cachix
   ];
 }

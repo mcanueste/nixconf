@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  config,
   ...
 }: {
   # Allow unfree packages
@@ -28,6 +29,7 @@
 
   # Binary caches
   nix.settings = {
+    trusted-users = ["root" "${config.nixconf.user}"];
     substituters = [
       "https://cache.nixos.org"
       # "https://cache.garnix.io" no need for this
@@ -39,6 +41,14 @@
       # "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
     ];
   };
+
+  programs.nix-ld.enable = true;
+  # programs.nix-ld.libraries = [
+  #   # Add any missing dynamic libraries for unpackaged programs
+  #   # here, NOT in environment.systemPackages
+  #   pkgs.jemalloc
+  #   pkgs.rust-jemalloc-sys
+  # ];
 
   imports = [
     ./browsers.nix
