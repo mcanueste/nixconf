@@ -223,6 +223,7 @@ local function init()
     )
 
     cloak.setup({
+        enabled = false,
         patterns = {
             {
                 file_pattern = { ".env", ".env.local", "*.nix", "*.py" },
