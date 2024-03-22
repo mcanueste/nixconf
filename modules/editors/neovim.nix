@@ -67,6 +67,7 @@ in {
             harpoon
             FTerm-nvim
             # nvim-spectre -- TODO: check later
+            cloak-nvim
 
             # treesitter
             (nvim-treesitter.withPlugins

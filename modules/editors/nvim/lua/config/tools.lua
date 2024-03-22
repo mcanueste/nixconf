@@ -8,6 +8,7 @@ local pairs = require("mini.pairs")
 -- local files = require("mini.files")
 local trouble = require("trouble")
 local harpoon = require("harpoon")
+local cloak = require("cloak")
 
 local function init()
     -------------------------------------------- Basics
@@ -220,6 +221,17 @@ local function init()
         "<cmd>Telescope highlights<cr>",
         { noremap = true, desc = "Search Highlight Groups" }
     )
+
+    cloak.setup({
+        patterns = {
+            {
+                file_pattern = { ".env", ".env.local", "*.nix", "*.py" },
+                cloak_pattern = { "=.+" },
+            },
+        },
+    })
+
+    vim.keymap.set("n", "<leader>bc", "<cmd>CloakToggle<cr>", { noremap = true, desc = "Toggle Cloak" })
 end
 
 return { init = init }
