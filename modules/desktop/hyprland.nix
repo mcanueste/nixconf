@@ -53,6 +53,7 @@ in {
         pkgs.udiskie
         pkgs.wl-clipboard
         pkgs.cliphist
+        pkgs.hyprlock
 
         # pkgs.grim
         # pkgs.slurp
