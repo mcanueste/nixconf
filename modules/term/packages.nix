@@ -25,6 +25,8 @@
         pkgs.ncdu
         pkgs.dive
 
+        pkgs.hyperfine
+
         # pkgs.pdftk
         # pkgs.imagemagick
       ];

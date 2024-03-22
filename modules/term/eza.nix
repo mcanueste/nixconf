@@ -15,7 +15,8 @@
     home-manager.users.${config.nixconf.user} = {
       programs.eza = {
         enable = true;
-        enableAliases = true;
+        enableBashIntegration = true;
+        enableFishIntegration = true;
         git = true;
         icons = true;
       };
