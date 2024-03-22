@@ -348,7 +348,7 @@ local function init()
     })
 
     ---------------------- HTMX
-    lspconfig.htmx.setup()
+    -- lspconfig.htmx.setup() -- Currently buggy with the LSP version
 
     -- TODO: Setup jsonls https://github.com/neovim/nvim-lspconfig/wiki/User-contributed-tips#jsonls
 

@@ -173,7 +173,6 @@ in {
             obsidian-nvim
           ]
           ++ [nvim-config];
-        # inputs.codeium-nvim.packages.x86_64-linux.vimPlugins.codeium-nvim
 
         extraConfig = ''
           lua << EOF
@@ -248,7 +247,7 @@ in {
           # yaml support
           # yamlfmt
           # nodePackages.yaml-language-server
-          
+
           # html/htmx support
           htmx-lsp
         ];
