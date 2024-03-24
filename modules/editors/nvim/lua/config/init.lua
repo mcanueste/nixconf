@@ -9,7 +9,7 @@ local function init()
     require("config.dap").init()
     require("config.floats").init()
     require("config.ai").init()
-    -- require("config.notes").init()
+    require("config.notes").init()
 end
 
 return { init = init }

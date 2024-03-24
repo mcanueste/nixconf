@@ -5,37 +5,40 @@ local function init()
     -- Obsidian.nvim setup
     -- See: https://github.com/epwalsh/obsidian.nvim
     -- Also see: https://mcanueste.com/posts/obsidian-nvim-customizations-for-capture-notes
+    whichkey.register({ n = { name = "notes" } }, { prefix = "<leader>" })
 
     local home = vim.fn.expand("$HOME")
-    local vault_path = home .. "/notes"
+    local vault_path = home .. "/Projects/personal/notes"
     ---@diagnostic disable-next-line: missing-fields
     local client = obsidian.setup({
         dir = vault_path,
         log_level = vim.log.levels.INFO,
         open_notes_in = "vsplit",
-        disable_frontmatter = true,
-        daily_notes = {
-            folder = "journal",
-            date_format = "%Y-%m-%d",
-        },
+        new_notes_location = "current_dir",
+
         completion = {
             nvim_cmp = true,
             min_chars = 2,
-            -- Where to put new notes created from completion. Valid options are
-            --  * "current_dir" - put new notes in same directory as the current buffer.
-            --  * "notes_subdir" - put new notes in the default notes subdirectory.
-            new_notes_location = "current_dir",
-            -- Whether to add the output of the node_id_func to new notes in autocompletion.
-            -- E.g. "[[Foo" completes to "[[foo|Foo]]" assuming "foo" is the ID of the note.
-            prepend_note_id = true,
         },
+
         templates = {
-            subdir = "templates",
+            subdir = "_templates",
             date_format = "%Y-%m-%d",
             time_format = "%H:%M",
             -- A map for custom variables, the key should be the variable and the value a function
             substitutions = {},
         },
+
+        attachments = {
+            img_folder = "_attachments",
+        },
+
+        daily_notes = {
+            folder = "logs",
+            date_format = "%Y-%m-%d",
+            template = "basic.md",
+        },
+
         note_id_func = function(title)
             -- If title is not given, use ISO timestamp, otherwise use as is
             if title == nil then
@@ -43,25 +46,20 @@ local function init()
             end
             return title
         end,
-        note_frontmatter_func = function(note)
-            -- disable frontmatter for journal and capture notes
-            if string.match(tostring(note.path), "/capture") then
-                return {}
-            end
-            if string.match(tostring(note.path), "/journal") then
-                return {}
-            end
 
+        disable_frontmatter = true,
+        note_frontmatter_func = function(note)
             local out = { date = os.date("%Y-%m-%d"), lastmod = os.date("%Y-%m-%d") }
             -- `note.metadata` contains any manually added fields in the frontmatter.
             -- So here we just make sure those fields are kept in the frontmatter.
-            if note.metadata ~= nil and require("obsidian").util.table_length(note.metadata) > 0 then
+            if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
                 for k, v in pairs(note.metadata) do
                     out[k] = v
                 end
             end
             return out
         end,
+
         -- overwrite_mappings = true,
         mappings = {
             -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
@@ -71,74 +69,49 @@ local function init()
                 end,
                 opts = { noremap = false, expr = true, buffer = true, desc = "Follow link" },
             },
+            -- Toggle check-boxes.
+            ["<leader>nc"] = {
+                action = function()
+                    return require("obsidian").util.toggle_checkbox()
+                end,
+                opts = { buffer = true, desc = "Toggle Checkbox" },
+            },
         },
     })
 
-    --- Create a note
-    --
-    ---@param subdir string?
-    ---@param ask_name boolean?
-    ---@param template string?
-    ---@return nil
-    local function new_note(subdir, ask_name, template)
-        -- get file name, otherwise use ISO timestamp
-        local fname = ""
-        if ask_name == true then
-            inp = vim.fn.input("Name: ", "")
-            if inp == "" then
-                return
-            end
-            fname = inp
-        else
-            fname = tostring(os.date("%y%m%d%H%M%S"))
-        end
-
-        -- create query to check if note already exists
-        local query = fname .. ".md"
-        if subdir ~= nil then
-            query = subdir .. "/" .. fname .. ".md"
-        end
-
-        -- try to find the note, and create if not found
-        local note = client:resolve_note(query)
-        if note == nil then
-            note = client:new_note(fname, fname, client.dir .. "/" .. subdir)
-        end
-
-        -- create a split and open note
-        vim.cmd("vsplit")
-        vim.cmd("edit " .. tostring(note.path))
-        if template ~= nil then
-            vim.cmd("ObsidianTemplate " .. tostring(note.path) .. ".md")
-        end
-    end
-
-    whichkey.register({ n = { name = "notes" } }, { prefix = "<leader>" })
-    vim.keymap.set("n", "<leader>nf", "<cmd>ObsidianQuickSwitch<cr>", { noremap = true, desc = "Find" })
-    vim.keymap.set("n", "<leader>ng", "<cmd>ObsidianSearch<cr>", { noremap = true, desc = "Grep" })
-    vim.keymap.set("n", "<leader>nB", "<cmd>ObsidianBacklinks<cr>", { noremap = true, desc = "Backlinks" })
     vim.keymap.set("n", "<leader>no", "<cmd>ObsidianOpen<cr>", { noremap = true, desc = "Open" })
-    vim.keymap.set("n", "<leader>nT", "<cmd>ObsidianTemplate<cr>", { noremap = true, desc = "Template" })
+    vim.keymap.set("n", "<leader>nn", "<cmd>ObsidianNew<cr>", { noremap = true, desc = "New Note" })
+    vim.keymap.set("n", "<leader>nf", "<cmd>ObsidianQuickSwitch<cr>", { noremap = true, desc = "Find" })
+    vim.keymap.set("n", "<leader>nF", "<cmd>ObsidianSearch<cr>", { noremap = true, desc = "Find or Create" })
+    vim.keymap.set(
+        "n",
+        "<leader>nv",
+        "<cmd>ObsidianFollowLink vsplit<cr>",
+        { noremap = true, desc = "Follow Vertical" }
+    )
+    vim.keymap.set(
+        "n",
+        "<leader>ns",
+        "<cmd>ObsidianFollowLink hsplit<cr>",
+        { noremap = true, desc = "Follow Horizontal" }
+    )
     vim.keymap.set("n", "<leader>nt", "<cmd>ObsidianToday<cr>", { noremap = true, desc = "Today" })
     vim.keymap.set("n", "<leader>ny", "<cmd>ObsidianYesterday<cr>", { noremap = true, desc = "Yesterday" })
-    vim.keymap.set("n", "<leader>nN", function()
-        new_note(nil, true, "basic")
-    end, { noremap = true, desc = "Permanent Note" })
-    vim.keymap.set("n", "<leader>nn", function()
-        new_note("capture", false, nil)
-    end, { noremap = true, desc = "Capture Note" })
-    vim.keymap.set("n", "<leader>nd", function()
-        new_note("devlog", true, "devlog")
-    end, { noremap = true, desc = "DevLog Note" })
-    vim.keymap.set("n", "<leader>np", function()
-        new_note("projects", true, "project")
-    end, { noremap = true, desc = "Project Note" })
-    vim.keymap.set("n", "<leader>nb", function()
-        new_note("blog", true, "blog")
-    end, { noremap = true, desc = "Blog Note" })
-    vim.keymap.set("n", "<leader>nP", function()
-        new_note("blog", true, "blog-project")
-    end, { noremap = true, desc = "Blog Project Note" })
+    vim.keymap.set("n", "<leader>ng", "<cmd>ObsidianTags<cr>", { noremap = true, desc = "Tag Search" })
+    vim.keymap.set("n", "<leader>nT", "<cmd>ObsidianTemplate<cr>", { noremap = true, desc = "Template" })
+    vim.keymap.set("v", "<leader>nl", "<cmd>ObsidianLink<cr>", { noremap = true, desc = "Link to File" })
+    vim.keymap.set("v", "<leader>nL", "<cmd>ObsidianLinkNew<cr>", { noremap = true, desc = "Link to New File" })
+    vim.keymap.set("n", "<leader>nl", "<cmd>ObsidianLinks<cr>", { noremap = true, desc = "Links" })
+    vim.keymap.set("n", "<leader>nb", "<cmd>ObsidianBacklinks<cr>", { noremap = true, desc = "Backlinks" })
+    vim.keymap.set("v", "<leader>ne", "<cmd>ObsidianExtractNote<cr>", { noremap = true, desc = "Extract Note" })
+    vim.keymap.set("n", "<leader>ni", "<cmd>ObsidianPasteImg<cr>", { noremap = true, desc = "Paste Image" })
+    vim.keymap.set(
+        "n",
+        "<leader>nr",
+        "<cmd>ObsidianRename --dry-run<cr>",
+        { noremap = true, desc = "Rename (dry-run)" }
+    )
+    vim.keymap.set("n", "<leader>nR", "<cmd>ObsidianRename<cr>", { noremap = true, desc = "Rename" })
 end
 
 return { init = init }
