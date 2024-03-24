@@ -50,7 +50,7 @@
       vagrant = false;
 
       # Cloud CLIs
-      aws = true;
+      aws = false;
       gcloud = true;
       azure = false;
       digital-ocean = false;

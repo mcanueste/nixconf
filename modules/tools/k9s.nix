@@ -23,7 +23,7 @@ in {
       home.packages = [
         pkgs.k9s
       ];
-      xdg.configFile."k9s/skin.yml".text = builtins.readFile "${theme}/k9s/mocha.yml";
+      xdg.configFile."k9s/skin.yml".text = builtins.readFile "${theme}/k9s/catppuccin-mocha.yaml";
     };
   };
 }

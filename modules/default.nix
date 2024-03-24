@@ -43,12 +43,20 @@
   };
 
   programs.nix-ld.enable = true;
-  # programs.nix-ld.libraries = [
-  #   # Add any missing dynamic libraries for unpackaged programs
-  #   # here, NOT in environment.systemPackages
-  #   pkgs.jemalloc
-  #   pkgs.rust-jemalloc-sys
-  # ];
+  programs.nix-ld.libraries = [
+    pkgs.jemalloc
+    pkgs.rust-jemalloc-sys
+    pkgs.stdenv.cc.cc
+    pkgs.zlib
+    pkgs.pkg-config
+    pkgs.fuse3
+    pkgs.icu
+    pkgs.zlib
+    pkgs.nss
+    pkgs.openssl
+    pkgs.curl
+    pkgs.expat
+  ];
 
   imports = [
     ./browsers.nix

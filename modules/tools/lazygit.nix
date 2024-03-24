@@ -30,7 +30,7 @@ in {
         pkgs.lazygit
       ];
 
-      xdg.configFile."lazygit/config.yml".text = builtins.readFile "${theme}/lazygit/themes/mocha-sky.yml";
+      xdg.configFile."lazygit/config.yml".text = builtins.readFile "${theme}/lazygit/themes/sky.yml";
     };
   };
 }

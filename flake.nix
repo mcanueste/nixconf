@@ -8,7 +8,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
-    codeium-nvim.url = "github:Exafunction/codeium.nvim";
   };
 
   outputs = {
