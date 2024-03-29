@@ -29,6 +29,9 @@
 
         # pkgs.pdftk
         # pkgs.imagemagick
+
+        # password managers
+        pkgs.bitwarden-cli
       ];
     };
   };

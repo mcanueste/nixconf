@@ -12,7 +12,6 @@
     name = "config";
     src = ./nvim;
   };
-  # TODO: git-worktree plugin
 in {
   options.nixconf.editor = {
     neovim = lib.mkOption {
@@ -52,9 +51,6 @@ in {
             # nvim-notify
             # noice-nvim
             which-key-nvim
-
-            # vcs
-            gitsigns-nvim
 
             # tools
             vim-sleuth # no setup
@@ -133,6 +129,10 @@ in {
             nvim-treesitter-refactor
             nvim-treesitter-context
             nvim-ts-context-commentstring
+
+            # git
+            gitsigns-nvim
+            git-worktree-nvim
 
             # lsp
             nvim-lspconfig

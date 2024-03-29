@@ -53,7 +53,7 @@ local function init()
     vim.keymap.set("n", "<leader>acp", "<cmd>Copilot panel<cr>", { noremap = true, desc = "Copilot Panel" })
 
     chatgpt.setup({
-        api_key_cmd = "cat " .. home .. "/.ssh/openai.key",
+        api_key_cmd = "bw get notes OpenAI",
         predefined_chat_gpt_prompts = "https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv",
         openai_params = {
             model = "gpt-4",

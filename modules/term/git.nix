@@ -52,7 +52,6 @@
           cm = "commit -m";
 
           cl = "clone";
-          clb = "clone --bare";
 
           b = "branch";
 
@@ -67,6 +66,7 @@
 
           d = "diff";
 
+          clb = "clone --bare";
           wa = "worktree add";
           wr = "worktree remove";
           wrf = "worktree remove --force";
