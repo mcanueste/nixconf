@@ -1,3 +1,6 @@
+# K9s: A terminal-based UI to interact with Kubernetes clusters
+#
+# https://github.com/derailed/k9s
 {
   pkgs,
   lib,
@@ -10,7 +13,7 @@
     themeList = ["k9s"];
   };
 in {
-  options.nixconf.tools = {
+  options.nixconf.iac = {
     k9s = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -18,7 +21,7 @@ in {
     };
   };
 
-  config = lib.mkIf config.nixconf.tools.k9s {
+  config = lib.mkIf config.nixconf.iac.k9s {
     home-manager.users.${config.nixconf.user} = {
       home.packages = [
         pkgs.k9s

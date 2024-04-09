@@ -9,13 +9,6 @@
       logitech = true;
     };
 
-    virtualisation = {
-      docker = true;
-      dockerAutoPrune = true;
-      virt-manager = true;
-      podman = false;
-    };
-
     desktop = {
       enable = true;
       gnome = false;
@@ -37,24 +30,38 @@
 
     gaming = false;
 
-    tools = {
-      k9s = true;
-      kubectl = true;
-      localstack = false;
-      lazydocker = true;
-      lazygit = true;
-      minikube = true;
-      packer = true;
-      terraform = true;
-      todoist = true;
-      vagrant = false;
+    virtualisation = {
+      qemu = true;
+      virt-manager = true;
+    };
 
-      # Cloud CLIs
+    iac = {
+      docker = {
+        enable = true;
+        dockerAutoPrune = true;
+      };
+      podman = {
+        enable = false;
+        dockerCompat = false;
+      };
+      lazydocker = true;
+      dive = true;
+      packer = true;
+      minikube = true;
+      kubectl = true;
+      k9s = true;
+      terraform = true;
+      localstack = false;
       aws = false;
       gcloud = true;
       azure = false;
       digital-ocean = false;
       cfssl = false;
+    };
+
+    tools = {
+      lazygit = true;
+      todoist = true;
     };
 
     editor = {

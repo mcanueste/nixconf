@@ -1,14 +1,13 @@
+# Lazydocker: tool for managing containers on the system
+#
+# https://github.com/jesseduffield/lazydocker
 {
   pkgs,
   lib,
   config,
   ...
-}: let
-  shellAliases = {
-    ld = "lazydocker";
-  };
-in {
-  options.nixconf.tools = {
+}: {
+  options.nixconf.iac = {
     lazydocker = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -16,11 +15,8 @@ in {
     };
   };
 
-  config = lib.mkIf config.nixconf.tools.lazydocker {
+  config = lib.mkIf config.nixconf.iac.lazydocker {
     home-manager.users.${config.nixconf.user} = {
-      programs.bash = {inherit shellAliases;};
-      programs.fish = {inherit shellAliases;};
-
       home.packages = [
         pkgs.lazydocker
       ];

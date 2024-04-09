@@ -8,6 +8,9 @@ local function init()
     -- See: https://github.com/echasnovski/mini.move
     move.setup()
 
+    vim.keymap.set({ "i" }, "<C-s>", "<C-o>:w<cr>", { noremap = true, desc = "Save file" })
+    vim.keymap.set({ "n" }, "<C-s>", ":w<cr>", { noremap = true, desc = "Save file" })
+
     -- Clear search with ESC
     vim.keymap.set({ "n", "i" }, "<esc>", "<cmd>noh<cr><esc>", { noremap = true, desc = "Clear search" })
 

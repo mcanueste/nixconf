@@ -1,14 +1,13 @@
+# Packer: tool for creating machine images
+#
+# https://github.com/hashicorp/packer
 {
   pkgs,
   lib,
   config,
   ...
-}: let
-  shellAliases = {
-    pk = "packer";
-  };
-in {
-  options.nixconf.tools = {
+}: {
+  options.nixconf.iac = {
     packer = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -16,11 +15,9 @@ in {
     };
   };
 
-  config = lib.mkIf config.nixconf.tools.packer {
+  config = lib.mkIf config.nixconf.iac.packer {
     home-manager.users.${config.nixconf.user} = {
       home.packages = [pkgs.packer];
-      programs.bash = {inherit shellAliases;};
-      programs.fish = {inherit shellAliases;};
     };
   };
 }

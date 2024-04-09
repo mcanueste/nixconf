@@ -44,18 +44,32 @@
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
-    jemalloc
-    rust-jemalloc-sys
-    stdenv.cc.cc
-    zlib
-    pkg-config
-    fuse3
-    icu
-    zlib
-    nss
-    openssl
-    curl
-    expat
+    # needed by torch-experiments
+    glib
+    libGL
+    libGLU
+    freeglut
+    xorg.libX11
+    stdenv.cc.cc.lib
+    cudaPackages.cudatoolkit
+    cudaPackages.cudnn
+    cudaPackages.cudatoolkit.lib
+    # cudaPackages.tensorrt
+
+    # pipewire.lib
+    # pkg-config
+
+    # jemalloc
+    # rust-jemalloc-sys
+    # stdenv.cc.cc
+    # zlib
+    # fuse3
+    # icu
+    # zlib
+    # nss
+    # openssl
+    # curl
+    # expat
 
     # # List by default
     # zlib
@@ -80,9 +94,7 @@
     # xorg.libXext
     # xorg.libX11
     # xorg.libXfixes
-    # libGL
     # libva
-    # pipewire.lib
     # xorg.libxcb
     # xorg.libXdamage
     # xorg.libxshmfence
@@ -90,7 +102,6 @@
     # libelf
     #
     # # Required
-    # glib
     # gtk2
     #
     # # Without these it silently fails
@@ -198,6 +209,7 @@
     ./term
     ./tools
     ./user.nix
-    ./virtualization.nix
+    ./virtualisation
+    ./iac
   ];
 }

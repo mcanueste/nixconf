@@ -1,3 +1,6 @@
+# kubectl for interacting with kubernetes clusters
+#
+# https://github.com/kubernetes/kubectl
 {
   pkgs,
   lib,
@@ -8,7 +11,7 @@
     k = "kubectl";
   };
 in {
-  options.nixconf.tools = {
+  options.nixconf.iac = {
     kubectl = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -16,10 +19,11 @@ in {
     };
   };
 
-  config = lib.mkIf config.nixconf.tools.kubectl {
+  config = lib.mkIf config.nixconf.iac.kubectl {
     home-manager.users.${config.nixconf.user} = {
       home.packages = [pkgs.kubectl];
       programs.bash = {inherit shellAliases;};
+      programs.zsh = {inherit shellAliases;};
       programs.fish = {inherit shellAliases;};
     };
   };

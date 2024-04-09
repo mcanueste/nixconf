@@ -1,0 +1,19 @@
+{
+  imports = [
+    ./docker.nix
+    ./podman.nix
+    ./lazydocker.nix
+    ./dive.nix
+    ./packer.nix
+    ./minikube.nix
+    ./kubectl.nix
+    ./k9s.nix
+    ./terraform.nix
+    ./localstack.nix
+    ./aws.nix
+    ./gcloud.nix
+    ./azure.nix
+    ./digital-ocean.nix
+    ./cloudflare.nix
+  ];
+}

@@ -512,8 +512,7 @@ local function init()
             nls.builtins.diagnostics.mypy,
 
             -- go
-            nls.builtins.formatting.gofumpt,
-            nls.builtins.formatting.goimports_reviser,
+            -- nls.builtins.formatting.gofumpt,
             -- nls.builtins.code_actions.golines,
             -- nls.builtins.code_actions.gomodifytags,
             -- nls.builtins.code_actions.impl,

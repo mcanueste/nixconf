@@ -1,3 +1,9 @@
+# terraform iac
+#
+# https://github.com/hashicorp/terraform
+#
+# See also:
+# https://github.com/nix-community/terraform-nixos
 {
   pkgs,
   lib,
@@ -8,7 +14,7 @@
     tf = "terraform";
   };
 in {
-  options.nixconf.tools = {
+  options.nixconf.iac = {
     terraform = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -16,7 +22,7 @@ in {
     };
   };
 
-  config = lib.mkIf config.nixconf.tools.terraform {
+  config = lib.mkIf config.nixconf.iac.terraform {
     home-manager.users.${config.nixconf.user} = {
       home.packages = [pkgs.terraform];
       programs.bash = {inherit shellAliases;};

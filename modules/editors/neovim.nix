@@ -234,12 +234,6 @@ in {
           # go support
           gopls
           golangci-lint-langserver
-          gofumpt
-          gotools
-          goimports-reviser
-          delve
-          # gomodifytags
-          # impl
 
           # ansible support
           # ansible-lint

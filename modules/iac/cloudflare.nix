@@ -1,21 +1,22 @@
+# Cloudflare Tools
 {
   pkgs,
   lib,
   config,
   ...
 }: {
-  options.nixconf.tools = {
-    localstack = lib.mkOption {
+  options.nixconf.iac = {
+    cfssl = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Enable minikube";
+      description = "Enable CloudFlare SSL CLI";
     };
   };
 
-  config = lib.mkIf config.nixconf.tools.localstack {
+  config = lib.mkIf config.nixconf.iac.cfssl {
     home-manager.users.${config.nixconf.user} = {
       home.packages = [
-        pkgs.localstack
+        pkgs.cfssl
       ];
     };
   };
