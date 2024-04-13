@@ -1,14 +1,16 @@
 {
   imports = [
+    ./bash.nix
+    ./zsh.nix
+    ./fish.nix
+
     ./ai.nix
     ./alacritty.nix
     ./aliases.nix
-    ./bash.nix
     ./bat.nix
     ./dircolors.nix
     ./direnv.nix
     ./eza.nix
-    ./fish.nix
     ./fzf.nix
     ./git.nix
     ./packages.nix

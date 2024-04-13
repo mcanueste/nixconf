@@ -1,4 +1,8 @@
+# Bash Configuration
+# I personally use Fish, but once in a while I need to use Bash.
 {config, ...}: {
+  environment.pathsToLink = ["/share/bash-completion"];
+
   home-manager.users.${config.nixconf.user} = {
     programs.bash = {
       enable = true;
