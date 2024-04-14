@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.nixconf.locale = {
+  options.nixconf.system.locale = {
     timezone = lib.mkOption {
       type = lib.types.str;
       default = "Europe/Berlin";
@@ -30,18 +30,18 @@
   };
 
   config = {
-    time.timeZone = config.nixconf.locale.timezone;
-    i18n.defaultLocale = config.nixconf.locale.language;
+    time.timeZone = config.nixconf.system.locale.timezone;
+    i18n.defaultLocale = config.nixconf.system.locale.language;
     i18n.extraLocaleSettings = {
-      LC_ADDRESS = config.nixconf.locale.format;
-      LC_IDENTIFICATION = config.nixconf.locale.format;
-      LC_MEASUREMENT = config.nixconf.locale.format;
-      LC_MONETARY = config.nixconf.locale.format;
-      LC_NAME = config.nixconf.locale.format;
-      LC_NUMERIC = config.nixconf.locale.format;
-      LC_PAPER = config.nixconf.locale.format;
-      LC_TELEPHONE = config.nixconf.locale.format;
-      LC_TIME = config.nixconf.locale.format;
+      LC_ADDRESS = config.nixconf.system.locale.format;
+      LC_IDENTIFICATION = config.nixconf.system.locale.format;
+      LC_MEASUREMENT = config.nixconf.system.locale.format;
+      LC_MONETARY = config.nixconf.system.locale.format;
+      LC_NAME = config.nixconf.system.locale.format;
+      LC_NUMERIC = config.nixconf.system.locale.format;
+      LC_PAPER = config.nixconf.system.locale.format;
+      LC_TELEPHONE = config.nixconf.system.locale.format;
+      LC_TIME = config.nixconf.system.locale.format;
     };
 
     # Configure keymap in X11 just in case we decide to use X11 based WM
@@ -49,7 +49,7 @@
       xkb = {
         model = "pc105";
         options = "caps:escape,grp:win_space_toggle";
-        layout = config.nixconf.locale.layout;
+        layout = config.nixconf.system.locale.layout;
       };
     };
     console.useXkbConfig = true;
