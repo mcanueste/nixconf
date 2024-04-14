@@ -8,9 +8,7 @@
     ./gaming.nix
     ./hardware
     ./media.nix
-    ./networking.nix
     ./packages.nix
-    ./security.nix
 
     ./system
     ./term

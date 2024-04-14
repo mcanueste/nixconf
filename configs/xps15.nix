@@ -1,7 +1,7 @@
 {
   nixconf = {
     user = "mcst";
-    network.hostname = "nixos";
+    system.network.hostname = "nixos";
 
     hardware = {
       boot.swap = true;

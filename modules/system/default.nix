@@ -1,8 +1,11 @@
 {
   imports = [
     ./nixos.nix
-    ./locale.nix
-    ./user.nix
     ./ld.nix
+    ./user.nix
+    ./locale.nix
+    ./security.nix
+
+    ./network
   ];
 }

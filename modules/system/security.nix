@@ -1,10 +1,9 @@
 {
-  pkgs,
   lib,
   config,
   ...
 }: {
-  options.nixconf.security = {
+  options.nixconf.system.security = {
     certs = lib.mkOption {
       default = [];
       description = "Self-signed CA Cert paths";
@@ -42,7 +41,7 @@
       polkit.enable = true;
 
       # setup self-signed CA cert files if any
-      pki.certificateFiles = config.nixconf.security.certs;
+      pki.certificateFiles = config.nixconf.system.security.certs;
 
       # Whether to enable the RealtimeKit system service, which hands
       # out realtime scheduling priority to user processes on
@@ -61,23 +60,23 @@
     # Enable the OpenSSH daemon.
     services = {
       openssh = {
-        enable = config.nixconf.security.openssh;
+        enable = config.nixconf.system.security.openssh;
 
         # require public key authentication for better security
         settings.PasswordAuthentication = false;
         settings.KbdInteractiveAuthentication = false;
         #settings.PermitRootLogin = "yes";
 
-        allowSFTP = config.nixconf.security.sftp;
+        allowSFTP = config.nixconf.system.security.sftp;
       };
 
       # SSH daemon.
-      sshd.enable = config.nixconf.security.sshd;
+      sshd.enable = config.nixconf.system.security.sshd;
 
       # Mount MTP devices (iPhone, Android, etc.)
       # Seamlessly access files and folders on remote resources.
       # Necessarry for file managers, mounts, trash, etc.
-      gvfs.enable = config.nixconf.security.gvfs;
+      gvfs.enable = config.nixconf.system.security.gvfs;
     };
   };
 }
