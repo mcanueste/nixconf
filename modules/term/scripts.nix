@@ -24,35 +24,13 @@
       #!/usr/bin/env bash
       echo "Backing up notes..."
 
-      cd ~/notes/
+      cd ~/Projects/personal/notes/
       git add .
       if [[ "$(git status --porcelain | wc -l)" -eq "0" ]]; then
         echo "  🟢 Git repo is clean."
       else
         echo "  🔴 Git repo has updates. Pushing..."
         git commit -m "notebackup: $(date '+%Y-%m-%d %H:%M:%S')"
-        git push
-      fi
-
-      echo "Done!"
-      # exit 0
-    '';
-  };
-
-  sync-german = pkgs.writeShellApplication {
-    name = "sync-german";
-    runtimeInputs = [pkgs.git];
-    text = ''
-      #!/usr/bin/env bash
-      echo "Backing up German notes..."
-
-      cd ~/german/
-      git add .
-      if [[ "$(git status --porcelain | wc -l)" -eq "0" ]]; then
-        echo "  🟢 Git repo is clean."
-      else
-        echo "  🔴 Git repo has updates. Pushing..."
-        git commit -m "germanbackup: $(date '+%Y-%m-%d %H:%M:%S')"
         git push
       fi
 
@@ -68,8 +46,8 @@
       #!/usr/bin/env bash
       echo "Syncing blog notes from Obsidian vault to blog repository..."
 
-      rsync ~/notes/blog/*.md ~/Projects/blog/content/blog/
-      cd ~/Projects/blog/
+      rsync ~/Projects/personal/notes/blog/*.md ~/Projects/personal/blog/content/blog/
+      cd ~/Projects/personal/blog/
       hugo
 
       git add .
@@ -82,15 +60,13 @@
       fi
 
       echo "Done!"
-      # exit 0
     '';
   };
 in {
   options.nixconf.term = {
-    # TODO: refactor these options when using multiple workstations
     scripts = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Enable scripts";
     };
   };
@@ -100,7 +76,6 @@ in {
       home.packages = [
         nvidia-offload
         sync-notes
-        sync-german
         sync-blog
       ];
     };

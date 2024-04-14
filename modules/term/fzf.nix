@@ -7,7 +7,7 @@
   options.nixconf.term = {
     fzf = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Enable fzf";
     };
   };
@@ -17,6 +17,7 @@
       programs.fzf = {
         enable = true;
         enableBashIntegration = true;
+        enableZshIntegration = config.nixconf.term.zsh;
         enableFishIntegration = config.nixconf.term.fish;
         tmux.enableShellIntegration = true;
         defaultCommand = "${pkgs.fd}/bin/fd --type f";

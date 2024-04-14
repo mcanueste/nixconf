@@ -6,7 +6,7 @@
   options.nixconf.term = {
     dircolors = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Enable dircolors";
     };
   };
@@ -16,6 +16,7 @@
       programs.dircolors = {
         enable = true;
         enableBashIntegration = true;
+        enableZshIntegration = config.nixconf.term.zsh;
         enableFishIntegration = config.nixconf.term.fish;
       };
     };

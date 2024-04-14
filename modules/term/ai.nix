@@ -7,7 +7,7 @@
   options.nixconf.term = {
     ai = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Enable terminal AI tools";
     };
   };
@@ -17,34 +17,21 @@
       shellAliases = {
         explain = "gh copilot explain";
         suggest = "gh copilot suggest";
-        gpt = "chatblade";
+        chat = "aichat"; # TODO: investigate aichat usecases
       };
     in {
       programs.bash = {inherit shellAliases;};
+      programs.zsh = {inherit shellAliases;};
       programs.fish = {inherit shellAliases;};
-
-      home.sessionVariables = {
-        OPENAI_API_KEY = "$(cat ~/.ssh/openai.key)";
-        OPENAI_API_MODEL = "gpt-4";
-      };
-
-      programs.bash = {
-        sessionVariables = {
-          OPENAI_API_KEY = "$(cat ~/.ssh/openai.key)";
-          OPENAI_API_MODEL = "gpt-4";
-        };
-      };
-
-      programs.fish = {
-        shellInitLast = ''
-          set -gx OPENAI_API_KEY (cat ~/.ssh/openai.key)
-          set -gx OPENAI_API_MODEL "gpt-4"
-        '';
-      };
 
       home.packages = [
         pkgs.gh
-        pkgs.chatblade
+
+        # TODO this doesn't work with gpt-4??
+        # TODO investigate CLI tools for generating images and audio as well
+        pkgs.aichat # https://github.com/sigoden/aichat
+        # add ~/.config/aichat/config.yaml file with OpenAI key
+        # https://github.com/sigoden/aichat/blob/main/config.example.yaml
       ];
     };
   };

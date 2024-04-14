@@ -1,3 +1,4 @@
+# Some term tools that do not require configuration
 {
   pkgs,
   config,
@@ -7,28 +8,19 @@
     home-manager.users.${config.nixconf.user} = {
       home.packages = [
         pkgs.dash
-
-        pkgs.rsync
         pkgs.gnumake
-        pkgs.dig
-        pkgs.traceroute
+        pkgs.rsync
         pkgs.tree
-
-        pkgs.entr
-        pkgs.ripgrep
         pkgs.fd
-
-        pkgs.tealdeer
-        pkgs.manix
-
+        pkgs.ripgrep
         pkgs.htop
         pkgs.ncdu
-        pkgs.dive
-
+        pkgs.entr
         pkgs.hyperfine
 
-        # pkgs.pdftk
-        # pkgs.imagemagick
+        # networking tools
+        pkgs.dig
+        pkgs.traceroute
 
         # password managers
         pkgs.bitwarden-cli

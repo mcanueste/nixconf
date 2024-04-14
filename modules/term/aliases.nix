@@ -7,6 +7,7 @@
 in {
   home-manager.users.${config.nixconf.user} = {
     programs.bash = {inherit shellAliases;};
+    programs.zsh = {inherit shellAliases;};
     programs.fish = {inherit shellAliases;};
   };
 }

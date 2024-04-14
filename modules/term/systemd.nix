@@ -50,15 +50,6 @@
     timers.sync-notes = hourly-timer;
   };
 
-  sync-german-service = {
-    services.sync-german = {
-      Install.WantedBy = ["default.target"];
-      Unit.Description = "Backup German notes.";
-      Service.ExecStart = "/etc/profiles/per-user/${config.nixconf.user}/bin/sync-german";
-    };
-    timers.sync-german = hourly-timer;
-  };
-
   sync-blog-service = {
     services.sync-blog = {
       Install.WantedBy = ["default.target"];
@@ -69,44 +60,38 @@
   };
 in {
   options.nixconf.term.systemd = {
-    enabled = lib.mkOption {
+    enable = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Enable user space systemd services";
     };
 
     eye-strain-notify = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Enable eye strain notification timer";
     };
 
     stretch-notify = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Enable stretch notification timer";
     };
 
     sync-notes = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Enable sync-notes script for pushing notes to gitlab";
-    };
-
-    sync-german = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Enable sync-german script for pushing German notes to gitlab";
     };
 
     sync-blog = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Enable sync-blog script for moving blog notes from Obsidian vault and pushing changes to github";
     };
   };
 
-  config = lib.mkIf config.nixconf.term.systemd.enabled {
+  config = lib.mkIf config.nixconf.term.systemd.enable {
     home-manager.users.${config.nixconf.user} = {
       systemd.user = setupServices (builtins.filter (p: p != null) [
         (
@@ -122,11 +107,6 @@ in {
         (
           if config.nixconf.term.systemd.sync-notes
           then sync-notes-service
-          else null
-        )
-        (
-          if config.nixconf.term.systemd.sync-german
-          then sync-german-service
           else null
         )
         (

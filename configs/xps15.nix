@@ -30,6 +30,24 @@
 
     gaming = false;
 
+    term = {
+      starship = true;
+      eza = true;
+      bat = true;
+      fzf = true;
+      zoxide = true;
+      direnv = true;
+      scripts = true;
+      systemd = {
+        enable = true;
+        sync-notes = true;
+        sync-blog = true;
+      };
+      ai = true;
+      alacritty = true;
+      tmux = true;
+    };
+
     virtualisation = {
       qemu = true;
       virt-manager = true;

@@ -6,7 +6,7 @@
   options.nixconf.term = {
     eza = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Enable eza";
     };
   };
@@ -16,6 +16,7 @@
       programs.eza = {
         enable = true;
         enableBashIntegration = true;
+        enableZshIntegration = true;
         enableFishIntegration = true;
         git = true;
         icons = true;

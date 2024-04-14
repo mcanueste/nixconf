@@ -29,7 +29,6 @@
       programs.git = {
         enable = true;
         lfs.enable = true;
-
         delta.enable = true;
         userName = "mcanueste"; # TODO: get these vals from config
         userEmail = "mcanueste@gmail.com";
@@ -70,6 +69,9 @@
           wa = "worktree add";
           wr = "worktree remove";
           wrf = "worktree remove --force";
+
+          # might move this to the main config
+          fix-remote-branches = "config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'";
         };
       };
     };

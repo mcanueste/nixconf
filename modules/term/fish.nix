@@ -15,6 +15,8 @@
   };
 
   config = lib.mkIf config.nixconf.term.fish {
+    environment.pathsToLink = ["/share/fish"];
+
     home-manager.users.${config.nixconf.user} = {
       xdg.configFile."fish/themes/".source =
         # Run `fish_config theme save "Catppuccin Mocha"`

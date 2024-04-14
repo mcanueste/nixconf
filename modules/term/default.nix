@@ -3,22 +3,20 @@
     ./bash.nix
     ./zsh.nix
     ./fish.nix
-
-    ./ai.nix
-    ./alacritty.nix
     ./aliases.nix
-    ./bat.nix
     ./dircolors.nix
-    ./direnv.nix
+    ./starship.nix
     ./eza.nix
+    ./bat.nix
     ./fzf.nix
+    ./zoxide.nix
+    ./direnv.nix
     ./git.nix
     ./packages.nix
     ./scripts.nix
-    ./starship.nix
     ./systemd.nix
+    ./ai.nix
+    ./alacritty.nix
     ./tmux.nix
-    ./wezterm.nix # TODO doesn't work on hyprland/wayland?
-    ./zoxide.nix
   ];
 }
