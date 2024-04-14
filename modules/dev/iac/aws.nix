@@ -7,7 +7,7 @@
   config,
   ...
 }: {
-  options.nixconf.iac = {
+  options.nixconf.dev.iac = {
     aws = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -15,7 +15,7 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.iac.aws {
+  config = lib.mkIf config.nixconf.dev.iac.aws {
     home-manager.users.${config.nixconf.user} = {
       home.packages = [
         pkgs.awscli2

@@ -7,7 +7,7 @@
   config,
   ...
 }: {
-  options.nixconf.iac.docker = {
+  options.nixconf.dev.iac.docker = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -21,12 +21,12 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.iac.docker.enable {
+  config = lib.mkIf config.nixconf.dev.iac.docker.enable {
     virtualisation = {
       docker = {
         enable = true;
         autoPrune = {
-          enable = config.nixconf.iac.docker.dockerAutoPrune;
+          enable = config.nixconf.dev.iac.docker.dockerAutoPrune;
           dates = "weekly";
         };
       };

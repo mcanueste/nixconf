@@ -5,7 +5,7 @@
   config,
   ...
 }: {
-  options.nixconf.iac = {
+  options.nixconf.dev.iac = {
     azure = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -13,7 +13,7 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.iac.azure {
+  config = lib.mkIf config.nixconf.dev.iac.azure {
     home-manager.users.${config.nixconf.user} = {
       home.packages = [
         pkgs.azure-cli

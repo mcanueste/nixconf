@@ -5,7 +5,7 @@
   config,
   ...
 }: {
-  options.nixconf.iac = {
+  options.nixconf.dev.iac = {
     digital-ocean = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -13,7 +13,7 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.iac.digital-ocean {
+  config = lib.mkIf config.nixconf.dev.iac.digital-ocean {
     home-manager.users.${config.nixconf.user} = {
       home.packages = [
         pkgs.doctl

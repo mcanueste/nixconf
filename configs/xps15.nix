@@ -48,38 +48,38 @@
       tmux = true;
     };
 
-    virtualisation = {
-      qemu = true;
-      virt-manager = true;
-    };
-
-    iac = {
-      docker = {
-        enable = true;
-        dockerAutoPrune = true;
-      };
-      podman = {
-        enable = false;
-        dockerCompat = false;
-      };
-      lazydocker = true;
-      dive = true;
-      packer = true;
-      minikube = true;
-      kubectl = true;
-      k9s = true;
-      terraform = true;
-      localstack = false;
-      aws = false;
-      gcloud = true;
-      azure = false;
-      digital-ocean = false;
-      cfssl = false;
-    };
-
-    tools = {
+    dev = {
+      git = true;
       lazygit = true;
-      todoist = true;
+
+      virtualisation = {
+        qemu = true;
+        virt-manager = true;
+      };
+
+      iac = {
+        docker = {
+          enable = true;
+          dockerAutoPrune = true;
+        };
+        podman = {
+          enable = false;
+          dockerCompat = false;
+        };
+        lazydocker = true;
+        dive = true;
+        packer = true;
+        minikube = true;
+        kubectl = true;
+        k9s = true;
+        terraform = true;
+        localstack = false;
+        aws = false;
+        gcloud = true;
+        azure = false;
+        digital-ocean = false;
+        cfssl = false;
+      };
     };
 
     editor = {

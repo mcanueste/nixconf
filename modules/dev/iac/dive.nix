@@ -7,7 +7,7 @@
   config,
   ...
 }: {
-  options.nixconf.iac = {
+  options.nixconf.dev.iac = {
     dive = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -15,7 +15,7 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.iac .dive {
+  config = lib.mkIf config.nixconf.dev.iac.dive {
     home-manager.users.${config.nixconf.user} = {
       home.packages = [
         pkgs.dive

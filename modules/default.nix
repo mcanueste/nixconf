@@ -207,9 +207,8 @@
     ./packages.nix
     ./security.nix
     ./term
-    ./tools
+    ./dev
+
     ./user.nix
-    ./virtualisation
-    ./iac
   ];
 }

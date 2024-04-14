@@ -13,7 +13,7 @@
     themeList = ["lazygit"];
   };
 in {
-  options.nixconf.tools = {
+  options.nixconf.dev = {
     lazygit = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -21,9 +21,10 @@ in {
     };
   };
 
-  config = lib.mkIf config.nixconf.tools.lazygit {
+  config = lib.mkIf config.nixconf.dev.lazygit {
     home-manager.users.${config.nixconf.user} = {
       programs.bash = {inherit shellAliases;};
+      programs.zsh = {inherit shellAliases;};
       programs.fish = {inherit shellAliases;};
 
       home.packages = [

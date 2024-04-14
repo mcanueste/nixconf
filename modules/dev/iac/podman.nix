@@ -9,7 +9,7 @@
   config,
   ...
 }: {
-  options.nixconf.iac.podman = {
+  options.nixconf.dev.iac.podman = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -23,14 +23,14 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.iac.podman.enable {
+  config = lib.mkIf config.nixconf.dev.iac.podman.enable {
     virtualisation = {
       podman = {
         enable = true;
         dockerCompat =
-          if config.nixconf.iac.podman.dockerCompat && config.nixconf.iac.docker.enable
+          if config.nixconf.dev.iac.podman.dockerCompat && config.nixconf.dev.iac.docker.enable
           then throw "Docker and Podman's dockerCompat cannot be enabled at the same time"
-          else config.nixconf.iac.podman.dockerCompat;
+          else config.nixconf.dev.iac.podman.dockerCompat;
         defaultNetwork.settings.dns_enabled = true;
       };
 

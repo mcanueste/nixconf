@@ -11,7 +11,7 @@
     k = "kubectl";
   };
 in {
-  options.nixconf.iac = {
+  options.nixconf.dev.iac = {
     kubectl = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -19,7 +19,7 @@ in {
     };
   };
 
-  config = lib.mkIf config.nixconf.iac.kubectl {
+  config = lib.mkIf config.nixconf.dev.iac.kubectl {
     home-manager.users.${config.nixconf.user} = {
       home.packages = [pkgs.kubectl];
       programs.bash = {inherit shellAliases;};

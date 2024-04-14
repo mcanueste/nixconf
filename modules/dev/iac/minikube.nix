@@ -11,7 +11,7 @@
   config,
   ...
 }: {
-  options.nixconf.iac = {
+  options.nixconf.dev.iac = {
     minikube = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -19,7 +19,7 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.iac.minikube {
+  config = lib.mkIf config.nixconf.dev.iac.minikube {
     home-manager.users.${config.nixconf.user} = {
       home.packages = [
         pkgs.minikube

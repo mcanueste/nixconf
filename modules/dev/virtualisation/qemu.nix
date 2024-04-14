@@ -10,7 +10,7 @@
   config,
   ...
 }: {
-  options.nixconf.virtualisation = {
+  options.nixconf.dev.virtualisation = {
     qemu = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -18,8 +18,15 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.virtualisation.qemu {
+  config = lib.mkIf config.nixconf.dev.virtualisation.qemu {
     services.qemuGuest.enable = true;
-    environment.systemPackages = [pkgs.qemu pkgs.quickemu];
+
+    home-manager.users.${config.nixconf.user} = {
+      home.packages = [
+        pkgs.qemu
+        pkgs.quickemu
+        # pkgs.quickgui # Not really useful
+      ];
+    };
   };
 }

@@ -11,7 +11,6 @@
     ./fzf.nix
     ./zoxide.nix
     ./direnv.nix
-    ./git.nix
     ./packages.nix
     ./scripts.nix
     ./systemd.nix

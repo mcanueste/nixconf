@@ -7,7 +7,7 @@
   config,
   ...
 }: {
-  options.nixconf.iac = {
+  options.nixconf.dev.iac = {
     lazydocker = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -15,7 +15,7 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.iac.lazydocker {
+  config = lib.mkIf config.nixconf.dev.iac.lazydocker {
     home-manager.users.${config.nixconf.user} = {
       home.packages = [
         pkgs.lazydocker

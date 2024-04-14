@@ -4,15 +4,15 @@
   config,
   ...
 }: {
-  options.nixconf.term = {
+  options.nixconf.dev = {
     git = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Enable git config";
     };
   };
 
-  config = lib.mkIf config.nixconf.term.git {
+  config = lib.mkIf config.nixconf.dev.git {
     home-manager.users.${config.nixconf.user} = {
       programs.bash = {
         shellAliases = {

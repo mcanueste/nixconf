@@ -13,7 +13,7 @@
     themeList = ["k9s"];
   };
 in {
-  options.nixconf.iac = {
+  options.nixconf.dev.iac = {
     k9s = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -21,7 +21,7 @@ in {
     };
   };
 
-  config = lib.mkIf config.nixconf.iac.k9s {
+  config = lib.mkIf config.nixconf.dev.iac.k9s {
     home-manager.users.${config.nixconf.user} = {
       home.packages = [
         pkgs.k9s

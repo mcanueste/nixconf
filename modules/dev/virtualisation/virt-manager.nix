@@ -6,7 +6,7 @@
   config,
   ...
 }: {
-  options.nixconf.virtualisation = {
+  options.nixconf.dev.virtualisation = {
     virt-manager = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -14,14 +14,14 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.virtualisation.virt-manager {
+  config = lib.mkIf config.nixconf.dev.virtualisation.virt-manager {
     virtualisation = {
       libvirtd = {
         enable = true;
 
         qemu =
-          if config.nixconf.virtualisation.qemu == false
-          then throw "nixconf.virtualisation.qemu must be set to enable virt-manager"
+          if config.nixconf.dev.virtualisation.qemu == false
+          then throw "nixconf.dev.virtualisation.qemu must be set to enable virt-manager"
           else {
             ovmf.enable = true;
             runAsRoot = true;
