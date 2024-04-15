@@ -22,8 +22,6 @@
       rofi = true;
     };
 
-    gaming = false;
-
     term = {
       starship = true;
       eza = true;
@@ -32,14 +30,39 @@
       zoxide = true;
       direnv = true;
       scripts = true;
+
       systemd = {
         enable = true;
         sync-notes = true;
         sync-blog = true;
       };
+
       ai = true;
       alacritty = true;
       tmux = true;
+    };
+
+    browser = {
+      brave = true;
+      firefox = true;
+      chrome = true;
+    };
+
+    media = {
+      spotify = true;
+      zotero = false;
+      calibre = true;
+    };
+
+    chat = {
+      telegram = true;
+      discord = true;
+      slack = true;
+      teams = false;
+    };
+
+    gaming = {
+      steam = false;
     };
 
     dev = {
@@ -56,10 +79,12 @@
           enable = true;
           dockerAutoPrune = true;
         };
+
         podman = {
           enable = false;
           dockerCompat = false;
         };
+
         lazydocker = true;
         dive = true;
         packer = true;
@@ -76,29 +101,10 @@
       };
     };
 
-    browser = {
-      brave = true;
-      firefox = true;
-      chrome = true;
-    };
-
     editor = {
       neovim = true;
       obsidian = true;
       vscode = true;
-    };
-
-    media = {
-      spotify = true;
-      zotero = false;
-      calibre = true;
-    };
-
-    chat = {
-      telegram = true;
-      discord = true;
-      slack = true;
-      teams = false;
     };
   };
 }

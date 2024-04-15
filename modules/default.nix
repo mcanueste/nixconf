@@ -1,16 +1,15 @@
 {
   imports = [
-    ./desktop
-    ./editors
-    ./font.nix
-    ./gaming.nix
     ./hardware
-
     ./system
+    ./font.nix
+    ./desktop
     ./term
-    ./dev
     ./browser
     ./media
     ./chat
+    ./gaming
+    ./dev
+    ./editors
   ];
 }
