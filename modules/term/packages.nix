@@ -1,29 +1,43 @@
-# Some term tools that do not require configuration
+# Some tools that do not require configuration
 {
   pkgs,
   config,
   ...
 }: {
   config = {
+    environment.systemPackages = with pkgs; [
+      coreutils-full
+      curl
+      wget
+      lsof
+      pciutils
+      lshw
+      libva-utils
+      glxinfo
+      gzip
+      unzip
+      cachix
+    ];
+
     home-manager.users.${config.nixconf.user} = {
-      home.packages = [
-        pkgs.dash
-        pkgs.gnumake
-        pkgs.rsync
-        pkgs.tree
-        pkgs.fd
-        pkgs.ripgrep
-        pkgs.htop
-        pkgs.ncdu
-        pkgs.entr
-        pkgs.hyperfine
+      home.packages = with pkgs; [
+        dash
+        gnumake
+        rsync
+        tree
+        fd
+        ripgrep
+        htop
+        ncdu
+        entr
+        hyperfine
 
         # networking tools
-        pkgs.dig
-        pkgs.traceroute
+        dig
+        traceroute
 
         # password managers
-        pkgs.bitwarden-cli
+        bitwarden-cli
       ];
     };
   };

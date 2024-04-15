@@ -8,7 +8,6 @@
     ./gaming.nix
     ./hardware
     ./media.nix
-    ./packages.nix
 
     ./system
     ./term
