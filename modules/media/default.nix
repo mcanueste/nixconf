@@ -5,5 +5,6 @@
     ./calibre.nix
     ./obsidian.nix
     ./gimp.nix
+    ./vlc.nix
   ];
 }

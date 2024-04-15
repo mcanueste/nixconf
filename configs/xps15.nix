@@ -54,6 +54,7 @@
       calibre = true;
       obsidian = true;
       gimp = true;
+      vlc = true;
     };
 
     chat = {
