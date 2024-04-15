@@ -22,12 +22,6 @@
       rofi = true;
     };
 
-    browser = {
-      brave = true;
-      firefox = true;
-      chrome = true;
-    };
-
     gaming = false;
 
     term = {
@@ -82,14 +76,29 @@
       };
     };
 
+    browser = {
+      brave = true;
+      firefox = true;
+      chrome = true;
+    };
+
     editor = {
       neovim = true;
       obsidian = true;
       vscode = true;
     };
 
+    media = {
+      spotify = true;
+      zotero = false;
+      calibre = true;
+    };
+
     chat = {
+      telegram = true;
+      discord = true;
       slack = true;
+      taems = false;
     };
   };
 }
