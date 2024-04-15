@@ -98,7 +98,7 @@
       telegram = true;
       discord = true;
       slack = true;
-      taems = false;
+      teams = false;
     };
   };
 }

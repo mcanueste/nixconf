@@ -1,6 +1,5 @@
 {
   imports = [
-    ./browsers.nix
     ./desktop
     ./editors
     ./font.nix
@@ -10,6 +9,7 @@
     ./system
     ./term
     ./dev
+    ./browser
     ./media
     ./chat
   ];
