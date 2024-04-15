@@ -52,6 +52,7 @@
       spotify = true;
       zotero = false;
       calibre = true;
+      obsidian = true;
     };
 
     chat = {
@@ -103,7 +104,6 @@
 
     editor = {
       neovim = true;
-      obsidian = true;
       vscode = true;
     };
   };

@@ -25,11 +25,6 @@
       default = false;
       description = "Enable VSCode";
     };
-    obsidian = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable Obsidian";
-    };
   };
 
   config = {
@@ -39,7 +34,6 @@
         (lib.lists.optional config.nixconf.editor.datagrip pkgs.jetbrains.datagrip)
         (lib.lists.optional config.nixconf.editor.pycharm pkgs.jetbrains.pycharm-professional)
         (lib.lists.optional config.nixconf.editor.vscode pkgs.vscode)
-        (lib.lists.optional config.nixconf.editor.obsidian pkgs.obsidian)
       ];
     };
   };
