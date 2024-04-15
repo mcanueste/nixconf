@@ -53,6 +53,7 @@
       zotero = false;
       calibre = true;
       obsidian = true;
+      gimp = true;
     };
 
     chat = {

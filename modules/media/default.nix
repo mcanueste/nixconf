@@ -4,5 +4,6 @@
     ./zotero.nix
     ./calibre.nix
     ./obsidian.nix
+    ./gimp.nix
   ];
 }
