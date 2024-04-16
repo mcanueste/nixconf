@@ -13,7 +13,7 @@
     src = ./nvim;
   };
 in {
-  options.nixconf.editor = {
+  options.nixconf.dev.editor = {
     neovim = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -21,7 +21,7 @@ in {
     };
   };
 
-  config = lib.mkIf config.nixconf.editor.neovim {
+  config = lib.mkIf config.nixconf.dev.editor.neovim {
     home-manager.users.${config.nixconf.user} = {
       programs.bash = {inherit shellAliases;};
       programs.fish = {inherit shellAliases;};

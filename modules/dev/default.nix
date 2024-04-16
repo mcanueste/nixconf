@@ -3,7 +3,8 @@
     ./git.nix
     ./lazygit.nix
 
-    ./iac
     ./virtualisation
+    ./iac
+    ./editor
   ];
 }

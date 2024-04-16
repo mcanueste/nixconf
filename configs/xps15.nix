@@ -102,11 +102,17 @@
         digital-ocean = false;
         cfssl = false;
       };
-    };
 
-    editor = {
-      neovim = true;
-      vscode = true;
+      editor = {
+        neovim = true;
+        vscode = true;
+        datagrip = false;
+
+        pycharm = {
+          enable = false;
+          professional = false;
+        };
+      };
     };
   };
 }
