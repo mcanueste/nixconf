@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.nixconf.desktop.greetd = {
+  options.nixconf.system.desktop.greetd = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -13,12 +13,13 @@
 
     command = lib.mkOption {
       type = lib.types.str;
-      default = "Hyprland"; # sway --unsupported-gpu
+      default = "Hyprland";
       description = "Command to use with greetd login manager";
     };
   };
 
-  config = lib.mkIf (config.nixconf.desktop.enable && config.nixconf.desktop.greetd.enable) {
+  config = lib.mkIf (config.nixconf.system.desktop.enable && config.nixconf.system.desktop.greetd.enable) {
+    # TODO: this is buggy on different resolution displays
     services.greetd = {
       enable = true;
       settings = {
@@ -27,7 +28,7 @@
             --time \
             --asterisks \
             --user-menu \
-            --cmd '${config.nixconf.desktop.greetd.command}'
+            --cmd '${config.nixconf.system.desktop.greetd.command}'
         '';
       };
     };

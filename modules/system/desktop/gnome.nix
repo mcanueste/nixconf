@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.nixconf.desktop = {
+  options.nixconf.system.desktop = {
     gnome = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -12,7 +12,7 @@
     };
   };
 
-  config = lib.mkIf (config.nixconf.desktop.enable && config.nixconf.desktop.gnome) {
+  config = lib.mkIf (config.nixconf.system.desktop.enable && config.nixconf.system.desktop.gnome) {
     services.xserver = {
       # Enable the X11 windowing system.
       enable = true;

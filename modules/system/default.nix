@@ -5,7 +5,7 @@
     ./user.nix
     ./locale.nix
     ./security.nix
-
     ./network
+    ./desktop
   ];
 }

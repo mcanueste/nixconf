@@ -10,7 +10,7 @@
     themeList = ["waybar"];
   };
 in {
-  options.nixconf.desktop = {
+  options.nixconf.system.desktop = {
     waybar = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -18,7 +18,7 @@ in {
     };
   };
 
-  config = lib.mkIf (config.nixconf.desktop.enable && config.nixconf.desktop.waybar) {
+  config = lib.mkIf (config.nixconf.system.desktop.enable && config.nixconf.system.desktop.waybar) {
     home-manager.users.${config.nixconf.user} = {
       programs.waybar = {
         enable = true;

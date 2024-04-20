@@ -1,7 +1,6 @@
 {
   nixconf = {
     user = "mcst";
-    system.network.hostname = "nixos";
 
     hardware = {
       boot.swap = true;
@@ -9,17 +8,24 @@
       logitech = true;
     };
 
-    desktop = {
-      enable = true;
-      gnome = false;
-      greetd = {
-        enable = true;
-        command = "Hyprland";
+    system = {
+      network = {
+        hostname = "nixos";
       };
-      hyprland = true;
-      waybar = true;
-      swaync = true;
-      rofi = true;
+
+      desktop = {
+        enable = true;
+        gnome = false;
+
+        greetd = {
+          enable = true;
+          command = "Hyprland";
+        };
+        hyprland = true;
+        waybar = true;
+        swaync = true;
+        rofi = true;
+      };
     };
 
     term = {

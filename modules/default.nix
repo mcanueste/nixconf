@@ -1,9 +1,10 @@
 {
   imports = [
     ./hardware
+
     ./system
+
     ./font.nix
-    ./desktop
 
     ./term
     ./browser

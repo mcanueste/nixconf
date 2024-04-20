@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.nixconf.desktop = {
+  options.nixconf.system.desktop = {
     swaync = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -12,7 +12,7 @@
     };
   };
 
-  config = lib.mkIf (config.nixconf.desktop.enable && config.nixconf.desktop.swaync) {
+  config = lib.mkIf (config.nixconf.system.desktop.enable && config.nixconf.system.desktop.swaync) {
     home-manager.users.${config.nixconf.user} = {
       home.packages = lib.lists.flatten [
         pkgs.swaynotificationcenter

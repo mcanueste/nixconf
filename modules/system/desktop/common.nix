@@ -4,15 +4,15 @@
   config,
   ...
 }: {
-  options.nixconf.desktop = {
+  options.nixconf.system.desktop = {
     enable = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Enable desktop configs.";
     };
   };
 
-  config = lib.mkIf config.nixconf.desktop.enable {
+  config = lib.mkIf config.nixconf.system.desktop.enable {
     environment.sessionVariables = {
       XDG_CURRENT_DESKTOP = "Hyprland";
       XDG_SESSION_DESKTOP = "Hyprland";

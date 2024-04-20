@@ -11,7 +11,7 @@
     themeList = ["hyprland"];
   };
 in {
-  options.nixconf.desktop = {
+  options.nixconf.system.desktop = {
     hyprland = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -19,7 +19,7 @@ in {
     };
   };
 
-  config = lib.mkIf (config.nixconf.desktop.enable && config.nixconf.desktop.hyprland) {
+  config = lib.mkIf (config.nixconf.system.desktop.enable && config.nixconf.system.desktop.hyprland) {
     programs.hyprland = {
       enable = true;
       xwayland.enable = true;
@@ -30,6 +30,7 @@ in {
       home.packages = lib.lists.flatten [
         # Assumes wireplumber for sound
         pkgs.playerctl
+
         pkgs.easyeffects # TODO: might change to something else later
         pkgs.helvum # TODO: might change to something else later
 

@@ -10,7 +10,7 @@
     themeList = ["rofi"];
   };
 in {
-  options.nixconf.desktop = {
+  options.nixconf.system.desktop = {
     rofi = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -18,7 +18,7 @@ in {
     };
   };
 
-  config = lib.mkIf (config.nixconf.desktop.enable && config.nixconf.desktop.rofi) {
+  config = lib.mkIf (config.nixconf.system.desktop.enable && config.nixconf.system.desktop.rofi) {
     home-manager.users.${config.nixconf.user} = {
       programs.rofi = {
         enable = true;
