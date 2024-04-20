@@ -2,12 +2,15 @@
   description = "NixOS Configuration Flake";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
     hyprland.url = "github:hyprwm/Hyprland";
   };
 
@@ -23,20 +26,25 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-stable,
+    home-manager,
     ...
   } @ inputs: let
     system = "x86_64-linux";
     config = import ./configs/xps15.nix;
     pkgs = import nixpkgs {inherit system;};
+    pkgs-stable = import nixpkgs-stable {inherit system;};
   in rec {
     formatter.${system} = pkgs.alejandra;
 
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {inherit inputs;};
+        specialArgs = {
+          inherit inputs pkgs-stable;
+        };
         modules = [
-          inputs.home-manager.nixosModules.default
+          home-manager.nixosModules.default
           ./modules
           config
         ];

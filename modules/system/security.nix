@@ -27,12 +27,6 @@
       default = false;
       description = "Enable openssh SFTP for remote connections to host";
     };
-
-    gvfs = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Enable Gnome Virtual FS for mounting remote resources (i.e. phones)";
-    };
   };
 
   config = {
@@ -72,11 +66,6 @@
 
       # SSH daemon.
       sshd.enable = config.nixconf.system.security.sshd;
-
-      # Mount MTP devices (iPhone, Android, etc.)
-      # Seamlessly access files and folders on remote resources.
-      # Necessarry for file managers, mounts, trash, etc.
-      gvfs.enable = config.nixconf.system.security.gvfs;
     };
   };
 }

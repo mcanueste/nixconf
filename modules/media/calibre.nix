@@ -1,5 +1,5 @@
 {
-  pkgs,
+  pkgs-stable,
   lib,
   config,
   ...
@@ -14,7 +14,7 @@
 
   config = lib.mkIf config.nixconf.media.calibre {
     home-manager.users.${config.nixconf.user} = {
-      home.packages = [pkgs.calibre];
+      home.packages = [pkgs-stable.calibre];
     };
   };
 }

@@ -4,15 +4,15 @@
   config,
   ...
 }: {
-  options.nixconf.system.desktop = {
+  options.nixconf.system.desktop.de = {
     gnome = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Enable gnome desktop";
+      description = "Enable Gnome desktop environment";
     };
   };
 
-  config = lib.mkIf (config.nixconf.system.desktop.enable && config.nixconf.system.desktop.gnome) {
+  config = lib.mkIf (config.nixconf.system.desktop.enable && config.nixconf.system.desktop.de.gnome) {
     services.xserver = {
       # Enable the X11 windowing system.
       enable = true;

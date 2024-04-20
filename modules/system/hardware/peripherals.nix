@@ -18,6 +18,7 @@
   };
 
   config = {
+    # Enable hardware support for bluetooth
     hardware.bluetooth = {
       enable = config.nixconf.system.hardware.peripherals.bluetooth;
       powerOnBoot = true;
@@ -27,6 +28,9 @@
         };
       };
     };
+
+    # Enable blueman for bluetooth control
+    services.blueman.enable = config.nixconf.system.hardware.peripherals.bluetooth;
 
     # Install Solaar for managing Logitech devices
     hardware.logitech = {

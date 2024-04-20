@@ -32,7 +32,6 @@
           allowedUDPPorts = [];
           allowedUDPPortRanges = [];
         };
-        networkmanager.enable = true;
         wireguard = {
           enable = false;
           configs = [];
@@ -48,31 +47,38 @@
           thermald = true;
           power-profiles-daemon = true;
         };
-        storage = {
-          trim = true;
-          hdapsd = false;
-        };
-        sound = {
-          pipewire = true;
-        };
         dbus = {
           enable = true;
           tumbler = true;
+        };
+        storage = {
+          trim = true;
+          hdapsd = false;
+          gvfs = true;
+          udisk2 = true;
+        };
+        sound = {
+          pipewire = true;
         };
       };
 
       desktop = {
         enable = true;
-        gnome = false;
-
-        greetd = {
+        de.gnome = false;
+        wm = {
           enable = true;
-          command = "Hyprland";
+          blueman = true;
+          networkmanager = true;
+          kanshi = true;
+          login.greetd = {
+            enable = true;
+            command = "Hyprland";
+          };
+          tiling.hyprland = true;
+          bar.waybar = true;
+          launcher.rofi = true;
+          notification.swaync = true;
         };
-        hyprland = true;
-        waybar = true;
-        swaync = true;
-        rofi = true;
       };
     };
 

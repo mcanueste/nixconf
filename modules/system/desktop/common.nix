@@ -13,44 +13,57 @@
   };
 
   config = lib.mkIf config.nixconf.system.desktop.enable {
-    environment.sessionVariables = {
-      XDG_CURRENT_DESKTOP = "Hyprland";
-      XDG_SESSION_DESKTOP = "Hyprland";
-      XDG_SESSION_TYPE = "wayland";
-      GDK_BACKEND = "wayland";
-      GTK_USE_PORTAL = "1";
-      QT_QPA_PLATFORMTHEME = "qt5ct";
-      QT_QPA_PLATFORM = "wayland";
-      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-      QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-      MOZ_ENABLE_WAYLAND = "1";
-      NIXOS_OZONE_WL = "1";
-      _JAVA_AWT_WM_NONREPARENTING = "1";
-    };
+    environment.systemPackages = with pkgs; [
+      xdg-utils # for opening default programs when clicking links
+    ];
 
-    xdg.portal = {
-      enable = true;
-      # gtk portal needed to make gtk apps happy
-      extraPortals = [
-        pkgs.xdg-desktop-portal-gtk
-        # pkgs.xdg-desktop-portal-hyprland
-      ];
+    xdg = {
+      # TODO: configure if mime needs to be configured
+      mime.enable = true;
+      icons.enable = true;
+      menus.enable = true;
+      sounds.enable = true;
+      autostart.enable = true;
+
+      portal = {
+        enable = true;
+
+        # Sets environment variable `GTK_USE_PORTAL` to `1`.
+        # This will force GTK-based programs ran outside Flatpak to respect and use XDG Desktop Portals
+        # for features like file chooser but it is an unsupported hack that can easily break things.
+        # Defaults to `false` to respect its opt-in nature.
+        gtkUsePortal = true;
+
+        # Sets environment variable `NIXOS_XDG_OPEN_USE_PORTAL` to `1`
+        # This will make `xdg-open` use the portal to open programs, which resolves bugs involving
+        # programs opening inside FHS envs or with unexpected env vars set from wrappers.
+        xdgOpenUsePortal = true;
+
+        extraPortals = [
+          pkgs.xdg-desktop-portal
+          pkgs.xdg-desktop-portal-gtk
+        ];
+      };
     };
 
     home-manager.users.${config.nixconf.user} = {
+      # https://discourse.nixos.org/t/struggling-to-configure-gtk-qt-theme-on-laptop/42268/4
+      # https://github.com/catppuccin/nix
       qt = {
-        # TODO: properly configure to be catppuccin theme
         enable = true;
         platformTheme = "gtk";
         style = {
-          name = "adwaita-dark";
-          package = pkgs.catppuccin.override {
-            accent = "sky";
-            variant = "mocha";
-          };
+          name = "gtk2";
+          # TODO How is the catppuccin theme setup for this?
+          # package = pkgs.catppuccin.override {
+          #   accent = "sky";
+          #   variant = "mocha";
+          #   themeList = ["qt5ct"];
+          # } + /qt5ct/Catppuccin-Mocha.conf;
         };
       };
 
+      # TODO fix these theming configs later
       gtk = {
         enable = true;
         theme = {
@@ -70,20 +83,5 @@
         };
       };
     };
-
-    # Enable thunar file manager and other services for automated mounts etc.
-    programs.thunar = {
-      enable = true;
-      plugins = with pkgs.xfce; [
-        thunar-archive-plugin
-        thunar-volman
-      ];
-    };
-
-    environment.systemPackages = with pkgs; [
-      wdisplays # tool to configure displays
-      xdg-utils # for opening default programs when clicking links
-      glib # gsettings
-    ];
   };
 }

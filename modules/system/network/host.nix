@@ -28,6 +28,12 @@
       # Per-interface useDHCP will be mandatory in the future, so this generated config
       # replicates the default behaviour.
       useDHCP = false;
+
+      # Enable networkmanager
+      networkmanager = {enable = true;};
     };
+
+    # Add user to networkmanager group
+    users.users.${config.nixconf.user}.extraGroups = ["networkmanager"];
   };
 }

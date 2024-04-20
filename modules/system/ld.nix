@@ -10,9 +10,9 @@
       freeglut
       xorg.libX11
       stdenv.cc.cc.lib
-      cudaPackages.cudatoolkit
-      cudaPackages.cudnn
-      cudaPackages.cudatoolkit.lib
+      # cudaPackages.cudatoolkit
+      # cudaPackages.cudnn
+      # cudaPackages.cudatoolkit.lib
       # cudaPackages.tensorrt
 
       # pipewire.lib
