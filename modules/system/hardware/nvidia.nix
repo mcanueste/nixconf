@@ -4,20 +4,28 @@
   config,
   ...
 }: {
-  options.nixconf.hardware = {
-    nvidia = lib.mkOption {
+  options.nixconf.system.hardware.nvidia = {
+    enable = lib.mkOption {
       type = lib.types.bool;
-      default = true;
-      description = "Enable nvidia gpu configuration";
+      default = false;
+      description = "Enable Nvidia GPU configuration";
+    };
+
+    isTuring = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable Turing architecture specific configuration";
     };
   };
 
-  config = lib.mkIf config.nixconf.hardware.nvidia {
+  config = lib.mkIf config.nixconf.system.hardware.nvidia.enable {
     # intel gpu video acceleration setup
     # https://nixos.wiki/wiki/Accelerated_Video_Playback
+
     nixpkgs.config.packageOverrides = pkg: {
       vaapiIntel = pkg.vaapiIntel.override {enableHybridCodec = true;};
     };
+
     hardware.opengl = {
       enable = true;
       driSupport = true;
@@ -37,9 +45,10 @@
 
       # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
       powerManagement.enable = false;
+
       # Fine-grained power management. Turns off GPU when not in use.
       # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-      powerManagement.finegrained = false;
+      powerManagement.finegrained = config.nixconf.system.hardware.nvidia.isTuring;
 
       # Use the NVidia open source kernel module (not to be confused with the
       # independent third-party "nouveau" open source driver).
@@ -78,5 +87,25 @@
     # Enable GPU drivers
     services.xserver.videoDrivers = ["intel" "nvidia"];
     boot.blacklistedKernelModules = ["nouveau" "bbswitch"];
+
+    # Enable nvidia offload script
+    home-manager.users.${config.nixconf.user} = let
+      nvidia-offload = pkgs.writeShellApplication {
+        name = "nvidia-offload";
+        runtimeInputs = [];
+        text = ''
+          #!/usr/bin/env bash
+          export __NV_PRIME_RENDER_OFFLOAD=1
+          export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+          export __GLX_VENDOR_LIBRARY_NAME=nvidia
+          export __VK_LAYER_NV_optimus=NVIDIA_only
+          exec "$@"
+        '';
+      };
+    in {
+      home.packages = [
+        nvidia-offload
+      ];
+    };
   };
 }

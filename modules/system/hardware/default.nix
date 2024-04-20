@@ -1,10 +1,9 @@
 {
   imports = [
+    ./filesystem.nix
     ./boot.nix
     ./nvidia.nix
-    ./sound.nix
-    ./wireless.nix
+    ./peripherals.nix
     ./printer.nix
-    ./logitech.nix
   ];
 }

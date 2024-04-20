@@ -20,6 +20,6 @@
   config = lib.mkIf config.nixconf.system.network.mtr.enable {
     # network diagnostic tool (requires sudo) = ping + traceroute
     programs.mtr.enable = true;
-    services.mtr-exporter.enable = config.nixconf.system.network.exportMtr;
+    services.mtr-exporter.enable = config.nixconf.system.network.mtr.exportMtr;
   };
 }

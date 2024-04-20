@@ -2,15 +2,63 @@
   nixconf = {
     user = "mcst";
 
-    hardware = {
-      boot.swap = true;
-      nvidia = true;
-      logitech = true;
-    };
-
     system = {
+      hardware = {
+        boot = {
+          intelMicrocode = true;
+          cpuFreqGovernor = "ondemand";
+        };
+        nvidia = {
+          enable = true;
+          isTuring = true;
+        };
+        peripherals = {
+          bluetooth = true;
+          logitech = true;
+        };
+        printer = {
+          enable = false;
+          scanner = false;
+        };
+      };
+
       network = {
         hostname = "nixos";
+        hosts = "";
+        firewall = {
+          enable = true;
+          allowedTCPPorts = [];
+          allowedTCPPortRanges = [];
+          allowedUDPPorts = [];
+          allowedUDPPortRanges = [];
+        };
+        networkmanager.enable = true;
+        wireguard = {
+          enable = false;
+          configs = [];
+        };
+        mtr = {
+          enable = true;
+          exportMtr = false;
+        };
+      };
+
+      service = {
+        power = {
+          thermald = true;
+          power-profiles-daemon = true;
+        };
+        storage = {
+          trim = true;
+          hdapsd = false;
+        };
+        sound = {
+          pipewire = true;
+        };
+        dbus = {
+          enable = true;
+          tumbler = true;
+        };
       };
 
       desktop = {

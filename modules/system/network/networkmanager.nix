@@ -12,10 +12,10 @@
   };
 
   config = lib.mkIf config.nixconf.system.network.networkmanager.enable {
-    users.users.${config.nixconf.user}.extraGroups = ["networkmanager"];
-
     networking = {
       networkmanager = {enable = true;};
     };
+
+    users.users.${config.nixconf.user}.extraGroups = ["networkmanager"];
   };
 }

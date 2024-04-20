@@ -28,7 +28,6 @@
       _JAVA_AWT_WM_NONREPARENTING = "1";
     };
 
-    services.dbus.enable = true;
     xdg.portal = {
       enable = true;
       # gtk portal needed to make gtk apps happy
@@ -71,10 +70,6 @@
         };
       };
     };
-
-    # Tumbler is a D-Bus service for applications to request thumbnails
-    # for various URI schemes and MIME types.
-    services.tumbler.enable = true;
 
     # Enable thunar file manager and other services for automated mounts etc.
     programs.thunar = {

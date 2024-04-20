@@ -1,7 +1,5 @@
 {
   imports = [
-    ./hardware
-
     ./system
 
     ./font.nix
