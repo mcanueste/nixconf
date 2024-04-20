@@ -31,15 +31,25 @@
   };
 
   config = lib.mkIf config.nixconf.system.desktop.wm.enable {
+    # Enable thunar file manager and other services for automated mounts etc.
+    # TODO might remove this later if PCManFM is good enough
+    programs.thunar = {
+      enable = true;
+      plugins = with pkgs.xfce; [
+        thunar-archive-plugin
+        thunar-volman
+      ];
+    };
+
     home-manager.users.${config.nixconf.user} = {
       home.packages = [
         pkgs.playerctl # media player control
         pkgs.brightnessctl # backlight control
         pkgs.pamixer # in case xorg is used (in wireplumber: wpctl)
         pkgs.pavucontrol # pulseaudio volume control
+        pkgs.kanshi # auto display configuration tool
         pkgs.galculator # calculator
         pkgs.udiskie # automount
-        pkgs.pcmanfm # lightweight file manager
       ];
 
       services = {
@@ -48,7 +58,8 @@
 
         kanshi = {
           enable = config.nixconf.system.desktop.wm.kanshi;
-          systemdTarget = "hyprland-session.target";
+          # systemdTarget = "hyprland-session.target";
+          systemdTarget = "";
 
           profiles = {
             docked = {
@@ -82,16 +93,6 @@
           };
         };
       };
-    };
-
-    # Enable thunar file manager and other services for automated mounts etc.
-    # TODO might remove this later if PCManFM is good enough
-    programs.thunar = {
-      enable = true;
-      plugins = with pkgs.xfce; [
-        thunar-archive-plugin
-        thunar-volman
-      ];
     };
   };
 }
