@@ -1,5 +1,5 @@
 {
-  pkgs,
+  pkgs-stable,
   lib,
   config,
   ...
@@ -14,7 +14,7 @@
 
   config = lib.mkIf config.nixconf.browser.brave {
     home-manager.users.${config.nixconf.user} = {
-      home.packages = [pkgs.brave];
+      home.packages = [pkgs-stable.brave];
     };
   };
 }

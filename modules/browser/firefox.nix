@@ -1,5 +1,5 @@
 {
-  pkgs,
+  pkgs-stable,
   lib,
   config,
   ...
@@ -14,7 +14,7 @@
 
   config = lib.mkIf config.nixconf.browser.firefox {
     home-manager.users.${config.nixconf.user} = {
-      home.packages = lib.lists.flatten [pkgs.firefox];
+      home.packages = lib.lists.flatten [pkgs-stable.firefox];
     };
   };
 }
