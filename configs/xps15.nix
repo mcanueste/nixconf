@@ -115,6 +115,7 @@
       obsidian = true;
       gimp = true;
       vlc = true;
+      zathura = true;
     };
 
     chat = {

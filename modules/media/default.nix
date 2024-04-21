@@ -6,5 +6,6 @@
     ./obsidian.nix
     ./gimp.nix
     ./vlc.nix
+    ./zathura.nix
   ];
 }

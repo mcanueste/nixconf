@@ -4,13 +4,7 @@
   config,
   inputs,
   ...
-}: let
-  theme = pkgs.catppuccin.override {
-    accent = "sky";
-    variant = "mocha";
-    themeList = ["hyprland"];
-  };
-in {
+}: {
   options.nixconf.system.desktop.wm.tiling = {
     hyprland = lib.mkOption {
       type = lib.types.bool;
@@ -24,23 +18,33 @@ in {
       config.nixconf.system.desktop.enable && config.nixconf.system.desktop.wm.tiling.hyprland
     ) {
       # To make some apps work properly on wayland and hyprland
-      # TODO: some of these are defined by default
       environment.sessionVariables = {
         XDG_CURRENT_DESKTOP = "Hyprland";
         XDG_SESSION_DESKTOP = "Hyprland";
         XDG_SESSION_TYPE = "wayland";
 
+        # For GTK apps
         GTK_USE_PORTAL = "1";
-        GDK_BACKEND = "wayland";
 
+        # QT configs
         QT_QPA_PLATFORM = "wayland";
         QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
         QT_AUTO_SCREEN_SCALE_FACTOR = "1";
 
-        MOZ_ENABLE_WAYLAND = "1";
+        # for gnome apps if we ever use one
+        GDK_BACKEND = "wayland";
+
+        # For SDL library
+        SDL_VIDEODRIVER = "wayland";
+
+        # electron apps
+        NIXOS_OZONE_WL = "1";
+
+        # For some java apps
         _JAVA_AWT_WM_NONREPARENTING = "1";
 
-        NIXOS_OZONE_WL = "1";
+        # For firefox
+        MOZ_ENABLE_WAYLAND = "1";
       };
 
       programs.hyprland = {
@@ -53,6 +57,7 @@ in {
 
       environment.systemPackages = [
         pkgs.wdisplays # tool to configure displays
+        pkgs.xwaylandvideobridge # for fixing screen share on x apps
       ];
 
       home-manager.users.${config.nixconf.user} = {
@@ -87,9 +92,31 @@ in {
 
         wayland.windowManager.hyprland = {
           enable = true;
+
+          systemd.variables = [
+            "DISPLAY"
+            "HYPRLAND_INSTANCE_SIGNATURE"
+            "WAYLAND_DISPLAY"
+            "XDG_CURRENT_DESKTOP"
+            "XDG_SESSION_DESKTOP"
+            "XDG_SESSION_TYPE"
+            "GTK_USE_PORTAL"
+            "QT_QPA_PLATFORM"
+            "QT_QPA_PLATFORMTHEME"
+            "QT_STYLE_OVERRIDE"
+            "QT_WAYLAND_DISABLE_WINDOWDECORATION"
+            "QT_AUTO_SCREEN_SCALE_FACTOR"
+            "GDK_BACKEND"
+            "SDL_VIDEODRIVER"
+            "NIXOS_OZONE_WL"
+            "_JAVA_AWT_WM_NONREPARENTING"
+            "MOZ_ENABLE_WAYLAND"
+          ];
+
           settings = {
             # Auto scale to multiple monitors with priority to resolution
             monitor = ",highres,auto,1";
+
             general = {
               gaps_in = 8;
               gaps_out = 0;
@@ -102,6 +129,7 @@ in {
               "col.active_border" = "$sky";
               "col.inactive_border" = "$mauve";
             };
+
             decoration = {
               rounding = 5;
               drop_shadow = true;
@@ -113,6 +141,7 @@ in {
                 enabled = false;
               };
             };
+
             animations = {
               enabled = true;
               bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
@@ -125,6 +154,7 @@ in {
                 "workspaces, 1, 6, default"
               ];
             };
+
             input = {
               kb_layout = "us,de";
               kb_model = "pc105";
@@ -137,36 +167,51 @@ in {
               };
               sensitivity = 0;
             };
+
             dwindle = {
               pseudotile = true;
               preserve_split = true;
             };
+
             master = {
               new_is_master = true;
             };
+
             gestures = {
               workspace_swipe = true;
             };
+
             misc = {
               force_default_wallpaper = 0;
               animate_manual_resizes = true;
               animate_mouse_windowdragging = true; # can cause weird behavior on curves
             };
+
             windowrule = [
               "float, ^(galculator)$"
               "float, ^(Color Picker)$"
             ];
+
+            windowrulev2 = [
+              "opacity 0.0 override,class:^(xwaylandvideobridge)$"
+              "noanim,class:^(xwaylandvideobridge)$"
+              "noinitialfocus,class:^(xwaylandvideobridge)$"
+              "maxsize 1 1,class:^(xwaylandvideobridge)$"
+              "noblur,class:^(xwaylandvideobridge)$"
+            ];
+
             exec-once = [
               "swaybg -m fill -i ${../../wallpaper.png} &"
               "waybar &"
               "swaync &"
               "udiskie &"
+              "xwaylandvideobridge &"
               "wl-paste --type text --watch cliphist store &" # store text data
               "wl-paste --type image --watch cliphist store &" # store image data
-              # "blueman-applet &"
-              # "nm-applet &"
             ];
+
             "$mod" = "SUPER";
+
             bind = [
               #### WM Specific
 
@@ -247,11 +292,13 @@ in {
               # "${modifier}+Ctrl+Alt+Print" = "exec wayrecorder --notify --clipboard --input active";
               # "${modifier}+Ctrl+Shift+Alt+Print" = "exec wayrecorder --notify --clipboard --input window";
             ];
+
             bindm = [
               # Move/resize windows with mainMod + LMB/RMB and dragging
               "$mod, mouse:272, movewindow"
               "$mod, mouse:273, resizewindow"
             ];
+
             binde = [
               # Sound buttons
               ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
@@ -271,6 +318,7 @@ in {
               ", XF86MonBrightnessUp, exec, brightnessctl set +5%"
             ];
           };
+
           extraConfig = ''
             # window resize
             bind = $mod, r, submap, resize

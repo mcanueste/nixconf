@@ -39,6 +39,11 @@
     };
 
     home-manager.users.${config.nixconf.user} = {
+      # Enable gtk and qt config if desktop is enabled
+      # Theme configuration is done in theme.nix
+      gtk.enable = true;
+      qt.enable = true;
+
       xdg = {
         enable = true;
         mime.enable = true;
@@ -53,7 +58,8 @@
           xdgOpenUsePortal = true;
 
           extraPortals = [
-            pkgs.xdg-desktop-portal-gtk
+            # pkgs.xdg-desktop-portal-gtk
+            pkgs.xdg-desktop-portal-hyprland
           ];
 
           # xdg-desktop-portal 1.17 reworked how portal implementations are loaded,
@@ -67,42 +73,6 @@
           #
           # xdg.portal.config.common.default = "*";
           config.common.default = "*";
-        };
-      };
-
-      # https://discourse.nixos.org/t/struggling-to-configure-gtk-qt-theme-on-laptop/42268/4
-      # https://github.com/catppuccin/nix
-      qt = {
-        enable = true;
-        platformTheme.name = "gtk";
-        style = {
-          name = "gtk2";
-          # TODO How is the catppuccin theme setup for this?
-          # package = pkgs.catppuccin.override {
-          #   accent = "sky";
-          #   variant = "mocha";
-          #   themeList = ["qt5ct"];
-          # } + /qt5ct/Catppuccin-Mocha.conf;
-        };
-      };
-
-      # TODO fix these theming configs later
-      gtk = {
-        enable = true;
-        theme = {
-          name = "Catppuccin-Mocha-Compact-Sky-Dark";
-          package = pkgs.catppuccin-gtk.override {
-            accents = ["sky"];
-            variant = "mocha";
-          };
-        };
-        iconTheme = {
-          name = "Papirus-Dark";
-          package = pkgs.papirus-icon-theme;
-        };
-        cursorTheme = {
-          name = "macOS-Monterey-White";
-          package = pkgs.apple-cursor;
         };
       };
     };
