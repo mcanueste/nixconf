@@ -109,13 +109,17 @@
     };
 
     media = {
-      spotify = true;
       zotero = false;
       calibre = true;
       obsidian = true;
-      gimp = true;
-      vlc = true;
       zathura = true;
+      gimp = true;
+      obs = true;
+      easyeffects = true;
+      audacity = true;
+      qpwgraph = true;
+      vlc = true;
+      spotify = true;
     };
 
     chat = {

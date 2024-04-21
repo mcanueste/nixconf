@@ -6,17 +6,17 @@
 }: let
   flavor = "mocha";
   accent = "blue";
-  size = "standard";
-  gtkTheme = "dark";
-
-  mkUpper = str:
-    with builtins;
-      (pkgs.lib.toUpper (substring 0 1 str)) + (substring 1 (stringLength str) str);
-
-  flavorUpper = mkUpper flavor;
-  accentUpper = mkUpper accent;
-  sizeUpper = mkUpper size;
-  gtkThemeUpper = mkUpper gtkTheme;
+  # size = "standard";
+  # gtkTheme = "dark";
+  #
+  # mkUpper = str:
+  #   with builtins;
+  #     (pkgs.lib.toUpper (substring 0 1 str)) + (substring 1 (stringLength str) str);
+  #
+  # flavorUpper = mkUpper flavor;
+  # accentUpper = mkUpper accent;
+  # sizeUpper = mkUpper size;
+  # gtkThemeUpper = mkUpper gtkTheme;
 in {
   catppuccin.flavour = flavor;
   # maybe more OS catppuccin themes in the future

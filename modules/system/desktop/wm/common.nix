@@ -32,7 +32,7 @@
 
   config = lib.mkIf config.nixconf.system.desktop.wm.enable {
     # Enable thunar file manager and other services for automated mounts etc.
-    # TODO might remove this later if PCManFM is good enough
+    # TODO thunar does not use places for common folders
     programs.thunar = {
       enable = true;
       plugins = with pkgs.xfce; [

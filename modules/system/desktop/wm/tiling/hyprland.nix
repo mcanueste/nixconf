@@ -66,11 +66,6 @@
         # https://gist.github.com/brunoanc/2dea6ddf6974ba4e5d26c3139ffb7580
         # https://wiki.hyprland.org/Useful-Utilities/xdg-desktop-portal-hyprland/
         home.packages = lib.lists.flatten [
-          # pkgs.easyeffects # TODO: might change to something else later
-          # pkgs.helvum # TODO: might change to something else later
-          # pkgs.audacity # TODO: move all these to media
-          # setup qjackctl
-
           # Wallpaper
           pkgs.swaybg # TODO maybe change to hyprpaper later
 
