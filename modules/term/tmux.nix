@@ -40,7 +40,6 @@ in {
           tmuxPlugins.yank
           tmuxPlugins.continuum
           tmuxPlugins.resurrect
-          tmuxPlugins.catppuccin
           tmuxPlugins.vim-tmux-navigator
           tmuxPlugins.tmux-fzf
         ];

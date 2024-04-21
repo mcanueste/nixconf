@@ -20,14 +20,11 @@
         enableBashIntegration = true;
         enableZshIntegration = config.nixconf.term.zsh;
         enableFishIntegration = config.nixconf.term.fish;
-        settings = let
-          flavour = "mocha";
-        in
+        settings =
           {
             scan_timeout = 10;
             add_newline = true;
             format = "$all"; # Disable default prompt format
-            palette = "catppuccin_${flavour}";
             azure = {disabled = true;};
             battery = {disabled = true;};
             buf = {disabled = true;};
@@ -67,16 +64,7 @@
             vlang = {disabled = true;};
             vcsh = {disabled = true;};
             zig = {disabled = true;};
-          }
-          // builtins.fromTOML (builtins.readFile
-            (pkgs.fetchFromGitHub
-              {
-                owner = "catppuccin";
-                repo = "starship";
-                rev = "5629d2356f62a9f2f8efad3ff37476c19969bd4f";
-                sha256 = "nsRuxQFKbQkyEI4TXgvAjcroVdG+heKX5Pauq/4Ota0=";
-              }
-              + /palettes/${flavour}.toml));
+          };
       };
     };
   };

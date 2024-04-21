@@ -6,13 +6,7 @@
   lib,
   config,
   ...
-}: let
-  theme = pkgs.catppuccin.override {
-    accent = "sky";
-    variant = "mocha";
-    themeList = ["k9s"];
-  };
-in {
+}: {
   options.nixconf.dev.iac = {
     k9s = lib.mkOption {
       type = lib.types.bool;
@@ -26,7 +20,6 @@ in {
       home.packages = [
         pkgs.k9s
       ];
-      xdg.configFile."k9s/skin.yml".text = builtins.readFile "${theme}/k9s/catppuccin-mocha.yaml";
     };
   };
 }

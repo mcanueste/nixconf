@@ -30,6 +30,7 @@ in {
         XDG_SESSION_DESKTOP = "Hyprland";
         XDG_SESSION_TYPE = "wayland";
 
+        GTK_USE_PORTAL = "1";
         GDK_BACKEND = "wayland";
 
         QT_QPA_PLATFORM = "wayland";
@@ -88,9 +89,6 @@ in {
           enable = true;
           settings = {
             # Auto scale to multiple monitors with priority to resolution
-            source = [
-              "${theme}/hyprland/mocha.conf"
-            ];
             monitor = ",highres,auto,1";
             general = {
               gaps_in = 8;

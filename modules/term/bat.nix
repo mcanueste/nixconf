@@ -19,12 +19,6 @@
         man = "batman";
         pretty = "prettybat";
       };
-
-      theme = pkgs.catppuccin.override {
-        accent = "sky";
-        variant = "mocha";
-        themeList = ["bat"];
-      };
     in {
       programs.bash = {inherit shellAliases;};
       programs.zsh = {inherit shellAliases;};
@@ -41,13 +35,6 @@
           # batpipe
           # batdiff
         ];
-        config.theme = "catppuccin";
-        themes = {
-          catppuccin = {
-            src = "${theme}/bat/";
-            file = "Catppuccin Mocha.tmTheme";
-          };
-        };
       };
     };
   };

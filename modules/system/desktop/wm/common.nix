@@ -57,9 +57,9 @@
         network-manager-applet.enable = config.nixconf.system.desktop.wm.networkmanager;
 
         kanshi = {
+          # TODO Systemd doesn't really work well
           enable = config.nixconf.system.desktop.wm.kanshi;
-          # systemdTarget = "hyprland-session.target";
-          systemdTarget = "";
+          systemdTarget = "hyprland-session.target";
 
           profiles = {
             docked = {

@@ -12,6 +12,8 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     hyprland.url = "github:hyprwm/Hyprland";
+
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   nixConfig = {
@@ -28,6 +30,7 @@
     nixpkgs,
     nixpkgs-stable,
     home-manager,
+    catppuccin,
     ...
   } @ inputs: let
     system = "x86_64-linux";
@@ -45,6 +48,7 @@
         };
         modules = [
           home-manager.nixosModules.default
+          catppuccin.nixosModules.catppuccin
           ./modules
           config
         ];

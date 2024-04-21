@@ -3,13 +3,7 @@
   lib,
   config,
   ...
-}: let
-  theme = pkgs.catppuccin.override {
-    accent = "sky";
-    variant = "mocha";
-    themeList = ["rofi"];
-  };
-in {
+}: {
   options.nixconf.system.desktop.wm.launcher = {
     rofi = lib.mkOption {
       type = lib.types.bool;
@@ -40,7 +34,6 @@ in {
             display-window = " 﩯  Window";
             drun-display-format = "{icon} {name}";
           };
-          theme = "${theme}/rofi/catppuccin-mocha.rasi";
         };
       };
     };

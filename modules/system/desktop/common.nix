@@ -18,7 +18,6 @@
     ];
 
     xdg = {
-      # TODO: configure if mime needs to be configured
       mime.enable = true;
       icons.enable = true;
       menus.enable = true;
@@ -28,30 +27,54 @@
       portal = {
         enable = true;
 
-        # Sets environment variable `GTK_USE_PORTAL` to `1`.
-        # This will force GTK-based programs ran outside Flatpak to respect and use XDG Desktop Portals
-        # for features like file chooser but it is an unsupported hack that can easily break things.
-        # Defaults to `false` to respect its opt-in nature.
-        gtkUsePortal = true;
-
         # Sets environment variable `NIXOS_XDG_OPEN_USE_PORTAL` to `1`
         # This will make `xdg-open` use the portal to open programs, which resolves bugs involving
         # programs opening inside FHS envs or with unexpected env vars set from wrappers.
         xdgOpenUsePortal = true;
 
         extraPortals = [
-          pkgs.xdg-desktop-portal
           pkgs.xdg-desktop-portal-gtk
         ];
       };
     };
 
     home-manager.users.${config.nixconf.user} = {
+      xdg = {
+        enable = true;
+        mime.enable = true;
+        userDirs.enable = true;
+
+        portal = {
+          enable = true;
+
+          # Sets environment variable `NIXOS_XDG_OPEN_USE_PORTAL` to `1`
+          # This will make `xdg-open` use the portal to open programs, which resolves bugs involving
+          # programs opening inside FHS envs or with unexpected env vars set from wrappers.
+          xdgOpenUsePortal = true;
+
+          extraPortals = [
+            pkgs.xdg-desktop-portal-gtk
+          ];
+
+          # xdg-desktop-portal 1.17 reworked how portal implementations are loaded,
+          # you should either set `xdg.portal.config` or `xdg.portal.configPackages`
+          # to specify which portal backend to use for the requested interface.
+          #
+          # https://github.com/flatpak/xdg-desktop-portal/blob/1.18.1/doc/portals.conf.rst.in
+          #
+          # If you simply want to keep the behaviour in < 1.17, which uses the first
+          # portal implementation found in lexicographical order, use the following:
+          #
+          # xdg.portal.config.common.default = "*";
+          config.common.default = "*";
+        };
+      };
+
       # https://discourse.nixos.org/t/struggling-to-configure-gtk-qt-theme-on-laptop/42268/4
       # https://github.com/catppuccin/nix
       qt = {
         enable = true;
-        platformTheme = "gtk";
+        platformTheme.name = "gtk";
         style = {
           name = "gtk2";
           # TODO How is the catppuccin theme setup for this?

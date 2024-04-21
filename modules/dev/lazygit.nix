@@ -7,11 +7,6 @@
   shellAliases = {
     lg = "lazygit";
   };
-  theme = pkgs.catppuccin.override {
-    accent = "sky";
-    variant = "mocha";
-    themeList = ["lazygit"];
-  };
 in {
   options.nixconf.dev = {
     lazygit = lib.mkOption {
@@ -30,8 +25,6 @@ in {
       home.packages = [
         pkgs.lazygit
       ];
-
-      xdg.configFile."lazygit/config.yml".text = builtins.readFile "${theme}/lazygit/themes/sky.yml";
     };
   };
 }
