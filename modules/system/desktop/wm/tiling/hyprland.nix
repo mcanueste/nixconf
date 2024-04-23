@@ -15,7 +15,9 @@
 
   config =
     lib.mkIf (
-      config.nixconf.system.desktop.enable && config.nixconf.system.desktop.wm.tiling.hyprland
+      config.nixconf.system.desktop.enable
+      && config.nixconf.system.desktop.wm.enable
+      && config.nixconf.system.desktop.wm.tiling.hyprland
     ) {
       # To make some apps work properly on wayland and hyprland
       environment.sessionVariables = {

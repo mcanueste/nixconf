@@ -20,7 +20,9 @@
 
   config =
     lib.mkIf (
-      config.nixconf.system.desktop.enable && config.nixconf.system.desktop.wm.login.greetd.enable
+      config.nixconf.system.desktop.enable
+      && config.nixconf.system.desktop.wm.enable
+      && config.nixconf.system.desktop.wm.login.greetd.enable
     ) {
       # TODO: this is buggy on different resolution displays
       services.greetd = {

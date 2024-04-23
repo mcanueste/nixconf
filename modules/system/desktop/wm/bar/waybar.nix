@@ -20,7 +20,9 @@ in {
 
   config =
     lib.mkIf (
-      config.nixconf.system.desktop.enable && config.nixconf.system.desktop.wm.bar.waybar
+      config.nixconf.system.desktop.enable
+      && config.nixconf.system.desktop.wm.enable
+      && config.nixconf.system.desktop.wm.bar.waybar
     ) {
       home-manager.users.${config.nixconf.user} = {
         programs.waybar = {

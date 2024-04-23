@@ -14,7 +14,9 @@
 
   config =
     lib.mkIf (
-      config.nixconf.system.desktop.enable && config.nixconf.system.desktop.wm.notification.swaync
+      config.nixconf.system.desktop.enable
+      && config.nixconf.system.desktop.wm.enable
+      && config.nixconf.system.desktop.wm.notification.swaync
     ) {
       home-manager.users.${config.nixconf.user} = {
         home.packages = lib.lists.flatten [

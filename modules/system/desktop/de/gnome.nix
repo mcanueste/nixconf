@@ -30,13 +30,14 @@
 
     # Packages
     environment.systemPackages = [
-      pkgs.gnome3.gnome-tweaks
+      # pkgs.gnome3.gnome-tweaks
+      pkgs.gnomeExtensions.forge
     ];
 
     environment.gnome.excludePackages = [
       pkgs.gnome.baobab # disk usage analyzer
       pkgs.gnome.epiphany # web browser
-      pkgs.gnome.gedit # text editor
+      # pkgs.gnome.gedit # text editor
       pkgs.gnome.simple-scan # document scanner
       pkgs.gnome.totem # video player
       pkgs.gnome.yelp # help viewer

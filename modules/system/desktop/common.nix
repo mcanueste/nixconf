@@ -32,9 +32,9 @@
         # programs opening inside FHS envs or with unexpected env vars set from wrappers.
         xdgOpenUsePortal = true;
 
-        extraPortals = [
-          pkgs.xdg-desktop-portal-gtk
-        ];
+        # extraPortals = [
+        #   pkgs.xdg-desktop-portal-gtk
+        # ];
       };
     };
 

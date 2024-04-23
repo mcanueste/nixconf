@@ -14,7 +14,8 @@
 
   config = {
     # Set sound.enable to false if pipewire, as it is only meant for ALSA-based configurations
-    sound.enable = !config.nixconf.system.service.sound.pipewire;
+    sound.enable = lib.mkForce (!config.nixconf.system.service.sound.pipewire);
+    hardware.pulseaudio.enable = lib.mkForce (!config.nixconf.system.service.sound.pipewire);
 
     services.pipewire = {
       enable = config.nixconf.system.service.sound.pipewire;
