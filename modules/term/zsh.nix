@@ -67,16 +67,6 @@
           # Treat hyphens and underscores as equivalent
           zstyle ":completion:*" matcher-list "" "m:{a-zA-Z-_}={A-Za-z_-}"
 
-          # Display matches for ambiguous patterns at first tab press
-          # bind "set show-all-if-ambiguous on"
-          # setopt menu_complete
-          # #todo
-          #
-          # Correct spelling errors during tab-completion
-          # "dirspell" #todo
-          # Correct spelling errors in arguments supplied to cd
-          # "cdspell" #todo
-
           # Catppuccin Syntax Highlighting
           source ~/.config/zsh/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh
         '';
