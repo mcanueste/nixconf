@@ -22,7 +22,6 @@
         programs.rofi = {
           enable = true;
           package = pkgs.rofi-wayland;
-          font = "${config.nixconf.font.mainFont} Nerd Font 14";
           terminal = "alacritty";
           extraConfig = {
             modi = "run,drun";

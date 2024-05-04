@@ -1,9 +1,16 @@
 {
   inputs,
   pkgs,
+  lib,
   config,
   ...
 }: let
+  mainFont = "JetBrainsMono";
+  nerdFonts = pkgs.nerdfonts.override {
+    fonts = [
+      mainFont
+    ];
+  };
   flavor = "mocha";
   accent = "blue";
   # size = "standard";
@@ -26,16 +33,17 @@ in {
       inputs.catppuccin.homeManagerModules.catppuccin
     ];
 
+    fonts.fontconfig.enable = true;
+    home.packages = [nerdFonts];
     catppuccin.flavour = flavor;
     catppuccin.accent = accent;
-    programs.alacritty.catppuccin.enable = true;
+
     programs.bat.catppuccin.enable = true;
     programs.git.delta.catppuccin.enable = true;
     programs.fish.catppuccin.enable = true;
     programs.fzf.catppuccin.enable = true;
     programs.k9s.catppuccin.enable = true;
     programs.lazygit.catppuccin.enable = true;
-    programs.rofi.catppuccin.enable = true;
     programs.starship.catppuccin.enable = true;
     programs.tmux.catppuccin.enable = true;
     programs.zathura.catppuccin.enable = true;
@@ -43,10 +51,7 @@ in {
     gtk = {
       # Catppuccin theme is done via catppuccin-nix
       # Catppuccin cursor theme is done via catppuccin-nix
-      catppuccin = {
-        enable = true;
-        # cursorAccentType = "light";
-      };
+      catppuccin.enable = true;
 
       iconTheme = {
         name = "Papirus-Dark"; # folder icons are modified
@@ -76,6 +81,41 @@ in {
       # settings.exec-once = [
       #   "hyprctl setcursor Catppuccin-${flavorUpper}-${sizeUpper}-${accentUpper}-${gtkThemeUpper} standard &"
       # ];
+    };
+
+    programs.rofi = {
+      catppuccin.enable = true;
+      font = "${mainFont} Nerd Font 14";
+    };
+
+    # SwayNC theme and font config
+    xdg.configFile."swaync/style.css".text =
+      if
+        config.nixconf.system.desktop.enable
+        && config.nixconf.system.desktop.wm.enable
+        && config.nixconf.system.desktop.wm.notification.swaync
+      then
+        (lib.strings.replaceStrings ["Ubuntu"] ["${mainFont} Nerd Font"]
+          (builtins.readFile (pkgs.fetchurl {
+            url = "https://github.com/catppuccin/swaync/releases/download/v0.1.2.1/mocha.css";
+            sha256 = "sha256-2263JSGJLu2HyHQRsFt14NSFfYj0t3h52KoE3fYL5Kc=";
+          })))
+      else "";
+
+    programs.alacritty = let
+      getFont = font: style: {
+        inherit style;
+        family = "${font} Nerd Font";
+      };
+    in {
+      catppuccin.enable = true;
+      settings.font = {
+        normal = getFont mainFont "Regular";
+        bold = getFont mainFont "Bold";
+        italic = getFont mainFont "Italic";
+        bold_italic = getFont mainFont "Bold Italic";
+        size = 12.0;
+      };
     };
   };
 }

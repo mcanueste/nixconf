@@ -21,15 +21,4 @@
       description = "Main font to use with other configs.";
     };
   };
-
-  config = lib.mkIf config.nixconf.font.enable {
-    home-manager.users.${config.nixconf.user} = {
-      fonts.fontconfig.enable = true;
-      home.packages = [
-        (pkgs.nerdfonts.override {
-          fonts = config.nixconf.font.fonts;
-        })
-      ];
-    };
-  };
 }

@@ -3,11 +3,6 @@
   config,
   ...
 }: let
-  genFontConf = type: {
-    family = "${config.nixconf.font.mainFont} Nerd Font";
-    style = type;
-  };
-
   shell =
     if config.nixconf.term.tmux
     then {
@@ -66,13 +61,6 @@ in {
           };
           scrolling = {
             history = 50000;
-          };
-          font = {
-            normal = genFontConf "Regular";
-            bold = genFontConf "Bold";
-            italic = genFontConf "Italic";
-            bold_italic = genFontConf "Bold Italic";
-            size = 12.0;
           };
         };
       };
