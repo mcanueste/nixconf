@@ -17,5 +17,6 @@
     ./ai.nix
     ./alacritty.nix
     ./tmux.nix
+    ./yazi.nix
   ];
 }

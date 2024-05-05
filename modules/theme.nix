@@ -46,6 +46,7 @@ in {
     programs.lazygit.catppuccin.enable = true;
     programs.starship.catppuccin.enable = true;
     programs.tmux.catppuccin.enable = true;
+    programs.yazi.catppuccin.enable = true;
     programs.zathura.catppuccin.enable = true;
 
     gtk = {

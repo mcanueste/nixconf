@@ -100,6 +100,7 @@
       ai = true;
       alacritty = true;
       tmux = true;
+      yazi = true;
     };
 
     browser = {

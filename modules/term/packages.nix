@@ -31,6 +31,8 @@
         ncdu
         entr
         hyperfine
+        file
+        ffmpegthumbnailer
 
         # networking tools
         dig
