@@ -5,10 +5,10 @@ local telescope = require("telescope")
 local whichkey = require("which-key")
 local utils = require("config.utils")
 local pairs = require("mini.pairs")
--- local files = require("mini.files")
 local trouble = require("trouble")
 local harpoon = require("harpoon")
 local cloak = require("cloak")
+local oil = require("oil")
 
 local function init()
     -------------------------------------------- Basics
@@ -34,9 +34,6 @@ local function init()
             end,
         },
     })
-
-    -------------------------------------------- File explorer
-    whichkey.register({ o = { name = "open" } }, { prefix = "<leader>" })
 
     -------------------------------------------- Harpoon
     whichkey.register({ h = { name = "harpoon" } }, { prefix = "<leader>" })
@@ -103,6 +100,52 @@ local function init()
         end
     end, { noremap = true, desc = "Next trouble/quickfix item" })
 
+    -------------------------------------------- Oil
+    whichkey.register({ o = { name = "open" } }, { prefix = "<leader>" })
+
+    oil.setup({
+        -- Id is automatically added at the beginning, and name at the end
+        -- See :help oil-columns
+        columns = {
+            "icon",
+            "permissions",
+            "size",
+            "mtime",
+        },
+        -- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
+        delete_to_trash = true,
+        -- Skip the confirmation popup for simple operations (:help oil.skip_confirm_for_simple_edits)
+        skip_confirm_for_simple_edits = false,
+        view_options = {
+            -- Show files and directories that start with "."
+            show_hidden = true,
+        },
+        use_default_keymaps = false,
+        keymaps = {
+            ["<CR>"] = "actions.select",
+            ["-"] = "actions.parent",
+            ["_"] = "actions.open_cwd",
+            ["`"] = "actions.cd",
+            ["~"] = "actions.tcd",
+
+            ["<leader>b?"] = "actions.show_help",
+
+            ["<leader>bv"] = "actions.select_vsplit",
+            ["<leader>bs"] = "actions.select_split",
+
+            ["<leader>bp"] = "actions.preview",
+            ["<leader>bq"] = "actions.close",
+            ["<leader>br"] = "actions.refresh",
+
+            ["<leader>bS"] = "actions.change_sort",
+            ["<leader>bo"] = "actions.open_external",
+            ["<leader>bh"] = "actions.toggle_hidden",
+            ["<leader>bt"] = "actions.toggle_trash",
+        },
+    })
+
+    vim.api.nvim_set_keymap("n", "<leader>oe", "<CMD>Oil<CR>", { noremap = true, desc = "File Browser" })
+
     -------------------------------------------- Telescope
 
     -- telescope for fuzzy find
@@ -151,15 +194,6 @@ local function init()
         },
     })
     telescope.load_extension("fzf") -- faster searches with fzf native
-    telescope.load_extension("file_browser") -- add file browser extension TODO remove this and add oil.nvim instead
-
-    vim.api.nvim_set_keymap("n", "<space>oe", ":Telescope file_browser<CR>", { noremap = true, desc = "File Browser" })
-    vim.api.nvim_set_keymap(
-        "n",
-        "<space>oE",
-        ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
-        { noremap = true, desc = "File Browser (cwd)" }
-    )
 
     vim.keymap.set("n", "<leader><space>", "<cmd>Telescope resume<cr>", { noremap = true, desc = "Resume Telescope" })
 

@@ -57,13 +57,13 @@ in {
             vim-tmux-navigator
             telescope-nvim
             telescope-fzf-native-nvim
-            telescope-file-browser-nvim
             trouble-nvim
             mini-nvim
             harpoon
             FTerm-nvim
             # nvim-spectre -- TODO: check later
             cloak-nvim
+            oil-nvim
 
             # treesitter
             (nvim-treesitter.withPlugins
