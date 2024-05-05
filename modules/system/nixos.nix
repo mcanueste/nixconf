@@ -8,7 +8,7 @@
   nixpkgs.config.allowUnfree = true;
 
   # Flakes settings
-  nix.package = pkgs.nixVersions.unstable;
+  nix.package = pkgs.nixVersions.git;
   nix.registry.nixpkgs.flake = inputs.nixpkgs;
   nix.settings.experimental-features = ["nix-command" "flakes"];
   nix.settings.warn-dirty = false;

@@ -29,12 +29,13 @@
         GTK_USE_PORTAL = "1";
 
         # QT configs
-        QT_QPA_PLATFORM = "wayland";
+        # QT_QPA_PLATFORM = "wayland"; defined by default with nixos modules
         QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
         QT_AUTO_SCREEN_SCALE_FACTOR = "1";
 
         # for gnome apps if we ever use one
-        GDK_BACKEND = "wayland";
+        # defined by nixos modules by default
+        # GDK_BACKEND = "wayland,x11";
 
         # For SDL library
         SDL_VIDEODRIVER = "wayland";
