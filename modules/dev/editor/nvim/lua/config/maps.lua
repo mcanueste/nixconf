@@ -29,9 +29,7 @@ local function init()
     whichkey.register({ t = { name = "toggle" } }, { prefix = "<leader>" })
 
     -- add missing conceallevel toggle
-    vim.keymap.set({ "n" }, "<leader>tu", function()
-        utils.toggle_conceal()
-    end, { noremap = true, desc = "Toggle 'conceallevel'" })
+    vim.keymap.set({ "n" }, "<leader>tu", utils.toggle_conceal, { noremap = true, desc = "Toggle 'conceallevel'" })
 
     -- vim.keymap.set({ "n" }, "<leader>uN", function()
     --     require("notify").dismiss({ silent = true, pending = true })

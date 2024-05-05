@@ -1,12 +1,12 @@
 local luasnipvscode = require("luasnip.loaders.from_vscode")
 local symbols_outline = require("symbols-outline")
 local lspconfig_util = require("lspconfig/util")
+local telescope = require("telescope.builtin")
 local rusttools = require("rust-tools")
 local cmpnvim = require("cmp_nvim_lsp")
 local neodev = require("neodev")
 local lspconfig = require("lspconfig")
 local whichkey = require("which-key")
-local utils = require("config.utils")
 local luasnip = require("luasnip")
 local nls = require("null-ls")
 local cmp = require("cmp")
@@ -403,10 +403,8 @@ local function init()
             vim.keymap.set("n", "<leader>lc", "<cmd>Telescope lsp_incoming_calls<CR>", { desc = "Incoming Calls" })
             vim.keymap.set("n", "<leader>lC", "<cmd>Telescope lsp_outgoing_calls<CR>", { desc = "Outgoing Calls" })
             vim.keymap.set("n", "<leader>ls", "<cmd>SymbolsOutline<CR>", { desc = "Symbols Outline" })
-            vim.keymap.set(
-                "n",
-                "<leader>lS",
-                utils.telescope("lsp_document_symbols", {
+            vim.keymap.set("n", "<leader>lS", function()
+                telescope.lsp_document_symbols({
                     symbols = {
                         "Class",
                         "Function",
@@ -419,9 +417,8 @@ local function init()
                         "Field",
                         "Property",
                     },
-                }),
-                { desc = "Symbols" }
-            )
+                })
+            end, { desc = "Symbols" })
 
             -- Workspace keymaps
             whichkey.register({ lw = { name = "workspace" } }, { prefix = "<leader>" })

@@ -151,7 +151,7 @@ local function init()
         },
     })
     telescope.load_extension("fzf") -- faster searches with fzf native
-    telescope.load_extension("file_browser") -- add file browser extension
+    telescope.load_extension("file_browser") -- add file browser extension TODO remove this and add oil.nvim instead
 
     vim.api.nvim_set_keymap("n", "<space>oe", ":Telescope file_browser<CR>", { noremap = true, desc = "File Browser" })
     vim.api.nvim_set_keymap(
@@ -166,43 +166,27 @@ local function init()
     -------------------------------------------- Find
     whichkey.register({ f = { name = "find" } }, { prefix = "<leader>" })
 
-    vim.keymap.set("n", "<leader>ff", utils.telescope("files"), { noremap = true, desc = "Find Files (root dir)" })
-    vim.keymap.set(
-        "n",
-        "<leader>fF",
-        utils.telescope("files", { cwd = false }),
-        { noremap = true, desc = "Find Files (cwd)" }
-    )
-    vim.keymap.set(
-        "n",
-        "<leader>f/",
-        "<cmd>Telescope current_buffer_fuzzy_find<cr>",
-        { noremap = true, desc = "Find in Buffer" }
-    )
-    vim.keymap.set("n", "<leader>fp", "<cmd>Telescope git_files<cr>", { noremap = true, desc = "Git Files" })
+    vim.keymap.set("n", "<leader>ff", utils.telescope_find_files, { noremap = true, desc = "Find Files" })
+    vim.keymap.set("n", "<leader>fF", "<cmd>Telescope find_files<cr>", { noremap = true, desc = "Find Files (cwd)" })
+    vim.keymap.set("n", "<leader>fg", utils.telescope_live_grep, { noremap = true, desc = "Grep Files" })
+    vim.keymap.set("n", "<leader>fG", "<cmd>Telescope live_grep<cr>", { noremap = true, desc = "Grep Files (cwd)" })
+    vim.keymap.set("n", "<leader>fw", utils.telescope_grep_string, { noremap = true, desc = "Grep String" })
+    vim.keymap.set("n", "<leader>fW", "<cmd>Telescope grep_string<cr>", { noremap = true, desc = "Grep String (cwd)" })
     vim.keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { noremap = true, desc = "Recent" })
     vim.keymap.set("n", "<leader>fR", "<cmd>Telescope registers<cr>", { noremap = true, desc = "Registers" })
     vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { noremap = true, desc = "Buffers" })
     vim.keymap.set("n", "<leader>fm", "<cmd>Telescope marks<cr>", { noremap = true, desc = "Marks" })
     vim.keymap.set(
         "n",
+        "<leader>f/",
+        "<cmd>Telescope current_buffer_fuzzy_find<cr>",
+        { noremap = true, desc = "Find in Buffer" }
+    )
+    vim.keymap.set(
+        "n",
         "<leader>fc",
         "<cmd>Telescope command_history<cr>",
         { noremap = true, desc = "Command History" }
-    )
-    vim.keymap.set("n", "<leader>fg", utils.telescope("live_grep"), { noremap = true, desc = "Grep (root dir)" })
-    vim.keymap.set(
-        "n",
-        "<leader>fG",
-        utils.telescope("live_grep", { cwd = false }),
-        { noremap = true, desc = "Grep (cwd)" }
-    )
-    vim.keymap.set("n", "<leader>fw", utils.telescope("grep_string"), { noremap = true, desc = "Word (root dir)" })
-    vim.keymap.set(
-        "n",
-        "<leader>fW",
-        utils.telescope("grep_string", { cwd = false }),
-        { noremap = true, desc = "Word (cwd)" }
     )
 
     -------------------------------------------- Search
