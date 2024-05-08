@@ -101,7 +101,7 @@ in {
 
             * {
                 /* `otf-font-awesome` is required to be installed for icons */
-                font-family: ${config.nixconf.font.mainFont}, FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+                font-family: JetBrainsMono, FontAwesome, Roboto, Helvetica, Arial, sans-serif;
                 font-size: 14px;
             }
 

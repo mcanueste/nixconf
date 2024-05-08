@@ -199,7 +199,8 @@
             ];
 
             exec-once = [
-              "swaybg -m fill -i ${../../wallpaper.png} &"
+              # "swaybg -m fill -i ${../../wallpaper.png} &"
+              "swaybg -m fill -i ${../../wallpaper.jpg} &"
               "waybar &"
               "swaync &"
               "udiskie &"
