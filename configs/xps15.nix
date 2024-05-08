@@ -116,7 +116,6 @@
       zathura = true;
       gimp = true;
       obs = true;
-      easyeffects = true;
       audacity = true;
       qpwgraph = true;
       vlc = true;
