@@ -110,16 +110,16 @@
     };
 
     media = {
+      zathura = true;
+      obsidian = true;
       zotero = false;
       calibre = true;
-      obsidian = true;
-      zathura = true;
       gimp = true;
-      obs = true;
-      audacity = true;
-      qpwgraph = true;
-      vlc = true;
       spotify = true;
+      vlc = true;
+      qpwgraph = true;
+      audacity = true;
+      obs = true;
     };
 
     chat = {
