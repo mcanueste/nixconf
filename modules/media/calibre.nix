@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.nixconf.media.calibre {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.system.user} = {
       home.packages = [pkgs-stable.calibre];
     };
   };

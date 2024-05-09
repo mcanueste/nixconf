@@ -18,7 +18,7 @@
       && config.nixconf.system.desktop.wm.enable
       && config.nixconf.system.desktop.wm.notification.swaync
     ) {
-      home-manager.users.${config.nixconf.user} = {
+      home-manager.users.${config.nixconf.system.user} = {
         home.packages = lib.lists.flatten [
           pkgs.swaynotificationcenter
           pkgs.libnotify

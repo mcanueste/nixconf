@@ -89,7 +89,7 @@
     boot.blacklistedKernelModules = ["nouveau" "bbswitch"];
 
     # Enable nvidia offload script
-    home-manager.users.${config.nixconf.user} = let
+    home-manager.users.${config.nixconf.system.user} = let
       nvidia-offload = pkgs.writeShellApplication {
         name = "nvidia-offload";
         runtimeInputs = [];

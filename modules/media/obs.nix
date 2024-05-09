@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.nixconf.media.zathura {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.system.user} = {
       programs.obs-studio = {
         enable = true;
         plugins = with pkgs; [

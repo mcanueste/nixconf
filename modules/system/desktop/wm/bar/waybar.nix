@@ -24,7 +24,7 @@ in {
       && config.nixconf.system.desktop.wm.enable
       && config.nixconf.system.desktop.wm.bar.waybar
     ) {
-      home-manager.users.${config.nixconf.user} = {
+      home-manager.users.${config.nixconf.system.user} = {
         programs.waybar = {
           enable = true;
           settings = {

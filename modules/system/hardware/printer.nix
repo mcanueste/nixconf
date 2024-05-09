@@ -46,7 +46,7 @@
     };
 
     # Add user to scanner/printer group
-    users.users.${config.nixconf.user}.extraGroups =
+    users.users.${config.nixconf.system.user}.extraGroups =
       if config.nixconf.system.hardware.printer.scanner
       then ["scanner" "lp"]
       else [];

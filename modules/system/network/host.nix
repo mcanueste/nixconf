@@ -34,6 +34,6 @@
     };
 
     # Add user to networkmanager group
-    users.users.${config.nixconf.user}.extraGroups = ["networkmanager"];
+    users.users.${config.nixconf.system.user}.extraGroups = ["networkmanager"];
   };
 }

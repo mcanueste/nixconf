@@ -19,7 +19,7 @@
       cachix
     ];
 
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.system.user} = {
       home.packages = with pkgs; [
         dash
         gnumake

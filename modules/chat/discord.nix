@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.nixconf.chat.discord {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.system.user} = {
       home.packages = [pkgs.discord];
     };
   };

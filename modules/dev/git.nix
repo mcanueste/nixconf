@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.nixconf.dev.git {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.system.user} = {
       programs.bash = {
         shellAliases = {
           g = "git";

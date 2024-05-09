@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.nixconf.term.fzf {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.system.user} = {
       programs.fzf = {
         enable = true;
         enableBashIntegration = true;

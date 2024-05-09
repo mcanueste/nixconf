@@ -14,7 +14,7 @@
   };
 
   config = lib.mkIf config.nixconf.dev.iac.gcloud {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.system.user} = {
       home.packages = [
         (pkgs.google-cloud-sdk.withExtraComponents [
           pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin

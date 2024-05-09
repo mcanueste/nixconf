@@ -41,7 +41,7 @@
       ];
     };
 
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.system.user} = {
       home.packages = [
         pkgs.playerctl # media player control
         pkgs.brightnessctl # backlight control

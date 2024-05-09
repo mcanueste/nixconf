@@ -22,7 +22,7 @@ in {
   };
 
   config = lib.mkIf config.nixconf.dev.editor.neovim {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.system.user} = {
       programs.bash = {inherit shellAliases;};
       programs.fish = {inherit shellAliases;};
       xdg.configFile."yamlfmt/.yamlfmt".text = ''

@@ -14,7 +14,7 @@
   };
 
   config = lib.mkIf config.nixconf.dev.iac.azure {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.system.user} = {
       home.packages = [
         pkgs.azure-cli
       ];

@@ -63,7 +63,7 @@
         pkgs.xwaylandvideobridge # for fixing screen share on x apps
       ];
 
-      home-manager.users.${config.nixconf.user} = {
+      home-manager.users.${config.nixconf.system.user} = {
         # Screen share doesn't work properly...
         # https://wiki.hyprland.org/Useful-Utilities/Screen-Sharing/
         # https://gist.github.com/brunoanc/2dea6ddf6974ba4e5d26c3139ffb7580

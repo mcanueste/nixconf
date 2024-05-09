@@ -38,7 +38,7 @@
       containers.enable = true;
     };
 
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.system.user} = {
       home.packages = [
         pkgs.podman-compose
       ];

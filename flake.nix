@@ -62,7 +62,7 @@
     };
 
     homeConfigurations = {
-      nixos = nixosConfigurations.nixos.home-manager.users.${config.nixconf.user}.home;
+      nixos = nixosConfigurations.nixos.home-manager.users.${config.nixconf.system.user}.home;
     };
   };
 }

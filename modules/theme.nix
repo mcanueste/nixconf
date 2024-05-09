@@ -17,7 +17,7 @@ in {
   catppuccin.flavour = flavor;
   # maybe more OS catppuccin themes in the future
 
-  home-manager.users.${config.nixconf.user} = {
+  home-manager.users.${config.nixconf.system.user} = {
     imports = [
       inputs.catppuccin.homeManagerModules.catppuccin
     ];

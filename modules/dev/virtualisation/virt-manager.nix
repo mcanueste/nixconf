@@ -34,9 +34,9 @@
 
     programs.virt-manager.enable = true;
 
-    users.users.${config.nixconf.user}.extraGroups = ["libvirtd" "qemu-libvirtd"];
+    users.users.${config.nixconf.system.user}.extraGroups = ["libvirtd" "qemu-libvirtd"];
 
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.system.user} = {
       dconf.settings = {
         "org/virt-manager/virt-manager/connections" = {
           autoconnect = ["qemu:///system"];

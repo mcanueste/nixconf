@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.nixconf.term.ai {
-    home-manager.users.${config.nixconf.user} = let
+    home-manager.users.${config.nixconf.system.user} = let
       shellAliases = {
         explain = "gh copilot explain";
         suggest = "gh copilot suggest";

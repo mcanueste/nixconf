@@ -16,7 +16,7 @@
   };
 
   config = lib.mkIf config.nixconf.dev.iac.aws {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.system.user} = {
       home.packages = [
         pkgs.awscli2
       ];

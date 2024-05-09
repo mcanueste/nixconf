@@ -5,7 +5,7 @@
     nfu = "nix flake update";
   };
 in {
-  home-manager.users.${config.nixconf.user} = {
+  home-manager.users.${config.nixconf.system.user} = {
     programs.bash = {inherit shellAliases;};
     programs.zsh = {inherit shellAliases;};
     programs.fish = {inherit shellAliases;};

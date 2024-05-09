@@ -35,7 +35,7 @@ in {
   };
 
   config = lib.mkIf config.nixconf.term.alacritty {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.system.user} = {
       programs.alacritty = {
         enable = true;
         settings = {

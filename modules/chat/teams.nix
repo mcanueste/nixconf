@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.nixconf.chat.teams {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.system.user} = {
       home.packages = [pkgs.teams];
     };
   };

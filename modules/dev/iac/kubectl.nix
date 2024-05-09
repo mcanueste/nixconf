@@ -20,7 +20,7 @@ in {
   };
 
   config = lib.mkIf config.nixconf.dev.iac.kubectl {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.system.user} = {
       home.packages = [pkgs.kubectl];
       programs.bash = {inherit shellAliases;};
       programs.zsh = {inherit shellAliases;};

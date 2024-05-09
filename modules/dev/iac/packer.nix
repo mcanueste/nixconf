@@ -16,7 +16,7 @@
   };
 
   config = lib.mkIf config.nixconf.dev.iac.packer {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.system.user} = {
       home.packages = [pkgs.packer];
     };
   };

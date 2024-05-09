@@ -30,7 +30,7 @@
 
   # Binary caches
   nix.settings = {
-    trusted-users = ["root" "${config.nixconf.user}"];
+    trusted-users = ["root" "${config.nixconf.system.user}"];
     substituters = [
       "https://cache.nixos.org"
     ];

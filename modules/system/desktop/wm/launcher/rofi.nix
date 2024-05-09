@@ -18,7 +18,7 @@
       && config.nixconf.system.desktop.wm.enable
       && config.nixconf.system.desktop.wm.launcher.rofi
     ) {
-      home-manager.users.${config.nixconf.user} = {
+      home-manager.users.${config.nixconf.system.user} = {
         programs.rofi = {
           enable = true;
           package = pkgs.rofi-wayland;

@@ -72,7 +72,7 @@ in {
   };
 
   config = lib.mkIf config.nixconf.term.scripts {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.system.user} = {
       home.packages = [
         nvidia-offload
         sync-notes

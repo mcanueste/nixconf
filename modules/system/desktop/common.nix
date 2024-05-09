@@ -38,7 +38,7 @@
       };
     };
 
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.system.user} = {
       # Enable gtk and qt config if desktop is enabled
       # Theme configuration is done in theme.nix
       gtk.enable = true;

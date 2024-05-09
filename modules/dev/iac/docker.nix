@@ -35,9 +35,9 @@
       containers.enable = true;
     };
 
-    users.users.${config.nixconf.user}.extraGroups = ["docker"];
+    users.users.${config.nixconf.system.user}.extraGroups = ["docker"];
 
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.system.user} = {
       home.packages = [
         pkgs.docker-compose
       ];

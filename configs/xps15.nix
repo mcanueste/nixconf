@@ -1,8 +1,8 @@
 {
   nixconf = {
-    user = "mcst";
-
     system = {
+      user = "mcst";
+
       hardware = {
         boot = {
           intelMicrocode = true;
