@@ -33,6 +33,7 @@
         hyperfine
         file
         ffmpegthumbnailer
+        fastfetch
 
         # networking tools
         dig
