@@ -66,6 +66,7 @@
           d = "diff";
 
           clb = "clone --bare";
+          wl = "worktree list";
           wa = "worktree add";
           wr = "worktree remove";
           wrf = "worktree remove --force";

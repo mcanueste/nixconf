@@ -310,6 +310,9 @@ local function init()
         },
     })
 
+    -- seems to be not working well
+    -- lspconfig.nixd.setup({})
+
     ---------------------- Python
     -- Setup python lsp
     lspconfig.ruff_lsp.setup({})

@@ -214,6 +214,7 @@ in {
 
           # nix support
           nil
+          # nixd somehow doesn't work well?
           alejandra
 
           # lua support
