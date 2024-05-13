@@ -4,19 +4,6 @@
   config,
   ...
 }: let
-  nvidia-offload = pkgs.writeShellApplication {
-    name = "nvidia-offload";
-    runtimeInputs = [];
-    text = ''
-      #!/usr/bin/env bash
-      export __NV_PRIME_RENDER_OFFLOAD=1
-      export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-      export __GLX_VENDOR_LIBRARY_NAME=nvidia
-      export __VK_LAYER_NV_optimus=NVIDIA_only
-      exec "$@"
-    '';
-  };
-
   sync-notes = pkgs.writeShellApplication {
     name = "sync-notes";
     runtimeInputs = [pkgs.git];
@@ -74,7 +61,6 @@ in {
   config = lib.mkIf config.nixconf.term.scripts {
     home-manager.users.${config.nixconf.system.user} = {
       home.packages = [
-        nvidia-offload
         sync-notes
         sync-blog
       ];
