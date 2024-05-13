@@ -1,10 +1,8 @@
-local whichkey = require("which-key")
 local copilot = require("copilot")
 local chatgpt = require("chatgpt")
 
 local function init()
     local home = vim.fn.expand("$HOME")
-    whichkey.register({ a = { name = "ai" }, ac = { name = "copilot" } }, { prefix = "<leader>" })
 
     copilot.setup({
         panel = {

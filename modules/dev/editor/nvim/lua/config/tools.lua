@@ -1,43 +1,12 @@
-local splitjoin = require("mini.splitjoin")
-local surround = require("mini.surround")
-local comment = require("mini.comment")
 local telescope = require("telescope")
-local whichkey = require("which-key")
 local utils = require("config.utils")
-local pairs = require("mini.pairs")
 local trouble = require("trouble")
 local harpoon = require("harpoon")
 local cloak = require("cloak")
 local oil = require("oil")
 
 local function init()
-    -------------------------------------------- Basics
-
-    -- mini.pairs for auto pairing brackets etc.
-    -- See: https://github.com/echasnovski/mini.pairs
-    pairs.setup()
-
-    -- mini.split for splitting and joininig lists/parameters/structs
-    -- See: https://github.com/echasnovski/mini.splitjoin
-    splitjoin.setup()
-
-    -- mini.surround for adding/deleting surrounding objects
-    -- See: https://github.com/echasnovski/mini.surround
-    surround.setup()
-
-    -- mini.comment for commenting strings
-    -- See: https://github.com/echasnovski/mini.comment
-    comment.setup({
-        options = {
-            custom_commentstring = function()
-                return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
-            end,
-        },
-    })
-
     -------------------------------------------- Harpoon
-    whichkey.register({ h = { name = "harpoon" } }, { prefix = "<leader>" })
-
     -- harpoon for file navigation
     -- See: https://github.com/ThePrimeagen/harpoon
     harpoon.setup({
@@ -101,8 +70,6 @@ local function init()
     end, { noremap = true, desc = "Next trouble/quickfix item" })
 
     -------------------------------------------- Oil
-    whichkey.register({ o = { name = "open" } }, { prefix = "<leader>" })
-
     oil.setup({
         -- Id is automatically added at the beginning, and name at the end
         -- See :help oil-columns
@@ -198,8 +165,6 @@ local function init()
     vim.keymap.set("n", "<leader><space>", "<cmd>Telescope resume<cr>", { noremap = true, desc = "Resume Telescope" })
 
     -------------------------------------------- Find
-    whichkey.register({ f = { name = "find" } }, { prefix = "<leader>" })
-
     vim.keymap.set("n", "<leader>ff", utils.telescope_find_files, { noremap = true, desc = "Find Files" })
     vim.keymap.set("n", "<leader>fF", "<cmd>Telescope find_files<cr>", { noremap = true, desc = "Find Files (cwd)" })
     vim.keymap.set("n", "<leader>fg", utils.telescope_live_grep, { noremap = true, desc = "Grep Files" })
@@ -224,8 +189,6 @@ local function init()
     )
 
     -------------------------------------------- Search
-    whichkey.register({ s = { name = "search" } }, { prefix = "<leader>" })
-
     vim.keymap.set("n", "<leader>sa", "<cmd>Telescope autocommands<cr>", { noremap = true, desc = "Auto Commands" })
     vim.keymap.set("n", "<leader>sc", "<cmd>Telescope commands<cr>", { noremap = true, desc = "Commands" })
     vim.keymap.set("n", "<leader>sk", "<cmd>Telescope keymaps<cr>", { noremap = true, desc = "Key Maps" })

@@ -1,6 +1,5 @@
 local worktree = require("git-worktree")
 local telescope = require("telescope")
-local whichkey = require("which-key")
 local gitsigns = require("gitsigns")
 
 local function init()
@@ -17,7 +16,6 @@ local function init()
         numhl = true, -- Toggle with `:Gitsigns toggle_numhl`
         attach_to_untracked = true,
         on_attach = function(bufnr)
-            whichkey.register({ g = { name = "git" } }, { prefix = "<leader>" })
             local gs = package.loaded.gitsigns
 
             local function map(mode, l, r, desc, opts)
@@ -53,7 +51,6 @@ local function init()
             map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
 
             -- Toggles
-            whichkey.register({ gt = { name = "toggles" } }, { prefix = "<leader>" })
             map("n", "<leader>gts", "<cmd>Gitsigns toggle_signs<cr>", "Toggle Signs")
             map("n", "<leader>gtn", "<cmd>Gitsigns toggle_numhl<cr>", "Toggle Num HL")
             map("n", "<leader>gtl", "<cmd>Gitsigns toggle_linehl<cr>", "Toggle Line HL")

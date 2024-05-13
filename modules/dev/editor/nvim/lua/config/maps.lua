@@ -1,16 +1,4 @@
-local whichkey = require("which-key")
-local utils = require("config.utils")
-local move = require("mini.move")
-
 local function init()
-    -------------------------------------------- Basic
-    -- mini.move for moving current line or visual selection
-    -- See: https://github.com/echasnovski/mini.move
-    move.setup()
-
-    vim.keymap.set({ "i" }, "<C-s>", "<C-o>:w<cr>", { noremap = true, desc = "Save file" })
-    vim.keymap.set({ "n" }, "<C-s>", ":w<cr>", { noremap = true, desc = "Save file" })
-
     -- Clear search with ESC
     vim.keymap.set({ "n", "i" }, "<esc>", "<cmd>noh<cr><esc>", { noremap = true, desc = "Clear search" })
 
@@ -25,24 +13,16 @@ local function init()
     vim.keymap.set("n", "n", "nzzzv", { noremap = true, desc = "Center cursor after jump" })
     vim.keymap.set("n", "N", "Nzzzv", { noremap = true, desc = "Center cursor after jump" })
 
-    -------------------------------------------- Toggles
-    whichkey.register({ t = { name = "toggle" } }, { prefix = "<leader>" })
-
     -- add missing conceallevel toggle
-    vim.keymap.set({ "n" }, "<leader>tu", utils.toggle_conceal, { noremap = true, desc = "Toggle 'conceallevel'" })
-
-    -- vim.keymap.set({ "n" }, "<leader>uN", function()
-    --     require("notify").dismiss({ silent = true, pending = true })
-    -- end, { noremap = true, desc = "Dismiss all Notifications" })
-
-    -------------------------------------------- Buffers
-    whichkey.register({ b = { name = "buffer" } }, { prefix = "<leader>" })
+    vim.keymap.set(
+        { "n" },
+        "<leader>tu",
+        require("config.utils").toggle_conceal,
+        { noremap = true, desc = "Toggle 'conceallevel'" }
+    )
 
     -- Switch to other buffer
     vim.keymap.set("n", "<leader>bb", "<cmd>e #<cr>", { noremap = true, desc = "Switch to Other Buffer" })
-
-    -------------------------------------------- File Edit
-    whichkey.register({ e = { name = "edit" } }, { prefix = "<leader>" })
 
     -- Make file executable
     vim.keymap.set(

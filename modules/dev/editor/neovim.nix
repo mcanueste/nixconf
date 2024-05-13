@@ -65,6 +65,48 @@ in {
             cloak-nvim
             oil-nvim
 
+            # git
+            gitsigns-nvim
+            git-worktree-nvim
+
+            # lsp
+            nvim-lspconfig
+            null-ls-nvim
+            neodev-nvim
+            rust-tools-nvim
+            SchemaStore-nvim
+
+            # completion
+            nvim-cmp
+            cmp-nvim-lsp
+            cmp-nvim-lua
+            cmp-nvim-lsp-signature-help
+            cmp-buffer
+            cmp-path
+            cmp-cmdline
+            cmp-dap
+            cmp-emoji
+
+            # snippet
+            luasnip
+            cmp_luasnip
+            friendly-snippets
+
+            # debugger
+            nvim-dap
+            nvim-dap-ui
+            nvim-dap-virtual-text
+            nvim-dap-go
+            nvim-dap-python
+            telescope-dap-nvim
+
+            # AI
+            copilot-lua
+            ChatGPT-nvim
+
+            # Note taking
+            obsidian-nvim
+
             # treesitter
             (nvim-treesitter.withPlugins
               (p: [
@@ -129,48 +171,6 @@ in {
             nvim-treesitter-refactor
             nvim-treesitter-context
             nvim-ts-context-commentstring
-
-            # git
-            gitsigns-nvim
-            git-worktree-nvim
-
-            # lsp
-            nvim-lspconfig
-            null-ls-nvim
-            neodev-nvim
-            rust-tools-nvim
-            SchemaStore-nvim
-
-            # completion
-            nvim-cmp
-            cmp-nvim-lsp
-            cmp-nvim-lua
-            cmp-nvim-lsp-signature-help
-            cmp-buffer
-            cmp-path
-            cmp-cmdline
-            cmp-dap
-            cmp-emoji
-
-            # snippet
-            luasnip
-            cmp_luasnip
-            friendly-snippets
-
-            # debugger
-            nvim-dap
-            nvim-dap-ui
-            nvim-dap-virtual-text
-            nvim-dap-go
-            nvim-dap-python
-            telescope-dap-nvim
-
-            # AI
-            copilot-lua
-            ChatGPT-nvim
-
-            # Note taking
-            obsidian-nvim
           ]
           ++ [nvim-config];
 

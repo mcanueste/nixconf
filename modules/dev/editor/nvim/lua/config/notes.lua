@@ -1,11 +1,9 @@
-local whichkey = require("which-key")
 local obsidian = require("obsidian")
 
 local function init()
     -- Obsidian.nvim setup
     -- See: https://github.com/epwalsh/obsidian.nvim
     -- Also see: https://mcanueste.com/posts/obsidian-nvim-customizations-for-capture-notes
-    whichkey.register({ n = { name = "notes" } }, { prefix = "<leader>" })
 
     local home = vim.fn.expand("$HOME")
     local vault_path = home .. "/Projects/personal/notes"
