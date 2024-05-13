@@ -59,7 +59,6 @@
 
           extraPortals = [
             pkgs.xdg-desktop-portal-gtk
-            pkgs.xdg-desktop-portal-hyprland
           ];
 
           # xdg-desktop-portal 1.17 reworked how portal implementations are loaded,
