@@ -11,8 +11,6 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    hyprland.url = "github:hyprwm/Hyprland";
-
     catppuccin.url = "github:catppuccin/nix";
   };
 

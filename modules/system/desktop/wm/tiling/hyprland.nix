@@ -2,7 +2,6 @@
   pkgs,
   lib,
   config,
-  inputs,
   ...
 }: {
   options.nixconf.system.desktop.wm.tiling = {
@@ -53,9 +52,6 @@
       programs.hyprland = {
         enable = true;
         xwayland.enable = true;
-
-        # We use latest version of hyprland via flake inputs TODO change to main channel?
-        package = inputs.hyprland.packages.${pkgs.system}.hyprland;
       };
 
       environment.systemPackages = [
