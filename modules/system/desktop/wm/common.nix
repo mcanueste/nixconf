@@ -61,36 +61,42 @@
           enable = config.nixconf.system.desktop.wm.kanshi;
           systemdTarget = "hyprland-session.target";
 
-          profiles = {
-            docked = {
-              outputs = [
-                {
-                  criteria = "eDP-1";
-                  status = "enable";
-                  scale = 2.0;
-                  position = "0,360";
-                  mode = "3456x2160@60Hz";
-                }
-                {
-                  criteria = "DP-4";
-                  status = "enable";
-                  scale = 1.0;
-                  position = "1728,0";
-                  mode = "2560x1440@60Hz";
-                }
-              ];
-            };
+          settings = [
+            {
+              profile = {
+                name = "docked";
+                outputs = [
+                  {
+                    criteria = "eDP-1";
+                    status = "enable";
+                    scale = 2.0;
+                    position = "0,360";
+                    mode = "3456x2160@60Hz";
+                  }
+                  {
+                    criteria = "DP-4";
+                    status = "enable";
+                    scale = 1.0;
+                    position = "1728,0";
+                    mode = "2560x1440@60Hz";
+                  }
+                ];
+              };
+            }
 
-            undocked = {
-              outputs = [
-                {
-                  criteria = "eDP-1";
-                  status = "enable";
-                  scale = 1.5;
-                }
-              ];
-            };
-          };
+            {
+              profile = {
+                name = "undocked";
+                outputs = [
+                  {
+                    criteria = "eDP-1";
+                    status = "enable";
+                    scale = 1.5;
+                  }
+                ];
+              };
+            }
+          ];
         };
       };
     };
