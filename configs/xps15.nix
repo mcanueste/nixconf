@@ -64,14 +64,14 @@
 
       desktop = {
         enable = true;
-        de.gnome = false;
+        de.gnome = true;
         wm = {
           enable = true;
           blueman = true;
           networkmanager = true;
           kanshi = true;
           login.greetd = {
-            enable = true;
+            enable = false;
             command = "Hyprland";
           };
           tiling.hyprland = true;

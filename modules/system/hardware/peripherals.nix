@@ -4,6 +4,12 @@
   ...
 }: {
   options.nixconf.system.hardware.peripherals = {
+    touchpad = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable touchpad";
+    };
+
     bluetooth = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -18,6 +24,9 @@
   };
 
   config = {
+    # Enable touchpad
+    services.libinput.enable = config.nixconf.system.hardware.peripherals.touchpad;
+
     # Enable hardware support for bluetooth
     hardware.bluetooth = {
       enable = config.nixconf.system.hardware.peripherals.bluetooth;

@@ -3,7 +3,33 @@
   lib,
   config,
   ...
-}: {
+}: let
+  portal = {
+    enable = false;
+
+    # Sets environment variable `NIXOS_XDG_OPEN_USE_PORTAL` to `1`
+    # This will make `xdg-open` use the portal to open programs, which resolves bugs involving
+    # programs opening inside FHS envs or with unexpected env vars set from wrappers.
+    xdgOpenUsePortal = false;
+
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-hyprland
+    ];
+
+    # xdg-desktop-portal 1.17 reworked how portal implementations are loaded,
+    # you should either set `xdg.portal.config` or `xdg.portal.configPackages`
+    # to specify which portal backend to use for the requested interface.
+    #
+    # https://github.com/flatpak/xdg-desktop-portal/blob/1.18.1/doc/portals.conf.rst.in
+    #
+    # If you simply want to keep the behaviour in < 1.17, which uses the first
+    # portal implementation found in lexicographical order, use the following:
+    #
+    # xdg.portal.config.common.default = "*";
+    config.common.default = "*";
+  };
+in {
   options.nixconf.system.desktop = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -23,19 +49,7 @@
       menus.enable = true;
       sounds.enable = true;
       autostart.enable = true;
-
-      portal = {
-        enable = true;
-
-        # Sets environment variable `NIXOS_XDG_OPEN_USE_PORTAL` to `1`
-        # This will make `xdg-open` use the portal to open programs, which resolves bugs involving
-        # programs opening inside FHS envs or with unexpected env vars set from wrappers.
-        xdgOpenUsePortal = true;
-
-        extraPortals = [
-          pkgs.xdg-desktop-portal-gtk
-        ];
-      };
+      # inherit portal;
     };
 
     home-manager.users.${config.nixconf.system.user} = {
@@ -48,31 +62,7 @@
         enable = true;
         mime.enable = true;
         userDirs.enable = true;
-
-        portal = {
-          enable = true;
-
-          # Sets environment variable `NIXOS_XDG_OPEN_USE_PORTAL` to `1`
-          # This will make `xdg-open` use the portal to open programs, which resolves bugs involving
-          # programs opening inside FHS envs or with unexpected env vars set from wrappers.
-          xdgOpenUsePortal = true;
-
-          extraPortals = [
-            pkgs.xdg-desktop-portal-gtk
-          ];
-
-          # xdg-desktop-portal 1.17 reworked how portal implementations are loaded,
-          # you should either set `xdg.portal.config` or `xdg.portal.configPackages`
-          # to specify which portal backend to use for the requested interface.
-          #
-          # https://github.com/flatpak/xdg-desktop-portal/blob/1.18.1/doc/portals.conf.rst.in
-          #
-          # If you simply want to keep the behaviour in < 1.17, which uses the first
-          # portal implementation found in lexicographical order, use the following:
-          #
-          # xdg.portal.config.common.default = "*";
-          config.common.default = "*";
-        };
+        # inherit portal;
       };
     };
   };
