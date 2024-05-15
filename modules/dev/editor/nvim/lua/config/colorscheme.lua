@@ -7,9 +7,6 @@ local function init()
         -- dark: mocha, light: latte
         transparent_background = true, -- disables setting the background color.
         term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
-        dim_inactive = {
-            enabled = true, -- dims the background color of inactive window
-        },
 
         -- Enable integrations
         -- See: https://github.com/catppuccin/nvim#integrations
