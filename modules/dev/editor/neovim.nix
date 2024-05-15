@@ -12,6 +12,17 @@
     name = "config";
     src = ./nvim;
   };
+
+  trouble-beta = pkgs.vimUtils.buildVimPlugin {
+    pname = "trouble.nvim";
+    version = "2024-03-29";
+    src = pkgs.fetchFromGitHub {
+      owner = "folke";
+      repo = "trouble.nvim";
+      rev = "dev";
+      sha256 = "pbM5W5+dIQNqoWtZDNQ1w/kMoY66YuUCH1wvASO37MM=";
+    };
+  };
 in {
   options.nixconf.dev.editor = {
     neovim = lib.mkOption {
@@ -57,7 +68,7 @@ in {
             vim-tmux-navigator
             telescope-nvim
             telescope-fzf-native-nvim
-            trouble-nvim
+            # trouble-nvim
             mini-nvim
             harpoon
             FTerm-nvim
@@ -172,7 +183,7 @@ in {
             nvim-treesitter-context
             nvim-ts-context-commentstring
           ]
-          ++ [nvim-config];
+          ++ [nvim-config trouble-beta];
 
         extraConfig = ''
           lua << EOF

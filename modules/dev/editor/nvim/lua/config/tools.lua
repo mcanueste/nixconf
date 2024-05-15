@@ -45,30 +45,6 @@ local function init()
         require("harpoon.ui").nav_file(4)
     end, { noremap = true, desc = "Open a" })
 
-    -------------------------------------------- Trouble
-
-    -- trouble.nvim for pretty lists
-    -- See: https://github.com/folke/trouble.nvim
-    -- NOTE: some lsp related keymaps are under `lsp.lua`
-    trouble.setup()
-
-    vim.keymap.set("n", "<leader>ol", "<cmd>TroubleToggle loclist<cr>", { noremap = true, desc = "Location List" })
-    vim.keymap.set("n", "<leader>oq", "<cmd>TroubleToggle quickfix<cr>", { noremap = true, desc = "Quickfix List" })
-    vim.keymap.set("n", "[q", function()
-        if trouble.is_open() then
-            trouble.previous({ skip_groups = true, jump = true })
-        else
-            vim.cmd.cprev()
-        end
-    end, { noremap = true, desc = "Previous trouble/quickfix item" })
-    vim.keymap.set("n", "]q", function()
-        if trouble.is_open() then
-            trouble.next({ skip_groups = true, jump = true })
-        else
-            vim.cmd.cnext()
-        end
-    end, { noremap = true, desc = "Next trouble/quickfix item" })
-
     -------------------------------------------- Oil
     oil.setup({
         -- Id is automatically added at the beginning, and name at the end

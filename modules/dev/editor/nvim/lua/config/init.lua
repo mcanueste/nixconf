@@ -5,6 +5,8 @@ local function init()
     require("config.maps").init()
     require("config.mini").init()
 
+    require("config.trouble").init()
+
     require("config.tools").init()
     require("config.git").init()
     require("config.treesitter").init()

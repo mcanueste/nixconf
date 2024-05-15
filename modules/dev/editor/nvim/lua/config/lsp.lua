@@ -1,6 +1,5 @@
 local luasnipvscode = require("luasnip.loaders.from_vscode")
 local lspconfig_util = require("lspconfig/util")
-local telescope = require("telescope.builtin")
 local rusttools = require("rust-tools")
 local cmpnvim = require("cmp_nvim_lsp")
 local neodev = require("neodev")
@@ -317,7 +316,7 @@ local function init()
     vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("UserLspConfig", {}),
         callback = function(ev)
-            -- vim.keymap.set("n", "<space>lq", vim.diagnostic.setloclist) TODO: decide later
+            -- NOTE: Some keybingds are set with trouble
 
             -- Enable completion triggered by <c-x><c-o>
             -- Also see: https://github.com/hrsh7th/nvim-cmp/wiki/Language-Server-Specific-Samples#golang-gopls
@@ -330,68 +329,24 @@ local function init()
             end
 
             vim.keymap.set("n", "K", vim.lsp.buf.hover, opts("Hover [LSP]"))
-            vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts("Definition [LSP]"))
-            vim.keymap.set("n", "gD", "<cmd>TroubleToggle lsp_definitions<cr>", { desc = "Definitions [LSP]" })
-            vim.keymap.set("n", "gc", vim.lsp.buf.declaration, opts("Decleration [LSP]"))
-            vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts("Implementation [LSP]"))
-            vim.keymap.set("n", "gI", "<cmd>Telescope lsp_implementations<cr>", { desc = "Implementations [LSP]" })
-            -- vim.keymap.set("n", "gr", vim.lsp.buf.references, opts("References")) -- Using Trouble is better for this
-            vim.keymap.set("n", "gr", "<cmd>TroubleToggle lsp_references<cr>", { desc = "References [LSP]" })
-            -- I don't use tabs so overriding gt (go to next tab)
-            vim.keymap.set("n", "gt", vim.lsp.buf.type_definition, opts("Type Definition [LSP]"))
-            vim.keymap.set(
-                "n",
-                "gT",
-                "<cmd>TroubleToggle lsp_type_definitions<cr>",
-                { desc = "Type Definitions [LSP]" }
-            )
-            -- Override default gs (sleep nvim for seconds)
-            vim.keymap.set("n", "gs", vim.lsp.buf.signature_help, opts("Signature [LSP]"))
-
-            vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename, opts("Rename"))
-            vim.keymap.set({ "n", "v" }, "<leader>la", vim.lsp.buf.code_action, opts("Code Action"))
-            vim.keymap.set("n", "<leader>ll", function()
+            vim.keymap.set("n", "gk", vim.lsp.buf.signature_help, opts("Signature [LSP]"))
+            vim.keymap.set("n", "gR", vim.lsp.buf.rename, opts("Rename [LSP]"))
+            vim.keymap.set("n", "gl", vim.diagnostic.open_float, opts("Line Diagnostics"))
+            vim.keymap.set({ "n", "v" }, "ga", vim.lsp.buf.code_action, opts("Code Action [LSP]"))
+            vim.keymap.set("n", "gh", function()
                 vim.lsp.buf.format({ async = true })
             end, opts("Format"))
-            vim.keymap.set("n", "<space>ld", vim.diagnostic.open_float, opts("Line Diagnostics"))
-            vim.keymap.set(
-                "n",
-                "<leader>lD",
-                "<cmd>TroubleToggle document_diagnostics<cr>",
-                { desc = "Document Diagnostics" }
-            )
-            vim.keymap.set("n", "<leader>lc", "<cmd>Telescope lsp_incoming_calls<CR>", { desc = "Incoming Calls" })
-            vim.keymap.set("n", "<leader>lC", "<cmd>Telescope lsp_outgoing_calls<CR>", { desc = "Outgoing Calls" })
-            vim.keymap.set("n", "<leader>ls", "<cmd>SymbolsOutline<CR>", { desc = "Symbols Outline" })
-            vim.keymap.set("n", "<leader>lS", function()
-                telescope.lsp_document_symbols({
-                    symbols = {
-                        "Class",
-                        "Function",
-                        "Method",
-                        "Constructor",
-                        "Interface",
-                        "Module",
-                        "Struct",
-                        "Trait",
-                        "Field",
-                        "Property",
-                    },
-                })
-            end, { desc = "Symbols" })
 
             -- Workspace keymaps
-            vim.keymap.set("n", "<leader>lwa", vim.lsp.buf.add_workspace_folder, opts("Workspace add"))
-            vim.keymap.set("n", "<leader>lwr", vim.lsp.buf.remove_workspace_folder, opts("Workspace remove"))
+            vim.keymap.set("n", "<leader>lwa", vim.lsp.buf.add_workspace_folder, opts("Workspace Add"))
+            vim.keymap.set("n", "<leader>lwr", vim.lsp.buf.remove_workspace_folder, opts("Workspace Remove"))
             vim.keymap.set("n", "<leader>lwl", function()
                 print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-            end, opts("Workspace list"))
-            vim.keymap.set(
-                "n",
-                "<leader>lwd",
-                "<cmd>TroubleToggle workspace_diagnostics<cr>",
-                { noremap = true, desc = "Workspace Diagnostics" }
-            )
+            end, opts("Workspace List"))
+
+            -- TODO move these to telescope config (or remove?)
+            vim.keymap.set("n", "<leader>lc", "<cmd>Telescope lsp_incoming_calls<CR>", { desc = "Incoming Calls" })
+            vim.keymap.set("n", "<leader>lC", "<cmd>Telescope lsp_outgoing_calls<CR>", { desc = "Outgoing Calls" })
             vim.keymap.set(
                 "n",
                 "<leader>lws",
