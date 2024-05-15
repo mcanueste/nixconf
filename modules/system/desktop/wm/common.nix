@@ -28,77 +28,80 @@
       default = false;
       description = "Enable kanshi for screen configurations.";
     };
+
+    kanshiTarget = lib.mkOption {
+      type = lib.types.str;
+      default = "hyprland-session.target";
+      description = "Systemd target for kanshi.";
+    };
   };
 
-  config = lib.mkIf config.nixconf.system.desktop.wm.enable {
-    # Enable thunar file manager and other services for automated mounts etc.
-    # TODO thunar does not use places for common folders
-    programs.thunar = {
-      enable = true;
-      plugins = with pkgs.xfce; [
-        thunar-archive-plugin
-        thunar-volman
-      ];
-    };
-
-    home-manager.users.${config.nixconf.system.user} = {
-      home.packages = [
-        pkgs.playerctl # media player control
-        pkgs.brightnessctl # backlight control
-        pkgs.pamixer # in case xorg is used (in wireplumber: wpctl)
-        pkgs.pavucontrol # pulseaudio volume control
-        pkgs.kanshi # auto display configuration tool
-        pkgs.galculator # calculator
-        pkgs.udiskie # automount
+  config =
+    lib.mkIf (
+      config.nixconf.system.desktop.enable
+      && config.nixconf.system.desktop.wm.enable
+    ) {
+      environment.systemPackages = [
+        pkgs.wdisplays # tool to configure displays
+        pkgs.xwaylandvideobridge # for fixing screen share on x apps
       ];
 
-      services = {
-        blueman-applet.enable = config.nixconf.system.desktop.wm.blueman;
-        network-manager-applet.enable = config.nixconf.system.desktop.wm.networkmanager;
+      home-manager.users.${config.nixconf.system.user} = {
+        home.packages = [
+          pkgs.playerctl # media player control
+          pkgs.brightnessctl # backlight control
+          pkgs.pamixer # in case xorg is used (in wireplumber: wpctl)
+          pkgs.pavucontrol # pulseaudio volume control
+          pkgs.kanshi # auto display configuration tool
+          pkgs.udiskie # automount
+        ];
 
-        kanshi = {
-          # TODO Systemd doesn't really work well
-          enable = config.nixconf.system.desktop.wm.kanshi;
-          systemdTarget = "hyprland-session.target";
+        services = {
+          blueman-applet.enable = config.nixconf.system.desktop.wm.blueman;
+          network-manager-applet.enable = config.nixconf.system.desktop.wm.networkmanager;
 
-          settings = [
-            {
-              profile = {
-                name = "docked";
-                outputs = [
-                  {
-                    criteria = "eDP-1";
-                    status = "enable";
-                    scale = 2.0;
-                    position = "0,360";
-                    mode = "3456x2160@60Hz";
-                  }
-                  {
-                    criteria = "DP-4";
-                    status = "enable";
-                    scale = 1.0;
-                    position = "1728,0";
-                    mode = "2560x1440@60Hz";
-                  }
-                ];
-              };
-            }
+          kanshi = {
+            enable = config.nixconf.system.desktop.wm.kanshi;
+            systemdTarget = config.nixconf.system.desktop.wm.kanshiTarget;
 
-            {
-              profile = {
-                name = "undocked";
-                outputs = [
-                  {
-                    criteria = "eDP-1";
-                    status = "enable";
-                    scale = 1.5;
-                  }
-                ];
-              };
-            }
-          ];
+            settings = [
+              {
+                profile = {
+                  name = "docked";
+                  outputs = [
+                    {
+                      criteria = "eDP-1";
+                      status = "enable";
+                      scale = 2.0;
+                      position = "0,360";
+                      mode = "3456x2160@60Hz";
+                    }
+                    {
+                      criteria = "DP-4";
+                      status = "enable";
+                      scale = 1.0;
+                      position = "1728,0";
+                      mode = "2560x1440@60Hz";
+                    }
+                  ];
+                };
+              }
+
+              {
+                profile = {
+                  name = "undocked";
+                  outputs = [
+                    {
+                      criteria = "eDP-1";
+                      status = "enable";
+                      scale = 1.5;
+                    }
+                  ];
+                };
+              }
+            ];
+          };
         };
       };
     };
-  };
 }

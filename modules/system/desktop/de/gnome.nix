@@ -59,18 +59,5 @@
       # pkgs.gnome-logs
       # pkgs.gnome-screenshot
     ];
-
-    # enable dconf for gnome settings
-    programs.dconf.enable = true;
-
-    # can add dconf settings here
-    home-manager.users.${config.nixconf.system.user} = {
-      dconf.settings = {
-        "org/gnome/shell" = {
-          disable-user-extensions = false;
-          disabled-extensions = "disabled";
-        };
-      };
-    };
   };
 }

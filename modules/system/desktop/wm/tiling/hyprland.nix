@@ -54,11 +54,6 @@
         xwayland.enable = true;
       };
 
-      environment.systemPackages = [
-        pkgs.wdisplays # tool to configure displays
-        pkgs.xwaylandvideobridge # for fixing screen share on x apps
-      ];
-
       home-manager.users.${config.nixconf.system.user} = {
         # Screen share doesn't work properly...
         # https://wiki.hyprland.org/Useful-Utilities/Screen-Sharing/
@@ -182,7 +177,7 @@
             };
 
             windowrule = [
-              "float, ^(galculator)$"
+              "float, ^(gnome-calculator)$"
               "float, ^(Color Picker)$"
             ];
 
