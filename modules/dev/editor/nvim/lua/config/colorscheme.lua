@@ -5,8 +5,8 @@ local function init()
     -- See: https://github.com/catppuccin/nvim
     require("catppuccin").setup({
         -- dark: mocha, light: latte
-        transparent_background = true, -- disables setting the background color.
         term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
+        dim_inactive = { enabled = false },
 
         -- Enable integrations
         -- See: https://github.com/catppuccin/nvim#integrations
@@ -41,10 +41,7 @@ local function init()
             },
             treesitter = true,
             treesitter_context = true,
-            telescope = {
-                enabled = true,
-                style = "nvchad",
-            },
+            telescope = { enabled = true },
             lsp_trouble = true,
             which_key = true,
         },

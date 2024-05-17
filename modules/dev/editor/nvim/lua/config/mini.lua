@@ -1,8 +1,4 @@
 local function init()
-    -- mini.pairs for auto pairing brackets etc.
-    -- See: https://github.com/echasnovski/mini.pairs
-    -- pairs.setup() TODO: replace with a smarter one?
-
     -- mini.bufremove for deciding which buffer to show in windows after removal of current buffer
     -- See: https://github.com/echasnovski/mini.bufremove
     require("mini.bufremove").setup()

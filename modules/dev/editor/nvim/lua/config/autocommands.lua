@@ -2,8 +2,18 @@ local function augroup(name)
     return vim.api.nvim_create_augroup("config_" .. name, { clear = true })
 end
 
+local function close_with_q(suffix, pattern)
+    vim.api.nvim_create_autocmd("FileType", {
+        group = augroup("close_with_q_" .. suffix),
+        pattern = pattern,
+        callback = function(event)
+            vim.bo[event.buf].buflisted = false
+            vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+        end,
+    })
+end
+
 local function init()
-    -------------------------------------------- Autocommands
     -- Check if we need to reload the file when it changed
     vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
         group = augroup("checktime"),
@@ -30,26 +40,6 @@ local function init()
         end,
     })
 
-    -- TODO: convert to a function and use on other parts of the config
-    -- close some filetypes with <q>
-    vim.api.nvim_create_autocmd("FileType", {
-        group = augroup("close_with_q"),
-        pattern = {
-            "help",
-            "lspinfo",
-            "man",
-            "harpoon",
-            "FTerm",
-            -- "spectre_panel",
-            -- "PlenaryTestPopup",
-            -- TODO: add floating term and other tools here
-        },
-        callback = function(event)
-            vim.bo[event.buf].buflisted = false
-            vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
-        end,
-    })
-
     -- wrap and check for spell in text filetypes
     vim.api.nvim_create_autocmd("FileType", {
         group = augroup("wrap_spell"),
@@ -59,6 +49,11 @@ local function init()
             vim.opt_local.spell = true
         end,
     })
+
+    close_with_q("default", { "help", "man" })
 end
 
-return { init = init }
+return {
+    init = init,
+    close_with_q = close_with_q,
+}

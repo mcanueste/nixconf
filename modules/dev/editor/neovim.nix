@@ -8,11 +8,6 @@
     v = "nvim";
   };
 
-  nvim-config = pkgs.vimUtils.buildVimPlugin {
-    name = "config";
-    src = ./nvim;
-  };
-
   trouble-beta = pkgs.vimUtils.buildVimPlugin {
     pname = "trouble.nvim";
     version = "2024-03-29";
@@ -22,6 +17,23 @@
       rev = "dev";
       sha256 = "pbM5W5+dIQNqoWtZDNQ1w/kMoY66YuUCH1wvASO37MM=";
     };
+  };
+
+  # TODO contribute to nixpkgs?
+  telescope-picker-list = pkgs.vimUtils.buildVimPlugin {
+    pname = "telescope-picker-list.nvim";
+    version = "5a51890";
+    src = pkgs.fetchFromGitHub {
+      owner = "OliverChao";
+      repo = "telescope-picker-list.nvim";
+      rev = "5a5189068131a43f802721ddb07a25279d98272e";
+      sha256 = "tETd3gkxB3MENSxYPnof5SP+HSBVmtxp+Wv44X4kP4Q=";
+    };
+  };
+
+  nvim-config = pkgs.vimUtils.buildVimPlugin {
+    name = "config";
+    src = ./nvim;
   };
 in {
   options.nixconf.dev.editor = {
@@ -53,28 +65,28 @@ in {
 
         plugins = with pkgs.vimPlugins;
           [
-            # UI & theme
+            # Deps & UI & theme
             nui-nvim
             plenary-nvim
             nvim-web-devicons
             catppuccin-nvim
             lualine-nvim
-            # nvim-notify
-            # noice-nvim
-            which-key-nvim
 
-            # tools
             vim-sleuth # no setup
-            vim-tmux-navigator
+            vim-tmux-navigator # no setup
+
+            mini-nvim
+            oil-nvim
             telescope-nvim
             telescope-fzf-native-nvim
-            # trouble-nvim
-            mini-nvim
-            harpoon
+            harpoon2
+            nvim-autopairs
+
             FTerm-nvim
-            # nvim-spectre -- TODO: check later
             cloak-nvim
-            oil-nvim
+
+            which-key-nvim
+            # nvim-spectre -- TODO: check later
 
             # git
             gitsigns-nvim
@@ -82,7 +94,7 @@ in {
 
             # lsp
             nvim-lspconfig
-            null-ls-nvim
+            none-ls-nvim
             neodev-nvim
             rust-tools-nvim
             SchemaStore-nvim
@@ -180,10 +192,15 @@ in {
                 p.hcl
               ]))
             nvim-treesitter-refactor
+            nvim-treesitter-textobjects
             nvim-treesitter-context
             nvim-ts-context-commentstring
           ]
-          ++ [nvim-config trouble-beta];
+          ++ [
+            nvim-config
+            trouble-beta
+            telescope-picker-list
+          ];
 
         extraConfig = ''
           lua << EOF

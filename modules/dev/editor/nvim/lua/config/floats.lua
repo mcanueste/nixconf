@@ -1,9 +1,8 @@
-local fterm = require("FTerm")
-
 local function init()
     -- Fterm.nvim setup
     -- See: https://github.com/numToStr/FTerm.nvim
     ---@diagnostic disable-next-line: missing-fields
+    local fterm = require("FTerm")
     fterm.setup({
         ---Filetype of the terminal buffer
         ft = "FTerm",
@@ -16,6 +15,7 @@ local function init()
             y = 0.5, -- Y axis of the terminal window
         },
     })
+    require("config.autocommands").close_with_q("FTerm", { "FTerm" })
     vim.keymap.set("n", "<leader>ot", "<CMD>lua require('FTerm').toggle()<CR>", { noremap = true, desc = "Terminal" })
     vim.keymap.set("t", "<C-o>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
 

@@ -37,8 +37,6 @@ local function init()
     vim.opt.isfname:append("@-@") -- Filename for gf and other file commands
 
     vim.opt.formatoptions = "jql1tcron"
-
-    vim.opt.foldenable = false -- disable folds by default
 end
 
 return { init = init }

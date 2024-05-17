@@ -41,6 +41,9 @@
 
         # password managers
         bitwarden-cli
+
+        # nix specific
+        manix
       ];
     };
   };

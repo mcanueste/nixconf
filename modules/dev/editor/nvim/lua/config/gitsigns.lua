@@ -1,9 +1,5 @@
-local worktree = require("git-worktree")
-local telescope = require("telescope")
-local gitsigns = require("gitsigns")
-
 local function init()
-    gitsigns.setup({
+    require("gitsigns").setup({
         signs = {
             add = { text = "▎" },
             change = { text = "▎" },
@@ -27,9 +23,9 @@ local function init()
             end
 
             -- Navigation
-            map("n", "]g", function()
+            map("n", "]h", function()
                 if vim.wo.diff then
-                    return "]g"
+                    return "]h"
                 end
                 vim.schedule(function()
                     gs.next_hunk()
@@ -37,9 +33,9 @@ local function init()
                 return "<Ignore>"
             end, "Next Git Hunk", { expr = true })
 
-            map("n", "[g", function()
+            map("n", "[h", function()
                 if vim.wo.diff then
-                    return "[g"
+                    return "[h"
                 end
                 vim.schedule(function()
                     gs.prev_hunk()
@@ -73,35 +69,17 @@ local function init()
             map("n", "<leader>gR", gs.reset_buffer, "Reset Buffer")
 
             map("n", "<leader>gp", gs.preview_hunk, "Preview Hunk")
+
             map("n", "<leader>gb", function()
                 gs.blame_line({ full = true })
             end, "Blame Line")
+
             map("n", "<leader>gd", gs.diffthis, "Diff This")
             map("n", "<leader>gD", function()
                 gs.diffthis("~")
             end, "Diff This ~")
         end,
     })
-
-    -- Telescope
-    vim.keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", { noremap = true, desc = "Commits" })
-    vim.keymap.set("n", "<leader>gC", "<cmd>Telescope git_bcommits<cr>", { noremap = true, desc = "Buffer Commits" })
-    vim.keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", { noremap = true, desc = "Branches" })
-    vim.keymap.set("n", "<leader>gh", "<cmd>Telescope git_stash<cr>", { noremap = true, desc = "Stash" })
-
-    -- Worktree
-    telescope.load_extension("git_worktree")
-
-    -- <Enter> - switches to that worktree
-    -- <c-d> - deletes that worktree
-    -- <c-f> - toggles forcing of the next deletion
-    vim.keymap.set("n", "<leader>gw", function()
-        telescope.extensions.git_worktree.git_worktrees()
-    end, { noremap = true, desc = "Worktree" })
-
-    vim.keymap.set("n", "<leader>gW", function()
-        telescope.extensions.git_worktree.create_git_worktree()
-    end, { noremap = true, desc = "Create Worktree" })
 end
 
 return { init = init }

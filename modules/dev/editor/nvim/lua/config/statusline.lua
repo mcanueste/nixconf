@@ -17,11 +17,10 @@ local function init()
             "man",
             "nvim-dap-ui",
             "oil",
-            -- "overseer",
             "quickfix",
-            -- "symbols-outline",
-            -- "toggleterm",
             "trouble",
+            -- "overseer",
+            -- "toggleterm",
         },
     })
 end
