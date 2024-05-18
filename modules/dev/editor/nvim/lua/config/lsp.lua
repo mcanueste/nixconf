@@ -117,6 +117,7 @@ local function init()
 
     ---------------------- Lua
     require("neodev").setup({
+        library = { plugins = { "nvim-dap-ui" }, types = true },
         override = function(root_dir, library)
             -- if using nix (with or without flake)
             if root_dir:find("/etc/nixos", 1, true) == 1 or root_dir:find("/nix/store", 1, true) == 1 then

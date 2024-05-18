@@ -1,7 +1,6 @@
 local function init()
     -- Completion + Snippet
     -- nvim-cmp: https://github.com/hrsh7th/nvim-cmp -- Autocompletion plugin
-    --
     -- cmp_luasnip: https://github.com/saadparwaiz1/cmp_luasnip -- Snippets source for nvim-cmp
     -- LuaSnip: https://github.com/L3MON4D3/LuaSnip -- Snippets plugin
 
@@ -93,6 +92,7 @@ local function init()
         },
 
         mapping = cmp.mapping.preset.insert({
+            ["<cr>"] = cmp.mapping.confirm({ select = true }),
             ["<C-y>"] = cmp.mapping.confirm({ select = true }),
             ["<C-e>"] = cmp.mapping.abort(),
 

@@ -1,8 +1,6 @@
 local function init()
     -- telescope for fuzzy find
     -- See: https://github.com/nvim-telescope/telescope.nvim
-    --
-    -- NOTE: Some VCS related keymaps have been moved to `vcs.lua`
     local telescope = require("telescope")
     local utils = require("config.utils")
 
@@ -103,9 +101,8 @@ local function init()
     vim.keymap.set("n", "<leader>gh", "<cmd>Telescope git_stash<cr>", { noremap = true, desc = "Stash" })
 
     -------------------------------------------- Worktree
-    -- TODO
+    -- TODO fix
     telescope.load_extension("git_worktree")
-
     -- <Enter> - switches to that worktree
     -- <c-d> - deletes that worktree
     -- <c-f> - toggles forcing of the next deletion

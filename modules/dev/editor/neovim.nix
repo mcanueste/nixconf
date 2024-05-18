@@ -31,6 +31,18 @@
     };
   };
 
+  # TODO contribute to nixpkgs?
+  copilotchat-nvim = pkgs.vimUtils.buildVimPlugin {
+    pname = "copilotchat-nvim";
+    version = "2.8.1";
+    src = pkgs.fetchFromGitHub {
+      owner = "CopilotC-Nvim";
+      repo = "CopilotChat.nvim";
+      rev = "2.8.1";
+      sha256 = "jZb+dqGaZEs1h2CbvsxbINfHauwHka9t+jmSJQ/mMFM=";
+    };
+  };
+
   nvim-config = pkgs.vimUtils.buildVimPlugin {
     name = "config";
     src = ./nvim;
@@ -82,14 +94,14 @@ in {
             oil-nvim
             telescope-nvim
             telescope-fzf-native-nvim
+            git-worktree-nvim
             harpoon2
             gitsigns-nvim
             which-key-nvim
+            cloak-nvim
 
             FTerm-nvim
-            cloak-nvim
             # nvim-spectre -- TODO: check later
-            git-worktree-nvim
 
             # completion & snippets
             nvim-cmp
@@ -111,11 +123,12 @@ in {
             neodev-nvim
             rustaceanvim
             nvim-dap
+            nvim-nio
             nvim-dap-ui
             nvim-dap-virtual-text
+            # telescope-dap-nvim TODO useful?
             nvim-dap-go
             nvim-dap-python
-            telescope-dap-nvim
 
             # AI
             copilot-lua
@@ -192,6 +205,7 @@ in {
             nvim-config
             trouble-beta
             telescope-picker-list
+            copilotchat-nvim
           ];
 
         extraConfig = ''
@@ -246,6 +260,7 @@ in {
           gopls
           gofumpt
           golangci-lint-langserver
+          delve
 
           # rust support
           rust-analyzer
@@ -256,6 +271,7 @@ in {
           # lua support
           (luajit.withPackages (lp: [
             lp.luarocks
+            lp.tiktoken_core
           ]))
           lua-language-server
           stylua

@@ -1,54 +1,6 @@
-local copilot = require("copilot")
-local chatgpt = require("chatgpt")
-
 local function init()
     local home = vim.fn.expand("$HOME")
-
-    copilot.setup({
-        panel = {
-            enabled = true,
-            auto_refresh = false,
-            keymap = {
-                jump_prev = "[[",
-                jump_next = "]]",
-                accept = "<CR>",
-                refresh = "<C-r>",
-                open = "<C-CR>",
-            },
-            layout = {
-                position = "bottom", -- | top | left | right
-                ratio = 0.4,
-            },
-        },
-        suggestion = {
-            auto_trigger = true,
-            keymap = {
-                accept = "<C-l>",
-                dismiss = "<C-h>",
-                next = "<C-j>",
-                prev = "<C-k>",
-                accept_word = false,
-                accept_line = false,
-            },
-        },
-        filetypes = {
-            yaml = true,
-            markdown = true,
-            help = false,
-            gitcommit = true,
-            gitrebase = false,
-            hgcommit = false,
-            svn = false,
-            cvs = false,
-            ["."] = false,
-        },
-    })
-
-    vim.keymap.set("n", "<leader>act", function()
-        require("copilot.suggestion").toggle_auto_trigger()
-    end, { noremap = true, desc = "Copilot Toggle Auto Trigger" })
-
-    vim.keymap.set("n", "<leader>acp", "<cmd>Copilot panel<cr>", { noremap = true, desc = "Copilot Panel" })
+    local chatgpt = require("chatgpt")
 
     chatgpt.setup({
         api_key_cmd = "bw get notes OpenAI",
