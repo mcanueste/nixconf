@@ -48,6 +48,7 @@ in {
     home-manager.users.${config.nixconf.system.user} = {
       programs.bash = {inherit shellAliases;};
       programs.fish = {inherit shellAliases;};
+
       xdg.configFile."yamlfmt/.yamlfmt".text = ''
         formatter:
           retain_line_breaks: true
@@ -72,50 +73,43 @@ in {
             catppuccin-nvim
             lualine-nvim
 
-            vim-sleuth # no setup
-            vim-tmux-navigator # no setup
+            # No setuplsp
+            vim-sleuth
+            vim-tmux-navigator
 
+            # Utilities
             mini-nvim
             oil-nvim
             telescope-nvim
             telescope-fzf-native-nvim
             harpoon2
-            nvim-autopairs
+            gitsigns-nvim
+            which-key-nvim
 
             FTerm-nvim
             cloak-nvim
-
-            which-key-nvim
             # nvim-spectre -- TODO: check later
-
-            # git
-            gitsigns-nvim
             git-worktree-nvim
 
-            # lsp
-            nvim-lspconfig
-            none-ls-nvim
-            neodev-nvim
-            rust-tools-nvim
-            SchemaStore-nvim
-
-            # completion
+            # completion & snippets
             nvim-cmp
-            cmp-nvim-lsp
-            cmp-nvim-lua
-            cmp-nvim-lsp-signature-help
-            cmp-buffer
-            cmp-path
-            cmp-cmdline
             cmp-dap
+            cmp-async-path
+            cmp-buffer
+            cmp-cmdline
             cmp-emoji
-
-            # snippet
+            cmp-nvim-lsp
+            cmp-nvim-lsp-signature-help
+            cmp-nvim-lsp-document-symbol
             luasnip
             cmp_luasnip
             friendly-snippets
 
-            # debugger
+            # lsp & dap
+            nvim-lspconfig
+            none-ls-nvim
+            neodev-nvim
+            rustaceanvim
             nvim-dap
             nvim-dap-ui
             nvim-dap-virtual-text
@@ -131,6 +125,8 @@ in {
             obsidian-nvim
 
             # treesitter
+            nvim-autopairs
+            nvim-ts-context-commentstring
             (nvim-treesitter.withPlugins
               (p: [
                 p.bash
@@ -191,10 +187,6 @@ in {
                 p.zig
                 p.hcl
               ]))
-            nvim-treesitter-refactor
-            nvim-treesitter-textobjects
-            nvim-treesitter-context
-            nvim-ts-context-commentstring
           ]
           ++ [
             nvim-config
@@ -224,25 +216,42 @@ in {
           lazygit
           lazydocker
 
+          # html/htmx support
+          # htmx-lsp -- buggy for now
+
           # bash support
-          beautysh
-          shellharden
-          shellcheck
           nodePackages.bash-language-server
+          shellharden
 
           # docker support
-          hadolint
-          # docker-compose-language-service
           nodePackages.dockerfile-language-server-nodejs
+          hadolint
 
           # terraform support
-          tfsec
           terraform-ls
+          tfsec
+
+          # python support
+          ruff
+          nodePackages.pyright
+
+          # ocaml lsp
+          ocamlPackages.ocaml-lsp
 
           # nix support
           nil
-          # nixd somehow doesn't work well?
           alejandra
+
+          # go support
+          gopls
+          gofumpt
+          golangci-lint-langserver
+
+          # rust support
+          rust-analyzer
+          cargo
+          lldb # debugging
+          graphviz # generating graphs
 
           # lua support
           (luajit.withPackages (lp: [
@@ -251,28 +260,8 @@ in {
           lua-language-server
           stylua
 
-          # python support
-          black
-          djhtml
-          mypy
-          ruff
-          ruff-lsp
-          nodePackages.pyright
-
-          # go support
-          gopls
-          golangci-lint-langserver
-
-          # ansible support
-          # ansible-lint
-          # ansible-language-server
-
-          # yaml support
-          # yamlfmt
-          # nodePackages.yaml-language-server
-
-          # html/htmx support
-          htmx-lsp
+          # github actions support
+          actionlint
         ];
       };
     };

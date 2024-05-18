@@ -1,4 +1,7 @@
 local function init()
+    -- TODO breadcrumbs instead of context?
+    -- TODO call trees
+    -- TODO symbols on the right instead
     vim.g.mapleader = " "
     require("config.options").init()
     require("config.autocommands").init()
@@ -11,10 +14,11 @@ local function init()
     require("config.harpoon").init()
     require("config.gitsigns").init()
     require("config.treesitter").init()
-    require("config.lsp").init()
-    require("config.dap").init()
-    require("config.null").init()
+    require("config.cmp").init()
     require("config.autopairs").init()
+    require("config.lsp").init()
+    require("config.null").init()
+    require("config.dap").init()
     require("config.trouble").init()
     require("config.floats").init()
     require("config.ai").init()
