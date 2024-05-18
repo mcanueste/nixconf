@@ -64,6 +64,8 @@ in {
           bind -N "Move to next session" k switch-client -p
           bind q kill-pane
 
+          bind S new-session
+
           set -g @continuum-restore 'on'
         '';
       };
