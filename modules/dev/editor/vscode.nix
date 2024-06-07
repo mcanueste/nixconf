@@ -24,9 +24,15 @@
           hashicorp.hcl
           hashicorp.terraform
           ms-python.python
-          # ms-python.vscode-pylance
           charliermarsh.ruff
+          github.copilot
+          vscodevim.vim
+          jnoortheen.nix-ide
+          arrterian.nix-env-selector
+          rust-lang.rust-analyzer
+          golang.go
         ];
+        userSettings = {};
       };
     };
   };
