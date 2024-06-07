@@ -32,15 +32,16 @@ in {
         reverseSplit = false; # conflicts with pane_current_path bindings
         historyLimit = 500000;
         aggressiveResize = true;
-        terminal = "screen-256color";
+        # terminal = "screen-256color";
+        terminal = "tmux-256color";
         disableConfirmationPrompt = true;
         customPaneNavigationAndResize = true;
         sensibleOnTop = true;
         plugins = with pkgs; [
+          tmuxPlugins.vim-tmux-navigator
           tmuxPlugins.yank
           tmuxPlugins.continuum
           tmuxPlugins.resurrect
-          tmuxPlugins.vim-tmux-navigator
           tmuxPlugins.tmux-fzf
         ];
         # we need session switcher
@@ -66,6 +67,7 @@ in {
 
           bind S new-session
 
+          set -g @continuum-boot 'on'
           set -g @continuum-restore 'on'
         '';
       };

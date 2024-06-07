@@ -43,6 +43,17 @@
     };
   };
 
+  catppuccin-nvim = pkgs.vimUtils.buildVimPlugin {
+    pname = "catppuccin-nvim";
+    version = "main";
+    src = pkgs.fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "nvim";
+      rev = "main";
+      sha256 = "UDPS+1o8FQGkfqiG4GX4DNUI2pU5hIvagmfnWTKDb44=";
+    };
+  };
+
   nvim-config = pkgs.vimUtils.buildVimPlugin {
     name = "config";
     src = ./nvim;
@@ -82,7 +93,7 @@ in {
             nui-nvim
             plenary-nvim
             nvim-web-devicons
-            catppuccin-nvim
+            # catppuccin-nvim
             lualine-nvim
 
             # No setuplsp
@@ -206,6 +217,7 @@ in {
             trouble-beta
             telescope-picker-list
             copilotchat-nvim
+            catppuccin-nvim
           ];
 
         extraConfig = ''
@@ -251,6 +263,7 @@ in {
 
           # ocaml lsp
           ocamlPackages.ocaml-lsp
+          ocamlPackages.ocamlformat
 
           # nix support
           nil

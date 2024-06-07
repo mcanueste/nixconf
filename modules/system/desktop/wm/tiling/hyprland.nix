@@ -111,7 +111,7 @@
               gaps_out = 0;
               border_size = 2;
               layout = "dwindle";
-              no_cursor_warps = true;
+              # no_cursor_warps = true;
               resize_on_border = true;
               # If latency and jitter in games: https://wiki.hyprland.org/Configuring/Tearing/
               allow_tearing = false;

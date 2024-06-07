@@ -28,12 +28,14 @@ local function init()
                     hints = { "italic" },
                     warnings = { "italic" },
                     information = { "italic" },
+                    ok = { "italic" },
                 },
                 underlines = {
                     errors = { "underline" },
                     hints = { "underline" },
                     warnings = { "underline" },
                     information = { "underline" },
+                    ok = { "italic" },
                 },
                 inlay_hints = {
                     background = true,

@@ -14,7 +14,7 @@
   flavor = "mocha";
   accent = "blue";
 in {
-  catppuccin.flavour = flavor;
+  catppuccin.flavor = flavor;
   # maybe more OS catppuccin themes in the future
 
   home-manager.users.${config.nixconf.system.user} = {
@@ -24,7 +24,7 @@ in {
 
     fonts.fontconfig.enable = true;
     home.packages = [nerdFonts];
-    catppuccin.flavour = flavor;
+    catppuccin.flavor = flavor;
     catppuccin.accent = accent;
 
     programs.bat.catppuccin.enable = true;
