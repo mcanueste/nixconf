@@ -80,6 +80,8 @@
           notification.swaync = true;
         };
       };
+
+      intune = true;
     };
 
     term = {
