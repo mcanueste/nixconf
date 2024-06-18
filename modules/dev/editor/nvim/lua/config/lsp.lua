@@ -16,6 +16,9 @@ local function init()
             vim.bo[ev.buf].tagfunc = "v:lua.vim.lsp.tagfunc"
             vim.bo[ev.buf].formatexpr = "v:lua.vim.lsp.formatexpr()"
 
+            -- enable inlays on attach
+            vim.lsp.inlay_hint.enable(true)
+
             local function opts(desc)
                 return { buffer = ev.buf, desc = desc }
             end
@@ -35,6 +38,11 @@ local function init()
             vim.keymap.set("n", "<leader>lwl", function()
                 print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
             end, opts("Workspace List"))
+
+            -- Inlay hints
+            vim.keymap.set("n", "<leader>li", function()
+                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
+            end, opts("Toggle Inlay Hints"))
         end,
     })
 
@@ -48,17 +56,42 @@ local function init()
     -- lspconfig.htmx.setup({ capabilities = capabilities }) -- Currently buggy with the LSP version
 
     ---------------------- bash
-    lspconfig.bashls.setup({ capabilities = capabilities })
+    lspconfig.bashls.setup({
+        capabilities = capabilities,
+        bashIde = {
+            globPattern = "*@(.sh|.inc|.bash|.command)",
+        },
+    })
 
     ---------------------- docker
-    lspconfig.dockerls.setup({ capabilities = capabilities })
+    lspconfig.dockerls.setup({
+        capabilities = capabilities,
+        settings = {
+            docker = {
+                languageserver = {
+                    formatter = {
+                        ignoreMultilineInstructions = true,
+                    },
+                },
+            },
+        },
+    })
 
     ---------------------- terraform
     lspconfig.terraformls.setup({ capabilities = capabilities })
 
     ---------------------- python
     lspconfig.ruff.setup({ capabilities = capabilities }) -- newer version compared to ruff_lsp (alpha)
-    lspconfig.pyright.setup({ capabilities = capabilities })
+    lspconfig.basedpyright.setup({
+        capabilities = capabilities,
+        basedpyright = {
+            analysis = {
+                autoSearchPaths = true,
+                diagnosticMode = "openFilesOnly",
+                useLibraryCodeForTypes = true,
+            },
+        },
+    })
 
     ---------------------- ocaml
     lspconfig.ocamllsp.setup({ capabilities = capabilities })
@@ -104,6 +137,15 @@ local function init()
                     shadow = true,
                 },
             },
+            hints = {
+                rangeVariableTypes = true,
+                parameterNames = true,
+                constantValues = true,
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                compositeLiteralTypes = true,
+                functionTypeParameters = true,
+            },
         },
         init_options = {
             usePlaceholders = true,
@@ -114,6 +156,46 @@ local function init()
     -- Automatically done via rustaceanvim
     -- https://github.com/mrcjkb/rustaceanvim
     -- TODO: might need rust specific key maps
+    vim.g.rustaceanvim = {
+        server = {
+            settings = {
+                ["rust-analyzer"] = {
+                    inlayHints = {
+                        bindingModeHints = {
+                            enable = false,
+                        },
+                        chainingHints = {
+                            enable = true,
+                        },
+                        closingBraceHints = {
+                            enable = true,
+                            minLines = 25,
+                        },
+                        closureReturnTypeHints = {
+                            enable = "never",
+                        },
+                        lifetimeElisionHints = {
+                            enable = "never",
+                            useParameterNames = false,
+                        },
+                        maxLength = 25,
+                        parameterHints = {
+                            enable = true,
+                        },
+                        reborrowHints = {
+                            enable = "never",
+                        },
+                        renderColons = true,
+                        typeHints = {
+                            enable = true,
+                            hideClosureInitialization = false,
+                            hideNamedConstructor = false,
+                        },
+                    },
+                },
+            },
+        },
+    }
 
     ---------------------- Lua
     require("neodev").setup({
@@ -136,6 +218,7 @@ local function init()
                 completion = {
                     callSnippet = "Replace",
                 },
+                hint = { enable = true },
             },
         },
     })

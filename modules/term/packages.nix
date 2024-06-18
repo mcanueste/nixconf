@@ -44,6 +44,9 @@
 
         # nix specific
         manix
+
+        # pretty markdown in term
+        glow
       ];
     };
   };

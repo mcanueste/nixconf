@@ -39,6 +39,10 @@ in {
     programs.zathura.catppuccin.enable = true;
 
     gtk = {
+      # No longer support from catppuccin
+      # https://github.com/catppuccin/gtk/issues/262
+      # TODO: disable later
+      #
       # Catppuccin theme is done via catppuccin-nix
       # Catppuccin cursor theme is done via catppuccin-nix
       catppuccin.enable = true;
