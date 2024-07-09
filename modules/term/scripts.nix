@@ -33,7 +33,7 @@
       #!/usr/bin/env bash
       echo "Syncing blog notes from Obsidian vault to blog repository..."
 
-      rsync ~/Projects/personal/notes/blog/*.md ~/Projects/personal/blog/content/blog/
+      rsync -r ~/Projects/personal/notes/blog/* ~/Projects/personal/blog/content/posts/
       cd ~/Projects/personal/blog/
       hugo
 
