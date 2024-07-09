@@ -10,6 +10,10 @@
       freeglut
       xorg.libX11
       stdenv.cc.cc.lib
+
+      # added during rust dev
+      openssl
+
       # cudaPackages.cudatoolkit
       # cudaPackages.cudnn
       # cudaPackages.cudatoolkit.lib
@@ -26,7 +30,6 @@
       # icu
       # zlib
       # nss
-      # openssl
       # curl
       # expat
 

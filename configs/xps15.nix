@@ -132,7 +132,7 @@
     };
 
     gaming = {
-      steam = false;
+      steam = true;
     };
 
     dev = {
