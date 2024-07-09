@@ -16,6 +16,14 @@
     # enable dconf for gtk apps and gnome settings
     programs.dconf.enable = true;
 
+    xdg.portal = {
+      enable = true;
+      extraPortals = [
+        pkgs.xdg-desktop-portal-hyprland
+      ];
+      config.common.default = ["hyprland"];
+    };
+
     home-manager.users.${config.nixconf.system.user} = {
       # Enable gtk and qt config if desktop is enabled
       # Theme configuration is done in theme.nix
@@ -26,6 +34,13 @@
         enable = true;
         mime.enable = true;
         userDirs.enable = true;
+        portal = {
+          enable = true;
+          extraPortals = [
+            pkgs.xdg-desktop-portal-hyprland
+          ];
+          config.common.default = ["hyprland"];
+        };
       };
 
       home.packages = [

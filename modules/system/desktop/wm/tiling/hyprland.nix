@@ -34,7 +34,7 @@
 
         # for gnome apps if we ever use one
         # defined by nixos modules by default
-        # GDK_BACKEND = "wayland,x11";
+        GDK_BACKEND = "wayland,x11";
 
         # For SDL library
         SDL_VIDEODRIVER = "wayland";
@@ -52,6 +52,8 @@
       programs.hyprland = {
         enable = true;
         xwayland.enable = true;
+        systemd.setPath.enable = true;
+        # TODO add hyperidle and hyperlock
       };
 
       home-manager.users.${config.nixconf.system.user} = {
@@ -79,6 +81,13 @@
           # TODO: wtf hyprland-protocols?
         ];
 
+        home.pointerCursor = {
+          gtk.enable = true;
+          package = pkgs.bibata-cursors;
+          name = "Bibata-Modern-Ice";
+          size = 22;
+        };
+
         wayland.windowManager.hyprland = {
           enable = true;
 
@@ -100,6 +109,8 @@
             "NIXOS_OZONE_WL"
             "_JAVA_AWT_WM_NONREPARENTING"
             "MOZ_ENABLE_WAYLAND"
+            "XCURSOR_THEME"
+            "XCURSOR_SIZE"
           ];
 
           settings = {
@@ -162,9 +173,9 @@
               preserve_split = true;
             };
 
-            master = {
-              new_is_master = true;
-            };
+            # master = {
+            #   new_is_master = true;
+            # };
 
             gestures = {
               workspace_swipe = true;
