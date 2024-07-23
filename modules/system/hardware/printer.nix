@@ -49,6 +49,8 @@
     users.users.${config.nixconf.system.user}.extraGroups =
       if config.nixconf.system.hardware.printer.scanner
       then ["scanner" "lp"]
+      else if config.nixconf.system.hardware.printer.enable
+      then ["lp"]
       else [];
 
     # Find printers/scanners on local network

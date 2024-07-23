@@ -17,7 +17,8 @@
           logitech = true;
         };
         printer = {
-          enable = false;
+          enable = true;
+          printerDrivers = [ "cups-dymo" ];
           scanner = false;
         };
       };
