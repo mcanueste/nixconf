@@ -44,9 +44,9 @@ in {
       # TODO: disable later
       #
       # Catppuccin theme is done via catppuccin-nix
-      # Catppuccin cursor theme is done via catppuccin-nix
-      catppuccin.enable = true;
+      # catppuccin.enable = true;
 
+      # Catppuccin cursor theme is done via catppuccin-nix
       iconTheme = {
         name = "Papirus-Dark"; # folder icons are modified
         package = pkgs.catppuccin-papirus-folders.override {
