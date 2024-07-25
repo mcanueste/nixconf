@@ -1,8 +1,6 @@
 local function init()
     -- Completion + Snippet
     -- nvim-cmp: https://github.com/hrsh7th/nvim-cmp -- Autocompletion plugin
-    -- cmp_luasnip: https://github.com/saadparwaiz1/cmp_luasnip -- Snippets source for nvim-cmp
-    -- LuaSnip: https://github.com/L3MON4D3/LuaSnip -- Snippets plugin
 
     ---------------------- Completion and diagnostics UI modifications
     vim.opt.completeopt = { "menu", "menuone", "noselect" }
@@ -57,9 +55,6 @@ local function init()
     })
 
     ---------------------- cmp setup
-    local luasnip = require("luasnip")
-    require("luasnip.loaders.from_vscode").lazy_load() -- lazy load snippets
-
     local cmp = require("cmp")
     local cmp_select_opts = { behavior = cmp.SelectBehavior.Select }
 
@@ -79,15 +74,8 @@ local function init()
                 vim_item.menu = ({
                     buffer = "[Buf]",
                     nvim_lsp = "[LSP]",
-                    luasnip = "[Snip]",
                 })[entry.source.name]
                 return vim_item
-            end,
-        },
-
-        snippet = {
-            expand = function(args)
-                luasnip.lsp_expand(args.body)
             end,
         },
 
@@ -115,27 +103,11 @@ local function init()
                     cmp.complete()
                 end
             end),
-
-            ["<C-f>"] = cmp.mapping(function(fallback)
-                if luasnip.jumpable(1) then
-                    luasnip.jump(1)
-                else
-                    fallback()
-                end
-            end, { "i", "s" }),
-            ["<C-b>"] = cmp.mapping(function(fallback)
-                if luasnip.jumpable(-1) then
-                    luasnip.jump(-1)
-                else
-                    fallback()
-                end
-            end, { "i", "s" }),
         }),
 
         sources = cmp.config.sources({
             { name = "nvim_lsp_signature_help" },
             { name = "nvim_lsp" },
-            { name = "luasnip" },
             { name = "async_path" },
         }, {
             { name = "buffer", keyword_length = 3 },

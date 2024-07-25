@@ -91,7 +91,7 @@ in {
             FTerm-nvim
             # nvim-spectre -- TODO: check later
 
-            # completion & snippets
+            # completion
             nvim-cmp
             cmp-dap
             cmp-async-path
@@ -101,9 +101,6 @@ in {
             cmp-nvim-lsp
             cmp-nvim-lsp-signature-help
             cmp-nvim-lsp-document-symbol
-            luasnip
-            cmp_luasnip
-            friendly-snippets
 
             # lsp & dap
             nvim-lspconfig
