@@ -115,7 +115,7 @@
     media = {
       zathura = true;
       obsidian = true;
-      zotero = false;
+      zotero = true;
       calibre = true;
       gimp = true;
       spotify = true;
