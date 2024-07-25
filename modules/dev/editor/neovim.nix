@@ -19,18 +19,6 @@
     };
   };
 
-  # TODO contribute to nixpkgs?
-  telescope-picker-list = pkgs.vimUtils.buildVimPlugin {
-    pname = "telescope-picker-list.nvim";
-    version = "5a51890";
-    src = pkgs.fetchFromGitHub {
-      owner = "OliverChao";
-      repo = "telescope-picker-list.nvim";
-      rev = "5a5189068131a43f802721ddb07a25279d98272e";
-      sha256 = "tETd3gkxB3MENSxYPnof5SP+HSBVmtxp+Wv44X4kP4Q=";
-    };
-  };
-
   nvim-config = pkgs.vimUtils.buildVimPlugin {
     name = "config";
     src = ./nvim;
@@ -191,7 +179,6 @@ in {
           ++ [
             nvim-config
             trouble-beta
-            telescope-picker-list
           ];
 
         extraConfig = ''

@@ -85,15 +85,6 @@ local function init()
         { noremap = true, desc = "Search Highlight Groups" }
     )
 
-    -------------------------------------------- Picker List Extension
-    telescope.load_extension("picker_list")
-    vim.keymap.set(
-        "n",
-        "<leader>sp",
-        telescope.extensions.picker_list.picker_list,
-        { noremap = true, desc = "Pickers" }
-    )
-
     -------------------------------------------- Git
     vim.keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", { noremap = true, desc = "Commits" })
     vim.keymap.set("n", "<leader>gC", "<cmd>Telescope git_bcommits<cr>", { noremap = true, desc = "Buffer Commits" })
