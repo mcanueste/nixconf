@@ -108,7 +108,7 @@ local function init()
                 nix = {
                     flake = {
                         -- Auto-archiving behavior which may use network.
-                        autoArchive = true,
+                        autoArchive = false,
                         -- Whether to auto-eval flake inputs.
                         autoEvalInputs = true,
                     },
