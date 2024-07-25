@@ -8,17 +8,6 @@
     v = "nvim";
   };
 
-  trouble-beta = pkgs.vimUtils.buildVimPlugin {
-    pname = "trouble.nvim";
-    version = "2024-03-29";
-    src = pkgs.fetchFromGitHub {
-      owner = "folke";
-      repo = "trouble.nvim";
-      rev = "dev";
-      sha256 = "pbM5W5+dIQNqoWtZDNQ1w/kMoY66YuUCH1wvASO37MM=";
-    };
-  };
-
   nvim-config = pkgs.vimUtils.buildVimPlugin {
     name = "config";
     src = ./nvim;
@@ -75,6 +64,7 @@ in {
             gitsigns-nvim
             which-key-nvim
             cloak-nvim
+            trouble-nvim
 
             FTerm-nvim
             # nvim-spectre -- TODO: check later
@@ -176,10 +166,7 @@ in {
                 p.groovy
               ]))
           ]
-          ++ [
-            nvim-config
-            trouble-beta
-          ];
+          ++ [nvim-config];
 
         extraConfig = ''
           lua << EOF
