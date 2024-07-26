@@ -110,7 +110,7 @@ local function init()
                         -- Auto-archiving behavior which may use network.
                         autoArchive = false,
                         -- Whether to auto-eval flake inputs.
-                        autoEvalInputs = true,
+                        autoEvalInputs = false,
                     },
                 },
             },
