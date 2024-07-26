@@ -3,7 +3,7 @@ local function init()
     local chatgpt = require("chatgpt")
 
     chatgpt.setup({
-        api_key_cmd = "bw get notes OpenAI",
+        api_key_cmd = "cat " .. home .. "/.ssh/openai.key",
         predefined_chat_gpt_prompts = "https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv",
         openai_params = {
             model = "gpt-4",
