@@ -4,35 +4,35 @@ local function init()
     local whichkey = require("which-key")
     whichkey.setup()
 
-    whichkey.register({ a = { name = "ai" } }, { prefix = "<leader>" })
-    whichkey.register({ ac = { name = "copilot" } }, { prefix = "<leader>" })
-    whichkey.register({ b = { name = "buffer" } }, { prefix = "<leader>" })
-    whichkey.register({ c = { name = "copilot" } }, { prefix = "<leader>" })
-    whichkey.register({ d = { name = "dap" } }, { prefix = "<leader>" })
-    whichkey.register({ dg = { name = "go" } }, { prefix = "<leader>" })
-    whichkey.register({ e = { name = "edit" } }, { prefix = "<leader>" })
-    whichkey.register({ f = { name = "find" } }, { prefix = "<leader>" })
-    whichkey.register({ g = { name = "git" } }, { prefix = "<leader>" })
-    whichkey.register({ gt = { name = "toggle" } }, { prefix = "<leader>" })
-    whichkey.register({ h = { name = "harpoon" } }, { prefix = "<leader>" })
-    whichkey.register({ l = { name = "lsp" } }, { prefix = "<leader>" })
-    whichkey.register({ lw = { name = "workspace" } }, { prefix = "<leader>" })
-    whichkey.register({ n = { name = "notes" } }, { prefix = "<leader>" })
-    whichkey.register({ o = { name = "open" } }, { prefix = "<leader>" })
-    whichkey.register({ s = { name = "search" } }, { prefix = "<leader>" })
-    whichkey.register({ t = { name = "toggle" } }, { prefix = "<leader>" })
-
-    local objects = {
-        [" "] = "Whitespace",
-        ["?"] = "User Prompt",
-        _ = "Underscore",
-        a = "Argument",
-        c = "Class",
-        f = "Function",
-        o = "Block-Conditional-Loop",
-        q = "Quote",
-    }
-    whichkey.register({ mode = { "o", "x" }, i = objects, a = objects })
+    whichkey.add({
+        { "<leader>a", group = "ai" },
+        { "<leader>b", group = "buffer" },
+        { "<leader>c", group = "copilot" },
+        { "<leader>d", group = "dap" },
+        { "<leader>dg", group = "go" },
+        { "<leader>e", group = "edit" },
+        { "<leader>f", group = "find" },
+        { "<leader>g", group = "git" },
+        { "<leader>gt", group = "toggle" },
+        { "<leader>h", group = "harpoon" },
+        { "<leader>l", group = "lsp" },
+        { "<leader>lw", group = "workspace" },
+        { "<leader>n", group = "notes" },
+        { "<leader>o", group = "open" },
+        { "<leader>s", group = "search" },
+        { "<leader>t", group = "toggle" },
+        {
+            mode = { "o", "o", "x", "x" },
+            { "i ", desc = "Whitespace" },
+            { "i?", desc = "User Prompt" },
+            { "i_", desc = "Underscore" },
+            { "ia", desc = "Argument" },
+            { "ic", desc = "Class" },
+            { "if", desc = "Function" },
+            { "io", desc = "Block-Conditional-Loop" },
+            { "iq", desc = "Quote" },
+        },
+    })
 end
 
 return { init = init }
