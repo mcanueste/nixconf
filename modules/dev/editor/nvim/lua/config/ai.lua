@@ -6,7 +6,7 @@ local function init()
         api_key_cmd = "cat " .. home .. "/.ssh/openai.key",
         predefined_chat_gpt_prompts = "https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv",
         openai_params = {
-            model = "gpt-4",
+            model = "gpt-4o",
             frequency_penalty = 0,
             presence_penalty = 0,
             max_tokens = 300,
@@ -16,7 +16,7 @@ local function init()
         },
         openai_edit_params = {
             -- model = "gpt-3.5-turbo",
-            model = "gpt-4",
+            model = "gpt-4o",
             frequency_penalty = 0,
             presence_penalty = 0,
             temperature = 0,
