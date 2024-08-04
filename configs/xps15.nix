@@ -18,7 +18,7 @@
         };
         printer = {
           enable = true;
-          printerDrivers = [ "cups-dymo" ];
+          printerDrivers = ["cups-dymo"];
           scanner = false;
         };
       };
@@ -61,6 +61,7 @@
         sound = {
           pipewire = true;
         };
+        kanata = true;
       };
 
       desktop = {
