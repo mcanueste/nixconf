@@ -4,5 +4,6 @@
     ./storage.nix
     ./sound.nix
     ./dbus.nix
+    ./kanata.nix
   ];
 }

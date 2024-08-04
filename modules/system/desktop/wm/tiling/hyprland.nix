@@ -158,7 +158,7 @@
             input = {
               kb_layout = "us,de";
               kb_model = "pc105";
-              kb_options = "caps:escape,grp:win_space_toggle";
+              # kb_options = "caps:escape,grp:win_space_toggle";
               follow_mouse = 1;
               numlock_by_default = true;
               touchpad = {

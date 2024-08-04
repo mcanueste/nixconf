@@ -48,7 +48,7 @@
     services.xserver = {
       xkb = {
         model = "pc105";
-        options = "caps:escape,grp:win_space_toggle";
+        # options = "caps:escape,grp:win_space_toggle";
         layout = config.nixconf.system.locale.layout;
       };
     };
