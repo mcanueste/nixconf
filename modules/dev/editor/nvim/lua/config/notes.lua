@@ -112,7 +112,7 @@ local function init()
         desc = "Update lastmod metadata on save",
         pattern = "*.md",
         group = vim.api.nvim_create_augroup("config_notes", { clear = true }),
-        command = "%s/^lastmod: 20.*/lastmod: " .. os.date("%Y-%m-%d") .. "/ | normal! ``<cr>",
+        command = "%s/^lastmod: 20.*/lastmod: " .. os.date("%Y-%m-%d") .. "/ | normal! ``",
     })
 
     vim.keymap.set("n", "<leader>nO", "<cmd>ObsidianOpen<cr>", { noremap = true, desc = "Open" })
