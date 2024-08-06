@@ -4,5 +4,6 @@
     ./datagrip.nix
     ./vscode.nix
     ./neovim.nix
+    ./helix.nix
   ];
 }

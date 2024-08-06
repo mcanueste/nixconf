@@ -47,7 +47,7 @@
         symbolsSetup = isCorne: ''
           (deflayer symbols ;;3-# 4-$ 6-^ 8-* 7-& \-| 5-% 1-! 2-@
                   S-3   S-8   S-[   S-]   S-2   +     7     8     9     S--
-            XX    S-6   S-4   S-9   S-0   S-5   =     4     5     6     -     XX
+            grv   S-6   S-4   S-9   S-0   S-5   =     4     5     6     -     S-grv
                   S-7   S-\   [     ]     S-1   0     1     2     3     \
                          ${thumbs isCorne thumbNoOp thumbCorneNoOp}
           )
