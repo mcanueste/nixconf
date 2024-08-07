@@ -112,6 +112,7 @@ in {
 
             # Note taking
             obsidian-nvim
+            markview-nvim
 
             # treesitter
             nvim-autopairs

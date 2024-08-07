@@ -15,7 +15,7 @@ local function init()
 
     vim.opt.sidescrolloff = 8 -- Columns of context
     vim.opt.scrolloff = 10 -- Rows of context
-    vim.opt.conceallevel = 1 -- Hide * markup for bold and italic (if incremented)
+    vim.opt.conceallevel = 0 -- Don't conceal anything, leave rendering to markview.
 
     vim.opt.list = false -- hide listchars
 

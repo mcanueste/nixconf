@@ -1,8 +1,5 @@
 local obsidian = require("obsidian")
-
-local date = function()
-    return os.date("%Y-%m-%d")
-end
+local markview = require("markview")
 
 local date_verbose = function()
     return os.date("%A, %B %d, %Y")
@@ -26,9 +23,20 @@ local weekly = function()
 end
 
 local function init()
-    -- Obsidian.nvim setup
-    -- See: https://github.com/epwalsh/obsidian.nvim
-    -- Also see: https://mcanueste.com/posts/obsidian-nvim-customizations-for-capture-notes
+    markview.setup({
+        modes = { "n", "i", "no", "c" },
+        hybrid_modes = { "i" },
+
+        -- This is nice to have
+        callbacks = {
+            on_enable = function(_, win)
+                vim.wo[win].conceallevel = 2
+                vim.wo[win].concealcursor = "nc"
+            end,
+        },
+    })
+    vim.cmd("Markview enableAll")
+    vim.keymap.set("n", "<leader>nV", "<cmd>Markview toggle<cr>", { noremap = true, desc = "Toggle Renderer" })
 
     local home = vim.fn.expand("$HOME")
     local vault_path = home .. "/Projects/personal/notes"
@@ -39,6 +47,7 @@ local function init()
         log_level = vim.log.levels.INFO,
         open_notes_in = "vsplit",
         new_notes_location = "current_dir",
+        ui = { enable = false }, -- use markview for rendering
 
         completion = {
             nvim_cmp = true,
@@ -51,7 +60,6 @@ local function init()
             time_format = "%H:%M",
             -- A map for custom variables, the key should be the variable and the value a function
             substitutions = {
-                -- date = date,
                 date_verbose = date_verbose,
                 daily = daily,
                 daily_previous = daily_previous,
