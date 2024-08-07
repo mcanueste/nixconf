@@ -1,117 +1,100 @@
 local function init()
     local home = vim.fn.expand("$HOME")
-    local chatgpt = require("chatgpt")
+    local gp = require("gp")
 
-    chatgpt.setup({
-        api_key_cmd = "cat " .. home .. "/.ssh/openai.key",
-        predefined_chat_gpt_prompts = "https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv",
-        openai_params = {
-            model = "gpt-4o",
-            frequency_penalty = 0,
-            presence_penalty = 0,
-            max_tokens = 300,
-            temperature = 0,
-            top_p = 1,
-            n = 1,
-        },
-        openai_edit_params = {
-            -- model = "gpt-3.5-turbo",
-            model = "gpt-4o",
-            frequency_penalty = 0,
-            presence_penalty = 0,
-            temperature = 0,
-            top_p = 1,
-            n = 1,
-        },
-        edit_with_instructions = {
-            diff = false,
-            keymaps = {
-                close = "<C-c>",
-                accept = "<C-y>",
-                toggle_diff = "<C-d>",
-                toggle_settings = "<C-o>",
-                toggle_help = "<C-h>",
-                cycle_windows = "<Tab>",
-                use_output_as_input = "<C-i>",
+    gp.setup({
+        openai_api_key = { "cat", home .. "/.ssh/openai.key" },
+        providers = {
+            openai = {
+                disable = false,
+                endpoint = "https://api.openai.com/v1/chat/completions",
             },
         },
-        chat = {
-            sessions_window = {
-                active_sign = " 󰄵 ",
-                inactive_sign = " 󰄱 ",
+
+        agents = {
+            {
+                name = "ChatGPT4o",
+                chat = true,
+                command = false,
+                -- string with model name or table with model name and parameters
+                model = { model = "gpt-4o", temperature = 1.1, top_p = 1 },
+                -- system prompt (use this to specify the persona/role of the AI)
+                system_prompt = require("gp.defaults").chat_system_prompt,
             },
-            keymaps = {
-                close = "<C-c>",
-                yank_last = "<C-y>",
-                yank_last_code = "<C-k>",
-                scroll_up = "<C-u>",
-                scroll_down = "<C-d>",
-                new_session = "<C-n>",
-                cycle_windows = "<Tab>",
-                cycle_modes = "<C-f>",
-                next_message = "<C-j>",
-                prev_message = "<C-k>",
-                select_session = "<Space>",
-                rename_session = "r",
-                delete_session = "d",
-                draft_message = "<C-r>",
-                edit_message = "e",
-                delete_message = "d",
-                toggle_settings = "<C-o>",
-                toggle_sessions = "<C-p>",
-                toggle_help = "<C-h>",
-                toggle_message_role = "<C-r>",
-                toggle_system_role_open = "<C-s>",
-                stop_generating = "<C-x>",
+            {
+                provider = "openai",
+                name = "CodeGPT4o",
+                chat = false,
+                command = true,
+                -- string with model name or table with model name and parameters
+                model = { model = "gpt-4o", temperature = 0.8, top_p = 1 },
+                -- system prompt (use this to specify the persona/role of the AI)
+                system_prompt = require("gp.defaults").code_system_prompt,
             },
         },
+
+        -- The banner shown at the top of each chat file.
+        chat_template = require("gp.defaults").chat_template,
+        -- if you want more real estate in your chat files and don't need the helper text
+        -- chat_template = require("gp.defaults").short_chat_template,
+
+        -- chat topic generation prompt
+        chat_topic_gen_prompt = "Summarize the topic of our conversation above"
+            .. " in two or three words. Respond only with those words.",
+        -- chat topic model (string with model name or table with model name and parameters)
+
+        -- local shortcuts bound to the chat buffer
+        -- (be careful to choose something which will work across specified modes)
+        chat_shortcut_respond = { modes = { "n", "i", "v", "x" }, shortcut = "<C-g><C-g>" },
+        chat_shortcut_delete = { modes = { "n", "i", "v", "x" }, shortcut = "<C-g>d" },
+        chat_shortcut_stop = { modes = { "n", "i", "v", "x" }, shortcut = "<C-g>s" },
+        chat_shortcut_new = { modes = { "n", "i", "v", "x" }, shortcut = "<C-g>c" },
+
+        -- default search term when using :GpChatFinder
+        chat_finder_pattern = "topic ",
+
+        -- templates
+        template_selection = "I have the following from {{filename}}:"
+            .. "\n\n```{{filetype}}\n{{selection}}\n```\n\n{{command}}",
+        template_rewrite = "I have the following from {{filename}}:"
+            .. "\n\n```{{filetype}}\n{{selection}}\n```\n\n{{command}}"
+            .. "\n\nRespond exclusively with the snippet that should replace the selection above.",
+        template_append = "I have the following from {{filename}}:"
+            .. "\n\n```{{filetype}}\n{{selection}}\n```\n\n{{command}}"
+            .. "\n\nRespond exclusively with the snippet that should be appended after the selection above.",
+        template_prepend = "I have the following from {{filename}}:"
+            .. "\n\n```{{filetype}}\n{{selection}}\n```\n\n{{command}}"
+            .. "\n\nRespond exclusively with the snippet that should be prepended before the selection above.",
+        template_command = "{{command}}",
+
+        whisper = {
+            -- arecord is linux only, but has no cropping issues and is faster
+            -- ffmpeg in the default configuration is macos only, but can be used on any platform
+            -- whisper_rec_cmd = {"arecord", "-c", "1", "-f", "S16_LE", "-r", "48000", "-d", "3600", "rec.wav"},
+            -- whisper_rec_cmd = {"ffmpeg", "-y", "-f", "avfoundation", "-i", ":0", "-t", "3600", "rec.wav"},
+            rec_cmd = nil,
+        },
+
+        image = { secret = { "cat", home .. "/.ssh/openai.key" } },
     })
 
-    -- GPT Prompts
-    vim.keymap.set("n", "<leader>ap", function()
-        chatgpt.openChat()
-    end, { noremap = true, desc = "ChatGPT Prompt" })
+    vim.keymap.set("n", "<leader>at", "<cmd>GpChatToggle vsplit<cr>", { noremap = true, desc = "Toggle Chat" })
 
-    vim.keymap.set("n", "<leader>aa", function()
-        chatgpt.selectAwesomePrompt()
-    end, { noremap = true, desc = "ChatGPT Act as" })
+    vim.keymap.set("n", "<leader>af", "<cmd>GpChatFinder<cr>", { noremap = true, desc = "Find Chats" })
 
-    -- Code related commands
-    vim.keymap.set(
-        "n",
-        "<leader>ao",
-        "<cmd>ChatGPTRun optimize_code<cr>",
-        { noremap = true, desc = "ChatGPT Optimize Code" }
-    )
-    vim.keymap.set(
-        "n",
-        "<leader>ar",
-        "<cmd>ChatGPTRun code_readability_analysis<cr>",
-        { noremap = true, desc = "ChatGPT Code Readability Analysis" }
-    )
-    vim.keymap.set("n", "<leader>ae", function()
-        chatgpt.edit_with_instructions()
-    end, { noremap = true, desc = "ChatGPT Edit" })
-    vim.keymap.set("n", "<leader>ad", "<cmd>ChatGPTRun docstring<cr>", { noremap = true, desc = "ChatGPT Docstring" })
-    vim.keymap.set("n", "<leader>at", "<cmd>ChatGPTRun add_tests<cr>", { noremap = true, desc = "ChatGPT Add Test" })
-    vim.keymap.set("n", "<leader>af", "<cmd>ChatGPTRun fix_bugs<cr>", { noremap = true, desc = "ChatGPT Fix Bugs" })
-    vim.keymap.set(
-        "n",
-        "<leader>aE",
-        "<cmd>ChatGPTRun explain_code<cr>",
-        { noremap = true, desc = "ChatGPT Explain Code" }
-    )
+    vim.keymap.set("n", "<leader>aR", "<cmd>GpChatRespond<cr>", { noremap = true, desc = "Request New Response" })
 
-    -- Text editing related commands
-    vim.keymap.set("n", "<leader>as", "<cmd>ChatGPTRun summarize<cr>", { noremap = true, desc = "ChatGPT Summarize" })
-    vim.keymap.set("n", "<leader>an", "<cmd>ChatGPTRun translate<cr>", { noremap = true, desc = "ChatGPT Translate" })
-    vim.keymap.set("n", "<leader>ak", "<cmd>ChatGPTRun keywords<cr>", { noremap = true, desc = "ChatGPT Keywords" })
-    vim.keymap.set(
-        "n",
-        "<leader>ag",
-        "<cmd>ChatGPTRun grammar_correction<cr>",
-        { noremap = true, desc = "ChatGPT Grammar Correction" }
-    )
+    vim.keymap.set("n", "<leader>aD", "<cmd>GpChatDelete<cr>", { noremap = true, desc = "Delete Chat" })
+
+    vim.keymap.set("n", "<leader>ac", "<cmd>GpContext vsplit<cr>", { noremap = true, desc = "Add to Context" })
+
+    -- TODO: setup image and whisper later
+    -- vim.keymap.set(
+    --     "n",
+    --     "<leader>ai",
+    --     "<cmd>GpImage<cr>",
+    --     { noremap = true, desc = "Add to Context" }
+    -- )
 end
 
 return { init = init }

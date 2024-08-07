@@ -8,6 +8,19 @@
     v = "nvim";
   };
 
+  # gp-nvim = pkgs.neovimUtils.buildNeovimPlugin {
+  gp-nvim = pkgs.vimUtils.buildVimPlugin {
+    pname = "gp-nvim";
+    version = "3.8.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "Robitx";
+      repo = "gp.nvim";
+      rev = "v3.8.0";
+      sha256 = "88UcYToQO3GU5Zw+EMUAP2NBpxf+b2l/PBXahrSp7fE=";
+    };
+    meta.homepage = "https://github.com/Robitx/gp.nvim/";
+  };
+
   nvim-config = pkgs.vimUtils.buildVimPlugin {
     name = "config";
     src = ./nvim;
@@ -96,7 +109,6 @@ in {
             # AI
             copilot-lua
             CopilotChat-nvim
-            ChatGPT-nvim
 
             # Note taking
             obsidian-nvim
@@ -166,7 +178,7 @@ in {
                 p.groovy
               ]))
           ]
-          ++ [nvim-config];
+          ++ [gp-nvim nvim-config];
 
         extraConfig = ''
           lua << EOF

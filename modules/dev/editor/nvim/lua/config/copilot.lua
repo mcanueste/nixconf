@@ -17,7 +17,6 @@ local function init()
         },
 
         suggestion = {
-            auto_trigger = true,
             keymap = {
                 accept = "<C-l>",
                 dismiss = "<C-h>",
@@ -46,7 +45,7 @@ local function init()
     end, { noremap = true, desc = "Toggle Copilot Auto Trigger" })
 
     require("CopilotChat").setup({
-        model = "gpt-4", -- GPT model to use, 'gpt-3.5-turbo' or 'gpt-4'
+        model = "gpt-4", -- GPT model to use
         temperature = 0.1, -- GPT temperature
 
         context = nil, -- Default context to use, 'buffers', 'buffer' or none (can be specified manually in prompt via @).
