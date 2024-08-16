@@ -34,58 +34,7 @@
           process-unmapped-keys yes
         '';
 
-        thumbNoOp = "XX";
-        thumbCorneNoOp = "XX XX XX XX XX XX";
-        thumbNoMod = "spc";
-        thumbCorneNoMod = "del   tab   bspc  spc   ret   (caps-word 2000)";
-
-        thumbs = isCorne: thumb: thumbCorne:
-          if isCorne
-          then thumbCorne
-          else thumb;
-
-        symbolsSetup = isCorne: ''
-          (deflayer symbols ;;3-# 4-$ 6-^ 8-* 7-& \-| 5-% 1-! 2-@
-                  S-3   S-8   S-[   S-]   S-2   +     7     8     9     S--
-            grv   S-6   S-4   S-9   S-0   S-5   =     4     5     6     -     S-grv
-                  S-7   S-\   [     ]     S-1   0     1     2     3     \
-                         ${thumbs isCorne thumbNoOp thumbCorneNoOp}
-          )
-
-          (defalias
-            spc (tap-hold $tap-time $hold-time spc (layer-while-held symbols))
-          )
-        '';
-
-        auxSetup = isCorne: ''
-          (deflayer aux
-                  XX    XX    XX    XX    XX    XX    XX    XX    XX    XX
-            XX    @m1   @m2   @m3   @m4   @m5   @m6   @m7   @m8   @m9   @m0   XX
-                  XX    XX    XX    XX    XX    XX    XX    XX    XX    XX
-                         ${thumbs isCorne thumbNoOp thumbCorneNoOp}
-          )
-
-          (defvar
-            tap-dance-time 190
-          )
-
-          (defalias
-            ' (tap-hold $tap-time $hold-time ' (layer-while-held aux))
-
-            m1 (tap-dance $tap-dance-time (M-1 S-M-1 XX XX))
-            m2 (tap-dance $tap-dance-time (M-2 S-M-2 XX XX))
-            m3 (tap-dance $tap-dance-time (M-3 S-M-3 XX XX))
-            m4 (tap-dance $tap-dance-time (M-4 S-M-4 XX XX))
-            m5 (tap-dance $tap-dance-time (M-5 S-M-5 XX XX))
-            m6 (tap-dance $tap-dance-time (M-6 S-M-6 XX XX))
-            m7 (tap-dance $tap-dance-time (M-7 S-M-7 XX XX))
-            m8 (tap-dance $tap-dance-time (M-8 S-M-8 XX XX))
-            m9 (tap-dance $tap-dance-time (M-9 S-M-9 XX XX))
-            m0 (tap-dance $tap-dance-time (M-0 S-M-0 XX XX))
-          )
-        '';
-
-        unicodeSetup = isCorne: ''
+        unicodeAliases = ''
           (defalias
             _ae (unicode ä)
             _Ae (unicode Ä)
@@ -111,32 +60,14 @@
             ii (fork @_ii @_Ii (lsft rsft))
             gg (fork @_gg @_Gg (lsft rsft))
 
-            esc (tap-hold $tap-time $hold-time esc (layer-while-held unicodechars))
-          )
-
-          (deflayer unicodechars
-                  XX    XX    XX    XX    XX    XX    @ue   @ii   @oe   XX
-            XX    @ae   @sh   XX    lshft @gg   XX    rshft XX    XX    XX    XX
-                  XX    XX    @ch   XX    @ss   XX    XX    XX    XX    XX
-                         ${thumbs isCorne thumbNoOp thumbCorneNoOp}
+            ' (tap-hold $tap-time $hold-time ' (layer-while-held unicodechars))
           )
         '';
 
-        homeRowSetup = isCorne: ''
+        homerowAliases = ''
           (defvar
             tap-time 190
             hold-time 190
-
-            left-hand-keys (
-                  q w e r t
-              esc         g
-                  z x c v b
-            )
-            right-hand-keys (
-              y u i o p
-              h         '
-              n m , . /
-            )
           )
 
           (defalias
@@ -153,30 +84,6 @@
 
           (deffakekeys
             to-base (layer-switch base)
-          )
-
-          (deflayer nomods
-                  q     w     e     r     t     y     u     i     o     p
-            esc   a     s     d     f     g     h     j     k     l     ;     '
-                  z     x     c     v     b     n     m     ,     .     /
-                         ${thumbs isCorne thumbNoMod thumbCorneNoMod}
-
-          )
-        '';
-
-        comboSetup = ''
-          (defchords symbols 50
-            (,    ) ,
-            (  .  ) .
-            (    /) /
-            (, .  ) ;
-            (  . /) :
-          )
-
-          (defalias
-            ;;c, (chord symbols ,)
-            ;;c. (chord symbols .)
-            ;;c/ (chord symbols /)
           )
         '';
       in {
@@ -198,17 +105,54 @@
 
             (deflayer base
                     q     w     e     r     t     y     u     i     o     p
-              @esc  @a    @s    @d    @f    g     h     @j    @k    @l    @;    @'
+              esc   @a    @s    @d    @f    g     h     @j    @k    @l    @;    @'
                     z     x     c     v     b     n     m     ,     .     /
                                               @spc
             )
 
-            ${symbolsSetup false}
-            ${unicodeSetup false}
-            ${auxSetup false}
-            ${homeRowSetup false}
+            (deflayer unicodechars
+                    XX    XX    XX    XX    XX    XX    @ue   @ii   @oe   XX
+              XX    @ae   @sh   XX    lshft @gg   XX    rshft XX    XX    XX    XX
+                    XX    XX    @ch   XX    @ss   XX    XX    XX    XX    XX
+                                               XX
+            )
+
+            (deflayer symbols ;;3-# 4-$ 6-^ 8-* 7-& \-| 5-% 1-! 2-@
+                    S-3   S-8   S-[   S-]   XX    XX    7     8     9     S-2
+              XX    S-6   S-4   S-9   S-0   XX    XX    4     5     6     S-5   XX
+                    S-7   S-\   [     ]     XX    0     1     2     3     S-1
+                                               XX
+            )
+
+            (deflayer nomods
+                    q     w     e     r     t     y     u     i     o     p
+              esc   a     s     d     f     g     h     j     k     l     ;     '
+                    z     x     c     v     b     n     m     ,     .     /
+                                              spc
+            )
+
+            (defalias
+              spc (tap-hold $tap-time $hold-time spc (layer-while-held symbols))
+            )
+
+            (defvar
+              left-hand-keys (
+                    q w e r t
+                esc         g
+                    z x c v b
+              )
+              right-hand-keys (
+                y u i o p
+                h         '
+                n m , . /
+              )
+            )
+
+            ${unicodeAliases}
+            ${homerowAliases}
           '';
         };
+
         corne = {
           inherit extraDefCfg;
 
@@ -218,42 +162,75 @@
 
           config = ''
             (defsrc
-                    q     w     e     r     t     y     u     i     o     p
+              grv   q     w     e     r     t     y     u     i     o     p     -
               esc   a     s     d     f     g     h     j     k     l     ;     '
-                    z     x     c     v     b     n     m     ,     .     /
+              \     z     x     c     v     b     n     m     ,     .     /     =
                                 del   tab   bspc  spc   ret   lshft
             )
 
             (deflayer base
-                    q     w     e     r     t     y     u     i     o     p
-              @esc  @a    @s    @d    @f    g     h     @j    @k    @l    @;    @'
-                    z     x     c     v     b     n     m     ,     .     /
+              grv   q     w     e     r     t     y     u     i     o     p     -
+              esc   @a    @s    @d    @f    g     h     @j    @k    @l    @;    @'
+              \     z     x     c     v     b     n     m     ,     .     /     =
                                 del   @tab  @bspc @spc  ret   (caps-word 2000)
             )
 
+            (deflayer unicodechars
+              XX    XX    XX    XX    XX    XX    XX    @ue   @ii   @oe   XX    XX
+              XX    @ae   @sh   XX    lshft @gg   XX    rshft XX    XX    XX    XX
+              XX    XX    XX    @ch   XX    @ss   XX    XX    XX    XX    XX    XX
+                                XX    XX    XX    XX    XX    XX
+            )
+
+            (deflayer symbols ;;3-# 4-$ 6-^ 8-* 7-& \-| 5-% 1-! 2-@
+              XX    S-3   S-8   S-[   S-]   XX    XX    7     8     9     S-2   XX
+              XX    S-6   S-4   S-9   S-0   XX    XX    4     5     6     S-5   XX
+              XX    S-7   S-\   [     ]     XX    0     1     2     3     S-1   XX
+                                XX    XX    XX    XX    XX    XX
+            )
+
             (deflayer navigation
-                    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX
+              XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX    XX
               XX    lmet  lalt  lctrl lshft XX    lft   down  up    rght  XX    XX
-                    XX    XX    XX    XX    XX    home  pgdn  pgup  end   XX
+              XX    XX    XX    XX    XX    XX    home  pgdn  pgup  end   XX    XX
                                 XX    XX    XX    XX    XX    XX
             )
 
             (deflayer numbers
-                    XX    XX    XX    XX    XX    XX    7     8     9     XX
+              XX    XX    XX    XX    XX    XX    XX    7     8     9     XX    XX
               XX    lmet  lalt  lctrl lshft XX    XX    4     5     6     XX    XX
-                    XX    XX    XX    XX    XX    0     1     2     3     XX
+              XX    XX    XX    XX    XX    XX    0     1     2     3     XX    XX
                                 XX    XX    XX    XX    XX    XX
             )
 
+            (deflayer nomods
+              grv   q     w     e     r     t     y     u     i     o     p     -
+              esc   a     s     d     f     g     h     j     k     l     ;     '
+              \     z     x     c     v     b     n     m     ,     .     /     =
+                                del   tab   bspc  spc   ret   lshft
+            )
+
             (defalias
+              spc (tap-hold $tap-time $hold-time spc (layer-while-held symbols))
               bspc (tap-hold $tap-time $hold-time bspc (layer-while-held navigation))
               tab (tap-hold $tap-time $hold-time tab (layer-while-held numbers))
             )
 
-            ${symbolsSetup true}
-            ${unicodeSetup true}
-            ${auxSetup true}
-            ${homeRowSetup true}
+            (defvar
+              left-hand-keys (
+                grv q w e r t
+                esc         g
+                \   z x c v b
+              )
+              right-hand-keys (
+                y u i o p -
+                h         '
+                n m , . / =
+              )
+            )
+
+            ${unicodeAliases}
+            ${homerowAliases}
           '';
         };
       };
