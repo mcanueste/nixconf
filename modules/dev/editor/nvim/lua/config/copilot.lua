@@ -17,6 +17,8 @@ local function init()
         },
 
         suggestion = {
+            enabled = true,
+            auto_trigger = true,
             keymap = {
                 accept = "<C-l>",
                 dismiss = "<C-h>",
