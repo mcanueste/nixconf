@@ -24,7 +24,7 @@
     home-manager.users.${config.nixconf.system.user} = {
       home.packages = [
         pkgs.qemu
-        pkgs.quickemu
+        # pkgs.quickemu # does not build due to maturin
         # pkgs.quickgui # Not really useful
       ];
     };
