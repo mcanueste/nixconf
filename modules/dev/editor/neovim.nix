@@ -117,67 +117,7 @@ in {
             # treesitter
             nvim-autopairs
             nvim-ts-context-commentstring
-            (nvim-treesitter.withPlugins
-              (p: [
-                p.bash
-                p.bibtex
-                p.c
-                p.cmake
-                p.cpp
-                p.css
-                p.diff
-                p.dockerfile
-                p.fish
-                p.git_config
-                p.git_rebase
-                p.gitattributes
-                p.gitcommit
-                p.gitignore
-                p.go
-                p.gomod
-                p.gosum
-                p.gowork
-                p.graphql
-                p.html
-                p.htmldjango
-                p.http
-                p.ini
-                p.javascript
-                p.jq
-                p.json
-                p.latex
-                p.lua
-                p.make
-                p.markdown
-                p.markdown_inline
-                p.meson
-                p.ninja
-                p.nix
-                p.norg
-                p.ocaml
-                p.ocaml_interface
-                p.ocamllex
-                p.python
-                p.tree-sitter-query
-                p.rasi
-                p.regex
-                p.rst
-                p.ruby
-                p.rust
-                p.sql
-                p.svelte
-                p.terraform
-                p.toml
-                p.tsx
-                p.typescript
-                p.vim
-                p.vimdoc
-                p.vue
-                p.yaml
-                p.zig
-                p.hcl
-                p.groovy
-              ]))
+            (nvim-treesitter.withAllGrammars)
           ]
           ++ [gp-nvim nvim-config];
 
@@ -229,6 +169,9 @@ in {
           # nix support
           nil
           alejandra
+
+          # nickel support
+          nls
 
           # go support
           gopls
