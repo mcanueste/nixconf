@@ -1,5 +1,4 @@
 local obsidian = require("obsidian")
-local markview = require("markview")
 
 local date_verbose = function()
     return os.date("%A, %B %d, %Y")
@@ -23,21 +22,6 @@ local weekly = function()
 end
 
 local function init()
-    markview.setup({
-        modes = { "n", "i", "no", "c" },
-        hybrid_modes = { "i" },
-
-        -- This is nice to have
-        callbacks = {
-            on_enable = function(_, win)
-                vim.wo[win].conceallevel = 2
-                vim.wo[win].concealcursor = "nc"
-            end,
-        },
-    })
-    vim.cmd("Markview enableAll")
-    vim.keymap.set("n", "<leader>nV", "<cmd>Markview toggle<cr>", { noremap = true, desc = "Toggle Renderer" })
-
     local home = vim.fn.expand("$HOME")
     local vault_path = home .. "/Projects/personal/notes"
 
