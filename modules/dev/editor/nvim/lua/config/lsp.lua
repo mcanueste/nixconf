@@ -97,7 +97,7 @@ local function init()
     lspconfig.ocamllsp.setup({ capabilities = capabilities })
 
     ---------------------- ocaml
-    lspconfig.nickel_ls.setup({ capabilities = capabilities })
+    -- lspconfig.nickel_ls.setup({ capabilities = capabilities })
 
     ---------------------- Nix
     lspconfig.nil_ls.setup({

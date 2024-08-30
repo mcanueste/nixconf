@@ -11,8 +11,9 @@
       xorg.libX11
       stdenv.cc.cc.lib
 
-      # added during rust dev
+      # crypto related links
       openssl
+      libxcrypt
 
       # cudaPackages.cudatoolkit
       # cudaPackages.cudnn
