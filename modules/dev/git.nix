@@ -12,69 +12,66 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.dev.git {
-    home-manager.users.${config.nixconf.system.user} = {
-      programs.bash = {
-        shellAliases = {
-          g = "git";
-        };
-      };
+  config = let
+    shellAliases = {
+      g = "git";
+    };
+  in
+    lib.mkIf config.nixconf.dev.git {
+      home-manager.users.${config.nixconf.system.user} = {
+        programs.bash = {inherit shellAliases;};
+        programs.zsh = {inherit shellAliases;};
+        programs.fish = {inherit shellAliases;};
 
-      programs.fish = {
-        shellAliases = {
-          g = "git";
-        };
-      };
-
-      programs.git = {
-        enable = true;
-        lfs.enable = true;
-        delta.enable = true;
-        userName = "mcanueste"; # TODO: get these vals from config
-        userEmail = "mcanueste@gmail.com";
-        extraConfig = {
-          core = {
-            whitespace = "trailing-space,space-before-tab";
-            editor = "nvim";
+        programs.git = {
+          enable = true;
+          lfs.enable = true;
+          delta.enable = true;
+          userName = "mcanueste";
+          userEmail = "mcanueste@gmail.com";
+          extraConfig = {
+            core = {
+              whitespace = "trailing-space,space-before-tab";
+              editor = "nvim";
+            };
           };
-        };
-        aliases = {
-          s = "status";
+          aliases = {
+            s = "status";
 
-          a = "add";
-          aa = "add --all";
+            a = "add";
+            aa = "add --all";
 
-          p = "push";
-          pl = "pull";
+            p = "push";
+            pl = "pull";
 
-          c = "commit";
-          cm = "commit -m";
+            c = "commit";
+            cm = "commit -m";
 
-          cl = "clone";
+            cl = "clone";
 
-          b = "branch";
+            b = "branch";
 
-          co = "checkout";
-          cob = "checkout -b";
+            co = "checkout";
+            cob = "checkout -b";
 
-          r = "rebase";
-          r2 = "rebase -i HEAD~2";
+            r = "rebase";
+            r2 = "rebase -i HEAD~2";
 
-          re = "restore";
-          res = "restore --staged";
+            re = "restore";
+            res = "restore --staged";
 
-          d = "diff";
+            d = "diff";
 
-          clb = "clone --bare";
-          wl = "worktree list";
-          wa = "worktree add";
-          wr = "worktree remove";
-          wrf = "worktree remove --force";
+            clb = "clone --bare";
+            wl = "worktree list";
+            wa = "worktree add";
+            wr = "worktree remove";
+            wrf = "worktree remove --force";
 
-          # might move this to the main config
-          fix-remote-branches = "config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'";
+            # might move this to the main config
+            fix-remote-branches = "config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'";
+          };
         };
       };
     };
-  };
 }

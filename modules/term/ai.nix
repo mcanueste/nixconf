@@ -15,8 +15,6 @@
   config = lib.mkIf config.nixconf.term.ai {
     home-manager.users.${config.nixconf.system.user} = let
       shellAliases = {
-        explain = "gh copilot explain";
-        suggest = "gh copilot suggest";
         chat = "aichat"; # TODO: investigate aichat usecases
       };
     in {
@@ -25,8 +23,6 @@
       programs.fish = {inherit shellAliases;};
 
       home.packages = [
-        pkgs.gh
-
         # TODO this doesn't work with gpt-4??
         # TODO investigate CLI tools for generating images and audio as well
         pkgs.aichat # https://github.com/sigoden/aichat

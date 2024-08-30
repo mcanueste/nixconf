@@ -139,6 +139,7 @@
 
     dev = {
       git = true;
+      gh = true;
       lazygit = true;
 
       virtualisation = {
