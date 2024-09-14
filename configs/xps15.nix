@@ -156,7 +156,7 @@
         neovim = true;
         vscode = true;
         datagrip = false;
-        helix = true;
+        helix = false;
 
         pycharm = {
           enable = false;
