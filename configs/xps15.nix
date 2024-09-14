@@ -138,39 +138,18 @@
     };
 
     dev = {
-      git = true;
-      gh = true;
-      lazygit = true;
-
-      virtualisation = {
-        qemu = true;
-        virt-manager = true;
+      git = {
+        enable = true;
+        gh = true;
+        lazygit = true;
       };
 
-      iac = {
-        docker = {
-          enable = true;
-          dockerAutoPrune = true;
-        };
-
-        podman = {
-          enable = false;
-          dockerCompat = false;
-        };
-
-        lazydocker = true;
-        dive = true;
-        packer = true;
-        minikube = true;
-        kubectl = true;
-        k9s = true;
-        terraform = true;
-        localstack = false;
-        aws = false;
-        gcloud = true;
-        azure = false;
-        digital-ocean = false;
-        cfssl = false;
+      languages = {
+        just = true;
+        pre-commit = true;
+        python = true;
+        rust = true;
+        go = true;
       };
 
       editor = {
@@ -183,6 +162,54 @@
           enable = false;
           professional = false;
         };
+      };
+
+      virtualisation = {
+        qemu = true;
+        virt-manager = true;
+      };
+
+      iac = {
+        packer = true;
+        terraform = true;
+      };
+
+      container = {
+        docker = {
+          enable = true;
+          autoPrune = true;
+        };
+
+        podman = {
+          enable = false;
+          dockerCompat = false;
+        };
+
+        nerdctl = true;
+        lazydocker = true;
+        dive = true;
+      };
+
+      cicd = {
+        argo = true;
+        argocd = true;
+      };
+
+      k8s = {
+        kubectl = true;
+        k9s = true;
+        minikube = true;
+        kind = true;
+        helm = true;
+      };
+
+      cloud = {
+        aws = false;
+        azure = false;
+        cfssl = false;
+        digital-ocean = false;
+        gcloud = true;
+        localstack = false;
       };
     };
   };

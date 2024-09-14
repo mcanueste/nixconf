@@ -4,20 +4,37 @@
   config,
   ...
 }: {
-  options.nixconf.dev = {
-    git = lib.mkOption {
+  options.nixconf.dev.git = {
+    enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
       description = "Enable git config";
+    };
+
+    lazygit = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Lazygit";
+    };
+
+    gh = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "GitHub Client";
     };
   };
 
   config = let
     shellAliases = {
       g = "git";
+
+      lg = "lazygit";
+
+      explain = "gh copilot explain";
+      suggest = "gh copilot suggest";
     };
   in
-    lib.mkIf config.nixconf.dev.git {
+    lib.mkIf config.nixconf.dev.git.enable {
       home-manager.users.${config.nixconf.system.user} = {
         programs.bash = {inherit shellAliases;};
         programs.zsh = {inherit shellAliases;};
@@ -55,7 +72,6 @@
             cob = "checkout -b";
 
             r = "rebase";
-            r2 = "rebase -i HEAD~2";
 
             re = "restore";
             res = "restore --staged";
@@ -68,9 +84,17 @@
             wr = "worktree remove";
             wrf = "worktree remove --force";
 
-            # might move this to the main config
-            fix-remote-branches = "config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'";
+            # fix-remote-branches = "config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'";
           };
+        };
+
+        programs.gh = {
+          enable = config.nixconf.dev.git.gh;
+          extensions = [pkgs.gh-dash pkgs.gh-copilot];
+        };
+
+        programs.lazygit = {
+          enable = config.nixconf.dev.git.lazygit;
         };
       };
     };
