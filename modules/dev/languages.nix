@@ -49,7 +49,7 @@
     rustPackages =
       if config.nixconf.dev.languages.rust
       then [
-        pkgs.rustup
+        # pkgs.rustup
         # pkgs.cargo
         # pkgs.rustfmt
       ]
