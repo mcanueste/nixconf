@@ -135,6 +135,10 @@
 
     gaming = {
       steam = true;
+      other = {
+        minecraft = true;
+        minecraft-server = false;
+      };
     };
 
     dev = {
