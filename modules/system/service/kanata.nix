@@ -106,7 +106,7 @@
             (deflayer base
                     q     w     e     r     t     y     u     i     o     p
               esc   @a    @s    @d    @f    g     h     @j    @k    @l    @;    @'
-                    z     x     c     v     b     n     m     ,     .     /
+                    @cnz  @cnx  @cnc  v     b     n     m     ,     .     /
                                               @spc
             )
 
@@ -127,12 +127,37 @@
             (deflayer nomods
                     q     w     e     r     t     y     u     i     o     p
               esc   a     s     d     f     g     h     j     k     l     ;     '
-                    z     x     c     v     b     n     m     ,     .     /
+                    @cbz  @cbx  @cbc  v     b     n     m     ,     .     /
                                               spc
+            )
+
+            (defchords switchnomodschord 500
+              (z    ) z
+              (  x  ) x
+              (    c) c
+              (z x c) @switchnomods
+            )
+
+            (defchords switchbasechord 500
+              (z    ) z
+              (  x  ) x
+              (    c) c
+              (z x c) @switchbase
             )
 
             (defalias
               spc (tap-hold $tap-time $hold-time spc (layer-while-held symbols))
+
+              switchnomods (layer-switch nomods)
+              switchbase (layer-switch base)
+
+              cnz (chord switchnomodschord z)
+              cnx (chord switchnomodschord x)
+              cnc (chord switchnomodschord c)
+
+              cbz (chord switchbasechord z)
+              cbx (chord switchbasechord x)
+              cbc (chord switchbasechord c)
             )
 
             (defvar
