@@ -159,7 +159,7 @@ in {
 
           # python support
           ruff
-          pyright
+          (pyright.overrideAttrs (drv: {version = "1.1.381";}))
 
           # ocaml lsp
           ocamlPackages.ocaml-lsp
