@@ -159,7 +159,7 @@ in {
 
           # python support
           ruff
-          basedpyright
+          pyright
 
           # ocaml lsp
           ocamlPackages.ocaml-lsp

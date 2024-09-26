@@ -82,9 +82,9 @@ local function init()
 
     ---------------------- python
     lspconfig.ruff.setup({ capabilities = capabilities }) -- newer version compared to ruff_lsp (alpha)
-    lspconfig.basedpyright.setup({
+    lspconfig.pyright.setup({
         capabilities = capabilities,
-        basedpyright = {
+        pyright = {
             analysis = {
                 autoSearchPaths = true,
                 diagnosticMode = "openFilesOnly",
