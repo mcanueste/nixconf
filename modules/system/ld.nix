@@ -2,18 +2,40 @@
   # TODO: fix and document these things
   programs.nix-ld = {
     enable = true;
-    libraries = with pkgs; [
+    libraries = [
       # needed by torch-experiments
-      glib
-      libGL
-      libGLU
-      freeglut
-      xorg.libX11
-      stdenv.cc.cc.lib
+      pkgs.glib
+      pkgs.libGL
+      pkgs.libGLU
+      pkgs.freeglut
+      pkgs.xorg.libX11
+
+      pkgs.stdenv.cc.cc
+      pkgs.stdenv.cc.cc.lib # to provide libstdc++.so.6
 
       # crypto related links
-      openssl
-      libxcrypt
+      pkgs.openssl
+      pkgs.libxcrypt
+
+      # Game Dev with Bevy
+      pkgs.udev
+      pkgs.alsa-lib
+      pkgs.clang
+      pkgs.lld
+      pkgs.vulkan-tools
+      pkgs.vulkan-headers
+      pkgs.vulkan-loader
+      pkgs.vulkan-validation-layers
+
+      # If using x11
+      # pkgs.xorg.libX11
+      # pkgs.xorg.libXcursor
+      # pkgs.xorg.libXi
+      # pkgs.xorg.libXrandr # To use the x11 feature
+
+      # If using wayland
+      pkgs.libxkbcommon
+      pkgs.wayland
 
       # cudaPackages.cudatoolkit
       # cudaPackages.cudnn
@@ -25,7 +47,6 @@
 
       # jemalloc
       # rust-jemalloc-sys
-      # stdenv.cc.cc
       # zlib
       # fuse3
       # icu
@@ -37,9 +58,7 @@
       # # List by default
       # zlib
       # zstd
-      # stdenv.cc.cc
       # curl
-      # openssl
       # attr
       # libssh
       # bzip2
@@ -53,7 +72,6 @@
       # # My own additions
       # xorg.libXcomposite
       # xorg.libXtst
-      # xorg.libXrandr
       # xorg.libXext
       # xorg.libX11
       # xorg.libXfixes
@@ -69,10 +87,8 @@
       #
       # # Without these it silently fails
       # xorg.libXinerama
-      # xorg.libXcursor
       # xorg.libXrender
       # xorg.libXScrnSaver
-      # xorg.libXi
       # xorg.libSM
       # xorg.libICE
       # gnome2.GConf
@@ -112,7 +128,6 @@
       #
       # # Other things from runtime
       # flac
-      # freeglut
       # libjpeg
       # libpng
       # libpng12
@@ -146,14 +161,11 @@
       # fontconfig
       # freetype
       # dbus
-      # alsaLib
       # expat
       # # Needed for electron
       # libdrm
       # mesa
-      # libxkbcommon
       # # Needed to run, via virtualenv + pip, matplotlib & tikzplotlib
-      # stdenv.cc.cc.lib # to provide libstdc++.so.6
     ];
   };
 }
