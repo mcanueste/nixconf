@@ -6,17 +6,23 @@
   ...
 }: let
   mainFont = "JetBrainsMono";
+
   nerdFonts = pkgs.nerdfonts.override {
     fonts = [
       mainFont
     ];
   };
+
   flavor = "mocha";
   accent = "blue";
 in {
-  catppuccin.flavor = flavor;
-  # maybe more OS catppuccin themes in the future
+  # OS Level Configuration
+  catppuccin = {
+    flavor = flavor;
+    accent = accent;
+  };
 
+  # User Level Configuration
   home-manager.users.${config.nixconf.system.user} = {
     imports = [
       inputs.catppuccin.homeManagerModules.catppuccin
@@ -29,6 +35,7 @@ in {
 
     programs.bat.catppuccin.enable = true;
     programs.git.delta.catppuccin.enable = true;
+    programs.gh-dash.catppuccin.enable = true;
     programs.fish.catppuccin.enable = true;
     programs.fzf.catppuccin.enable = true;
     programs.k9s.catppuccin.enable = true;
@@ -38,38 +45,6 @@ in {
     programs.yazi.catppuccin.enable = true;
     programs.zathura.catppuccin.enable = true;
 
-    gtk = {
-      # No longer support from catppuccin
-      # https://github.com/catppuccin/gtk/issues/262
-      # TODO: disable later
-      #
-      # Catppuccin theme is done via catppuccin-nix
-      # catppuccin.enable = true;
-
-      # Catppuccin cursor theme is done via catppuccin-nix
-      iconTheme = {
-        name = "Papirus-Dark"; # folder icons are modified
-        package = pkgs.catppuccin-papirus-folders.override {
-          inherit flavor accent;
-        };
-      };
-    };
-
-    # theming in QT is a mess (this config somehow follows gtk theming)
-    qt = {
-      platformTheme.name = "gtk2";
-      style = {
-        name = "gtk2";
-        package = [
-          pkgs.adwaita-qt
-          pkgs.adwaita-qt6
-          pkgs.libsForQt5.qtstyleplugins
-          pkgs.qt6Packages.qt6gtk2
-        ];
-      };
-    };
-
-    # TODO set cursor with hyprland, maybe?
     wayland.windowManager.hyprland = {
       catppuccin.enable = true;
     };
