@@ -3,7 +3,9 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -12,15 +14,6 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     catppuccin.url = "github:catppuccin/nix";
-  };
-
-  nixConfig = {
-    extra-substituters = [
-      "https://cache.nixos.org"
-    ];
-    extra-trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-    ];
   };
 
   outputs = {
