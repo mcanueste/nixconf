@@ -25,11 +25,14 @@
     ...
   } @ inputs: let
     system = "x86_64-linux";
+
     config = import ./configs/xps15.nix;
+
     pkgs = import nixpkgs {
       inherit system;
       config = {allowUnfree = true;};
     };
+
     pkgs-stable = import nixpkgs-stable {
       inherit system;
       config = {allowUnfree = true;};
