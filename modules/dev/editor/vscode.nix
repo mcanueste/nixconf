@@ -39,7 +39,7 @@
           golang.go
 
           jnoortheen.nix-ide
-          arrterian.nix-env-selector
+          mkhl.direnv
 
           ms-vscode.makefile-tools
           skellock.just
