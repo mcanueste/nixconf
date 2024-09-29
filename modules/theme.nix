@@ -54,6 +54,28 @@ in {
       font = "${mainFont} Nerd Font 14";
     };
 
+    gtk = {
+      iconTheme = {
+        name = "Papirus-Dark"; # folder icons are modified
+        package = pkgs.catppuccin-papirus-folders.override {
+          inherit flavor accent;
+        };
+      };
+    };
+
+    qt = {
+      platformTheme.name = "gtk2";
+      style = {
+        name = "gtk2";
+        package = [
+          pkgs.adwaita-qt
+          pkgs.adwaita-qt6
+          pkgs.libsForQt5.qtstyleplugins
+          pkgs.qt6Packages.qt6gtk2
+        ];
+      };
+    };
+
     # SwayNC theme and font config
     xdg.configFile."swaync/style.css".text =
       if
