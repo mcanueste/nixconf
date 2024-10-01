@@ -82,6 +82,8 @@
 
     home-manager.users.${config.nixconf.system.user} = {
       home.packages = builtins.filter (p: p != null) [
+        pkgs.cosign
+
         (
           if config.nixconf.dev.container.docker.enable
           then pkgs.docker-compose

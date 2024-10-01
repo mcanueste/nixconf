@@ -52,6 +52,7 @@
               editor = "nvim";
             };
           };
+          ignores = [".direnv"];  # things that will be ignored always
           aliases = {
             s = "status";
 

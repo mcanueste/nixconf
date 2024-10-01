@@ -11,8 +11,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    flake-parts.url = "github:hercules-ci/flake-parts";
-
     catppuccin.url = "github:catppuccin/nix";
   };
 
@@ -53,10 +51,6 @@
           config
         ];
       };
-    };
-
-    homeConfigurations = {
-      nixos = nixosConfigurations.nixos.home-manager.users.${config.nixconf.system.user}.home;
     };
   };
 }
