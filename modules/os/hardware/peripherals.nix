@@ -33,7 +33,8 @@
       powerOnBoot = true;
       settings = {
         General = {
-          Enable = "Source,Sink,Media,Socket";
+          Enable = "Source,Sink,Media,Socket"; # enable A2DP profile
+          Experimental = true;  # show battery charge status
         };
       };
     };

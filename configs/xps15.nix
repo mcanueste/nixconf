@@ -11,6 +11,7 @@
         nvidia = {
           enable = true;
           isTuring = true;
+          sync = true;
         };
         peripherals = {
           bluetooth = true;

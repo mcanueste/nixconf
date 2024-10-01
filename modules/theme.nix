@@ -16,12 +16,6 @@
   flavor = "mocha";
   accent = "blue";
 in {
-  # OS Level Configuration
-  catppuccin = {
-    flavor = flavor;
-    accent = accent;
-  };
-
   # User Level Configuration
   home-manager.users.${config.nixconf.system.user} = {
     imports = [

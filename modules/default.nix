@@ -1,5 +1,7 @@
 {
   imports = [
+    ./os
+
     ./theme.nix
     ./system
     ./term

@@ -16,6 +16,12 @@
       default = false;
       description = "Enable Turing architecture specific configuration";
     };
+
+    sync = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable Nvidia Optimus Sync configuration";
+    };
   };
 
   config = lib.mkIf config.nixconf.system.hardware.nvidia.enable {
@@ -42,12 +48,9 @@
       # Modesetting is required.
       modesetting.enable = true;
 
-      # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-      powerManagement.enable = false;
-
-      # Fine-grained power management. Turns off GPU when not in use.
-      # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-      powerManagement.finegrained = config.nixconf.system.hardware.nvidia.isTuring;
+      # Enable the Nvidia settings menu,
+      # accessible via `nvidia-settings`.
+      nvidiaSettings = true;
 
       # Use the NVidia open source kernel module (not to be confused with the
       # independent third-party "nouveau" open source driver).
@@ -58,24 +61,29 @@
       # Currently alpha-quality/buggy, so false is currently the recommended setting.
       open = false;
 
-      # Enable the Nvidia settings menu,
-      # accessible via `nvidia-settings`.
-      nvidiaSettings = true;
-
       # Optionally, you may need to select the appropriate driver version for your specific GPU.
       # package = config.boot.kernelPackages.nvidiaPackages.stable;
       package = config.boot.kernelPackages.nvidiaPackages.production;
 
       # Optimus PRIME config for offloading
       prime = {
+        sync.enable = config.nixconf.system.hardware.nvidia.sync;
         offload = {
-          enable = true;
-          enableOffloadCmd = true;
+          enable = !config.nixconf.system.hardware.nvidia.sync;
+          enableOffloadCmd = !config.nixconf.system.hardware.nvidia.sync;
         };
+
         # Make sure to use the correct Bus ID values for your system!
         intelBusId = "PCI:0:2:0";
         nvidiaBusId = "PCI:1:0:0";
       };
+
+      # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
+      powerManagement.enable = false;
+
+      # Fine-grained power management. Turns off GPU when not in use.
+      # Experimental and only works on modern Nvidia GPUs (Turing or newer).
+      powerManagement.finegrained = config.nixconf.system.hardware.nvidia.isTuring && !config.nixconf.system.hardware.nvidia.sync;
     };
 
     # Set VDPAU driver for intel gpu
@@ -88,23 +96,24 @@
     boot.blacklistedKernelModules = ["nouveau" "bbswitch"];
 
     # Enable nvidia offload script
-    home-manager.users.${config.nixconf.system.user} = let
-      nvidia-offload = pkgs.writeShellApplication {
-        name = "nvidia-offload";
-        runtimeInputs = [];
-        text = ''
-          #!/usr/bin/env bash
-          export __NV_PRIME_RENDER_OFFLOAD=1
-          export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-          export __GLX_VENDOR_LIBRARY_NAME=nvidia
-          export __VK_LAYER_NV_optimus=NVIDIA_only
-          exec "$@"
-        '';
-      };
-    in {
-      home.packages = [
-        nvidia-offload
-      ];
-    };
+    environment.systemPackages = builtins.filter (p: p != null) [
+      (
+        if config.nixconf.system.hardware.nvidia.enable && !config.nixconf.system.hardware.nvidia.sync
+        then
+          pkgs.writeShellApplication {
+            name = "nvidia-offload";
+            runtimeInputs = [];
+            text = ''
+              #!/usr/bin/env bash
+              export __NV_PRIME_RENDER_OFFLOAD=1
+              export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+              export __GLX_VENDOR_LIBRARY_NAME=nvidia
+              export __VK_LAYER_NV_optimus=NVIDIA_only
+              exec "$@"
+            '';
+          }
+        else null
+      )
+    ];
   };
 }

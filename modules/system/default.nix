@@ -1,6 +1,5 @@
 {
   imports = [
-    ./hardware
     ./network
     ./service
     ./desktop
