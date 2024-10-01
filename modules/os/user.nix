@@ -27,6 +27,7 @@ in {
     };
 
     # Home manager settings
+    # TODO: move home manager configuration to separate dir along with this
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;

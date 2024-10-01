@@ -12,13 +12,13 @@
 
     openssh = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Enable openssh for remote connections to host";
     };
 
     sshd = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Enable sshd for remote connections to host";
     };
 
