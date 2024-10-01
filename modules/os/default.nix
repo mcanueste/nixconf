@@ -1,6 +1,8 @@
 {
   imports = [
-    ./theme.nix
     ./hardware
+    ./network
+
+    ./theme.nix
   ];
 }

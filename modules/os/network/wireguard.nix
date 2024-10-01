@@ -19,7 +19,7 @@
 
   config = lib.mkIf config.nixconf.system.network.wireguard.enable {
     networking = {
-      # # --- Wireguard configs if any
+      # Wireguard configs if any
       wg-quick.interfaces = builtins.foldl' (a: b: a // b) {} config.nixconf.system.network.wireguard.configs;
     };
   };

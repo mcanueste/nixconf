@@ -1,6 +1,5 @@
 {
   imports = [
-    ./network
     ./service
     ./desktop
 
