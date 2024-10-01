@@ -8,6 +8,8 @@
     ./locale.nix
     ./user.nix
     ./security.nix
+    ./fhs.nix
+    ./nh.nix
 
     ./theme.nix
   ];

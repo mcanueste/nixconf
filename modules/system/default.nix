@@ -1,7 +1,5 @@
 {
   imports = [
     ./desktop
-
-    ./ld.nix
   ];
 }

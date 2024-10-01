@@ -6,6 +6,8 @@
 
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
 
+    nix-alien.url = "github:thiagokokada/nix-alien";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -18,6 +20,7 @@
     self,
     nixpkgs,
     nixpkgs-stable,
+    nix-alien,
     home-manager,
     catppuccin,
     ...
@@ -35,14 +38,12 @@
       inherit system;
       config = {allowUnfree = true;};
     };
-  in rec {
-    formatter.${system} = pkgs.alejandra;
-
+  in {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
-          inherit inputs pkgs-stable;
+          inherit system inputs pkgs-stable;
         };
         modules = [
           home-manager.nixosModules.default

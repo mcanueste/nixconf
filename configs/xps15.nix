@@ -7,7 +7,7 @@
         nvidia = {
           enable = true;
           isTuring = true;
-          sync = true;
+          sync = false; # use offload, sync causes issues with wayland and browsers
         };
         peripherals = {
           touchpad = true;
