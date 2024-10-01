@@ -24,23 +24,18 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.system.hardware.nvidia.enable {
-    # intel gpu video acceleration setup
-    # https://nixos.wiki/wiki/Accelerated_Video_Playback
-
-    nixpkgs.config.packageOverrides = pkg: {
-      vaapiIntel = pkg.vaapiIntel.override {enableHybridCodec = true;};
+  config = lib.mkIf (config.nixconf.system.hardware.graphics.enable && config.nixconf.system.hardware.nvidia.enable) {
+    # Add VDPAU driver for Nvidia GPU
+    hardware.graphics = {
+      extraPackages = with pkgs; [
+        libvdpau-va-gl
+        vaapiVdpau
+      ];
     };
 
-    hardware.graphics = {
-      enable = true;
-      enable32Bit = true;
-      extraPackages = with pkgs; [
-        intel-media-driver # LIBVA_DRIVER_NAME=iHD
-        vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium) # replace with intel-vaapi-driver if necessary
-        vaapiVdpau
-        libvdpau-va-gl
-      ];
+    # Set VDPAU driver for Nvidia gpu
+    environment.variables = {
+      VDPAU_DRIVER = "va_gl";
     };
 
     # NVIDIA Optimus Prime setup
@@ -52,14 +47,8 @@
       # accessible via `nvidia-settings`.
       nvidiaSettings = true;
 
-      # Use the NVidia open source kernel module (not to be confused with the
-      # independent third-party "nouveau" open source driver).
-      # Support is limited to the Turing and later architectures. Full list of
-      # supported GPUs is at:
-      # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-      # Only available from driver 515.43.04+
-      # Currently alpha-quality/buggy, so false is currently the recommended setting.
-      open = false;
+      # enable the open source drivers if the package supports it
+      open = lib.mkOverride 990 (config.hardware.nvidia.package ? open && config.hardware.nvidia.package ? firmware);
 
       # Optionally, you may need to select the appropriate driver version for your specific GPU.
       # package = config.boot.kernelPackages.nvidiaPackages.stable;
@@ -86,13 +75,8 @@
       powerManagement.finegrained = config.nixconf.system.hardware.nvidia.isTuring && !config.nixconf.system.hardware.nvidia.sync;
     };
 
-    # Set VDPAU driver for intel gpu
-    environment.variables = {
-      VDPAU_DRIVER = "va_gl";
-    };
-
     # Enable GPU drivers
-    services.xserver.videoDrivers = ["intel" "nvidia"];
+    services.xserver.videoDrivers = ["nvidia"];
     boot.blacklistedKernelModules = ["nouveau" "bbswitch"];
 
     # Enable nvidia offload script

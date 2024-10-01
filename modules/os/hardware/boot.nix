@@ -44,7 +44,7 @@
           "vmd" # Intel Volume Management Device Driver
         ];
 
-        kernelModules = [];
+        kernelModules = ["i915"]; # intel iGPU
       };
 
       # After root fs is mounted
@@ -52,6 +52,9 @@
         "kvm-intel" # Virtualization support on Intel
         "coretemp" # Intel CPU temperature sensor
         "acpi_call" # Allow ACPI calls, power management.
+        "acpi_rev_override" # Override ACPI revision
+        "i915.enable_fbc=1" # Enable framebuffer compression for iGPU power savings
+        "i915.enable_psr=1" # Panel Self Refresh for iGPU power savings. Disable (0) if there are flickers.
       ];
 
       extraModulePackages = with config.boot.kernelPackages; [acpi_call];
@@ -62,6 +65,11 @@
           canTouchEfiVariables = true;
         };
       };
+
+      # power_save - works well on this card - disable if there are issues
+      extraModprobeConfig = ''
+        options iwlwifi power_save=1
+      '';
     };
 
     hardware.enableRedistributableFirmware = true;

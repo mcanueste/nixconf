@@ -5,20 +5,6 @@
   ...
 }: {
   config = {
-    environment.systemPackages = with pkgs; [
-      coreutils-full
-      curl
-      wget
-      lsof
-      pciutils
-      lshw
-      libva-utils
-      glxinfo
-      gzip
-      unzip
-      cachix
-    ];
-
     home-manager.users.${config.nixconf.system.user} = {
       home.packages = with pkgs; [
         dash
