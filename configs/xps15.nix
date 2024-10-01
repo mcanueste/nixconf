@@ -4,16 +4,13 @@
       user = "mcst";
 
       hardware = {
-        boot = {
-          intelMicrocode = true;
-          cpuFreqGovernor = "ondemand";
-        };
         nvidia = {
           enable = true;
           isTuring = true;
           sync = true;
         };
         peripherals = {
+          touchpad = true;
           bluetooth = true;
           logitech = true;
         };
@@ -26,18 +23,8 @@
 
       network = {
         hostname = "nixos";
-        hosts = "";
-        firewall = {
-          enable = true;
-          allowedTCPPorts = [];
-          allowedTCPPortRanges = [];
-          allowedUDPPorts = [];
-          allowedUDPPortRanges = [];
-        };
-        wireguard = {
-          enable = false;
-          configs = [];
-        };
+        firewall.enable = true;
+        wireguard.enable = false;
         mtr = {
           enable = true;
           exportMtr = false;
@@ -45,24 +32,12 @@
       };
 
       service = {
-        power = {
-          thermald = true;
-          power-profiles-daemon = true;
-        };
-        dbus = {
-          enable = true;
-          tumbler = true;
-        };
+        kanata = true;
         storage = {
           trim = true;
-          hdapsd = false;
           gvfs = true;
           udisk2 = true;
         };
-        sound = {
-          pipewire = true;
-        };
-        kanata = true;
       };
 
       desktop = {

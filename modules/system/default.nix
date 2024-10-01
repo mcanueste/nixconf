@@ -1,6 +1,5 @@
 {
   imports = [
-    ./service
     ./desktop
 
     ./common.nix

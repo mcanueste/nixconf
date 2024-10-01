@@ -6,7 +6,7 @@
   options.nixconf.system.hardware.boot = {
     intelMicrocode = lib.mkOption {
       type = lib.types.bool;
-      default = false;
+      default = true;
       description = "Enable Intel microcode updates.";
     };
 

@@ -18,13 +18,13 @@
 
     gvfs = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Enable Gnome Virtual FS for mounting remote resources (i.e. phones)";
     };
 
     udisk2 = lib.mkOption {
       type = lib.types.bool;
-      default = true;
+      default = false;
       description = "Enable udisk2 for auto mounting usb";
     };
   };

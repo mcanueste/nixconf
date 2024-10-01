@@ -12,7 +12,7 @@
 
     tumbler = lib.mkOption {
       type = lib.types.bool;
-      default = false;
+      default = true;
       description = "Service for applications to request thumbnails for various URI schemes and Mime types";
     };
   };
