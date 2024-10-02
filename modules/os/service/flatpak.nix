@@ -93,12 +93,6 @@
   };
 
   config = lib.mkIf config.nixconf.system.service.flatpak.enable {
-    environment.sessionVariables.XDG_DATA_DIRS = lib.mkOverride 1000 (lib.strings.concatStringsSep ":" [
-      config.environment.sessionVariables.XDG_DATA_DIRS
-      "/var/lib/flatpak/exports/share"
-      "$HOME/.local/share/flatpak/exports/share"
-    ]);
-
     services.flatpak = let
       addFlathub = option: appId:
         if option

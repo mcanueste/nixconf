@@ -39,9 +39,6 @@
       };
     };
 
-    # Enable blueman for bluetooth control
-    services.blueman.enable = config.nixconf.system.hardware.peripherals.bluetooth;
-
     # Install Solaar for managing Logitech devices
     hardware.logitech = {
       wireless = {

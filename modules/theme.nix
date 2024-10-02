@@ -39,15 +39,6 @@ in {
     programs.yazi.catppuccin.enable = true;
     programs.zathura.catppuccin.enable = true;
 
-    wayland.windowManager.hyprland = {
-      catppuccin.enable = true;
-    };
-
-    programs.rofi = {
-      catppuccin.enable = true;
-      font = "${mainFont} Nerd Font 14";
-    };
-
     gtk = {
       iconTheme = {
         name = "Papirus-Dark"; # folder icons are modified
@@ -69,20 +60,6 @@ in {
         ];
       };
     };
-
-    # SwayNC theme and font config
-    xdg.configFile."swaync/style.css".text =
-      if
-        config.nixconf.system.desktop.enable
-        && config.nixconf.system.desktop.wm.enable
-        && config.nixconf.system.desktop.wm.notification.swaync
-      then
-        (lib.strings.replaceStrings ["Ubuntu"] ["${mainFont} Nerd Font"]
-          (builtins.readFile (pkgs.fetchurl {
-            url = "https://github.com/catppuccin/swaync/releases/download/v0.1.2.1/mocha.css";
-            sha256 = "sha256-2263JSGJLu2HyHQRsFt14NSFfYj0t3h52KoE3fYL5Kc=";
-          })))
-      else "";
 
     programs.alacritty = let
       getFont = font: style: {

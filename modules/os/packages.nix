@@ -23,6 +23,7 @@
       pkgs.lshw
       pkgs.gzip
       pkgs.unzip
+      pkgs.xdg-utils
 
       (
         if config.nixconf.system.packages.cachix

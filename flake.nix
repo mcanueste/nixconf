@@ -3,12 +3,15 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.follows = "nixos-cosmic/nixpkgs";
 
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
 
     nix-alien.url = "github:thiagokokada/nix-alien";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
+
+    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -24,6 +27,7 @@
     nixpkgs-stable,
     nix-alien,
     nix-flatpak,
+    nixos-cosmic,
     home-manager,
     catppuccin,
     ...
@@ -41,6 +45,15 @@
       inherit system;
       config = {allowUnfree = true;};
     };
+
+    cache-config = {
+      nix.settings = {
+        substituters = ["https://cosmic.cachix.org/"];
+        trusted-public-keys = [
+          "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+        ];
+      };
+    };
   in {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
@@ -50,10 +63,12 @@
         };
         modules = [
           nix-flatpak.nixosModules.nix-flatpak
+          nixos-cosmic.nixosModules.default
           home-manager.nixosModules.default
           catppuccin.nixosModules.catppuccin
           ./modules
           config
+          cache-config
         ];
       };
     };

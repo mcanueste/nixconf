@@ -16,21 +16,21 @@
     # intel gpu video acceleration setup
     # https://nixos.wiki/wiki/Accelerated_Video_Playback
 
-    nixpkgs.config.packageOverrides = pkg: {
-      intel-vaapi-driver = pkg.intel-vaapi-driver.override {enableHybridCodec = true;};
-    };
+    # nixpkgs.config.packageOverrides = pkg: {
+    #   intel-vaapi-driver = pkg.intel-vaapi-driver.override {enableHybridCodec = true;};
+    # };
 
     hardware.graphics = {
       enable = true;
       enable32Bit = true;
       extraPackages = with pkgs; [
         intel-media-driver # LIBVA_DRIVER_NAME=iHD hardware newer than 2014 should use this
-        intel-vaapi-driver # LIBVA_DRIVER_NAME=i965
+        # intel-vaapi-driver # LIBVA_DRIVER_NAME=i965
         intel-ocl
       ];
       extraPackages32 = with pkgs.driversi686Linux; [
         intel-media-driver
-        intel-vaapi-driver
+        # intel-vaapi-driver
       ];
     };
 

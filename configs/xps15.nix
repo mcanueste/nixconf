@@ -61,21 +61,8 @@
 
       desktop = {
         enable = true;
-        de.gnome = true;
-        wm = {
-          enable = true;
-          blueman = true;
-          networkmanager = true;
-          kanshi = true;
-          login.greetd = {
-            enable = false;
-            command = "Hyprland";
-          };
-          tiling.hyprland = true;
-          bar.waybar = true;
-          launcher.rofi = true;
-          notification.swaync = true;
-        };
+        gnome = true;
+        cosmic = true;
       };
 
       gaming = {

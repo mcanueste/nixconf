@@ -3,7 +3,6 @@
     ./bash.nix
     ./zsh.nix
     ./fish.nix
-    ./aliases.nix
     ./dircolors.nix
     ./starship.nix
     ./eza.nix

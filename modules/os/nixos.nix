@@ -1,7 +1,6 @@
 {
   pkgs,
   inputs,
-  config,
   ...
 }: {
   # Allow unfree packages
@@ -42,15 +41,4 @@
   # Avoid unwanted garbage collection when using nix-direnv
   nix.settings.keep-outputs = true;
   nix.settings.keep-derivations = true;
-
-  # Binary caches
-  nix.settings = {
-    trusted-users = ["root" "${config.nixconf.system.user}"];
-    substituters = [
-      "https://cache.nixos.org"
-    ];
-    trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-    ];
-  };
 }

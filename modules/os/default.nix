@@ -13,7 +13,5 @@
     ./nh.nix
     ./packages.nix
     ./gaming.nix
-
-    ./theme.nix
   ];
 }
