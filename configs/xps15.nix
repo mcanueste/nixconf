@@ -58,6 +58,13 @@
           notification.swaync = true;
         };
       };
+
+      gaming = {
+        enable = true;
+        steam = true;
+        proton = true;
+        prismlauncher = true;
+      };
     };
 
     term = {
@@ -105,14 +112,6 @@
       discord = true;
       slack = true;
       teams = false;
-    };
-
-    gaming = {
-      steam = true;
-      other = {
-        minecraft = true;
-        minecraft-server = false;
-      };
     };
 
     dev = {

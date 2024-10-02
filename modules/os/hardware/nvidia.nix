@@ -80,24 +80,24 @@
     boot.blacklistedKernelModules = ["nouveau" "bbswitch"];
 
     # Enable nvidia offload script
-    environment.systemPackages = builtins.filter (p: p != null) [
-      (
-        if config.nixconf.system.hardware.nvidia.enable && !config.nixconf.system.hardware.nvidia.sync
-        then
-          pkgs.writeShellApplication {
-            name = "nvidia-offload";
-            runtimeInputs = [];
-            text = ''
-              #!/usr/bin/env bash
-              export __NV_PRIME_RENDER_OFFLOAD=1
-              export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-              export __GLX_VENDOR_LIBRARY_NAME=nvidia
-              export __VK_LAYER_NV_optimus=NVIDIA_only
-              exec "$@"
-            '';
-          }
-        else null
-      )
-    ];
+    # environment.systemPackages = builtins.filter (p: p != null) [
+    #   (
+    #     if config.nixconf.system.hardware.nvidia.enable && !config.nixconf.system.hardware.nvidia.sync
+    #     then
+    #       pkgs.writeShellApplication {
+    #         name = "nvidia-offload";
+    #         runtimeInputs = [];
+    #         text = ''
+    #           #!/usr/bin/env bash
+    #           export __NV_PRIME_RENDER_OFFLOAD=1
+    #           export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+    #           export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    #           export __VK_LAYER_NV_optimus=NVIDIA_only
+    #           exec "$@"
+    #         '';
+    #       }
+    #     else null
+    #   )
+    # ];
   };
 }

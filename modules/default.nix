@@ -8,7 +8,6 @@
     ./browser
     ./media
     ./chat
-    ./gaming
     ./dev
   ];
 }
