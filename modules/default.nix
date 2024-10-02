@@ -5,8 +5,6 @@
     ./theme.nix
     ./term
     ./browser
-    ./media
-    ./chat
     ./dev
   ];
 }

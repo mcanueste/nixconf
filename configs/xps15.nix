@@ -98,10 +98,6 @@
       brave = true;
     };
 
-    media = {
-      zathura = true;
-    };
-
     dev = {
       git = {
         enable = true;
