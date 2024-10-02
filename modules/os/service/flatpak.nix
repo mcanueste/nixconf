@@ -10,6 +10,18 @@
       description = "Enable flatpaks";
     };
 
+    chrome = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable chrome";
+    };
+
+    firefox = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable firefox";
+    };
+
     vlc = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -25,7 +37,10 @@
     slack = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Enable slack";
+      description = ''
+        Enable slack.
+        Note: manually run `flatpak override --user --socket=wayland com.slack.Slack` for wayland support.
+      '';
     };
 
     telegram = lib.mkOption {
@@ -99,6 +114,8 @@
         onCalendar = "weekly";
       };
       packages = builtins.filter (p: p != null) [
+        (addFlathub config.nixconf.system.service.flatpak.chrome "com.google.Chrome")
+        (addFlathub config.nixconf.system.service.flatpak.firefox "org.mozilla.firefox")
         (addFlathub config.nixconf.system.service.flatpak.vlc "org.videolan.VLC")
         (addFlathub config.nixconf.system.service.flatpak.spotify "com.spotify.Client")
         (addFlathub config.nixconf.system.service.flatpak.slack "com.slack.Slack")

@@ -37,6 +37,8 @@
         flatpak = {
           enable = true;
 
+          chrome = true;
+          firefox = true;
           vlc = true;
           spotify = true;
           slack = true;
@@ -107,8 +109,6 @@
 
     browser = {
       brave = true;
-      firefox = true;
-      chrome = true;
     };
 
     media = {
