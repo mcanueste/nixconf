@@ -8,6 +8,8 @@
 
     nix-alien.url = "github:thiagokokada/nix-alien";
 
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -21,6 +23,7 @@
     nixpkgs,
     nixpkgs-stable,
     nix-alien,
+    nix-flatpak,
     home-manager,
     catppuccin,
     ...
@@ -46,6 +49,7 @@
           inherit system inputs pkgs-stable;
         };
         modules = [
+          nix-flatpak.nixosModules.nix-flatpak
           home-manager.nixosModules.default
           catppuccin.nixosModules.catppuccin
           ./modules

@@ -3,6 +3,7 @@
     ./hardware
     ./network
     ./service
+    ./desktop
 
     ./nixos.nix
     ./locale.nix

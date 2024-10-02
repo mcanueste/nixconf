@@ -33,6 +33,23 @@
 
       service = {
         kanata = true;
+
+        flatpak = {
+          enable = true;
+
+          vlc = true;
+          spotify = true;
+          slack = true;
+          telegram = true;
+          discord = true;
+          obs = true;
+          audacity = true;
+          gimp = true;
+          calibre = true;
+          zotero = true;
+          obsidian = true;
+        };
+
         storage = {
           trim = true;
           gvfs = true;
@@ -96,22 +113,6 @@
 
     media = {
       zathura = true;
-      obsidian = true;
-      zotero = true;
-      calibre = true;
-      gimp = true;
-      spotify = true;
-      vlc = true;
-      qpwgraph = true;
-      audacity = true;
-      obs = true;
-    };
-
-    chat = {
-      telegram = true;
-      discord = true;
-      slack = true;
-      teams = false;
     };
 
     dev = {

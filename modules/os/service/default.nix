@@ -5,5 +5,6 @@
     ./sound.nix
     ./dbus.nix
     ./kanata.nix
+    ./flatpak.nix
   ];
 }
