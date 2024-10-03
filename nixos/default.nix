@@ -18,12 +18,15 @@
     ./security.nix
     ./fhs.nix
     ./gaming.nix
+    ./virtualisation.nix
+    ./git.nix
+    ./packages.nix
 
     ./graphics
     ./desktop
+    ./editor
 
     ./term
-    ./dev
     ./theme.nix
   ];
 

@@ -4,18 +4,18 @@
   config,
   ...
 }: {
-  options.nixconf.dev.editor = {
-    vscode = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable VSCode";
-    };
+  imports = [
+    ./neovim.nix
+  ];
+
+  options.nixconf.editor = {
+    vscode = lib.mkEnableOption "VSCode";
   };
 
-  config = lib.mkIf config.nixconf.dev.editor.vscode {
+  config = {
     home-manager.users.${config.nixconf.username} = {
       programs.vscode = {
-        enable = true;
+        enable = config.nixconf.editor.vscode;
         enableUpdateCheck = false;
         enableExtensionUpdateCheck = false;
 
@@ -103,7 +103,5 @@
         };
       };
     };
-
-    # environment.persistence."/persist".users.mentos.directories = [ ".config/Code" ];
   };
 }

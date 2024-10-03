@@ -8,7 +8,6 @@
     v = "nvim";
   };
 
-  # gp-nvim = pkgs.neovimUtils.buildNeovimPlugin {
   gp-nvim = pkgs.vimUtils.buildVimPlugin {
     pname = "gp-nvim";
     version = "3.8.0";
@@ -26,15 +25,9 @@
     src = ./nvim;
   };
 in {
-  options.nixconf.dev.editor = {
-    neovim = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Enable neovim";
-    };
-  };
+  options.nixconf.editor.neovim = pkgs.libExt.mkEnabledOption "neovim";
 
-  config = lib.mkIf config.nixconf.dev.editor.neovim {
+  config = lib.mkIf config.nixconf.editor.neovim {
     home-manager.users.${config.nixconf.username} = {
       programs.bash = {inherit shellAliases;};
       programs.fish = {inherit shellAliases;};
@@ -97,7 +90,7 @@ in {
             nvim-lspconfig
             none-ls-nvim
             neodev-nvim
-            # rustaceanvim
+            rustaceanvim
             nvim-dap
             nvim-nio
             nvim-dap-ui

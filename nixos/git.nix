@@ -4,24 +4,12 @@
   config,
   ...
 }: {
-  options.nixconf.dev.git = {
-    enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable git config";
-    };
+  options.nixconf.git = {
+    enable = pkgs.libExt.mkEnabledOption "git";
 
-    lazygit = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Lazygit";
-    };
+    lazygit = pkgs.libExt.mkEnabledOption "lazygit";
 
-    gh = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "GitHub Client";
-    };
+    gh = pkgs.libExt.mkEnabledOption "GitHub Client";
   };
 
   config = let
@@ -34,7 +22,7 @@
       suggest = "gh copilot suggest";
     };
   in
-    lib.mkIf config.nixconf.dev.git.enable {
+    lib.mkIf config.nixconf.git.enable {
       home-manager.users.${config.nixconf.username} = {
         programs.bash = {inherit shellAliases;};
         programs.zsh = {inherit shellAliases;};
@@ -84,18 +72,16 @@
             wa = "worktree add";
             wr = "worktree remove";
             wrf = "worktree remove --force";
-
-            # fix-remote-branches = "config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'";
           };
         };
 
         programs.gh = {
-          enable = config.nixconf.dev.git.gh;
+          enable = config.nixconf.git.gh;
           extensions = [pkgs.gh-dash pkgs.gh-copilot];
         };
 
         programs.lazygit = {
-          enable = config.nixconf.dev.git.lazygit;
+          enable = config.nixconf.git.lazygit;
         };
       };
     };
