@@ -1,5 +1,3 @@
-# Fish Shell Configuration
-# This is the main interactive shell I use.
 {
   lib,
   config,

@@ -10,9 +10,7 @@
     ./fzf.nix
     ./zoxide.nix
     ./direnv.nix
-    ./packages.nix
     ./scripts.nix
-    ./systemd.nix
     ./ai.nix
     ./alacritty.nix
     ./tmux.nix

@@ -1,5 +1,3 @@
-# Bash Configuration
-# I personally use Fish, but once in a while I need to use Bash.
 {config, ...}: {
   environment.pathsToLink = ["/share/bash-completion"];
 

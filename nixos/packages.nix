@@ -5,8 +5,6 @@
   ...
 }: {
   options.nixconf.packages = {
-    just = lib.mkEnableOption "Just";
-
     pre-commit = lib.mkEnableOption "Pre-commit";
 
     docker-compose = lib.mkEnableOption "Docker Compose";
@@ -55,7 +53,6 @@
   config = {
     home-manager.users.${config.nixconf.username} = {
       home.packages = pkgs.libExt.filterNull [
-        (pkgs.libExt.mkIfElseNull config.nixconf.packages.just pkgs.just)
         (pkgs.libExt.mkIfElseNull config.nixconf.packages.pre-commit pkgs.pre-commit)
         (pkgs.libExt.mkIfElseNull config.nixconf.packages.docker-compose pkgs.docker-compose)
         (pkgs.libExt.mkIfElseNull config.nixconf.packages.podman-compose pkgs.podman-compose)

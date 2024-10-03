@@ -1,6 +1,3 @@
-# ZSH Configuration
-# I personally don't use ZSH much (since I can just use fish) but I added this
-# in case I need to use ZSH for some reason (most likely to debug other's issues)
 {
   pkgs,
   config,

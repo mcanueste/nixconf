@@ -21,13 +21,12 @@
     ./virtualisation.nix
     ./git.nix
     ./packages.nix
-
+    ./systemd.nix
+    ./theme.nix
     ./graphics
     ./desktop
-    ./editor
-
     ./term
-    ./theme.nix
+    ./editor
   ];
 
   options.nixconf = {
@@ -131,17 +130,38 @@
       pkgs.nh
       pkgs.nvd
       pkgs.nix-output-monitor
+      pkgs.manix
 
       # Basic must-have utilities
       pkgs.coreutils-full
       pkgs.curl
       pkgs.wget
-      pkgs.lsof
-      pkgs.pciutils
-      pkgs.lshw
       pkgs.gzip
       pkgs.unzip
+      pkgs.dash
+      pkgs.lsof
+      pkgs.lshw
+      pkgs.gnumake
+      pkgs.pciutils
       pkgs.xdg-utils
+      pkgs.rsync
+      pkgs.tree
+      pkgs.fd
+      pkgs.ripgrep
+      pkgs.htop
+      pkgs.ncdu
+      pkgs.file
+      pkgs.jq
+      pkgs.dig
+      pkgs.traceroute
+      pkgs.hyperfine
+      pkgs.entr
+      pkgs.ffmpegthumbnailer
+      pkgs.just
+
+      # Some geek tools
+      pkgs.fastfetch
+      pkgs.glow
     ];
 
     # Setup flake path for NH CLI

@@ -29,11 +29,6 @@
           batgrep
           batman
           prettybat
-
-          # requires config - TODO: check if needed
-          # batwatch
-          # batpipe
-          # batdiff
         ];
       };
     };

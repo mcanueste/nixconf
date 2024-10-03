@@ -66,6 +66,12 @@
 
     kanata = true;
 
+    systemd = {
+      enable = true;
+      sync-notes = true;
+      sync-blog = true;
+    };
+
     term = {
       starship = true;
       eza = true;
@@ -74,13 +80,6 @@
       zoxide = true;
       direnv = true;
       scripts = true;
-
-      systemd = {
-        enable = true;
-        sync-notes = true;
-        sync-blog = true;
-      };
-
       ai = true;
       alacritty = true;
       tmux = true;
@@ -113,7 +112,6 @@
     };
 
     packages = {
-      just = true;
       pre-commit = true;
       docker-compose = true;
       podman-compose = true;
