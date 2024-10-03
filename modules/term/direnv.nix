@@ -12,7 +12,7 @@
   };
 
   config = lib.mkIf config.nixconf.term.direnv {
-    home-manager.users.${config.nixconf.system.user} = {
+    home-manager.users.${config.nixconf.os.user} = {
       programs.direnv = {
         enable = true;
         enableBashIntegration = true;

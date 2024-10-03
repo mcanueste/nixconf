@@ -19,7 +19,7 @@
   };
 
   config = lib.mkIf config.nixconf.dev.editor.pycharm.enable {
-    home-manager.users.${config.nixconf.system.user} = let
+    home-manager.users.${config.nixconf.os.user} = let
       pycharm =
         if config.nixconf.dev.editor.pycharm.professional
         then pkgs.jetbrains.pycharm-professional

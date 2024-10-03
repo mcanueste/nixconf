@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.nixconf.system.desktop = {
+  options.nixconf.os.desktop = {
     cosmic = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -12,7 +12,7 @@
     };
   };
 
-  config = lib.mkIf (config.nixconf.system.desktop.enable && config.nixconf.system.desktop.cosmic) {
+  config = lib.mkIf (config.nixconf.os.desktop.enable && config.nixconf.os.desktop.cosmic) {
     services.displayManager.cosmic-greeter.enable = true;
     services.desktopManager.cosmic.enable = true;
 

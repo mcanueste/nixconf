@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.nixconf.system.service.storage = {
+  options.nixconf.os.service.storage = {
     trim = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -32,18 +32,18 @@
   config = {
     services = {
       # For ssd life discard unused blocks
-      fstrim.enable = config.nixconf.system.service.storage.trim;
+      fstrim.enable = config.nixconf.os.service.storage.trim;
 
       # Hard disk protection if the laptop falls:
-      hdapsd.enable = config.nixconf.system.service.storage.hdapsd;
+      hdapsd.enable = config.nixconf.os.service.storage.hdapsd;
 
       # Mount MTP devices (iPhone, Android, etc.)
       # Seamlessly access files and folders on remote resources.
       # Necessarry for file managers, mounts, trash, etc.
-      gvfs.enable = config.nixconf.system.service.storage.gvfs;
+      gvfs.enable = config.nixconf.os.service.storage.gvfs;
 
       # In case gvfs doesn't work, enable udisk2 as well
-      udisks2.enable = config.nixconf.system.service.storage.udisk2;
+      udisks2.enable = config.nixconf.os.service.storage.udisk2;
     };
   };
 }

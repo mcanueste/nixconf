@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.nixconf.system.desktop = {
+  options.nixconf.os.desktop = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -11,7 +11,7 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.system.desktop.enable {
+  config = lib.mkIf config.nixconf.os.desktop.enable {
     programs.dconf.enable = true;
     xdg.portal.enable = true;
   };

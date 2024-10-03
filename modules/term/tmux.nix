@@ -18,7 +18,7 @@ in {
   };
 
   config = lib.mkIf config.nixconf.term.tmux {
-    home-manager.users.${config.nixconf.system.user} = {
+    home-manager.users.${config.nixconf.os.user} = {
       programs.tmux = {
         enable = true;
         inherit shell;

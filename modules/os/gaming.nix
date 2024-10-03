@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.nixconf.system.gaming = {
+  options.nixconf.os.gaming = {
     # Check on proton db to see if game runs fine
     # https://www.protondb.com/
 
@@ -51,9 +51,9 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.system.gaming.enable {
+  config = lib.mkIf config.nixconf.os.gaming.enable {
     programs.steam = {
-      enable = config.nixconf.system.gaming.steam;
+      enable = config.nixconf.os.gaming.steam;
       remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
       dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
 
@@ -71,38 +71,38 @@
       pkgs.mangohud # for monitoring GPU/CPU usage, FPS, etc.
 
       (
-        if config.nixconf.system.gaming.proton
+        if config.nixconf.os.gaming.proton
         then pkgs.protonup
         else null
       )
 
       (
-        if config.nixconf.system.gaming.prismlauncher
+        if config.nixconf.os.gaming.prismlauncher
         then pkgs.prismlauncher
         else null
       )
 
       (
-        if config.nixconf.system.gaming.lutris
+        if config.nixconf.os.gaming.lutris
         then pkgs.lutris
         else null
       )
 
       (
-        if config.nixconf.system.gaming.heroic
+        if config.nixconf.os.gaming.heroic
         then pkgs.heroic
         else null
       )
 
       (
-        if config.nixconf.system.gaming.bottles
+        if config.nixconf.os.gaming.bottles
         then pkgs.bottles
         else null
       )
     ];
 
-    environment.sessionVariables = lib.mkIf config.nixconf.system.gaming.proton {
-      STEAM_EXTRA_COMPAT_TOOLS_PATH = "/home/${config.nixconf.system.user}/.steam/root/compatibilitytools.d";
+    environment.sessionVariables = lib.mkIf config.nixconf.os.gaming.proton {
+      STEAM_EXTRA_COMPAT_TOOLS_PATH = "/home/${config.nixconf.os.user}/.steam/root/compatibilitytools.d";
     };
   };
 }

@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.nixconf.system.service.flatpak = {
+  options.nixconf.os.service.flatpak = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -92,7 +92,7 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.system.service.flatpak.enable {
+  config = lib.mkIf config.nixconf.os.service.flatpak.enable {
     services.flatpak = let
       addFlathub = option: appId:
         if option
@@ -108,19 +108,19 @@
         onCalendar = "weekly";
       };
       packages = builtins.filter (p: p != null) [
-        (addFlathub config.nixconf.system.service.flatpak.chrome "com.google.Chrome")
-        (addFlathub config.nixconf.system.service.flatpak.firefox "org.mozilla.firefox")
-        (addFlathub config.nixconf.system.service.flatpak.vlc "org.videolan.VLC")
-        (addFlathub config.nixconf.system.service.flatpak.spotify "com.spotify.Client")
-        (addFlathub config.nixconf.system.service.flatpak.slack "com.slack.Slack")
-        (addFlathub config.nixconf.system.service.flatpak.telegram "org.telegram.desktop")
-        (addFlathub config.nixconf.system.service.flatpak.discord "com.discordapp.Discord")
-        (addFlathub config.nixconf.system.service.flatpak.audacity "org.audacityteam.Audacity")
-        (addFlathub config.nixconf.system.service.flatpak.obs "com.obsproject.Studio")
-        (addFlathub config.nixconf.system.service.flatpak.gimp "org.gimp.GIMP")
-        (addFlathub config.nixconf.system.service.flatpak.calibre "com.calibre_ebook.calibre")
-        (addFlathub config.nixconf.system.service.flatpak.zotero "org.zotero.Zotero")
-        (addFlathub config.nixconf.system.service.flatpak.obsidian "md.obsidian.Obsidian")
+        (addFlathub config.nixconf.os.service.flatpak.chrome "com.google.Chrome")
+        (addFlathub config.nixconf.os.service.flatpak.firefox "org.mozilla.firefox")
+        (addFlathub config.nixconf.os.service.flatpak.vlc "org.videolan.VLC")
+        (addFlathub config.nixconf.os.service.flatpak.spotify "com.spotify.Client")
+        (addFlathub config.nixconf.os.service.flatpak.slack "com.slack.Slack")
+        (addFlathub config.nixconf.os.service.flatpak.telegram "org.telegram.desktop")
+        (addFlathub config.nixconf.os.service.flatpak.discord "com.discordapp.Discord")
+        (addFlathub config.nixconf.os.service.flatpak.audacity "org.audacityteam.Audacity")
+        (addFlathub config.nixconf.os.service.flatpak.obs "com.obsproject.Studio")
+        (addFlathub config.nixconf.os.service.flatpak.gimp "org.gimp.GIMP")
+        (addFlathub config.nixconf.os.service.flatpak.calibre "com.calibre_ebook.calibre")
+        (addFlathub config.nixconf.os.service.flatpak.zotero "org.zotero.Zotero")
+        (addFlathub config.nixconf.os.service.flatpak.obsidian "md.obsidian.Obsidian")
       ];
     };
   };

@@ -45,7 +45,7 @@
     services.sync-notes = {
       Install.WantedBy = ["default.target"];
       Unit.Description = "Backup notes.";
-      Service.ExecStart = "/etc/profiles/per-user/${config.nixconf.system.user}/bin/sync-notes";
+      Service.ExecStart = "/etc/profiles/per-user/${config.nixconf.os.user}/bin/sync-notes";
     };
     timers.sync-notes = hourly-timer;
   };
@@ -54,7 +54,7 @@
     services.sync-blog = {
       Install.WantedBy = ["default.target"];
       Unit.Description = "Sync blog notes and push changes.";
-      Service.ExecStart = "/etc/profiles/per-user/${config.nixconf.system.user}/bin/sync-blog";
+      Service.ExecStart = "/etc/profiles/per-user/${config.nixconf.os.user}/bin/sync-blog";
     };
     timers.sync-blog = hourly-timer;
   };
@@ -92,7 +92,7 @@ in {
   };
 
   config = lib.mkIf config.nixconf.term.systemd.enable {
-    home-manager.users.${config.nixconf.system.user} = {
+    home-manager.users.${config.nixconf.os.user} = {
       systemd.user = setupServices (builtins.filter (p: p != null) [
         (
           if config.nixconf.term.systemd.eye-strain-notify

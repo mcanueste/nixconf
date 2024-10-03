@@ -17,7 +17,7 @@ in {
   };
 
   config = lib.mkIf config.nixconf.term.terraform {
-    home-manager.users.${config.nixconf.system.user} = {
+    home-manager.users.${config.nixconf.os.user} = {
       home.packages = [pkgs.terraform];
       programs.bash = {inherit shellAliases;};
       programs.fish = {inherit shellAliases;};

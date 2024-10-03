@@ -8,7 +8,7 @@
   # but need to give it here so the error msg is gone.
   stateVersion = "24.05";
 in {
-  options.nixconf.system = {
+  options.nixconf.os = {
     user = lib.mkOption {
       type = lib.types.str;
       default = "mcst";
@@ -20,9 +20,9 @@ in {
     system = {inherit stateVersion;};
 
     # User settings
-    users.users.${config.nixconf.system.user} = {
+    users.users.${config.nixconf.os.user} = {
       isNormalUser = true;
-      home = "/home/${config.nixconf.system.user}";
+      home = "/home/${config.nixconf.os.user}";
       extraGroups = ["wheel" "video" "audio" "disk"];
     };
 
@@ -32,12 +32,12 @@ in {
       useGlobalPkgs = true;
       useUserPackages = true;
       extraSpecialArgs = {inherit inputs;};
-      users.${config.nixconf.system.user} = {
+      users.${config.nixconf.os.user} = {
         programs.home-manager.enable = true;
         home = {
           inherit stateVersion;
-          username = config.nixconf.system.user;
-          homeDirectory = "/home/${config.nixconf.system.user}";
+          username = config.nixconf.os.user;
+          homeDirectory = "/home/${config.nixconf.os.user}";
         };
       };
     };

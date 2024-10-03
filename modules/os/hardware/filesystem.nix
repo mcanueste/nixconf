@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.nixconf.system.hardware.filesystem = {
+  options.nixconf.os.hardware.filesystem = {
     boot = lib.mkOption {
       type = lib.types.str;
       default = "/dev/disk/by-partlabel/BOOT";
@@ -32,18 +32,18 @@
   config = {
     fileSystems = {
       "/boot" = {
-        device = config.nixconf.system.hardware.filesystem.boot;
+        device = config.nixconf.os.hardware.filesystem.boot;
         fsType = "vfat";
       };
       "/" = {
-        device = config.nixconf.system.hardware.filesystem.root;
+        device = config.nixconf.os.hardware.filesystem.root;
         fsType = "ext4";
       };
     };
 
     swapDevices = [
       {
-        device = config.nixconf.system.hardware.filesystem.swap;
+        device = config.nixconf.os.hardware.filesystem.swap;
       }
     ];
 
@@ -51,7 +51,7 @@
       initrd = {
         luks.devices = {
           crypted = {
-            device = config.nixconf.system.hardware.filesystem.luks;
+            device = config.nixconf.os.hardware.filesystem.luks;
             preLVM = true;
             allowDiscards = true;
           };

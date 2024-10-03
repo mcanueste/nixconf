@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.nixconf.system.service.sound = {
+  options.nixconf.os.service.sound = {
     pipewire = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -14,10 +14,10 @@
 
   config = {
     # Set sound.enable to false if pipewire, as it is only meant for ALSA-based configurations
-    hardware.pulseaudio.enable = lib.mkForce (!config.nixconf.system.service.sound.pipewire);
+    hardware.pulseaudio.enable = lib.mkForce (!config.nixconf.os.service.sound.pipewire);
 
     services.pipewire = {
-      enable = config.nixconf.system.service.sound.pipewire;
+      enable = config.nixconf.os.service.sound.pipewire;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;

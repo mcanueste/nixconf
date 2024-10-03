@@ -18,7 +18,7 @@
   config = lib.mkIf config.nixconf.term.zsh {
     environment.pathsToLink = ["/share/zsh"];
 
-    home-manager.users.${config.nixconf.system.user} = {
+    home-manager.users.${config.nixconf.os.user} = {
       xdg.configFile."zsh/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh".source =
         pkgs.fetchFromGitHub {
           owner = "catppuccin";

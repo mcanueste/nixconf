@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.nixconf.system.network.mtr = {
+  options.nixconf.os.network.mtr = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -17,9 +17,9 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.system.network.mtr.enable {
+  config = lib.mkIf config.nixconf.os.network.mtr.enable {
     # network diagnostic tool (requires sudo) = ping + traceroute
     programs.mtr.enable = true;
-    services.mtr-exporter.enable = config.nixconf.system.network.mtr.exportMtr;
+    services.mtr-exporter.enable = config.nixconf.os.network.mtr.exportMtr;
   };
 }

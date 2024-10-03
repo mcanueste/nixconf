@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.nixconf.system.network.wireguard = {
+  options.nixconf.os.network.wireguard = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -17,10 +17,10 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.system.network.wireguard.enable {
+  config = lib.mkIf config.nixconf.os.network.wireguard.enable {
     networking = {
       # Wireguard configs if any
-      wg-quick.interfaces = builtins.foldl' (a: b: a // b) {} config.nixconf.system.network.wireguard.configs;
+      wg-quick.interfaces = builtins.foldl' (a: b: a // b) {} config.nixconf.os.network.wireguard.configs;
     };
   };
 }

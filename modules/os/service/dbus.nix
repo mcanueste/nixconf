@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.nixconf.system.service.dbus = {
+  options.nixconf.os.service.dbus = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -19,8 +19,8 @@
 
   config = {
     services = {
-      dbus.enable = config.nixconf.system.service.dbus.enable;
-      tumbler.enable = config.nixconf.system.service.dbus.tumbler;
+      dbus.enable = config.nixconf.os.service.dbus.enable;
+      tumbler.enable = config.nixconf.os.service.dbus.tumbler;
     };
   };
 }

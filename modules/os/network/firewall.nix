@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.nixconf.system.network.firewall = {
+  options.nixconf.os.network.firewall = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -51,11 +51,11 @@
 
   config = {
     networking = {
-      firewall.enable = config.nixconf.system.network.firewall.enable;
-      firewall.allowedTCPPorts = config.nixconf.system.network.firewall.allowedTCPPorts;
-      firewall.allowedTCPPortRanges = config.nixconf.system.network.firewall.allowedTCPPortRanges;
-      firewall.allowedUDPPorts = config.nixconf.system.network.firewall.allowedUDPPorts;
-      firewall.allowedUDPPortRanges = config.nixconf.system.network.firewall.allowedUDPPortRanges;
+      firewall.enable = config.nixconf.os.network.firewall.enable;
+      firewall.allowedTCPPorts = config.nixconf.os.network.firewall.allowedTCPPorts;
+      firewall.allowedTCPPortRanges = config.nixconf.os.network.firewall.allowedTCPPortRanges;
+      firewall.allowedUDPPorts = config.nixconf.os.network.firewall.allowedUDPPorts;
+      firewall.allowedUDPPortRanges = config.nixconf.os.network.firewall.allowedUDPPortRanges;
     };
   };
 }

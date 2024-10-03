@@ -16,7 +16,7 @@
   config = lib.mkIf config.nixconf.term.fish {
     environment.pathsToLink = ["/share/fish"];
 
-    home-manager.users.${config.nixconf.system.user} = {
+    home-manager.users.${config.nixconf.os.user} = {
       programs.fish = {
         enable = true;
         shellInit = ''

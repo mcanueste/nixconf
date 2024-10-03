@@ -17,7 +17,7 @@
   accent = "blue";
 in {
   # User Level Configuration
-  home-manager.users.${config.nixconf.system.user} = {
+  home-manager.users.${config.nixconf.os.user} = {
     imports = [
       inputs.catppuccin.homeManagerModules.catppuccin
     ];

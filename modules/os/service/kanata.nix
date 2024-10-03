@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.nixconf.system.service = {
+  options.nixconf.os.service = {
     kanata = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -11,8 +11,8 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.system.service.kanata {
-    users.users.${config.nixconf.system.user}.extraGroups = [
+  config = lib.mkIf config.nixconf.os.service.kanata {
+    users.users.${config.nixconf.os.user}.extraGroups = [
       "input"
       "uinput"
     ];

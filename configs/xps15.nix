@@ -1,6 +1,6 @@
 {
   nixconf = {
-    system = {
+    os = {
       user = "mcst";
 
       hardware = {

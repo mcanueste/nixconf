@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.nixconf.browser.brave {
-    home-manager.users.${config.nixconf.system.user} = {
+    home-manager.users.${config.nixconf.os.user} = {
       home.packages = [pkgs.brave];
     };
   };

@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.nixconf.system.hardware.graphics = {
+  options.nixconf.os.hardware.graphics = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -12,7 +12,7 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.system.hardware.graphics.enable {
+  config = lib.mkIf config.nixconf.os.hardware.graphics.enable {
     # intel gpu video acceleration setup
     # https://nixos.wiki/wiki/Accelerated_Video_Playback
 

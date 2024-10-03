@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.nixconf.system.desktop = {
+  options.nixconf.os.desktop = {
     gnome = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -12,15 +12,15 @@
     };
   };
 
-  config = lib.mkIf (config.nixconf.system.desktop.enable && config.nixconf.system.desktop.gnome) {
+  config = lib.mkIf (config.nixconf.os.desktop.enable && config.nixconf.os.desktop.gnome) {
     services.xserver = {
       # Enable the X11 windowing system.
       enable = true;
 
       # Enable the GNOME Desktop Environment.
       displayManager.gdm = {
-        enable = !config.nixconf.system.desktop.cosmic;
-        wayland = !config.nixconf.system.desktop.cosmic;
+        enable = !config.nixconf.os.desktop.cosmic;
+        wayland = !config.nixconf.os.desktop.cosmic;
       };
       desktopManager.gnome.enable = true;
     };

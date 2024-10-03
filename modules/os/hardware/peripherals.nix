@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.nixconf.system.hardware.peripherals = {
+  options.nixconf.os.hardware.peripherals = {
     touchpad = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -25,11 +25,11 @@
 
   config = {
     # Enable touchpad
-    services.libinput.enable = config.nixconf.system.hardware.peripherals.touchpad;
+    services.libinput.enable = config.nixconf.os.hardware.peripherals.touchpad;
 
     # Enable hardware support for bluetooth
     hardware.bluetooth = {
-      enable = config.nixconf.system.hardware.peripherals.bluetooth;
+      enable = config.nixconf.os.hardware.peripherals.bluetooth;
       powerOnBoot = true;
       settings = {
         General = {
@@ -42,7 +42,7 @@
     # Install Solaar for managing Logitech devices
     hardware.logitech = {
       wireless = {
-        enable = config.nixconf.system.hardware.peripherals.logitech;
+        enable = config.nixconf.os.hardware.peripherals.logitech;
         enableGraphical = true;
       };
     };

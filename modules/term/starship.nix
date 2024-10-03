@@ -14,7 +14,7 @@
   };
 
   config = lib.mkIf config.nixconf.term.starship {
-    home-manager.users.${config.nixconf.system.user} = {
+    home-manager.users.${config.nixconf.os.user} = {
       programs.starship = {
         enable = true;
         enableBashIntegration = true;

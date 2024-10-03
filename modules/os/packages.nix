@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.nixconf.system.packages = {
+  options.nixconf.os.packages = {
     cachix = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -26,7 +26,7 @@
       pkgs.xdg-utils
 
       (
-        if config.nixconf.system.packages.cachix
+        if config.nixconf.os.packages.cachix
         then pkgs.cachix
         else null
       )

@@ -12,7 +12,7 @@
   };
 
   config = lib.mkIf config.nixconf.term.zoxide {
-    home-manager.users.${config.nixconf.system.user} = {
+    home-manager.users.${config.nixconf.os.user} = {
       programs.zoxide = {
         enable = true;
         enableBashIntegration = true;

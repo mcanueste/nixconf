@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.nixconf.system.security = {
+  options.nixconf.os.security = {
     certs = lib.mkOption {
       default = [];
       description = "Self-signed CA Cert paths";
@@ -35,7 +35,7 @@
       polkit.enable = true;
 
       # setup self-signed CA cert files if any
-      pki.certificateFiles = config.nixconf.system.security.certs;
+      pki.certificateFiles = config.nixconf.os.security.certs;
 
       # Whether to enable the RealtimeKit system service, which hands
       # out realtime scheduling priority to user processes on
@@ -54,18 +54,18 @@
     # Enable the OpenSSH daemon.
     services = {
       openssh = {
-        enable = config.nixconf.system.security.openssh;
+        enable = config.nixconf.os.security.openssh;
 
         # require public key authentication for better security
         settings.PasswordAuthentication = false;
         settings.KbdInteractiveAuthentication = false;
         #settings.PermitRootLogin = "yes";
 
-        allowSFTP = config.nixconf.system.security.sftp;
+        allowSFTP = config.nixconf.os.security.sftp;
       };
 
       # SSH daemon.
-      sshd.enable = config.nixconf.system.security.sshd;
+      sshd.enable = config.nixconf.os.security.sshd;
     };
   };
 }

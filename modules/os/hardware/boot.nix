@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.nixconf.system.hardware.boot = {
+  options.nixconf.os.hardware.boot = {
     intelMicrocode = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -73,7 +73,7 @@
     };
 
     hardware.enableRedistributableFirmware = true;
-    hardware.cpu.intel.updateMicrocode = config.nixconf.system.hardware.boot.intelMicrocode;
-    powerManagement.cpuFreqGovernor = config.nixconf.system.hardware.boot.cpuFreqGovernor;
+    hardware.cpu.intel.updateMicrocode = config.nixconf.os.hardware.boot.intelMicrocode;
+    powerManagement.cpuFreqGovernor = config.nixconf.os.hardware.boot.cpuFreqGovernor;
   };
 }

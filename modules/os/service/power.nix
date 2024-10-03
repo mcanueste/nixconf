@@ -3,7 +3,7 @@
   config,
   ...
 }: {
-  options.nixconf.system.service.power = {
+  options.nixconf.os.service.power = {
     thermald = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -20,10 +20,10 @@
   config = {
     services = {
       # This will save you money and possibly your life!
-      thermald.enable = config.nixconf.system.service.power.thermald;
+      thermald.enable = config.nixconf.os.service.power.thermald;
 
       # Enable power-profiles-daemon for switching power profiles
-      power-profiles-daemon.enable = config.nixconf.system.service.power.power-profiles-daemon;
+      power-profiles-daemon.enable = config.nixconf.os.service.power.power-profiles-daemon;
     };
   };
 }

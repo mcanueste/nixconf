@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.nixconf.system.hardware.printer = {
+  options.nixconf.os.hardware.printer = {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -34,29 +34,29 @@
     services = {
       # Enable CUPS to print documents.
       printing = {
-        enable = config.nixconf.system.hardware.printer.enable;
-        drivers = lib.lists.forEach config.nixconf.system.hardware.printer.printerDrivers (p: pkgs."${p}");
+        enable = config.nixconf.os.hardware.printer.enable;
+        drivers = lib.lists.forEach config.nixconf.os.hardware.printer.printerDrivers (p: pkgs."${p}");
       };
     };
 
     # Enable scanner backends
     hardware.sane = {
-      enable = config.nixconf.system.hardware.printer.scanner;
-      extraBackends = lib.lists.forEach config.nixconf.system.hardware.printer.scannerBackends (p: pkgs."${p}");
+      enable = config.nixconf.os.hardware.printer.scanner;
+      extraBackends = lib.lists.forEach config.nixconf.os.hardware.printer.scannerBackends (p: pkgs."${p}");
     };
 
     # Add user to scanner/printer group
-    users.users.${config.nixconf.system.user}.extraGroups =
-      if config.nixconf.system.hardware.printer.scanner
+    users.users.${config.nixconf.os.user}.extraGroups =
+      if config.nixconf.os.hardware.printer.scanner
       then ["scanner" "lp"]
-      else if config.nixconf.system.hardware.printer.enable
+      else if config.nixconf.os.hardware.printer.enable
       then ["lp"]
       else [];
 
     # Find printers/scanners on local network
     services = {
       avahi = let
-        enable = config.nixconf.system.hardware.printer.enable || config.nixconf.system.hardware.printer.scanner;
+        enable = config.nixconf.os.hardware.printer.enable || config.nixconf.os.hardware.printer.scanner;
       in {
         inherit enable;
         nssmdns4 = enable;

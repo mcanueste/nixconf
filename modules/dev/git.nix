@@ -35,7 +35,7 @@
     };
   in
     lib.mkIf config.nixconf.dev.git.enable {
-      home-manager.users.${config.nixconf.system.user} = {
+      home-manager.users.${config.nixconf.os.user} = {
         programs.bash = {inherit shellAliases;};
         programs.zsh = {inherit shellAliases;};
         programs.fish = {inherit shellAliases;};

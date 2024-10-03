@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.nixconf.dev.editor.helix {
-    home-manager.users.${config.nixconf.system.user} = {
+    home-manager.users.${config.nixconf.os.user} = {
       programs.helix = {
         enable = true;
 
