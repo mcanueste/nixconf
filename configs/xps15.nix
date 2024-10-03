@@ -1,76 +1,75 @@
 {
   nixconf = {
-    os = {
-      user = "mcst";
+    user = "mcst";
 
-      hardware = {
-        nvidia = {
-          enable = true;
-          isTuring = true;
-          sync = false; # use offload, sync causes issues with wayland and browsers
-        };
-        peripherals = {
-          touchpad = true;
-          bluetooth = true;
-          logitech = true;
-        };
-        printer = {
-          enable = true;
-          printerDrivers = ["cups-dymo"];
-          scanner = false;
-        };
-      };
-
-      network = {
-        hostname = "nixos";
-        firewall.enable = true;
-        wireguard.enable = false;
-        mtr = {
-          enable = true;
-          exportMtr = false;
-        };
-      };
-
-      service = {
-        kanata = true;
-
-        flatpak = {
-          enable = true;
-
-          chrome = true;
-          firefox = true;
-          vlc = true;
-          spotify = true;
-          slack = true;
-          telegram = true;
-          discord = true;
-          obs = true;
-          audacity = true;
-          gimp = true;
-          calibre = true;
-          zotero = true;
-          obsidian = true;
-        };
-
-        storage = {
-          trim = true;
-          gvfs = true;
-          udisk2 = true;
-        };
-      };
-
-      desktop = {
+    hardware = {
+      nvidia = {
         enable = true;
-        gnome = true;
-        cosmic = true;
+        isTuring = true;
+        sync = false; # use offload, sync causes issues with wayland and browsers
+      };
+      peripherals = {
+        touchpad = true;
+        bluetooth = true;
+        logitech = true;
+      };
+      printer = {
+        enable = true;
+        printerDrivers = ["cups-dymo"];
+        scanner = false;
+      };
+    };
+
+    network = {
+      hostname = "nixos";
+      firewall.enable = true;
+      wireguard.enable = false;
+      mtr = {
+        enable = true;
+        exportMtr = false;
+      };
+    };
+
+    service = {
+      kanata = true;
+
+      flatpak = {
+        enable = true;
+
+        chrome = true;
+        brave = true;
+        firefox = true;
+        vlc = true;
+        spotify = true;
+        slack = true;
+        telegram = true;
+        discord = true;
+        obs = true;
+        audacity = true;
+        gimp = true;
+        calibre = true;
+        zotero = true;
+        obsidian = true;
       };
 
-      gaming = {
-        enable = true;
-        steam = true;
-        proton = true;
-        prismlauncher = true;
+      storage = {
+        trim = true;
+        gvfs = true;
+        udisk2 = true;
       };
+    };
+
+    desktop = {
+      enable = true;
+      gnome = true;
+      cosmic = true;
+    };
+
+    gaming = {
+      enable = true;
+      steam = true;
+      proton = true;
+      prismlauncher = true;
     };
 
     term = {
@@ -94,9 +93,9 @@
       yazi = true;
     };
 
-    browser = {
-      brave = true;
-    };
+    # browser = {
+    #   brave = true;
+    # };
 
     dev = {
       git = {
