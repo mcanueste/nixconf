@@ -23,7 +23,7 @@
       tf = "terraform";
     };
   in {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.username} = {
       programs.bash = {inherit shellAliases;};
       programs.zsh = {inherit shellAliases;};
       programs.fish = {inherit shellAliases;};

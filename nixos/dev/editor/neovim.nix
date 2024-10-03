@@ -35,7 +35,7 @@ in {
   };
 
   config = lib.mkIf config.nixconf.dev.editor.neovim {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.username} = {
       programs.bash = {inherit shellAliases;};
       programs.fish = {inherit shellAliases;};
 

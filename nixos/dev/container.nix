@@ -75,12 +75,12 @@
       containers.enable = config.nixconf.dev.container.docker.enable || config.nixconf.dev.container.podman.enable;
     };
 
-    users.users.${config.nixconf.user}.extraGroups =
+    users.users.${config.nixconf.username}.extraGroups =
       if config.nixconf.dev.container.docker.enable
       then ["docker"]
       else [];
 
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.username} = {
       home.packages = builtins.filter (p: p != null) [
         pkgs.cosign
 

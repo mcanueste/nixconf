@@ -3,6 +3,11 @@
   config,
   ...
 }: {
+  imports = [
+    ./cosmic.nix
+    ./gnome.nix
+  ];
+
   options.nixconf.desktop = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -12,7 +17,9 @@
   };
 
   config = lib.mkIf config.nixconf.desktop.enable {
-    programs.dconf.enable = true;
+
+
+    # enable desktop portal
     xdg.portal.enable = true;
   };
 }

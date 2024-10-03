@@ -1,27 +1,11 @@
 {
-  nixconf = {
-    user = "mcst";
-
-    hardware = {
-      nvidia = {
-        enable = true;
-        isTuring = true;
-        sync = false; # use offload, sync causes issues with wayland and browsers
-      };
-      peripherals = {
-        touchpad = true;
-        bluetooth = true;
-        logitech = true;
-      };
-      printer = {
-        enable = true;
-        printerDrivers = ["cups-dymo"];
-        scanner = false;
-      };
-    };
+  nixconf = rec {
+    username = "mcst";
+    hostname = "nixos";
+    stateVersion = "24.05";
+    flakePath = "/home/${username}/Projects/personal/nixconf";
 
     network = {
-      hostname = "nixos";
       firewall.enable = true;
       wireguard.enable = false;
       mtr = {
@@ -30,33 +14,41 @@
       };
     };
 
-    service = {
-      kanata = true;
+    peripherals = {
+      touchpad = true;
+      bluetooth = true;
+      logitech = true;
+    };
 
-      flatpak = {
-        enable = true;
+    printer = {
+      enable = true;
+      printerDrivers = ["cups-dymo"];
+      scanner = false;
+    };
 
-        chrome = true;
-        brave = true;
-        firefox = true;
-        vlc = true;
-        spotify = true;
-        slack = true;
-        telegram = true;
-        discord = true;
-        obs = true;
-        audacity = true;
-        gimp = true;
-        calibre = true;
-        zotero = true;
-        obsidian = true;
-      };
+    nvidia = {
+      enable = true;
+      isTuring = true;
+      sync = false; # use offload, sync causes issues with wayland and browsers
+    };
 
-      storage = {
-        trim = true;
-        gvfs = true;
-        udisk2 = true;
-      };
+    flatpak = {
+      enable = true;
+
+      chrome = true;
+      brave = true;
+      firefox = true;
+      vlc = true;
+      spotify = true;
+      slack = true;
+      telegram = true;
+      discord = true;
+      obs = true;
+      audacity = true;
+      gimp = true;
+      calibre = true;
+      zotero = true;
+      obsidian = true;
     };
 
     desktop = {
@@ -71,6 +63,8 @@
       proton = true;
       prismlauncher = true;
     };
+
+    kanata = true;
 
     term = {
       starship = true;

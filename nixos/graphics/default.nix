@@ -1,12 +1,17 @@
+# TODO: assumes intel, can be AMD or ARM as well?
 {
   pkgs,
   lib,
   config,
   ...
 }: {
-  options.nixconf.hardware.graphics.enable = pkgs.libExt.mkEnabledOption "Graphics Configuration";
+  imports = [
+    ./nvidia.nix
+  ];
 
-  config = lib.mkIf config.nixconf.hardware.graphics.enable {
+  options.nixconf.graphics.enable = pkgs.libExt.mkEnabledOption "Graphics Configuration";
+
+  config = lib.mkIf config.nixconf.graphics.enable {
     hardware.graphics = {
       enable = true;
       enable32Bit = true;

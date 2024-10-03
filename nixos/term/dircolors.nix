@@ -12,7 +12,7 @@
   };
 
   config = lib.mkIf config.nixconf.term.dircolors {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.username} = {
       programs.dircolors = {
         enable = true;
         enableBashIntegration = true;

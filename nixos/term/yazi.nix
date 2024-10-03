@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.nixconf.term.yazi {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.username} = {
       programs.yazi = {
         enable = true;
         enableBashIntegration = true;

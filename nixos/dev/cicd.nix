@@ -19,7 +19,7 @@
   };
 
   config = {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.username} = {
       home.packages = builtins.filter (p: p != null) [
         (
           if config.nixconf.dev.cicd.argo

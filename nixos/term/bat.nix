@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.nixconf.term.bat {
-    home-manager.users.${config.nixconf.user} = let
+    home-manager.users.${config.nixconf.username} = let
       shellAliases = {
         rgb = "batgrep";
         man = "batman";

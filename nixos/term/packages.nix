@@ -5,7 +5,7 @@
   ...
 }: {
   config = {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.username} = {
       home.packages = with pkgs; [
         dash
         gnumake

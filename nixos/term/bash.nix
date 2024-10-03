@@ -3,7 +3,7 @@
 {config, ...}: {
   environment.pathsToLink = ["/share/bash-completion"];
 
-  home-manager.users.${config.nixconf.user} = {
+  home-manager.users.${config.nixconf.username} = {
     programs.bash = {
       enable = true;
       enableCompletion = true;

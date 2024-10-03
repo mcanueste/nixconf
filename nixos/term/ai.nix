@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.nixconf.term.ai {
-    home-manager.users.${config.nixconf.user} = let
+    home-manager.users.${config.nixconf.username} = let
       shellAliases = {
         chat = "aichat"; # TODO: investigate aichat usecases
       };

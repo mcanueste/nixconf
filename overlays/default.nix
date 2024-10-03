@@ -13,8 +13,16 @@
   # Change versions, add patches, set compilation flags, etc.
   # https://nixos.wiki/wiki/Overlays
   modifications = final: prev: {
-    # example = prev.example.overrideAttrs (oldAttrs: rec {
-    # ...
+    # Had to add a patch to fix a bug in Nix CLI for "too many open files" error
+    # nix.package = pkgs.nixVersions.latest.overrideAttrs (drv: {
+    #   patches =
+    #     (drv.patches or [])
+    #     ++ [
+    #       (pkgs.fetchpatch {
+    #         url = "https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/11402.patch";
+    #         hash = "sha256-RgA65xGCWU6F/7U8/5vIoghRptELKu8i6U3SZY/1GVw=";
+    #       })
+    #     ];
     # });
   };
 

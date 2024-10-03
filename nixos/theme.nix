@@ -1,3 +1,4 @@
+# TODO: refactor
 {
   inputs,
   pkgs,
@@ -17,7 +18,7 @@
   accent = "blue";
 in {
   # User Level Configuration
-  home-manager.users.${config.nixconf.user} = {
+  home-manager.users.${config.nixconf.username} = {
     imports = [
       inputs.catppuccin.homeManagerModules.catppuccin
     ];

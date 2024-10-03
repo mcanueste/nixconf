@@ -4,13 +4,7 @@
   config,
   ...
 }: {
-  options.nixconf.desktop = {
-    cosmic = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable Cosmic desktop environment";
-    };
-  };
+  options.nixconf.desktop. cosmic = lib.mkEnableOption "Cosmic Desktop Environment";
 
   config = lib.mkIf (config.nixconf.desktop.enable && config.nixconf.desktop.cosmic) {
     services.displayManager.cosmic-greeter.enable = true;

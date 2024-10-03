@@ -67,7 +67,7 @@
       nixos = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
-          inherit system inputs outputs;
+          inherit inputs outputs system;
         };
         modules = [
           nix-flatpak.nixosModules.nix-flatpak

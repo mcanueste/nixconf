@@ -1,18 +1,13 @@
 {
+  pkgs,
   lib,
   config,
   ...
 }: {
-  options.nixconf.service = {
-    kanata = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable kanata.";
-    };
-  };
+  options.nixconf.kanata = pkgs.libExt.mkEnabledOption "Kanata";
 
-  config = lib.mkIf config.nixconf.service.kanata {
-    users.users.${config.nixconf.user}.extraGroups = [
+  config = lib.mkIf config.nixconf.kanata {
+    users.users.${config.nixconf.username}.extraGroups = [
       "input"
       "uinput"
     ];

@@ -13,7 +13,7 @@
   };
 
   config = lib.mkIf config.nixconf.dev.editor.vscode {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.username} = {
       programs.vscode = {
         enable = true;
         enableUpdateCheck = false;

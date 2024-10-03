@@ -1,7 +1,6 @@
 {
-  system,
-  pkgs,
   inputs,
+  system,
   ...
 }: {
   # Fuse filesystem that returns symlinks to executables based on the PATH

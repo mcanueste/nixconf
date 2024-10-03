@@ -4,7 +4,7 @@
   config,
   ...
 }: {
-  options.nixconf.hardware.nvidia = {
+  options.nixconf.nvidia = {
     enable = lib.mkEnableOption "Nvidia GPU Configuration";
 
     isTuring = lib.mkEnableOption "Turing Architecture Specific Configuration";
@@ -12,7 +12,7 @@
     sync = lib.mkEnableOption "Nvidia Optimus Sync Configuration";
   };
 
-  config = lib.mkIf (config.nixconf.hardware.graphics.enable && config.nixconf.hardware.nvidia.enable) {
+  config = lib.mkIf (config.nixconf.graphics.enable && config.nixconf.nvidia.enable) {
     # Add VDPAU driver for Nvidia GPU
     hardware.graphics = {
       extraPackages = with pkgs; [
@@ -44,10 +44,10 @@
 
       # Optimus PRIME config for offloading
       prime = {
-        sync.enable = config.nixconf.hardware.nvidia.sync;
+        sync.enable = config.nixconf.nvidia.sync;
         offload = {
-          enable = !config.nixconf.hardware.nvidia.sync;
-          enableOffloadCmd = !config.nixconf.hardware.nvidia.sync;
+          enable = !config.nixconf.nvidia.sync;
+          enableOffloadCmd = !config.nixconf.nvidia.sync;
         };
 
         # Make sure to use the correct Bus ID values for your system!
@@ -60,7 +60,7 @@
 
       # Fine-grained power management. Turns off GPU when not in use.
       # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-      powerManagement.finegrained = config.nixconf.hardware.nvidia.isTuring && !config.nixconf.hardware.nvidia.sync;
+      powerManagement.finegrained = config.nixconf.nvidia.isTuring && !config.nixconf.nvidia.sync;
     };
 
     # Enable GPU drivers

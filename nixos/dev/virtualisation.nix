@@ -23,7 +23,7 @@
 
     programs.virt-manager.enable = config.nixconf.dev.virtualisation.virt-manager;
 
-    users.users.${config.nixconf.user}.extraGroups =
+    users.users.${config.nixconf.username}.extraGroups =
       if config.nixconf.dev.virtualisation.virt-manager
       then ["libvirtd" "qemu-libvirtd"]
       else [];
@@ -45,7 +45,7 @@
       };
     };
 
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.username} = {
       home.packages = builtins.filter (p: p != null) [
         (
           if config.nixconf.dev.virtualisation.qemu

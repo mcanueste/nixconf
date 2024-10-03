@@ -59,7 +59,7 @@ in {
   };
 
   config = lib.mkIf config.nixconf.term.scripts {
-    home-manager.users.${config.nixconf.user} = {
+    home-manager.users.${config.nixconf.username} = {
       home.packages = [
         sync-notes
         sync-blog

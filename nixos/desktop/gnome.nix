@@ -4,26 +4,25 @@
   config,
   ...
 }: {
-  options.nixconf.desktop = {
-    gnome = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable Gnome desktop environment";
-    };
-  };
+  options.nixconf.desktop.gnome = lib.mkEnableOption "Gnome desktop environment";
 
   config = lib.mkIf (config.nixconf.desktop.enable && config.nixconf.desktop.gnome) {
     services.xserver = {
       # Enable the X11 windowing system.
       enable = true;
 
-      # Enable the GNOME Desktop Environment.
+      # Gnome Display Manager
       displayManager.gdm = {
         enable = !config.nixconf.desktop.cosmic;
         wayland = !config.nixconf.desktop.cosmic;
       };
+
+      # Gnome Desktop Manager
       desktopManager.gnome.enable = true;
     };
+
+    # Gnome uses Dconf for Gnome settings
+    programs.dconf.enable = true;
 
     # Packages
     environment.systemPackages = [

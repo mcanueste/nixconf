@@ -1,10 +1,11 @@
+# TODO: assumes Intel chip, it can be AMD or ARM as well?
 {
   pkgs,
   lib,
   config,
   ...
 }: {
-  options.nixconf.hardware.boot = {
+  options.nixconf.boot = {
     intelMicrocode = pkgs.libExt.mkEnabledOption "Intel Microcode Updates";
 
     cpuFreqGovernor = lib.mkOption {
@@ -19,6 +20,10 @@
         Often used values: "ondemand", "powersave", "performance"
       '';
     };
+
+    thermald = pkgs.libExt.mkEnabledOption "Thermald. Only disable on VM's";
+
+    power-profiles-daemon = pkgs.libExt.mkEnabledOption "power-profiles-daemon";
   };
 
   config = {
@@ -70,7 +75,15 @@
     };
 
     hardware.enableRedistributableFirmware = true;
-    hardware.cpu.intel.updateMicrocode = config.nixconf.hardware.boot.intelMicrocode;
-    powerManagement.cpuFreqGovernor = config.nixconf.hardware.boot.cpuFreqGovernor;
+    hardware.cpu.intel.updateMicrocode = config.nixconf.boot.intelMicrocode;
+    powerManagement.cpuFreqGovernor = config.nixconf.boot.cpuFreqGovernor;
+
+    services = {
+      # This will save you money and possibly your life!
+      thermald.enable = config.nixconf.boot.thermald;
+
+      # Enable power-profiles-daemon for switching power profiles
+      power-profiles-daemon.enable = config.nixconf.boot.power-profiles-daemon;
+    };
   };
 }

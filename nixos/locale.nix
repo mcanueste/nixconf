@@ -44,12 +44,12 @@
       LC_TIME = config.nixconf.locale.format;
     };
 
-    # Configure keymap in X11 just in case we decide to use X11 based WM
+    # Configure keymap in X11 xwayland apps and just in case we decide to use X11 based WM
     services.xserver = {
       xkb = {
         model = "pc105";
-        # options = "caps:escape,grp:win_space_toggle";  # using kanata
         layout = config.nixconf.locale.layout;
+        # options = "caps:escape,grp:win_space_toggle";  # using kanata
       };
     };
     console.useXkbConfig = true;
