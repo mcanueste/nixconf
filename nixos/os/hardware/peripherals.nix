@@ -4,23 +4,11 @@
   ...
 }: {
   options.nixconf.hardware.peripherals = {
-    touchpad = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable touchpad";
-    };
+    touchpad = lib.mkEnableOption "Touchpad";
 
-    bluetooth = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable Bluetooth";
-    };
+    bluetooth = lib.mkEnableOption "Bluetooth";
 
-    logitech = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable Solaar";
-    };
+    logitech = lib.mkEnableOption "Logitech (Solaar)";
   };
 
   config = {

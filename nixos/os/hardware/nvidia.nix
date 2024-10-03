@@ -5,23 +5,11 @@
   ...
 }: {
   options.nixconf.hardware.nvidia = {
-    enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable Nvidia GPU configuration";
-    };
+    enable = lib.mkEnableOption "Nvidia GPU Configuration";
 
-    isTuring = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable Turing architecture specific configuration";
-    };
+    isTuring = lib.mkEnableOption "Turing Architecture Specific Configuration";
 
-    sync = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable Nvidia Optimus Sync configuration";
-    };
+    sync = lib.mkEnableOption "Nvidia Optimus Sync Configuration";
   };
 
   config = lib.mkIf (config.nixconf.hardware.graphics.enable && config.nixconf.hardware.nvidia.enable) {

@@ -7,9 +7,6 @@
     };
   };
 
-  # Extend the 'lib' module with custom functions, accessable via 'lib.ext'
-  lib = final: prev: final.lib // {ext = import ../modules/lib;};
-
   # Bring custom packages from the 'pkgs' directory
   additions = final: prev: import ../pkgs final.pkgs;
 
@@ -19,5 +16,10 @@
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });
+  };
+
+  # Custom utility functions to pass onto the configurations
+  lib = final: prev: {
+    libExt = prev.lib // (import ../lib {lib = prev.lib;});
   };
 }

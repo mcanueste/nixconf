@@ -1,4 +1,4 @@
-{
+{outputs, ...}: {
   imports = [
     ./hardware
     ./network

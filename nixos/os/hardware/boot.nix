@@ -1,14 +1,11 @@
 {
+  pkgs,
   lib,
   config,
   ...
 }: {
   options.nixconf.hardware.boot = {
-    intelMicrocode = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Enable Intel microcode updates.";
-    };
+    intelMicrocode = pkgs.libExt.mkEnabledOption "Intel Microcode Updates";
 
     cpuFreqGovernor = lib.mkOption {
       type = lib.types.nullOr lib.types.str;

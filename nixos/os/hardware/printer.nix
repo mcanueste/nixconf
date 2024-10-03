@@ -5,11 +5,7 @@
   ...
 }: {
   options.nixconf.hardware.printer = {
-    enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable printer configuration";
-    };
+    enable = lib.mkEnableOption "Printer Configuration";
 
     printerDrivers = lib.mkOption {
       type = lib.types.listOf lib.types.str;
@@ -17,11 +13,7 @@
       description = "Printer drivers";
     };
 
-    scanner = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable scanner configuration";
-    };
+    scanner = lib.mkEnableOption "Scanner Configuration";
 
     scannerBackends = lib.mkOption {
       type = lib.types.listOf lib.types.str;

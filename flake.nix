@@ -48,15 +48,6 @@
     forAllSystems = nixpkgs.lib.genAttrs systems;
 
     config = import ./configs/xps15.nix;
-
-    cache-config = {
-      nix.settings = {
-        substituters = ["https://cosmic.cachix.org/"];
-        trusted-public-keys = [
-          "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
-        ];
-      };
-    };
   in {
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
 
@@ -85,7 +76,6 @@
           catppuccin.nixosModules.catppuccin
           ./nixos
           config
-          cache-config
         ];
       };
     };
