@@ -5,11 +5,11 @@
   ...
 }: {
   options.nixconf.printer = {
-    enable = lib.mkEnableOption "Printer Configuration";
+    enable = pkgs.libExt.mkEnabledOption "Printer Configuration";
 
     printerDrivers = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [];
+      default = ["cups-dymo"];
       description = "Printer drivers";
     };
 

@@ -5,26 +5,7 @@
     stateVersion = "24.05";
     flakePath = "/home/${username}/Projects/personal/nixconf";
 
-    network = {
-      firewall.enable = true;
-      wireguard.enable = false;
-      mtr = {
-        enable = true;
-        exportMtr = false;
-      };
-    };
-
-    peripherals = {
-      touchpad = true;
-      bluetooth = true;
-      logitech = true;
-    };
-
-    printer = {
-      enable = true;
-      printerDrivers = ["cups-dymo"];
-      scanner = false;
-    };
+    gaming.enable = true;
 
     nvidia = {
       enable = true;
@@ -34,7 +15,6 @@
 
     flatpak = {
       enable = true;
-
       chrome = true;
       brave = true;
       firefox = true;
@@ -50,21 +30,6 @@
       zotero = true;
       obsidian = true;
     };
-
-    desktop = {
-      enable = true;
-      gnome = true;
-      cosmic = true;
-    };
-
-    gaming = {
-      enable = true;
-      steam = true;
-      proton = true;
-      prismlauncher = true;
-    };
-
-    kanata = true;
 
     systemd = {
       enable = true;
@@ -95,20 +60,6 @@
     editor = {
       neovim = true;
       vscode = true;
-    };
-
-    virtualisation = {
-      qemu = true;
-
-      docker = {
-        enable = true;
-        autoPrune = true;
-      };
-
-      podman = {
-        enable = true;
-        dockerCompat = false;
-      };
     };
 
     packages = {

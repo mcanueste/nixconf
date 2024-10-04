@@ -4,6 +4,10 @@
   config,
   ...
 }: {
+  imports = [
+    ./kanata.nix
+  ];
+
   options.nixconf.peripherals = {
     touchpad = pkgs.libExt.mkEnabledOption "Touchpad";
 

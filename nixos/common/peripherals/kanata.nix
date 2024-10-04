@@ -4,9 +4,9 @@
   config,
   ...
 }: {
-  options.nixconf.kanata = pkgs.libExt.mkEnabledOption "Kanata";
+  options.nixconf.peripherals.kanata = pkgs.libExt.mkEnabledOption "Kanata";
 
-  config = lib.mkIf config.nixconf.kanata {
+  config = lib.mkIf config.nixconf.peripherals.kanata {
     users.users.${config.nixconf.username}.extraGroups = [
       "input"
       "uinput"

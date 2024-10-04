@@ -10,11 +10,11 @@
 
     enable = lib.mkEnableOption "Gaming Configuration";
 
-    steam = lib.mkEnableOption "Steam";
+    steam = pkgs.libExt.mkEnabledOption "Steam";
 
-    proton = lib.mkEnableOption "Proton";
+    proton = pkgs.libExt.mkEnabledOption "Proton";
 
-    prismlauncher = lib.mkEnableOption "Prism Launcher";
+    prismlauncher = pkgs.libExt.mkEnabledOption "Prism Launcher";
 
     lutris = lib.mkEnableOption "Lutris Launcher";
 

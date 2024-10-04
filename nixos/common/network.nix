@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   config,
   ...
@@ -11,7 +12,7 @@
     };
 
     firewall = {
-      enable = lib.mkEnableOption "Firewall";
+      enable = pkgs.libExt.mkEnabledOption "Firewall";
 
       allowedTCPPorts = lib.mkOption {
         type = lib.types.listOf lib.types.port;
@@ -53,7 +54,7 @@
     };
 
     mtr = {
-      enable = lib.mkEnableOption "My Traceroute (mtr) network diagnostic tool";
+      enable = pkgs.libExt.mkEnabledOption "My Traceroute (mtr) network diagnostic tool";
 
       exportMtr = lib.mkEnableOption "Prometheus-ready mtr exporter";
     };
@@ -67,6 +68,16 @@
         description = "Wireguard configurations";
       };
     };
+
+    certs = lib.mkOption {
+      default = [];
+      description = "Self-signed CA Cert paths";
+      type = lib.types.listOf lib.types.path;
+    };
+
+    openssh = lib.mkEnableOption "Openssh for remote connections to host";
+    sshd = lib.mkEnableOption "sshd for remote connections to host";
+    sftp = lib.mkEnableOption "OpenSSH SFTP for remote connections to host";
   };
 
   config = {
@@ -94,7 +105,30 @@
     # Add user to networkmanager group
     users.users.${config.nixconf.username}.extraGroups = ["networkmanager"];
 
+    # setup self-signed CA cert files if any
+    security.pki.certificateFiles = config.nixconf.network.certs;
+
+    # My Trace Route
     programs.mtr.enable = config.nixconf.network.mtr.enable;
-    services.mtr-exporter.enable = config.nixconf.network.mtr.exportMtr;
+
+    services = {
+      # mtr prometheus ready exporter
+      mtr-exporter.enable = config.nixconf.network.mtr.exportMtr;
+
+      # Enable the OpenSSH daemon.
+      openssh = {
+        enable = config.nixconf.network.openssh;
+
+        # require public key authentication for better security
+        settings.PasswordAuthentication = false;
+        settings.KbdInteractiveAuthentication = false;
+        #settings.PermitRootLogin = "yes";
+
+        allowSFTP = config.nixconf.network.sftp;
+      };
+
+      # SSH daemon.
+      sshd.enable = config.nixconf.network.sshd;
+    };
   };
 }

@@ -7,9 +7,9 @@
   options.nixconf.flatpak = {
     enable = lib.mkEnableOption "flatpak";
 
-    chrome = lib.mkEnableOption "Chrome";
-
     brave = lib.mkEnableOption "Brave";
+
+    chrome = lib.mkEnableOption "Chrome";
 
     firefox = lib.mkEnableOption "Firefox";
 

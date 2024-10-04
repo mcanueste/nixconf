@@ -5,15 +5,15 @@
   ...
 }: {
   options.nixconf.virtualisation = {
-    qemu = lib.mkEnableOption "QEMU";
+    qemu = pkgs.libExt.mkEnabledOption "QEMU";
 
     docker = {
-      enable = lib.mkEnableOption "Docker";
-      autoPrune = lib.mkEnableOption "Docker Auto Prune";
+      enable = pkgs.libExt.mkEnabledOption "Docker";
+      autoPrune = pkgs.libExt.mkEnabledOption "Docker Auto Prune";
     };
 
     podman = {
-      enable = lib.mkEnableOption "Podman";
+      enable = pkgs.libExt.mkEnabledOption "Podman";
       dockerCompat = lib.mkEnableOption "Docker Compatability";
     };
   };
