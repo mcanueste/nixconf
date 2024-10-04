@@ -1,4 +1,3 @@
-# TODO: assumes laptop FS, can be different on VM's or other devices
 {
   pkgs,
   lib,

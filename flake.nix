@@ -46,8 +46,6 @@
     system = "x86_64-linux";
 
     forAllSystems = nixpkgs.lib.genAttrs systems;
-
-    config = import ./configs/xps15.nix;
   in {
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
 
@@ -74,8 +72,7 @@
           nixos-cosmic.nixosModules.default
           home-manager.nixosModules.default
           catppuccin.nixosModules.catppuccin
-          ./nixos
-          config
+          ./nixos/per-device/xps15-9530.nix
         ];
       };
     };

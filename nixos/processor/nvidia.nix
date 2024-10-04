@@ -5,14 +5,14 @@
   ...
 }: {
   options.nixconf.nvidia = {
-    enable = lib.mkEnableOption "Nvidia GPU Configuration";
+    enable = pkgs.libExt.mkEnabledOption "Nvidia GPU Configuration";
 
-    isTuring = lib.mkEnableOption "Turing Architecture Specific Configuration";
+    isTuring = pkgs.libExt.mkEnabledOption "Turing Architecture Specific Configuration";
 
     sync = lib.mkEnableOption "Nvidia Optimus Sync Configuration";
   };
 
-  config = lib.mkIf (config.nixconf.graphics.enable && config.nixconf.nvidia.enable) {
+  config = lib.mkIf config.nixconf.nvidia.enable {
     # Add VDPAU driver for Nvidia GPU
     hardware.graphics = {
       extraPackages = with pkgs; [
