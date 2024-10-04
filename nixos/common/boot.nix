@@ -4,8 +4,8 @@
   ...
 }: {
   options.nixconf.boot = {
+    # Disable this on VM's
     thermald = pkgs.libExt.mkEnabledOption "Thermald. Only disable on VM's";
-    power-profiles-daemon = pkgs.libExt.mkEnabledOption "power-profiles-daemon";
   };
 
   config = {
@@ -29,7 +29,7 @@
       thermald.enable = config.nixconf.boot.thermald;
 
       # Enable power-profiles-daemon for switching power profiles
-      power-profiles-daemon.enable = config.nixconf.boot.power-profiles-daemon;
+      power-profiles-daemon.enable = true;
     };
   };
 }

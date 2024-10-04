@@ -5,6 +5,7 @@
   ...
 }: {
   options.nixconf.desktop = {
+    # might disable on VMs or Servers
     enable = pkgs.libExt.mkEnabledOption "Desktop Configs";
     gnome = pkgs.libExt.mkEnabledOption "Gnome Desktop Environment";
     cosmic = pkgs.libExt.mkEnabledOption "Cosmic Desktop Environment";

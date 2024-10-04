@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   config,
   ...
 }: {
@@ -9,18 +8,12 @@
   ];
 
   options.nixconf.peripherals = {
-    touchpad = pkgs.libExt.mkEnabledOption "Touchpad";
-
     bluetooth = pkgs.libExt.mkEnabledOption "Bluetooth";
-
-    logitech = pkgs.libExt.mkEnabledOption "Logitech (Solaar)";
-
-    pipewire = pkgs.libExt.mkEnabledOption "Pipewire";
+    logitech = pkgs.libExt.mkEnabledOption "Logitech";
   };
 
   config = {
-    # Enable touchpad
-    services.libinput.enable = config.nixconf.peripherals.touchpad;
+    services.libinput.enable = true;
 
     # Enable hardware support for bluetooth
     hardware.bluetooth = {
@@ -43,10 +36,10 @@
     };
 
     # Set sound.enable to false if pipewire, as it is only meant for ALSA-based configurations
-    hardware.pulseaudio.enable = lib.mkForce (!config.nixconf.peripherals.pipewire);
+    hardware.pulseaudio.enable = false;
 
     services.pipewire = {
-      enable = config.nixconf.peripherals.pipewire;
+      enable = true;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;

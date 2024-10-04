@@ -45,6 +45,10 @@
       default = "/home/${config.nixconf.username}/Projects/personal/nixconf";
       description = "Full path to flake for NH CLI";
     };
+
+    isLaptop = lib.mkEnableOption "Is Laptop";
+    isVM = lib.mkEnableOption "Is Virtual Machine";
+    isServer = lib.mkEnableOption "Is Server";
   };
 
   config = {
