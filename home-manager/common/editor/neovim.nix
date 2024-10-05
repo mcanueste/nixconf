@@ -57,7 +57,6 @@
             harpoon2
             gitsigns-nvim
             which-key-nvim
-            cloak-nvim
             trouble-nvim
 
             FTerm-nvim

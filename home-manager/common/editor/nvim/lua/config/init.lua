@@ -26,7 +26,6 @@ local function init()
     require("config.copilot").init()
     require("config.ai").init()
     require("config.notes").init()
-    require("config.cloak").init()
     require("config.whichkey").init()
 end
 

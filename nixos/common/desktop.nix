@@ -65,5 +65,9 @@
         pkgs.simple-scan # document scanner
       ]
       else [];
+
+    # Temp fix for nvim flicker on cosmic-comp due to wl-clipboard
+    # See: https://github.com/pop-os/cosmic-comp/issues/700
+    environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
   };
 }
