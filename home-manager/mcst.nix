@@ -33,8 +33,7 @@
         gcloud = true;
         kubectl = true;
         k9s = true;
-        minikube = true;
-        kind = true;
+        k3d = true;
         helm = true;
         argo = true;
       };

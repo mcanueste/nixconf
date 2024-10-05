@@ -39,9 +39,7 @@
 
     k9s = lib.mkEnableOption "K9s";
 
-    minikube = lib.mkEnableOption "Minikube";
-
-    kind = lib.mkEnableOption "Kind";
+    k3d = lib.mkEnableOption "K3d";
 
     helm = lib.mkEnableOption "Helm";
 
@@ -95,8 +93,7 @@
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.argo pkgs.argo)
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.argocd pkgs.argocd)
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.kubectl pkgs.kubectl)
-      (pkgs.libExt.mkIfElseNull config.nixconf.packages.minikube pkgs.minikube)
-      (pkgs.libExt.mkIfElseNull config.nixconf.packages.kind pkgs.kind)
+      (pkgs.libExt.mkIfElseNull config.nixconf.packages.k3d pkgs.k3d)
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.helm pkgs.helm)
     ];
 
