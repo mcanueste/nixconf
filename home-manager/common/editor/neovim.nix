@@ -11,18 +11,6 @@
       v = "nvim";
     };
 
-    gp-nvim = pkgs.vimUtils.buildVimPlugin {
-      pname = "gp-nvim";
-      version = "3.8.0";
-      src = pkgs.fetchFromGitHub {
-        owner = "Robitx";
-        repo = "gp.nvim";
-        rev = "v3.8.0";
-        sha256 = "88UcYToQO3GU5Zw+EMUAP2NBpxf+b2l/PBXahrSp7fE=";
-      };
-      meta.homepage = "https://github.com/Robitx/gp.nvim/";
-    };
-
     nvim-config = pkgs.vimUtils.buildVimPlugin {
       name = "config";
       src = ./nvim;
@@ -56,7 +44,7 @@
             catppuccin-nvim
             lualine-nvim
 
-            # No setuplsp
+            # No setup
             vim-sleuth
             vim-tmux-navigator
 
@@ -110,8 +98,11 @@
             nvim-autopairs
             nvim-ts-context-commentstring
             (nvim-treesitter.withAllGrammars)
+
+            # custom plugins from own pkgs
+            pkgs.gp-nvim
           ]
-          ++ [gp-nvim nvim-config];
+          ++ [nvim-config];
 
         extraConfig = ''
           lua << EOF
