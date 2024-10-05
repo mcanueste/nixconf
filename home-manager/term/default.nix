@@ -1,19 +1,6 @@
 {
   imports = [
-    ./bash.nix
-    ./zsh.nix
-    ./fish.nix
-    ./dircolors.nix
-    ./starship.nix
-    ./eza.nix
-    ./bat.nix
-    ./fzf.nix
-    ./zoxide.nix
-    ./direnv.nix
-    ./scripts.nix
-    ./ai.nix
     ./alacritty.nix
     ./tmux.nix
-    ./yazi.nix
   ];
 }

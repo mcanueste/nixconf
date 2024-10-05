@@ -38,7 +38,10 @@
       programs.git = {
         enable = true;
         lfs.enable = true;
-        delta.enable = true;
+        delta = {
+          enable = true;
+          catppuccin.enable = true;
+        };
         userName = config.nixconf.git.gitUsername;
         userEmail = config.nixconf.git.gitEmail;
         extraConfig = {
@@ -84,9 +87,17 @@
 
       programs.gh = {
         enable = true;
-        extensions = [pkgs.gh-dash pkgs.gh-copilot];
+        extensions = [pkgs.gh-copilot];
       };
 
-      programs.lazygit.enable = true;
+      programs.gh-dash = {
+        enable = true;
+        catppuccin.enable = true;
+      };
+
+      programs.lazygit = {
+        enable = true;
+        catppuccin.enable = true;
+      };
     };
 }

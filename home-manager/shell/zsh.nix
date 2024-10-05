@@ -1,27 +1,13 @@
 {
-  pkgs,
   config,
   lib,
   ...
 }: {
-  options.nixconf.term = {
-    zsh = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Enable zsh";
-    };
+  options.nixconf.shell = {
+    zsh = lib.mkEnableOption "zsh";
   };
 
-  config = lib.mkIf config.nixconf.term.zsh {
-    xdg.configFile."zsh/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh".source =
-      pkgs.fetchFromGitHub {
-        owner = "catppuccin";
-        repo = "zsh-syntax-highlighting";
-        rev = "06d519c20798f0ebe275fc3a8101841faaeee8ea";
-        sha256 = "Q7KmwUd9fblprL55W0Sf4g7lRcemnhjh4/v+TacJSfo=";
-      }
-      + "/themes/catppuccin_mocha-zsh-syntax-highlighting.zsh";
-
+  config = lib.mkIf config.nixconf.shell.zsh {
     programs.zsh = {
       enable = true;
       enableCompletion = true;
@@ -41,7 +27,10 @@
 
       historySubstringSearch.enable = true;
       autosuggestion.enable = true;
-      syntaxHighlighting.enable = true;
+      syntaxHighlighting = {
+        enable = true;
+        catppuccin = true;
+      };
 
       initExtra = ''
         # Prevent file overwrite on stdout redirection

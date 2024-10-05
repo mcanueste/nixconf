@@ -46,6 +46,12 @@
     system = "x86_64-linux";
 
     forAllSystems = nixpkgs.lib.genAttrs systems;
+
+    args = {
+      inherit system;
+      inputs = inputs;
+      outputs = outputs;
+    };
   in {
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
 
@@ -64,25 +70,18 @@
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = {
-          inherit inputs outputs system;
-        };
+        specialArgs = args;
         modules = [
           nix-flatpak.nixosModules.nix-flatpak
           nixos-cosmic.nixosModules.default
-          catppuccin.nixosModules.catppuccin
           ./nixos/per-device/xps15-9530.nix
 
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-
+            home-manager.extraSpecialArgs = args;
             home-manager.users.mcst = import ./home-manager/per-user/mcst.nix;
-
-            home-manager.extraSpecialArgs = {
-              inherit inputs outputs system;
-            };
           }
         ];
       };

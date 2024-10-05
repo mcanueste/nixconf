@@ -7,11 +7,10 @@
   ];
 
   config = {
-    nixconf = rec {
+    nixconf = {
       username = "mcst";
       hostname = "nixos";
       stateVersion = "24.05";
-      flakePath = "/home/${username}/Projects/personal/nixconf";
 
       gaming.enable = true;
 

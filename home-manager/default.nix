@@ -4,11 +4,13 @@
   ...
 }: {
   imports = [
-    ./editor
     ./term
+    ./shell
+    ./editor
+    ./scripts
+
     ./git.nix
     ./packages.nix
-    ./systemd.nix
     ./theme.nix
   ];
 
@@ -24,6 +26,12 @@
       default = "24.05";
       description = "Nix State Version";
     };
+
+    flakePath = lib.mkOption {
+      type = lib.types.str;
+      default = "/home/${config.nixconf.username}/Projects/personal/nixconf";
+      description = "Full path to flake for NH CLI";
+    };
   };
 
   config = {
@@ -31,5 +39,10 @@
     systemd.user.startServices = "sd-switch";
 
     home.stateVersion = config.nixconf.stateVersion;
+
+    home.sessionVariables = {
+      # Set FLAKE path for nh
+      FLAKE = config.nixconf.flakePath;
+    };
   };
 }

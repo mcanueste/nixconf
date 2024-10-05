@@ -39,12 +39,6 @@
       default = "24.05";
       description = "Nix State Version";
     };
-
-    flakePath = lib.mkOption {
-      type = lib.types.str;
-      default = "/home/${config.nixconf.username}/Projects/personal/nixconf";
-      description = "Full path to flake for NH CLI";
-    };
   };
 
   config = {
@@ -77,24 +71,6 @@
 
     # Host settings
     networking.hostName = config.nixconf.hostname;
-
-    # Setup flake path for NH CLI # TODO: move to home configs
-    environment.sessionVariables.FLAKE = config.nixconf.flakePath;
-
-    # Home manager settings
-    # home-manager = {
-    #   useGlobalPkgs = true;
-    #   useUserPackages = true;
-    #   extraSpecialArgs = {inherit inputs;};
-    #   users.${config.nixconf.username} = {
-    #     programs.home-manager.enable = true;
-    #     home = {
-    #       inherit (config.nixconf) stateVersion;
-    #       username = config.nixconf.username;
-    #       homeDirectory = "/home/${config.nixconf.username}";
-    #     };
-    #   };
-    # };
 
     nix = {
       # Nix CLI version
