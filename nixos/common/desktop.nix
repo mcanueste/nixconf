@@ -42,11 +42,14 @@
     };
 
     environment.systemPackages =
-      if config.nixconf.desktop.gnome
-      then [
-        pkgs.gnome-tweaks
-      ]
-      else [];
+      [pkgs.xdg-utils]
+      ++ (
+        if config.nixconf.desktop.gnome
+        then [
+          pkgs.gnome-tweaks
+        ]
+        else []
+      );
 
     environment.gnome.excludePackages =
       if config.nixconf.desktop.gnome

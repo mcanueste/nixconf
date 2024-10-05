@@ -60,21 +60,33 @@
     # Reusable home-manager modules (upstream into home-manager)
     homeManagerModules = import ./modules/home-manager;
 
+    # Available through i.e. 'nixos-rebuild --flake .#nixos'
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = args;
         modules = [
           nixos-cosmic.nixosModules.default
-          ./nixos/per-device/xps15-9530.nix
+          ./nixos/xps15-9530.nix
 
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = args;
-            home-manager.users.mcst = import ./home-manager/per-user/mcst.nix;
+            home-manager.extraSpecialArgs = args // {isStandalone = false;};
+            home-manager.users.mcst = import ./home-manager/mcst.nix;
           }
+        ];
+      };
+    };
+
+    # Available through i.e. 'home-manager --flake .#mcst@ubuntu'
+    homeConfigurations = {
+      "mcst@ubuntu" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = args;
+        modules = [
+          ./home-manager/mcst.nix
         ];
       };
     };

@@ -42,15 +42,12 @@
 
   config = {
     nixpkgs = {
-      overlays = [
-        outputs.overlays.additions
-        outputs.overlays.modifications
-        outputs.overlays.stable-packages
-        outputs.overlays.lib
-
-        # You can also add overlays exported from other flakes:
-        # neovim-nightly-overlay.overlays.default
-      ];
+      overlays =
+        lib.attrsets.attrValues outputs.overlays
+        ++ [
+          # You can also add overlays exported from other flakes:
+          # neovim-nightly-overlay.overlays.default
+        ];
 
       config = {
         allowUnfree = true;
@@ -73,7 +70,7 @@
 
     nix = {
       # Nix CLI version
-      package = pkgs.nixVersions.latest;
+      package = lib.mkDefault pkgs.nixVersions.latest;
 
       # Optimise store daily
       optimise.automatic = true;
@@ -110,43 +107,23 @@
       registry.nixpkgs.flake = inputs.nixpkgs;
     };
 
+    # setup completion links
     environment.pathsToLink = ["/share/bash-completion" "/share/zsh" "/share/fish"];
 
+    # install basic utilities
     environment.systemPackages = [
-      # Install `nh` for better nix experience
-      pkgs.nh
-      pkgs.nvd
-      pkgs.nix-output-monitor
-      pkgs.manix
-
-      # basic utilities
       pkgs.coreutils-full
+      pkgs.gnumake
+      pkgs.gzip
+      pkgs.tree
       pkgs.curl
       pkgs.wget
-      pkgs.gzip
-      pkgs.unzip
-      pkgs.dash
-      pkgs.lsof
-      pkgs.lshw
-      pkgs.gnumake
-      pkgs.pciutils
-      pkgs.xdg-utils
-      pkgs.rsync
-      pkgs.tree
-      pkgs.fd
-      pkgs.ripgrep
       pkgs.htop
-      pkgs.ncdu
       pkgs.file
-      pkgs.jq
       pkgs.dig
-      pkgs.traceroute
-      pkgs.hyperfine
-      pkgs.entr
-      pkgs.ffmpegthumbnailer
-      pkgs.just
-      pkgs.fastfetch
-      pkgs.glow
+      pkgs.htop
+      pkgs.file
+      pkgs.dig
     ];
   };
 }

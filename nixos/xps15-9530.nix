@@ -1,9 +1,9 @@
 {
   imports = [
-    ../common
-    ../processor/intel-cpu.nix
-    ../processor/intel-igpu.nix
-    ../processor/nvidia.nix
+    ./common
+    ./processor/intel-cpu.nix
+    ./processor/intel-igpu.nix
+    ./processor/nvidia.nix
   ];
 
   config = {

@@ -52,6 +52,24 @@
 
   config = {
     home.packages = pkgs.libExt.filterNull [
+      # some must haves
+      pkgs.lsof
+      pkgs.lshw
+      pkgs.pciutils
+      pkgs.unzip
+      pkgs.rsync
+      pkgs.fd
+      pkgs.ripgrep
+      pkgs.ncdu
+      pkgs.jq
+      pkgs.traceroute
+      pkgs.hyperfine
+      pkgs.entr
+      pkgs.ffmpegthumbnailer
+      pkgs.just
+      pkgs.fastfetch
+      pkgs.glow
+
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.pre-commit pkgs.pre-commit)
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.docker-compose pkgs.docker-compose)
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.podman-compose pkgs.podman-compose)
