@@ -45,10 +45,6 @@
       default = "/home/${config.nixconf.username}/Projects/personal/nixconf";
       description = "Full path to flake for NH CLI";
     };
-
-    isLaptop = lib.mkEnableOption "Is Laptop";
-    isVM = lib.mkEnableOption "Is Virtual Machine";
-    isServer = lib.mkEnableOption "Is Server";
   };
 
   config = {
@@ -86,19 +82,19 @@
     environment.sessionVariables.FLAKE = config.nixconf.flakePath;
 
     # Home manager settings
-    home-manager = {
-      useGlobalPkgs = true;
-      useUserPackages = true;
-      extraSpecialArgs = {inherit inputs;};
-      users.${config.nixconf.username} = {
-        programs.home-manager.enable = true;
-        home = {
-          inherit (config.nixconf) stateVersion;
-          username = config.nixconf.username;
-          homeDirectory = "/home/${config.nixconf.username}";
-        };
-      };
-    };
+    # home-manager = {
+    #   useGlobalPkgs = true;
+    #   useUserPackages = true;
+    #   extraSpecialArgs = {inherit inputs;};
+    #   users.${config.nixconf.username} = {
+    #     programs.home-manager.enable = true;
+    #     home = {
+    #       inherit (config.nixconf) stateVersion;
+    #       username = config.nixconf.username;
+    #       homeDirectory = "/home/${config.nixconf.username}";
+    #     };
+    #   };
+    # };
 
     nix = {
       # Nix CLI version
@@ -138,6 +134,8 @@
       # flake registry defaults to nixpkgs (unstable in this case)
       registry.nixpkgs.flake = inputs.nixpkgs;
     };
+
+    environment.pathsToLink = ["/share/bash-completion" "/share/zsh" "/share/fish"];
 
     environment.systemPackages = [
       # Install `nh` for better nix experience

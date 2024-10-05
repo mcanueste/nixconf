@@ -42,11 +42,9 @@ in {
   };
 
   config = lib.mkIf config.nixconf.systemd.enable {
-    home-manager.users.${config.nixconf.username} = {
-      systemd.user = setupServices (pkgs.libExt.filterNull [
-        (pkgs.libExt.mkIfElseNull config.nixconf.systemd.sync-notes sync-notes-service)
-        (pkgs.libExt.mkIfElseNull config.nixconf.systemd.sync-blog sync-blog-service)
-      ]);
-    };
+    systemd.user = setupServices (pkgs.libExt.filterNull [
+      (pkgs.libExt.mkIfElseNull config.nixconf.systemd.sync-notes sync-notes-service)
+      (pkgs.libExt.mkIfElseNull config.nixconf.systemd.sync-blog sync-blog-service)
+    ]);
   };
 }

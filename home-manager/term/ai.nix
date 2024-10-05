@@ -12,12 +12,12 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.term.ai {
-    home-manager.users.${config.nixconf.username} = let
-      shellAliases = {
-        chat = "aichat";
-      };
-    in {
+  config = let
+    shellAliases = {
+      chat = "aichat";
+    };
+  in
+    lib.mkIf config.nixconf.term.ai {
       programs.bash = {inherit shellAliases;};
       programs.zsh = {inherit shellAliases;};
       programs.fish = {inherit shellAliases;};
@@ -26,5 +26,4 @@
         pkgs.aichat
       ];
     };
-  };
 }

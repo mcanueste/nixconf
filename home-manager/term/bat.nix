@@ -12,14 +12,14 @@
     };
   };
 
-  config = lib.mkIf config.nixconf.term.bat {
-    home-manager.users.${config.nixconf.username} = let
-      shellAliases = {
-        rgb = "batgrep";
-        man = "batman";
-        pretty = "prettybat";
-      };
-    in {
+  config = let
+    shellAliases = {
+      rgb = "batgrep";
+      man = "batman";
+      pretty = "prettybat";
+    };
+  in
+    lib.mkIf config.nixconf.term.bat {
       programs.bash = {inherit shellAliases;};
       programs.zsh = {inherit shellAliases;};
       programs.fish = {inherit shellAliases;};
@@ -32,5 +32,4 @@
         ];
       };
     };
-  };
 }

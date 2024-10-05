@@ -70,9 +70,20 @@
         modules = [
           nix-flatpak.nixosModules.nix-flatpak
           nixos-cosmic.nixosModules.default
-          home-manager.nixosModules.default
           catppuccin.nixosModules.catppuccin
           ./nixos/per-device/xps15-9530.nix
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            home-manager.users.mcst = import ./home-manager/per-user/mcst.nix;
+
+            home-manager.extraSpecialArgs = {
+              inherit inputs outputs system;
+            };
+          }
         ];
       };
     };
