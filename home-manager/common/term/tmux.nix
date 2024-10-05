@@ -40,6 +40,7 @@
           tmuxPlugins.resurrect
           tmuxPlugins.tmux-fzf
         ];
+        catppuccin.enable = true;
         # we need session switcher
         extraConfig = ''
           set-option -sa terminal-overrides ",xterm*:Tc"
