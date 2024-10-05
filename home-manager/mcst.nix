@@ -39,6 +39,10 @@
         argo = true;
       };
 
+      guiPackages = {
+        godot = true;
+      };
+
       flatpak = {
         chrome = true;
         brave = true;

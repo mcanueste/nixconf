@@ -16,6 +16,7 @@
     ./git.nix
     ./theme.nix
     ./packages.nix
+    ./guiPackages.nix
     ./flatpak.nix
   ];
 
