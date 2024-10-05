@@ -8,8 +8,6 @@
 
     nix-alien.url = "github:thiagokokada/nix-alien";
 
-    nix-flatpak.url = "github:gmodena/nix-flatpak";
-
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
     nixpkgs.follows = "nixos-cosmic/nixpkgs";
 
@@ -18,22 +16,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
+
     catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-stable,
-    nix-alien,
-    nix-flatpak,
     nixos-cosmic,
     home-manager,
-    catppuccin,
     ...
   } @ inputs: let
-    inherit (self) outputs;
-
     # Supported systems
     systems = [
       "aarch64-linux"
@@ -48,9 +42,8 @@
     forAllSystems = nixpkgs.lib.genAttrs systems;
 
     args = {
-      inherit system;
-      inputs = inputs;
-      outputs = outputs;
+      inherit system inputs;
+      inherit (self) outputs;
     };
   in {
     formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
@@ -72,7 +65,6 @@
         inherit system;
         specialArgs = args;
         modules = [
-          nix-flatpak.nixosModules.nix-flatpak
           nixos-cosmic.nixosModules.default
           ./nixos/per-device/xps15-9530.nix
 

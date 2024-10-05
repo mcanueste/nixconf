@@ -14,7 +14,7 @@
       scripts = {
         enable = true;
         systemd = {
-          enable = true;
+          enable = false;
           sync-notes = true;
           sync-blog = true;
         };
@@ -37,6 +37,23 @@
         kind = true;
         helm = true;
         argo = true;
+      };
+
+      flatpak = {
+        chrome = true;
+        brave = true;
+        firefox = true;
+        vlc = true;
+        spotify = true;
+        slack = true;
+        telegram = true;
+        discord = true;
+        obs = true;
+        audacity = true;
+        gimp = true;
+        calibre = true;
+        zotero = true;
+        obsidian = true;
       };
     };
   };

@@ -11,7 +11,6 @@
     ./desktop.nix
     ./fhs.nix
     ./filesystem.nix
-    ./flatpak.nix
     ./gaming.nix
     ./locale.nix
     ./network.nix

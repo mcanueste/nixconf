@@ -1,9 +1,14 @@
 {
+  inputs,
   pkgs,
   lib,
   config,
   ...
 }: {
+  imports = [
+    inputs.nix-flatpak.homeManagerModules.nix-flatpak
+  ];
+
   options.nixconf.flatpak = {
     brave = lib.mkEnableOption "Brave";
 

@@ -10,8 +10,9 @@
     ./scripts
 
     ./git.nix
-    ./packages.nix
     ./theme.nix
+    ./packages.nix
+    ./flatpak.nix
   ];
 
   options.nixconf = {

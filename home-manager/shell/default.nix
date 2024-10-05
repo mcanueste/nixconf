@@ -30,7 +30,7 @@ in {
 
     programs.dircolors = enable;
 
-    programs.direnv = enable;
+    programs.direnv = builtins.removeAttrs enable ["enableFishIntegration"]; # fish integration enabled by default
 
     programs.eza =
       enable

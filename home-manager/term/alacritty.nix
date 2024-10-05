@@ -12,7 +12,7 @@
     shell =
       if config.nixconf.term.tmux
       then {
-        program = "dash";
+        program = "bash";
         args = [
           "-l"
           "-c"
@@ -21,7 +21,7 @@
       }
       else
         (
-          if config.nixconf.term.fish
+          if config.nixconf.shell.fish
           then {
             program = "fish";
             args = ["-l"];

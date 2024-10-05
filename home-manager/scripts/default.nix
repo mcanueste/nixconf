@@ -57,7 +57,7 @@
       '';
     };
   in
-    lib.mkIf config.nixconf.term.scripts {
+    lib.mkIf config.nixconf.scripts.enable {
       home.packages = [
         sync-notes
         sync-blog

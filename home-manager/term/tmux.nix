@@ -10,7 +10,7 @@
 
   config = let
     shell =
-      if config.nixconf.term.fish
+      if config.nixconf.shell.fish
       then "${pkgs.fish}/bin/fish"
       else "${pkgs.bash}/bin/bash";
   in
