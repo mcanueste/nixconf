@@ -39,6 +39,7 @@
       };
 
       guiPackages = {
+        spotify = true;
         godot = true;
       };
 
@@ -47,7 +48,6 @@
         brave = true;
         firefox = true;
         vlc = true;
-        spotify = true;
         slack = true;
         telegram = true;
         discord = true;

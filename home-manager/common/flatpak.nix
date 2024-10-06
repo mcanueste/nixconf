@@ -18,8 +18,6 @@
 
     vlc = lib.mkEnableOption "VLC";
 
-    spotify = lib.mkEnableOption "Spotify";
-
     # Note: manually run `flatpak override --user --socket=wayland com.slack.Slack` for wayland support.
     slack = lib.mkEnableOption "Slack";
 
@@ -59,7 +57,6 @@
         (addFlathub config.nixconf.flatpak.chrome "com.google.Chrome")
         (addFlathub config.nixconf.flatpak.firefox "org.mozilla.firefox")
         (addFlathub config.nixconf.flatpak.vlc "org.videolan.VLC")
-        (addFlathub config.nixconf.flatpak.spotify "com.spotify.Client")
         (addFlathub config.nixconf.flatpak.slack "com.slack.Slack")
         (addFlathub config.nixconf.flatpak.telegram "org.telegram.desktop")
         (addFlathub config.nixconf.flatpak.discord "com.discordapp.Discord")
