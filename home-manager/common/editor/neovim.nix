@@ -77,7 +77,7 @@
             nvim-lspconfig
             none-ls-nvim
             neodev-nvim
-            # rustaceanvim
+            rustaceanvim
             nvim-dap
             nvim-nio
             nvim-dap-ui
