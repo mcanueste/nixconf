@@ -12,6 +12,8 @@
     obsidian = lib.mkEnableOption "Obsidian";
 
     godot = lib.mkEnableOption "Godot 4";
+
+    slack = lib.mkEnableOption "Slack";
   };
 
   config = {
@@ -19,6 +21,7 @@
       (pkgs.libExt.mkIfElseNull config.nixconf.guiPackages.spotify pkgs.spotify)
       (pkgs.libExt.mkIfElseNull config.nixconf.guiPackages.obsidian pkgs.obsidian)
       (pkgs.libExt.mkIfElseNull config.nixconf.guiPackages.godot pkgs.godot_4)
+      (pkgs.libExt.mkIfElseNull config.nixconf.guiPackages.slack pkgs.slack)
     ];
   };
 }

@@ -42,6 +42,7 @@
         spotify = true;
         obsidian = true;
         godot = true;
+        slack = true;
       };
 
       flatpak = {
@@ -49,7 +50,6 @@
         brave = true;
         firefox = true;
         vlc = true;
-        slack = true;
         telegram = true;
         discord = true;
         obs = true;
