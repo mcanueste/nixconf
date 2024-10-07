@@ -5,8 +5,11 @@
   ...
 }: {
   options.nixconf.guiPackages = {
-    # Flatpak of spotify is buggy with wayland when using `xdg-desktop-portal-*`
+    # Flatpak is buggy on wayland with xdg-desktop-portal so we install some apps natively
+
     spotify = lib.mkEnableOption "Spotify";
+
+    obsidian = lib.mkEnableOption "Obsidian";
 
     godot = lib.mkEnableOption "Godot 4";
   };
@@ -14,6 +17,7 @@
   config = {
     home.packages = pkgs.libExt.filterNull [
       (pkgs.libExt.mkIfElseNull config.nixconf.guiPackages.spotify pkgs.spotify)
+      (pkgs.libExt.mkIfElseNull config.nixconf.guiPackages.obsidian pkgs.obsidian)
       (pkgs.libExt.mkIfElseNull config.nixconf.guiPackages.godot pkgs.godot_4)
     ];
   };

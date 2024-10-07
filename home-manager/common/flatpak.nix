@@ -34,8 +34,6 @@
     calibre = lib.mkEnableOption "Calibre";
 
     zotero = lib.mkEnableOption "Zotero";
-
-    obsidian = lib.mkEnableOption "Obsidian";
   };
 
   config = let
@@ -65,7 +63,6 @@
         (addFlathub config.nixconf.flatpak.gimp "org.gimp.GIMP")
         (addFlathub config.nixconf.flatpak.calibre "com.calibre_ebook.calibre")
         (addFlathub config.nixconf.flatpak.zotero "org.zotero.Zotero")
-        (addFlathub config.nixconf.flatpak.obsidian "md.obsidian.Obsidian")
       ];
     };
   };

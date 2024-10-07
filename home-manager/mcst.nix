@@ -40,6 +40,7 @@
 
       guiPackages = {
         spotify = true;
+        obsidian = true;
         godot = true;
       };
 
@@ -56,7 +57,6 @@
         gimp = true;
         calibre = true;
         zotero = true;
-        obsidian = true;
       };
     };
   };
