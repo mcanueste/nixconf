@@ -31,20 +31,34 @@
 
     environment.systemPackages = pkgs.libExt.filterNull [
       (pkgs.libExt.mkIfElseNull config.nixconf.virtualisation.qemu pkgs.qemu)
+      (pkgs.libExt.mkIfElseNull config.nixconf.virtualisation.qemu pkgs.virt-viewer)
+      (pkgs.libExt.mkIfElseNull config.nixconf.virtualisation.qemu pkgs.spice)
+      (pkgs.libExt.mkIfElseNull config.nixconf.virtualisation.qemu pkgs.spice-gtk)
+      (pkgs.libExt.mkIfElseNull config.nixconf.virtualisation.qemu pkgs.spice-protocol)
+      (pkgs.libExt.mkIfElseNull config.nixconf.virtualisation.qemu pkgs.win-virtio)
+      (pkgs.libExt.mkIfElseNull config.nixconf.virtualisation.qemu pkgs.win-spice)
     ];
+
+    # enable spice-vdagent for QEMU VMs
+    services.spice-vdagentd.enable = config.nixconf.virtualisation.qemu;
 
     virtualisation = {
       libvirtd = {
         enable = config.nixconf.virtualisation.qemu;
 
         qemu = {
-          ovmf.enable = true;
           runAsRoot = true;
+          swtpm.enable = true;
+          ovmf.enable = true;
+          ovmf.packages = [pkgs.OVMFFull.fd];
         };
 
         onBoot = "ignore";
         onShutdown = "shutdown";
       };
+
+      # enable USB redirection for QEMU VMs
+      spiceUSBRedirection.enable = config.nixconf.virtualisation.qemu;
 
       docker = {
         enable = config.nixconf.virtualisation.docker.enable;
@@ -65,15 +79,6 @@
 
       # Enable common container config files in /etc/containers
       containers.enable = config.nixconf.virtualisation.docker.enable || config.nixconf.virtualisation.podman.enable;
-    };
-
-    home-manager.users.${config.nixconf.username} = {
-      dconf.settings = lib.mkIf config.nixconf.virtualisation.qemu {
-        "org/virt-manager/virt-manager/connections" = {
-          autoconnect = ["qemu:///system"];
-          uris = ["qemu:///system"];
-        };
-      };
     };
   };
 }
