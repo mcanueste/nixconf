@@ -55,7 +55,7 @@
           a = "add";
           aa = "add --all";
           p = "pull";
-          P = "push";
+          ps = "push";
           c = "commit";
           cm = "commit -m";
           cl = "clone";

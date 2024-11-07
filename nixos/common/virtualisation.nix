@@ -8,12 +8,12 @@
     qemu = pkgs.libExt.mkEnabledOption "QEMU";
 
     docker = {
-      enable = pkgs.libExt.mkEnabledOption "Docker";
+      enable = lib.mkEnableOption "Docker";
       autoPrune = pkgs.libExt.mkEnabledOption "Docker Auto Prune";
     };
 
     podman = {
-      enable = pkgs.libExt.mkEnabledOption "Podman";
+      enable = lib.mkEnableOption "Podman";
       dockerCompat = lib.mkEnableOption "Docker Compatability";
     };
   };
