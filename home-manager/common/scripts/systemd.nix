@@ -6,9 +6,7 @@
 }: {
   options.nixconf.scripts.systemd = {
     enable = lib.mkEnableOption "user space systemd services";
-
     sync-notes = lib.mkEnableOption "sync-notes script for pushing notes to git";
-
     sync-blog = lib.mkEnableOption "sync-blog script for moving blog notes from Obsidian vault and pushing changes to github";
   };
 

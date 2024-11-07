@@ -18,7 +18,7 @@
         #!/usr/bin/env bash
         echo "Backing up notes..."
 
-        cd ~/Projects/personal/notes/
+        cd ~/notes/
         git add .
         if [[ "$(git status --porcelain | wc -l)" -eq "0" ]]; then
           echo "  🟢 Git repo is clean."
@@ -40,8 +40,8 @@
         #!/usr/bin/env bash
         echo "Syncing blog notes from Obsidian vault to blog repository..."
 
-        rsync -r ~/Projects/personal/notes/blog/* ~/Projects/personal/blog/content/posts/
-        cd ~/Projects/personal/blog/
+        rsync -r ~/notes/blog/* ~/blog/content/posts/
+        cd ~/blog/
         hugo
 
         git add .

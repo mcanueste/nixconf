@@ -42,8 +42,8 @@
         enable = true;
         catppuccin.enable = true;
         settings = {
-          inherit shell;
-          live_config_reload = true;
+          terminal = {inherit shell;};
+          general.live_config_reload = true;
           cursor.style = "block";
           cursor.unfocused_hollow = true;
           env = {

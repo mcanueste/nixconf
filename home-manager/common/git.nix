@@ -53,30 +53,20 @@
         ignores = [".direnv"]; # things that will be ignored always
         aliases = {
           s = "status";
-
           a = "add";
           aa = "add --all";
-
-          p = "push";
-          pl = "pull";
-
+          p = "pull";
+          P = "push";
           c = "commit";
           cm = "commit -m";
-
           cl = "clone";
-
           b = "branch";
-
           co = "checkout";
           cob = "checkout -b";
-
           r = "rebase";
-
           re = "restore";
           res = "restore --staged";
-
           d = "diff";
-
           clb = "clone --bare";
           wl = "worktree list";
           wa = "worktree add";

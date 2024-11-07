@@ -9,11 +9,6 @@
       stateVersion = "24.05";
       flakePath = "/home/${username}/nixconf";
 
-      editor = {
-        vscode = true;
-        obsidian = true;
-      };
-
       scripts = {
         enable = true;
         systemd = {
@@ -23,8 +18,30 @@
         };
       };
 
+      editor = {
+        vscode = true;
+        obsidian = true;
+      };
+
+      browsers = {
+        brave = true;
+        chrome = true;
+        firefox = true;
+      };
+
+      media = {
+        spotify = true;
+        calibre = true;
+        zotero = true;
+      };
+
+      chat = {
+        slack = true;
+        telegram = false;
+        discord = false;
+      };
+
       packages = {
-        pre-commit = true;
         docker-compose = true;
         podman-compose = true;
         nerdctl = true;
@@ -39,28 +56,6 @@
         k3d = true;
         helm = true;
         argo = true;
-      };
-
-      browsers = {
-        brave = true;
-        chrome = true;
-        firefox = true;
-      };
-
-      media = {
-        spotify = true;
-        vlc = false;
-        obs = false;
-        audacity = false;
-        gimp = false;
-        calibre = true;
-        zotero = true;
-      };
-
-      chat = {
-        slack = true;
-        telegram = false;
-        discord = false;
       };
     };
   };

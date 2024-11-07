@@ -5,46 +5,25 @@
   ...
 }: {
   options.nixconf.packages = {
-    pre-commit = lib.mkEnableOption "Pre-commit";
-
     docker-compose = lib.mkEnableOption "Docker Compose";
-
     podman-compose = lib.mkEnableOption "Podman Compose";
-
     nerdctl = lib.mkEnableOption "Nerdctl";
-
     lazydocker = lib.mkEnableOption "Lazydocker";
-
     dive = lib.mkEnableOption "Dive";
-
     cosign = lib.mkEnableOption "Cosign";
-
     packer = lib.mkEnableOption "Packer";
-
     terraform = lib.mkEnableOption "Terraform";
-
     aws = lib.mkEnableOption "AWS CLI";
-
     azure = lib.mkEnableOption "Azure CLI";
-
     cfssl = lib.mkEnableOption "CFSSL";
-
     digital-ocean = lib.mkEnableOption "Digital Ocean CLI";
-
     gcloud = lib.mkEnableOption "Google Cloud CLI";
-
     localstack = lib.mkEnableOption "Localstack CLI";
-
     kubectl = lib.mkEnableOption "Kubectl";
-
     k9s = lib.mkEnableOption "K9s";
-
     k3d = lib.mkEnableOption "K3d";
-
     helm = lib.mkEnableOption "Helm";
-
     argo = lib.mkEnableOption "Argo CLI";
-
     argocd = lib.mkEnableOption "ArgoCD CLI";
   };
 
@@ -68,7 +47,6 @@
       pkgs.fastfetch
       pkgs.glow
 
-      (pkgs.libExt.mkIfElseNull config.nixconf.packages.pre-commit pkgs.pre-commit)
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.docker-compose pkgs.docker-compose)
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.podman-compose pkgs.podman-compose)
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.nerdctl pkgs.nerdctl)
