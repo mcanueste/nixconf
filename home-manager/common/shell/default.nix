@@ -36,7 +36,7 @@ in {
       enable
       // {
         git = true;
-        icons = true;
+        icons = "auto";
       };
 
     programs.fzf =

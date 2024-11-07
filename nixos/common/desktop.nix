@@ -9,9 +9,6 @@
     enable = pkgs.libExt.mkEnabledOption "Desktop Configs";
     gnome = pkgs.libExt.mkEnabledOption "Gnome Desktop Environment";
     cosmic = pkgs.libExt.mkEnabledOption "Cosmic Desktop Environment";
-
-    # Use flatpak for desktop applications
-    flatpak = pkgs.libExt.mkEnabledOption "flatpak";
   };
 
   config = lib.mkIf config.nixconf.desktop.enable {
@@ -20,9 +17,6 @@
 
     # enable desktop portal
     xdg.portal.enable = true;
-
-    # enable flatpak for desktop applications
-    services.flatpak.enable = config.nixconf.desktop.flatpak;
 
     services = {
       xserver = {

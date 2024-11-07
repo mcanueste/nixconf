@@ -2,183 +2,976 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }: {
+  imports = [
+    inputs.nixvim.homeManagerModules.nixvim
+  ];
+
   options.nixconf.editor.neovim = pkgs.libExt.mkEnabledOption "neovim";
 
-  config = let
-    shellAliases = {
-      v = "nvim";
-    };
-
-    nvim-config = pkgs.vimUtils.buildVimPlugin {
-      name = "config";
-      src = ./nvim;
-    };
-  in
-    lib.mkIf config.nixconf.editor.neovim {
-      programs.bash = {inherit shellAliases;};
-      programs.fish = {inherit shellAliases;};
-
-      xdg.configFile."yamlfmt/.yamlfmt".text = ''
-        formatter:
-          retain_line_breaks: true
-      '';
-
-      programs.neovim = {
+  config = lib.mkIf config.nixconf.editor.neovim {
+    programs = let
+      shellAliases = {
+        v = "nvim";
+      };
+    in {
+      bash = {inherit shellAliases;};
+      fish = {inherit shellAliases;};
+      nixvim = {
         enable = true;
+        defaultEditor = true;
         viAlias = true;
         vimAlias = true;
         vimdiffAlias = true;
-        defaultEditor = true;
-        withNodeJs = true;
-        withRuby = false;
-        withPython3 = false;
 
-        plugins = with pkgs.vimPlugins;
-          [
-            # Deps & UI & theme
-            nui-nvim
-            plenary-nvim
-            nvim-web-devicons
-            catppuccin-nvim
-            lualine-nvim
+        performance = {
+          byteCompileLua = {
+            enable = true;
+            nvimRuntime = true;
+            plugins = true;
+          };
+        };
 
-            # No setup
-            vim-sleuth
-            vim-tmux-navigator
+        globals = {
+          mapleader = " ";
+          maplocalleader = "\\";
+          markdown_recommended_style = 0; # Fix markdown indentation settings
+        };
 
-            # Utilities
-            mini-nvim
-            oil-nvim
-            telescope-nvim
-            telescope-fzf-native-nvim
-            git-worktree-nvim
-            harpoon2
-            gitsigns-nvim
-            which-key-nvim
-            trouble-nvim
+        opts = {
+          sessionoptions = ["buffers" "curdir" "tabpages" "winsize"];
+          inccommand = "nosplit"; # preview incremental substitute
+          autowrite = true; # Enable auto write
 
-            FTerm-nvim
-            # nvim-spectre -- TODO: check later
+          grepformat = "%f:%l:%c:%m"; # Formatting of :grep
+          grepprg = "rg --vimgrep"; # :grep command to use
 
-            # completion
-            nvim-cmp
-            cmp-dap
-            cmp-async-path
-            cmp-buffer
-            cmp-cmdline
-            cmp-emoji
-            cmp-nvim-lsp
-            cmp-nvim-lsp-signature-help
-            cmp-nvim-lsp-document-symbol
+          expandtab = true; # Use spaces instead of tabs
+          shiftround = true; # Round indent
+          shiftwidth = 2; # Size of an indent
+          tabstop = 2; # Number of spaces tabs count for
+          relativenumber = true; # Relative line numbers
 
-            # lsp & dap
-            nvim-lspconfig
-            none-ls-nvim
-            neodev-nvim
-            rustaceanvim
-            nvim-dap
-            nvim-nio
-            nvim-dap-ui
-            nvim-dap-virtual-text
-            # telescope-dap-nvim TODO useful?
-            nvim-dap-go
-            nvim-dap-python
+          sidescrolloff = 8; # Columns of context
+          scrolloff = 10; # Rows of context
+          conceallevel = 1;
 
-            # AI
-            copilot-lua
-            CopilotChat-nvim
+          list = false; # hide listchars
 
-            # Note taking
-            obsidian-nvim
+          spell = false; # disable by default
+          spelllang = ["en" "de" "tr"];
 
-            # treesitter
-            nvim-autopairs
-            nvim-ts-context-commentstring
-            (nvim-treesitter.withAllGrammars)
+          timeout = true;
+          timeoutlen = 500;
 
-            # custom plugins from own pkgs
-            pkgs.gp-nvim
-          ]
-          ++ [nvim-config];
+          undolevels = 10000; # keep longer undo history
+          swapfile = false; # don't use swapfiles
 
-        extraConfig = ''
-          lua << EOF
-            require('config').init()
-          EOF
+          wildmode = "longest:full,full"; # Command-line completion mode
+
+          formatoptions = "jql1tcron";
+        };
+
+        autoGroups = {
+          checkTime.clear = true;
+          resizeSplits.clear = true;
+          lastLoc.clear = true;
+          wrapSpell.clear = true;
+          closeWithQ.clear = true;
+          lastMod.clear = true;
+        };
+
+        autoCmd = [
+          {
+            desc = "Reload the buffer if it has changed";
+            group = "checkTime";
+            event = ["FocusGained" "TermClose" "TermLeave"];
+            command = "checktime";
+          }
+
+          {
+            desc = "Resize splits if window got resized";
+            group = "resizeSplits";
+            event = "VimResized";
+            callback.__raw = ''
+              function()
+                vim.cmd("tabdo wincmd =")
+              end
+            '';
+          }
+
+          {
+            desc = "Go to last loc when opening a buffer";
+            group = "lastLoc";
+            event = "BufReadPost";
+            callback.__raw = ''
+              function()
+                local mark = vim.api.nvim_buf_get_mark(0, '"')
+                local lcount = vim.api.nvim_buf_line_count(0)
+                if mark[1] > 0 and mark[1] <= lcount then
+                  pcall(vim.api.nvim_win_set_cursor, 0, mark)
+                end
+              end
+            '';
+          }
+
+          {
+            desc = "Wrap and check for spell in text file types";
+            group = "wrapSpell";
+            event = "FileType";
+            pattern = ["gitcommit" "markdown"];
+            callback.__raw = ''
+              function()
+                vim.opt_local.wrap = true
+                vim.opt_local.spell = true
+              end
+            '';
+          }
+
+          {
+            desc = "Close listed filetypes with `q`";
+            group = "closeWithQ";
+            event = "FileType";
+            pattern = ["help" "man"];
+            callback.__raw = ''
+              function(event)
+                vim.bo[event.buf].buflisted = false
+                vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
+              end
+            '';
+          }
+
+          {
+            desc = "Update `lastmod` in markdown files";
+            group = "lastMod";
+            event = "BufWritePre";
+            pattern = "*.md";
+            callback.__raw = ''
+              function()
+                local bufnr = vim.api.nvim_get_current_buf()
+                for line_num = 0, vim.api.nvim_buf_line_count(bufnr) - 1 do
+                  local line = vim.api.nvim_buf_get_lines(bufnr, line_num, line_num + 1, false)[1]
+                  if line:match 'lastmod:' then
+                    local new_date = os.date 'lastmod: %Y-%m-%d'
+                    vim.api.nvim_buf_set_lines(bufnr, line_num, line_num + 1, false, { tostring(new_date) })
+                    break
+                  end
+                end
+              end
+            '';
+          }
+        ];
+
+        extraConfigLuaPre = ''
+          vim.opt.isfname:append("@-@") -- Filename for gf and other file commands
         '';
 
-        extraPackages = with pkgs; [
-          gcc
-          stdenv
-          wget
-          curl
-          gzip
-          gnutar
-          git
-          xclip
-          xsel
-          wl-clipboard
-          fd
-          ripgrep
-          lazygit
-          lazydocker
+        keymaps = let
+          map = mode: key: action: desc: {
+            inherit mode key action;
+            options.desc = desc;
+          };
+        in [
+          # Clear search with ESC
+          (map ["n" "i"] "<esc>" "<cmd>noh<cr><esc>" "Clear Search")
 
-          # html/htmx support
-          # htmx-lsp -- buggy for now
+          # Cut/Paste without saving to register
+          (map ["v"] "<leader>ep" "[[\"_dP]]" "Paste w/o register")
+          (map ["n"] "<leader>ed" "[[viw\"_d]]" "Delete word w/o register")
+          (map ["v"] "<leader>ed" "[[\"_d]]" "Delete w/o register")
 
-          # bash support
-          nodePackages.bash-language-server
-          shellharden
+          # Move to the beginning or end of line with H and L
+          (map ["n" "v"] "H" "^" "Move beginning of line")
+          (map ["n"] "L" "$" "Move end of line")
+          (map ["v"] "L" "g_" "Move end of line")
 
-          # docker support
-          nodePackages.dockerfile-language-server-nodejs
-          hadolint
+          # Center cursor after jumps
+          (map ["n"] "<C-d>" "<C-d>zz" "Center cursor after jump")
+          (map ["n"] "<C-u>" "<C-u>zz" "Center cursor after jump")
+          (map ["n"] "n" "nzzzv" "Center cursor after jump")
+          (map ["n"] "N" "Nzzzv" "Center cursor after jump")
 
-          # terraform support
-          terraform-ls
-          tfsec
-
-          # python support
-          ruff
-          (pyright.overrideAttrs (drv: {version = "1.1.381";}))
-
-          # ocaml lsp
-          ocamlPackages.ocaml-lsp
-          ocamlPackages.ocamlformat
-
-          # nix support
-          nil
-          alejandra
-
-          # nickel support
-          nls
-
-          # go support
-          gopls
-          gofumpt
-          golangci-lint-langserver
-          delve
-
-          # rust support
-          rust-analyzer
-          rustfmt
-          cargo
-          lldb # debugging
-          graphviz # generating graphs
-
-          # lua support
-          (luajit.withPackages (lp: [
-            lp.luarocks
-            lp.tiktoken_core
-          ]))
-          lua-language-server
-          stylua
-
-          # github actions support
-          actionlint
+          # Add conceallevel toggle
+          (
+            map ["n"] "<leader>tu" ''
+              function()
+                local winnr = vim.api.nvim_get_current_win()
+                local conceallevel = vim.api.nvim_win_get_option(winnr, "conceallevel")
+                local newconceallevel = math.fmod(conceallevel + 1, 4)
+                vim.opt.conceallevel = newconceallevel
+              end
+            '' "Toggle 'conceallevel'"
+          )
         ];
+
+        clipboard = {
+          register = "unnamedplus"; # sync with system clipboard `vim.g.clipboard = "unnamedplus",`
+          providers = {
+            wl-copy.enable = true;
+            xclip.enable = true;
+            xsel.enable = true;
+          };
+        };
+
+        colorschemes.catppuccin = {
+          enable = true;
+          settings = {
+            flavour = "mocha";
+            integrations = {
+              # TODO: telescope nvchad style?
+              diffview = true;
+              blink_cmp = true;
+              which_key = true;
+              lsp_trouble = true;
+              mini.indentscope_color = "lavender";
+            };
+          };
+        };
+
+        plugins = {
+          lualine.enable = true;
+
+          mini = {
+            enable = true;
+            mockDevIcons = true;
+            modules = {
+              ai = {};
+              bufremove = {};
+              comment = {};
+              diff = {};
+              icons = {};
+              move = {};
+              surround = {};
+              indentscope.symbol = "│";
+              splitjoin.mappings.toggle = "<leader>es";
+              bracketed = {
+                buffer.suffix = "b";
+                comment.suffix = "c";
+                conflict.suffix = "x";
+                diagnostic.suffix = "d";
+                jump.suffix = "j";
+                indent.suffix = ""; # using indentscope instead
+                location.suffix = ""; # using trouble instead
+                quickfix.suffix = ""; # using trouble instead
+                file.suffix = ""; # not using
+                oldfile.suffix = ""; # not using
+                treesitter.suffix = ""; # not using
+                undo.suffix = ""; # not using
+                window.suffix = ""; # not using
+                yank.suffix = ""; # not using
+              };
+              basics = {
+                options = {
+                  extra_ui = true;
+                  win_borders = "bold";
+                };
+                mappings = {
+                  option_toggle_prefix = "<leader>t";
+                  windows = true;
+                };
+              };
+            };
+            luaConfig.post = ''
+              -- delete mini.basics binding for sys clipboard yank and paste (using global clipboard)
+              vim.keymap.del({ "n", "x" }, "gy")
+              vim.keymap.del({ "n", "x" }, "gp")
+            '';
+          };
+
+          diffview = {
+            enable = true;
+            enhancedDiffHl = true;
+            # NOTE: luaConfig.post is not enabled for this plugin so putting it after autopairs below
+          };
+
+          nvim-autopairs = {
+            enable = true;
+            settings.disable_filetype = ["TelescopePrompt"];
+            luaConfig.post = ''
+              local function map(l, r, desc) vim.keymap.set("n", l, r, { desc = desc }) end
+              local function mapv(l, r, desc) vim.keymap.set("v", l, r, { desc = desc }) end
+
+              map("<leader>go", "<cmd>DiffviewOpen<cr>", "Diffview Open")
+              map("<leader>gc", "<cmd>DiffviewClose<cr>", "Diffview Close")
+              map("<leader>gr", "<cmd>DiffviewRefresh<cr>", "Diffview Refresh")
+              map("<leader>gt", "<cmd>DiffviewToggleFiles<cr>", "Diffview Toggle Files")
+              map("<leader>gF", "<cmd>DiffviewFocusFiles<cr>", "Diffview Focus Files")
+              map("<leader>gf", "<cmd>DiffviewFileHistory<cr>", "Diffview File History")
+              mapv("<leader>gf", "<cmd>'<,'>DiffviewFileHistory<cr>", "Diffview File History")
+            '';
+          };
+
+          arrow = {
+            enable = true;
+            settings = {
+              show_icons = true;
+              index_keys = "asdfgqwert";
+              leader_key = "<leader>h";
+              buffer_leader_key = "<leader>m";
+              mappings = {
+                quit = "esc";
+                toggle = "h";
+                edit = "z";
+                remove = "x";
+                delete_mode = "X";
+                clear_all_items = "C";
+                open_vertical = "v";
+                open_horizontal = "S";
+                next_item = "]";
+                prev_item = "[";
+              };
+            };
+          };
+
+          oil = {
+            enable = true;
+            settings = {
+              delete_to_trash = true;
+              skip_confirm_for_simple_edits = false;
+              view_options.show_hidden = true;
+              columns = [
+                "icon"
+                "permissions"
+                "size"
+                "mtime"
+              ];
+              use_default_keymaps = false;
+              keymaps = {
+                "<CR>" = "actions.select";
+                "-" = "actions.parent";
+                "_" = "actions.open_cwd";
+                "`" = "actions.cd";
+                "~" = "actions.tcd";
+                "<leader>b?" = "actions.show_help";
+                "<leader>bv" = "actions.select_vsplit";
+                "<leader>bs" = "actions.select_split";
+                "<leader>bp" = "actions.preview";
+                "<leader>bq" = "actions.close";
+                "<leader>br" = "actions.refresh";
+                "<leader>bS" = "actions.change_sort";
+                "<leader>bo" = "actions.open_external";
+                "<leader>bh" = "actions.toggle_hidden";
+                "<leader>bt" = "actions.toggle_trash";
+              };
+            };
+            luaConfig.post = ''
+              vim.keymap.set("n", "<leader>oe", "<cmd>Oil<cr>", { desc = "Explorer" })
+            '';
+          };
+
+          telescope = {
+            enable = true;
+            settings.defaults.file_ignore_patterns = [
+              "^.git/"
+              "^node_modules/"
+              "^env/"
+              "^.venv/"
+              "^.direnv/"
+              "^__pycache__/"
+              "^.mypy_cache/"
+            ];
+            extensions = {
+              frecency.enable = true;
+              manix.enable = true;
+              ui-select.enable = true;
+              undo = {
+                enable = true;
+                settings = {
+                  side_by_side = true;
+                  layout_strategy = "vertical";
+                  layout_config = {
+                    preview_height = 0.8;
+                  };
+                };
+              };
+              fzf-native = {
+                enable = true;
+                settings = {
+                  case_mode = "smart_case";
+                  fuzzy = true;
+                  override_file_sorter = true;
+                  override_generic_sorter = true;
+                };
+              };
+            };
+            luaConfig.post = ''
+              local function git_root()
+                local root = string.gsub(vim.fn.system "git rev-parse --show-toplevel", "\n", "")
+                if vim.v.shell_error == 0 then
+                  return root
+                end
+                return nil
+              end
+
+              local function run_cmd_in_cwd(func, cwd)
+                local builtin = require "telescope.builtin"
+                local utils = require "telescope.utils"
+                if cwd then
+                  builtin[func] { cwd = utils.buffer_dir() }
+                else
+                  builtin[func] { cwd = git_root() }
+                end
+              end
+
+              local function map(l, r, desc)
+                vim.keymap.set("n", l, r, { desc = desc })
+              end
+
+              -- Find keymaps that can be run in git root
+              map("<leader>ff", function() run_cmd_in_cwd('find_files', false) end, "Find Files")
+              map("<leader>fF", function() run_cmd_in_cwd('find_files', true) end, "Find Files (cwd)")
+              map("<leader>fg", function() run_cmd_in_cwd('live_grep', false) end, "Grep Files")
+              map("<leader>fG", function() run_cmd_in_cwd('live_grep', true) end, "Grep Files (cwd)")
+              map("<leader>fh", function() run_cmd_in_cwd('grep_string', false) end, "Grep Current Word")
+              map("<leader>fH", function() run_cmd_in_cwd('grep_string', true) end, "Grep Current Word (cwd)")
+            '';
+            keymaps = let
+              map = action: desc: {
+                inherit action;
+                options.desc = desc;
+              };
+            in {
+              "<leader><leader>" = map "resume" "Telescope Resume";
+              "<leader>fs" = map "frecency" "Frecency";
+
+              # Find Keymaps
+              "<leader>fo" = map "oldfiles" "Recent Files";
+              "<leader>fr" = map "registers" "Registers";
+              "<leader>fb" = map "buffers" "Buffers";
+              "<leader>fm" = map "marks" "Marks";
+              "<leader>fc" = map "command_history" "Command History";
+              "<leader>fu" = map "undo" "Undo";
+
+              # Search Keymaps
+              "<leader>sk" = map "keymaps" "Keymaps";
+              "<leader>sa" = map "autocommands" "Autocommands";
+              "<leader>sc" = map "commands" "Commands";
+              "<leader>so" = map "vim_options" "Options";
+              "<leader>sf" = map "filetypes" "Filetypes";
+              "<leader>sh" = map "help_tags" "Help Tags";
+              "<leader>sH" = map "highlights" "Highlight Groups";
+              "<leader>sm" = map "manix" "Manix";
+              "<leader>sM" = map "man_pages" "Man Pages";
+            };
+          };
+
+          treesitter = {
+            enable = true;
+            folding = true; # disable folding by default
+            luaConfig.post = ''
+              vim.opt.foldmethod = "expr"
+              vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+              vim.opt.foldenable = false -- disable folds by default
+            '';
+          };
+
+          treesitter-context = {
+            enable = true;
+            settings = {
+              max_lines = 4;
+              multiline_threshold = 4;
+            };
+          };
+
+          blink-cmp = {
+            enable = true;
+            settings = {
+              keymap = {
+                "<C-space>" = ["show" "show_documentation" "hide_documentation"];
+                "<C-e>" = ["hide"];
+                "<CR>" = ["accept" "fallback"];
+                "<Tab>" = ["snippet_forward" "fallback"];
+                "<S-Tab>" = ["snippet_backward" "fallback"];
+                "<Up>" = ["select_prev" "fallback"];
+                "<Down>" = ["select_next" "fallback"];
+                "<C-p>" = ["select_prev" "fallback"];
+                "<C-n>" = ["select_next" "fallback"];
+                "<C-b>" = ["scroll_documentation_up" "fallback"];
+                "<C-f>" = ["scroll_documentation_down" "fallback"];
+              };
+              nerd_font_variant = "mono";
+              accept.auto_brackets.enabled = true;
+              documentation.auto_show = true;
+              highlight.use_nvim_cmp_as_default = true;
+              trigger.signature_help.enabled = true;
+            };
+          };
+
+          friendly-snippets.enable = true;
+
+          trouble = {
+            enable = true;
+            luaConfig.post = let
+              qfFunc = desc: key: action: ''
+                vim.keymap.set('n', '${key}', function()
+                  local tr = package.loaded.trouble
+                  if tr.is_open() then
+                    tr.${action} { skip_groups = true, jump = true }
+                  else
+                    vim.cmd.c${action}()
+                  end
+                end, { desc = 'Trouble ${desc}' })
+              '';
+              map = desc: key: action: "vim.keymap.set('n', '${key}', '${action}', { desc = '${desc}' })";
+            in ''
+              ${qfFunc "Prev" "[q" "prev"}
+              ${qfFunc "Next" "]q" "next"}
+              ${map "Buffer Diagnostics" "<leader>ld" "<cmd>Trouble diagnostics toggle filter.buf=0<cr>"}
+              ${map "Workspace Diagnostics" "<leader>lwd" "<cmd>Trouble diagnostics toggle<cr>"}
+              ${map "Quickfix List" "<leader>lq" "<cmd>Trouble qflist toggle<cr>"}
+              ${map "Location List" "<leader>ll" "<cmd>Trouble loclist toggle<cr>"}
+              ${map "Symbols" "<leader>ls" "<cmd>Trouble symbols toggle focus=false<cr>"}
+              ${map "Definitions/References/..." "<leader>lg" "<cmd>Trouble lsp toggle focus=false win.position=right<cr>"}
+            '';
+          };
+
+          # TODO: todo-comments.nvim
+
+          lsp = {
+            enable = true;
+            inlayHints = true;
+            capabilities = ''
+              -- Note: this function is called during LSP lua setup inside a function defining the default
+              -- `capabilities`, and returning it.
+              -- See https://github.com/nix-community/nixvim/blob/898246c943ba545a79d585093e97476ceb31f872/plugins/lsp/default.nix#L240C13-L240C71
+              capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
+            '';
+            preConfig = ''
+              -- Change diagnostic symbols in the sign column (gutter)
+              local signs = { Error = '', Warn = '', Hint = '', Info = '' }
+              for type, icon in pairs(signs) do
+                local hl = 'DiagnosticSign' .. type
+                vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+              end
+            '';
+            onAttach = ''
+              if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+                local highlight_augroup = vim.api.nvim_create_augroup('userLspHighlight', { clear = false })
+
+                vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+                  buffer = bufnr,
+                  group = highlight_augroup,
+                  callback = vim.lsp.buf.document_highlight,
+                })
+
+                vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+                  buffer = bufnr,
+                  group = highlight_augroup,
+                  callback = vim.lsp.buf.clear_references,
+                })
+
+                vim.api.nvim_create_autocmd('LspDetach', {
+                  group = vim.api.nvim_create_augroup('userLspDetach', { clear = true }),
+                  callback = function(event2)
+                    vim.lsp.buf.clear_references()
+                    vim.api.nvim_clear_autocmds { group = 'userLspHighlight', buffer = event2.buf }
+                  end,
+                })
+              end
+            '';
+            keymaps = {
+              extra = let
+                map = mode: key: action: desc: {
+                  inherit mode key action;
+                  options.desc = desc;
+                };
+              in [
+                (map ["n"] "K" "vim.lsp.buf.hover" "Hover")
+                (map ["n"] "gk" "vim.lsp.buf.signature_help" "Signature")
+                (map ["n"] "gl" "vim.diagnostic.open_float" "Line Diagnostics")
+                (map ["n" "v"] "ga" "vim.lsp.buf.code_action" "Code Action")
+                (map ["n"] "gd" "vim.lsp.buf.definition" "Definition")
+                (map ["n"] "gD" "vim.lsp.buf.declaration" "Declaration")
+                (map ["n"] "gi" "vim.lsp.buf.implementation" "Implementation")
+                (map ["n"] "gy" "vim.lsp.buf.type_definition" "Type Definition")
+                (map ["n"] "gr" "vim.lsp.buf.references" "References")
+                (map ["n"] "gR" "vim.lsp.buf.rename" "Rename")
+                (map ["n"] "<leader>li" "function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({})) end" "Toggle Inlay Hints")
+
+                # Telescope
+                (map ["n"] "<leader>ltd" "require('telescope.builtin').lsp_definitions" "Definitions")
+                (map ["n"] "<leader>ltD" "require('telescope.builtin').lsp_type_definitions" "Type Definitions")
+                (map ["n"] "<leader>ltr" "require('telescope.builtin').lsp_references" "Type Definitions")
+                (map ["n"] "<leader>lti" "require('telescope.builtin').lsp_implementations" "Implementations")
+                (map ["n"] "<leader>lts" "require('telescope.builtin').lsp_document_symbols" "Symbols")
+                (map ["n"] "<leader>ltS" "require('telescope.builtin').lsp_dynamic_workspace_symbols" "Workspace Symbols")
+              ];
+            };
+            servers = {
+              bashls = {
+                enable = true;
+                settings.bashIde.globPattern = "*@(.sh|.inc|.bash|.command)";
+              };
+              dockerls = {
+                enable = true;
+                settings.docker.languageserver.formatter.ignoreMultilineInstructions = true;
+              };
+              terraformls.enable = true;
+              lua_ls = {
+                enable = true;
+                settings = {
+                  telemetry.enable = false;
+                  format.enable = false;
+                  completion.callSnippet = "Replace";
+                  diagnostics.disable = ["missing-fields"];
+                };
+                # TODO: setup for neovim dev?
+              };
+              golangci_lint_ls.enable = true;
+              gopls = {
+                enable = true;
+                settings.gopls.usePlaceholders = true;
+              };
+              ruff.enable = true;
+              pyright = {
+                enable = true;
+                settings.pyright.analysis = {
+                  autoSearchPaths = true;
+                  diagnosticMode = "openFilesOnly";
+                  useLibraryCodeForTypes = true;
+                };
+              };
+              nixd = {
+                enable = true;
+                settings = {
+                  formatting.command = ["alejandra"];
+                  nixpkgs.expr = "import (builtins.getFlake \"/home/${config.nixconf.username}/nixconf\").inputs.nixpkgs { }";
+                  options = {
+                    nixos.expr = "(builtins.getFlake \"/home/${config.nixconf.username}/nixconf\").nixosConfigurations.nixos.options";
+                    home-manager.expr = "(builtins.getFlake \"/home/${config.nixconf.username}/nixconf\").homeConfigurations.\"${config.nixconf.username}@nixos\".options";
+                  };
+                };
+              };
+            };
+          };
+
+          rustaceanvim = {
+            enable = true;
+            settings = {
+              server.default_settings = {
+                rust-analyzer = {
+                  check.command = "clippy";
+                  inlayHints.lifetimeElisionHints.enable = "always";
+                };
+              };
+              tools = {
+                enable_clippy = true;
+                enable_nextest = true;
+              };
+              dap.autoload_configurations = true;
+            };
+          };
+
+          typescript-tools.enable = true;
+
+          conform-nvim = {
+            enable = true;
+            settings = {
+              default_format_opts.lsp_format = "fallback";
+              format_on_save.lsp_format = "fallback";
+              formatters = {
+                shellcheck.command = lib.getExe pkgs.shellcheck;
+                shfmt.command = lib.getExe pkgs.shfmt;
+                shellharden.command = lib.getExe pkgs.shellharden;
+                stylue.command = lib.getExe pkgs.stylua;
+                clang_format.command = lib.getExe' pkgs.clang-tools "clang-format";
+                gofumpt.command = lib.getExe pkgs.gofumpt;
+                goimports.command = lib.getExe' pkgs.gotools "goimports";
+                prettier.command = lib.getExe pkgs.nodePackages.prettier;
+                prettierd.command = lib.getExe pkgs.prettierd;
+                alejandra.command = lib.getExe pkgs.alejandra;
+                squeeze_blanks.command = lib.getExe' pkgs.coreutils "cat";
+              };
+              formatters_by_ft = {
+                bash = ["shellcheck" "shellharden" "shfmt"];
+                lua = ["stylua"];
+                cpp = ["clang_format"];
+                go = ["gofumpt" "goimports"];
+                python = ["ruff_format" "ruff_organize_imports" "ruff_fix"];
+                javascript = {
+                  __unkeyed-1 = "prettierd";
+                  __unkeyed-2 = "prettier";
+                  timeout_ms = 2000;
+                  stop_after_first = true;
+                };
+                nix = ["alejandra"];
+                "_" = ["squeeze_blanks" "trim_whitespace" "trim_newlines"];
+              };
+            };
+          };
+
+          # TODO: nvim-lint
+
+          dap = {
+            enable = true;
+            extensions = {
+              dap-ui = {
+                enable = true;
+                icons = {
+                  expanded = "▾";
+                  collapsed = "▸";
+                  current_frame = "*";
+                };
+                controls = {
+                  icons = {
+                    pause = "⏸";
+                    play = "▶";
+                    step_into = "⏎";
+                    step_over = "⏭";
+                    step_out = "⏮";
+                    step_back = "b";
+                    run_last = "▶▶";
+                    terminate = "⏹";
+                    disconnect = "⏏";
+                  };
+                };
+              };
+              dap-virtual-text.enable = true;
+              dap-go.enable = true;
+              dap-python.enable = true;
+            };
+            # Bug?
+            # signs = let
+            #   map = icon: color: {
+            #     text = icon;
+            #     texthl = color;
+            #     numhl = color;
+            #   };
+            # in {
+            #   dapBreakpoint = map "" "#e51400";
+            #   dapBreakpointCondition = map "" "#e51400";
+            #   dapBreakpointRejected = map "" "#e51400";
+            #   dapLogPoint = map "" "#e51400";
+            #   dapStopped = map "" "#ffcc00";
+            # };
+            # TODO: no lua config?
+            # local dap = require 'dap'
+            # local dapui = require 'dapui'
+            # return {
+            #   -- Basic debugging keymaps, feel free to change to your liking!
+            #   { '<leader>dc', dap.continue, desc = 'Debug: Start/Continue' },
+            #   { '<leader>di', dap.step_into, desc = 'Debug: Step Into' },
+            #   { '<leader>do', dap.step_over, desc = 'Debug: Step Over' },
+            #   { '<leader>dO', dap.step_out, desc = 'Debug: Step Out' },
+            #   { '<leader>db', dap.toggle_breakpoint, desc = 'Debug: Toggle Breakpoint' },
+            #   {
+            #     '<leader>dB',
+            #     function()
+            #       dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
+            #     end,
+            #     desc = 'Debug: Set Breakpoint',
+            #   },
+            #   -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
+            #   { '<leader>dl', dapui.toggle, desc = 'Debug: See last session result.' },
+            #   unpack(keys),
+            # }
+          };
+
+          copilot-lua = {
+            enable = true;
+            panel = {
+              enabled = true;
+              autoRefresh = false;
+              keymap = {
+                refresh = "<C-r>";
+                open = "<C-CR>";
+              };
+            };
+            suggestion = {
+              enabled = true;
+              autoTrigger = true;
+              keymap = {
+                accept = "<C-l>";
+                dismiss = "<C-h>";
+                next = "<C-j>";
+                prev = "<C-k>";
+              };
+            };
+          };
+
+          copilot-chat = {
+            enable = true;
+            settings = {
+              debug = true;
+              model = "gpt-4";
+              temperature = 0.1;
+              context = "buffers"; # Default context: "buffers" | "buffer" | nil
+            };
+            luaConfig.post = ''
+              local function map(l, r, desc)
+                vim.keymap.set("n", l, r, { desc = desc })
+              end
+
+              map('<leader>cc', ':CopilotChatToggle<cr>', 'Toggle Chat')
+              map('<leader>cS', ':CopilotChatStop<cr>', 'Stop Output')
+              map('<leader>cR', ':CopilotChatReset<cr>', 'Reset Chat')
+              map('<leader>cM', ':CopilotChatModels<cr>', 'Models')
+              map('<leader>ce', ':CopilotChatExplain<cr>', 'Explain')
+              map('<leader>ce', ':CopilotChatReview<cr>', 'Review')
+              map('<leader>cf', ':CopilotChatFix<cr>', 'Fix')
+              map('<leader>co', ':CopilotChatOptimize<cr>', 'Optimize')
+              map('<leader>cd', ':CopilotChatDocs<cr>', 'Docs')
+              map('<leader>ct', ':CopilotChatTests<cr>', 'Tests')
+              map('<leader>ci', ':CopilotChatFixDiagnostic<cr>', 'Fix Diagnostic')
+              map('<leader>cm', ':CopilotChatCommit<cr>', 'Commit Message')
+              map('<leader>cs', ':CopilotChatCommitStaged<cr>', 'Commit Message (Staged)')
+            '';
+          };
+
+          # TODO: gp.nvim
+          # TODO: lazygit.nvim
+          # TODO: term
+          # TODO: session manager
+          # TODO: git worktrees
+          # TODO: ricing the UI (nvchad?)
+
+          # TODO: fix obsidian.nvim for blink.cmp
+          # obsidian = {
+          #   enable = true;
+          #   settings = {
+          #     dir = "~/notes";
+          #     log_level = "info";
+          #     open_notes_in = "vsplit";
+          #     new_notes_location = "current_dir";
+          #     ui = {enable = true;};
+          #     completion = {
+          #       nvim_cmp = true;
+          #       min_chars = 2;
+          #     };
+          #     templates = {
+          #       subdir = "_templates";
+          #       date_format = "%Y-%m-%d";
+          #       time_format = "%H:%M";
+          #       # A map for custom variables; the key should be the variable and the value a function
+          #       substitutions = {
+          #         date_verbose.__raw = ''
+          #           function()
+          #             return os.date '%A, %B %d, %Y'
+          #           end
+          #         '';
+          #         daily.__raw = ''
+          #           function()
+          #             return os.date 'logs/%Y/%m/%Y-%m-%d'
+          #           end
+          #         '';
+          #         daily_previous.__raw = ''
+          #           function()
+          #             return os.date('logs/%Y/%m/%Y-%m-%d', os.time() - 24 * 60 * 60)
+          #           end
+          #         '';
+          #         daily_next.__raw = ''
+          #           function()
+          #             return os.date('logs/%Y/%m/%Y-%m-%d', os.time() + 24 * 60 * 60)
+          #           end
+          #         '';
+          #         weekly.__raw = ''
+          #           function() -- Week starts from Monday
+          #             return os.date('logs/%Y/Weekly/%yW%V', os.time() - 24 * 60 * 60)
+          #           end
+          #         '';
+          #       };
+          #     };
+          #     attachments.img_folder = "_attachments";
+          #     daily_notes = {
+          #       folder = "logs";
+          #       date_format = "%Y/%m/%Y-%m-%d";
+          #       template = "daily.md";
+          #     };
+          #     disable_frontmatter = true;
+          #     note_frontmatter_func.__raw = ''
+          #       function(note)
+          #         local out = { date = os.date '%Y-%m-%d', lastmod = os.date '%Y-%m-%d' }
+          #         -- `note.metadata` contains any manually added fields in the frontmatter.
+          #         -- So here we just make sure those fields are kept in the frontmatter.
+          #         if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
+          #           for k, v in pairs(note.metadata) do
+          #             out[k] = v
+          #           end
+          #         end
+          #         return out
+          #       end
+          #     '';
+          #     note_id_func.__raw = ''
+          #       function(title)
+          #         -- If title is not given, use ISO timestamp, otherwise use as is
+          #         if title == nil then
+          #           return tostring(os.date '%y%m%d%H%M%S')
+          #         end
+          #         return title
+          #       end
+          #     '';
+          #     mappings = let
+          #       map = action: desc: {
+          #         inherit action;
+          #         opts.desc = desc;
+          #       };
+          #     in {
+          #       # Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
+          #       "gf" = {
+          #         action = "require('obsidian').util.gf_passthrough";
+          #         opts = {
+          #           expr = true;
+          #           buffer = true;
+          #           desc = "Follow link";
+          #         };
+          #       };
+          #       # Toggle check-boxes.
+          #       "<leader>nc" = map "require('obsidian').util.toggle_checkbox" "Toggle Checkbox";
+          #       "<leader>nO" = map "require('obsidian').util.open" "Open";
+          #       "<leader>nn" = map "require('obsidian').util.new" "New Note";
+          #       "<leader>nN" = map "require('obsidian').util.new_from_template" "New Note (T)";
+          #       "<leader>nf" = map "require('obsidian').util.quick_switch" "Find";
+          #       "<leader>ng" = map "require('obsidian').util.search" "Grep or Create";
+          #       "<leader>nG" = map "require('obsidian').util.tags" "Tag Search";
+          #       "<leader>nt" = map "require('obsidian').util.today" "Today";
+          #       "<leader>ny" = map "require('obsidian').util.yesterday" "Yesterday";
+          #       "<leader>nm" = map "require('obsidian').util.template" "Template";
+          #       "<leader>nv" = map "function() require('obsidian').util.follow_link('vsplit') end" "Follow Vertical";
+          #       "<leader>ns" = map "function() require('obsidian').util.follow_link('hsplit') end" "Follow Horizontal";
+          #       "<leader>nl" = map "require('obsidian').util.links" "Links";
+          #       "<leader>nb" = map "require('obsidian').util.backlinks" "Backlinks";
+          #       "<leader>nT" = map "require('obsidian').util.toc" "TOC";
+          #       "<leader>ni" = map "require('obsidian').util.paste_img" "Paste Image";
+          #       "<leader>nr" = map "function() require('obsidian').util.rename('--dry-run') end" "Rename (dry-run)";
+          #       "<leader>nR" = map "require('obsidian').util.rename" "Rename";
+          #     };
+          #   };
+          #   luaConfig.post = ''
+          #     vim.keymap.set('v', '<leader>nl', '<cmd>ObsidianLink<cr>', { desc = 'Link to File' })
+          #     vim.keymap.set('v', '<leader>nL', '<cmd>ObsidianLinkNew<cr>', { desc = 'Link to New File' })
+          #     vim.keymap.set('v', '<leader>ne', '<cmd>ObsidianExtractNote<cr>', { desc = 'Extract Note' })
+          #   '';
+          # };
+
+          which-key = {
+            enable = true;
+            settings.spec = let
+              map = key: name: {
+                __unkeyed = key;
+                group = name;
+                icon = "󰓩 ";
+              };
+            in [
+              (map "<leader>a" "AI")
+              (map "<leader>c" "Copilot")
+              (map "<leader>d" "DAP")
+              (map "<leader>e" "Edit")
+              (map "<leader>f" "Find")
+              (map "<leader>g" "Git")
+              (map "<leader>gt" "Toggle")
+              (map "<leader>h" "Arrow")
+              (map "<leader>l" "LSP")
+              (map "<leader>lt" "Telescope")
+              (map "<leader>n" "Notes")
+              (map "<leader>o" "Open")
+              (map "<leader>s" "Search")
+              (map "<leader>t" "Toggle")
+            ];
+          };
+        };
       };
     };
+  };
 }

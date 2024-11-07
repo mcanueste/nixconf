@@ -105,6 +105,9 @@
 
       # flake registry defaults to nixpkgs (unstable in this case)
       registry.nixpkgs.flake = inputs.nixpkgs;
+
+      # Setup nixd point flake input `nixpkgs`
+      nixPath = ["nixpkgs=${inputs.nixpkgs}"];
     };
 
     # setup completion links

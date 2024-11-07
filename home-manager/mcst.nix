@@ -7,9 +7,12 @@
     nixconf = rec {
       username = "mcst";
       stateVersion = "24.05";
-      flakePath = "/home/${username}/Projects/personal/nixconf";
+      flakePath = "/home/${username}/nixconf";
 
-      editor.vscode = true;
+      editor = {
+        vscode = true;
+        obsidian = true;
+      };
 
       scripts = {
         enable = true;
@@ -38,25 +41,26 @@
         argo = true;
       };
 
-      guiPackages = {
-        spotify = true;
-        obsidian = true;
-        godot = true;
-        slack = true;
+      browsers = {
+        brave = true;
+        chrome = true;
+        firefox = true;
       };
 
-      flatpak = {
-        chrome = true;
-        brave = true;
-        firefox = true;
-        vlc = true;
-        telegram = true;
-        discord = true;
-        obs = true;
-        audacity = true;
-        gimp = true;
+      media = {
+        spotify = true;
+        vlc = false;
+        obs = false;
+        audacity = false;
+        gimp = false;
         calibre = true;
         zotero = true;
+      };
+
+      chat = {
+        slack = true;
+        telegram = false;
+        discord = false;
       };
     };
   };

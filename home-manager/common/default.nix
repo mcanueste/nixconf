@@ -8,16 +8,17 @@
   ...
 }: {
   imports = [
-    ./term
-    ./shell
     ./editor
     ./scripts
+    ./shell
+    ./term
 
+    ./browsers.nix
+    ./chat.nix
     ./git.nix
-    ./theme.nix
+    ./media.nix
     ./packages.nix
-    ./guiPackages.nix
-    ./flatpak.nix
+    ./theme.nix
   ];
 
   options.nixconf = {
@@ -35,7 +36,7 @@
 
     flakePath = lib.mkOption {
       type = lib.types.str;
-      default = "/home/${config.nixconf.username}/Projects/personal/nixconf";
+      default = "/home/${config.nixconf.username}/nixconf";
       description = "Full path to flake for NH CLI";
     };
 

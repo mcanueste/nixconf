@@ -16,9 +16,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-flatpak.url = "github:gmodena/nix-flatpak";
-
     catppuccin.url = "github:catppuccin/nix";
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -80,9 +83,8 @@
       };
     };
 
-    # Available through i.e. 'home-manager --flake .#mcst@ubuntu'
     homeConfigurations = {
-      "mcst@ubuntu" = home-manager.lib.homeManagerConfiguration {
+      "mcst@nixos" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = args;
         modules = [

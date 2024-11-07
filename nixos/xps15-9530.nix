@@ -19,6 +19,14 @@
         isTuring = true;
         sync = false; # use offload, sync causes issues with wayland and browsers
       };
+
+      virtualisation = {
+        docker.enable = false;
+        podman = {
+          enable = true;
+          dockerCompat = true;
+        };
+      };
     };
   };
 }
