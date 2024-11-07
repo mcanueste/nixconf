@@ -111,7 +111,7 @@
     };
 
     # setup completion links
-    environment.pathsToLink = ["/share/bash-completion" "/share/zsh" "/share/fish"];
+    environment.pathsToLink = ["/share/bash-completion" "/share/fish"];
 
     # install basic utilities
     environment.systemPackages = [

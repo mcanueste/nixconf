@@ -10,7 +10,6 @@
   ];
 
   options.nixconf.editor = {
-    vscode = lib.mkEnableOption "VSCode";
     obsidian = lib.mkEnableOption "Obsidian";
     godot = lib.mkEnableOption "Godot 4";
   };

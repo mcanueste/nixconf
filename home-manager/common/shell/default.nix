@@ -2,13 +2,11 @@
   enable = {
     enable = true;
     enableBashIntegration = true;
-    enableZshIntegration = true;
     enableFishIntegration = true;
   };
 in {
   imports = [
     ./bash.nix
-    ./zsh.nix
   ];
 
   options.nixconf.shell = {

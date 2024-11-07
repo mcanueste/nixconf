@@ -32,7 +32,6 @@
   in
     lib.mkIf config.nixconf.git.enable {
       programs.bash = {inherit shellAliases;};
-      programs.zsh = {inherit shellAliases;};
       programs.fish = {inherit shellAliases;};
 
       programs.git = {
