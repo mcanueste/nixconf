@@ -42,12 +42,8 @@
       };
 
       packages = {
-        docker-compose = true;
-        podman-compose = true;
         nerdctl = true;
         lazydocker = true;
-        dive = true;
-        cosign = true;
         packer = true;
         terraform = true;
         gcloud = true;
