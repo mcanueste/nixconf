@@ -100,7 +100,7 @@
 
             (deflayer base
                     q     w     e     r     t     y     u     i     o     p
-              esc   @a    @s    @d    @f    g     h     @j    @k    @l    @;    @'
+              @esc  @a    @s    @d    @f    g     h     @j    @k    @l    @;    @'
                     @cnz  @cnx  @cnc  v     b     n     m     ,     .     /
                                               @spc
             )
@@ -114,8 +114,15 @@
 
             (deflayer symbols ;;3-# 4-$ 6-^ 8-* 7-& \-| 5-% 1-! 2-@
                     S-3   S-8   S-[   S-]   XX    XX    7     8     9     S-2
-              XX    S-6   S-4   S-9   S-0   XX    XX    4     5     6     S-5   XX
-                    S-7   S-\   [     ]     XX    0     1     2     3     S-1
+              XX    S-6   S-4   S-9   S-0   S-`   enter 4     5     6     S-5   XX
+                    S-7   S-\   [     ]     `     0     1     2     3     S-1
+                                               XX
+            )
+
+            (deflayer navigation
+                    XX    XX    XX    XX    XX    XX    XX    XX   XX    XX
+              XX    lmet  lalt  lctrl lshft XX    left  down  up   right XX   XX
+                    XX    XX    XX    XX    XX    XX    XX    XX   XX    XX
                                                XX
             )
 
@@ -142,6 +149,7 @@
 
             (defalias
               spc (tap-hold $tap-time $hold-time spc (layer-while-held symbols))
+              esc (tap-hold $tap-time $hold-time esc (layer-while-held navigation))
 
               switchnomods (layer-switch nomods)
               switchbase (layer-switch base)
