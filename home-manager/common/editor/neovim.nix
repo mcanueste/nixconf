@@ -61,7 +61,7 @@
           list = false; # hide listchars
 
           spell = false; # disable by default
-          spelllang = ["en" "de" "tr"];
+          spelllang = ["en"];
 
           timeout = true;
           timeoutlen = 500;
@@ -375,19 +375,8 @@
               "^.mypy_cache/"
             ];
             extensions = {
-              frecency.enable = true;
               manix.enable = true;
               ui-select.enable = true;
-              undo = {
-                enable = true;
-                settings = {
-                  side_by_side = true;
-                  layout_strategy = "vertical";
-                  layout_config = {
-                    preview_height = 0.8;
-                  };
-                };
-              };
               fzf-native = {
                 enable = true;
                 settings = {
@@ -436,26 +425,23 @@
               };
             in {
               "<leader><leader>" = map "resume" "Telescope Resume";
-              "<leader>fs" = map "frecency" "Frecency";
 
               # Find Keymaps
-              "<leader>fo" = map "oldfiles" "Recent Files";
-              "<leader>fr" = map "registers" "Registers";
               "<leader>fb" = map "buffers" "Buffers";
-              "<leader>fm" = map "marks" "Marks";
               "<leader>fc" = map "command_history" "Command History";
-              "<leader>fu" = map "undo" "Undo";
+              "<leader>fm" = map "marks" "Marks";
+              "<leader>fr" = map "registers" "Registers";
 
               # Search Keymaps
-              "<leader>sk" = map "keymaps" "Keymaps";
-              "<leader>sa" = map "autocommands" "Autocommands";
-              "<leader>sc" = map "commands" "Commands";
-              "<leader>so" = map "vim_options" "Options";
-              "<leader>sf" = map "filetypes" "Filetypes";
-              "<leader>sh" = map "help_tags" "Help Tags";
-              "<leader>sH" = map "highlights" "Highlight Groups";
-              "<leader>sm" = map "manix" "Manix";
-              "<leader>sM" = map "man_pages" "Man Pages";
+              "<leader>fsk" = map "keymaps" "Keymaps";
+              "<leader>fsa" = map "autocommands" "Autocommands";
+              "<leader>fsc" = map "commands" "Commands";
+              "<leader>fso" = map "vim_options" "Options";
+              "<leader>fsf" = map "filetypes" "Filetypes";
+              "<leader>fsh" = map "help_tags" "Help Tags";
+              "<leader>fsH" = map "highlights" "Highlight Groups";
+              "<leader>fsm" = map "manix" "Manix";
+              "<leader>fsM" = map "man_pages" "Man Pages";
             };
           };
 
@@ -521,9 +507,8 @@
               ${qfFunc "Prev" "[q" "prev"}
               ${qfFunc "Next" "]q" "next"}
               ${map "Buffer Diagnostics" "<leader>ld" "<cmd>Trouble diagnostics toggle filter.buf=0<cr>"}
-              ${map "Workspace Diagnostics" "<leader>lwd" "<cmd>Trouble diagnostics toggle<cr>"}
+              ${map "Workspace Diagnostics" "<leader>lD" "<cmd>Trouble diagnostics toggle<cr>"}
               ${map "Quickfix List" "<leader>lq" "<cmd>Trouble qflist toggle<cr>"}
-              ${map "Location List" "<leader>ll" "<cmd>Trouble loclist toggle<cr>"}
               ${map "Symbols" "<leader>ls" "<cmd>Trouble symbols toggle focus=false<cr>"}
               ${map "Definitions/References/..." "<leader>lg" "<cmd>Trouble lsp toggle focus=false win.position=right<cr>"}
             '';
@@ -531,7 +516,7 @@
 
           todo-comments = {
             enable = true;
-            keymaps.todoTrouble.key = "<leader>lo";
+            keymaps.todoTrouble.key = "<leader>lt";
           };
 
           lsp = {
@@ -552,6 +537,7 @@
               end
             '';
             onAttach = ''
+              -- doesn't work?
               if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
                 local highlight_augroup = vim.api.nvim_create_augroup('userLspHighlight', { clear = false })
 
@@ -594,14 +580,6 @@
                 (map ["n"] "gr" "vim.lsp.buf.references" "References")
                 (map ["n"] "gR" "vim.lsp.buf.rename" "Rename")
                 (map ["n"] "<leader>li" "function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({})) end" "Toggle Inlay Hints")
-
-                # Telescope
-                (map ["n"] "<leader>ltd" "require('telescope.builtin').lsp_definitions" "Definitions")
-                (map ["n"] "<leader>ltD" "require('telescope.builtin').lsp_type_definitions" "Type Definitions")
-                (map ["n"] "<leader>ltr" "require('telescope.builtin').lsp_references" "Type Definitions")
-                (map ["n"] "<leader>lti" "require('telescope.builtin').lsp_implementations" "Implementations")
-                (map ["n"] "<leader>lts" "require('telescope.builtin').lsp_document_symbols" "Symbols")
-                (map ["n"] "<leader>ltS" "require('telescope.builtin').lsp_dynamic_workspace_symbols" "Workspace Symbols")
               ];
             };
             servers = {
@@ -825,7 +803,6 @@
             '';
           };
 
-          # TODO: gp.nvim
           # TODO: lazygit.nvim
           # TODO: term
           # TODO: session manager
@@ -964,6 +941,7 @@
               (map "<leader>d" "DAP")
               (map "<leader>e" "Edit")
               (map "<leader>f" "Find")
+              (map "<leader>fs" "Search")
               (map "<leader>g" "Git")
               (map "<leader>gt" "Toggle")
               (map "<leader>h" "Arrow")
@@ -971,11 +949,69 @@
               (map "<leader>lt" "Telescope")
               (map "<leader>n" "Notes")
               (map "<leader>o" "Open")
-              (map "<leader>s" "Search")
               (map "<leader>t" "Toggle")
             ];
           };
         };
+
+        extraPlugins = [
+          pkgs.gp-nvim
+        ];
+
+        extraConfigLua = ''
+          local home = vim.fn.expand("$HOME")
+          local gp = require("gp")
+
+          gp.setup({
+              openai_api_key = { "cat", home .. "/.ssh/openai.key" },
+              image = { secret = { "cat", home .. "/.ssh/openai.key" } },
+
+              providers = {
+                  openai = {
+                      disable = false,
+                      endpoint = "https://api.openai.com/v1/chat/completions",
+                  },
+              },
+
+              agents = {
+                  {
+                      name = "ChatGPT4",
+                      provider = "openai",
+                      chat = true,
+                      command = false,
+                      model = { model = "gpt-4", temperature = 0.1, top_p = 1 },
+                      system_prompt = require("gp.defaults").chat_system_prompt,
+                  },
+                  {
+                      name = "CodeGPT4",
+                      provider = "openai",
+                      chat = false,
+                      command = true,
+                      model = { model = "gpt-4", temperature = 0.1, top_p = 1 },
+                      system_prompt = require("gp.defaults").code_system_prompt,
+                  },
+              },
+
+              chat_shortcut_respond = { modes = { "n", "i", "v", "x" }, shortcut = "<C-a><C-a>" },
+              chat_shortcut_delete = { modes = { "n", "i", "v", "x" }, shortcut = "<C-a>d" },
+              chat_shortcut_stop = { modes = { "n", "i", "v", "x" }, shortcut = "<C-a>s" },
+              chat_shortcut_new = { modes = { "n", "i", "v", "x" }, shortcut = "<C-a>c" },
+          })
+
+          local function map(l, r, desc)
+            vim.keymap.set("n", l, r, { desc = desc })
+          end
+
+          map('<leader>aa', '<cmd>GpChatToggle vsplit<cr>', 'Toggle Chat')
+          map('<leader>an', '<cmd>GpChatNew vsplit<cr>', 'New Chat')
+          map('<leader>af', '<cmd>GpChatFinder<cr>', 'Find Chats')
+          map('<leader>ap', '<cmd>GpChatPaste vsplit<cr>', 'Paste to Chat')
+          map('<leader>ar', '<cmd>GpChatRespond<cr>', 'Request Response')
+          map('<leader>ad', '<cmd>GpChatDelete<cr>', 'Delete Chat')
+          map('<leader>as', '<cmd>GpStop<cr>', 'Stop Chat')
+          map('<leader>ai', '<cmd>GpImplement<cr>', 'Implement Selected Comment')
+          map('<leader>ac', '<cmd>GpContext vsplit<cr>', 'Custom Context')
+        '';
       };
     };
   };
