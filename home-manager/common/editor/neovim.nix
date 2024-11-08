@@ -280,6 +280,8 @@
             '';
           };
 
+          tmux-navigator.enable = true;
+
           diffview = {
             enable = true;
             enhancedDiffHl = true;
@@ -527,7 +529,10 @@
             '';
           };
 
-          # TODO: todo-comments.nvim
+          todo-comments = {
+            enable = true;
+            keymaps.todoTrouble.key = "<leader>lo";
+          };
 
           lsp = {
             enable = true;
