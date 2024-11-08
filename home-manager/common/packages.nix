@@ -72,7 +72,7 @@
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.argocd pkgs.argocd)
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.kubectl pkgs.kubectl)
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.k3d pkgs.k3d)
-      (pkgs.libExt.mkIfElseNull config.nixconf.packages.helm pkgs.helm)
+      (pkgs.libExt.mkIfElseNull config.nixconf.packages.helm pkgs.kubernetes-helm)
     ];
 
     programs.k9s = {

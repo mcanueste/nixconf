@@ -9,48 +9,31 @@
   };
 
   config = {
+    # I only use it to help other devs use it for python development at work: not a prod setup
     programs.vscode = {
       enable = config.nixconf.editor.vscode;
+      package = pkgs.vscode.fhsWithPackages (ps:
+        with ps; [
+          zlib
+          openssl.dev
+          pkg-config
+        ]);
       enableUpdateCheck = false;
       enableExtensionUpdateCheck = false;
 
       extensions = with pkgs.vscode-extensions; [
-        catppuccin.catppuccin-vsc
-        catppuccin.catppuccin-vsc-icons
-
-        vscodevim.vim
-        github.copilot
         ms-vscode-remote.remote-ssh
-        mhutchie.git-graph
-        eamodio.gitlens
-
         ms-python.python
         ms-python.debugpy
         charliermarsh.ruff
         njpwerner.autodocstring
-
-        rust-lang.rust-analyzer
-
-        golang.go
-
-        jnoortheen.nix-ide
         mkhl.direnv
-
         ms-vscode.makefile-tools
         skellock.just
-
-        hashicorp.hcl
-        hashicorp.terraform
-
-        ms-kubernetes-tools.vscode-kubernetes-tools
       ];
       userSettings = {
         "telemetry.telemetryLevel" = "off";
         "update.showReleaseNotes" = false;
-
-        # Theme
-        "workbench.colorTheme" = "Catppuccin Mocha";
-        "catppuccin.bracketMode" = "neovim";
 
         # Font
         "editor.fontSize" = 16;
