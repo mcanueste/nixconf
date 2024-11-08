@@ -220,7 +220,6 @@
           settings = {
             flavour = "mocha";
             integrations = {
-              # TODO: telescope nvchad style?
               diffview = true;
               blink_cmp = true;
               which_key = true;
@@ -600,7 +599,7 @@
                   completion.callSnippet = "Replace";
                   diagnostics.disable = ["missing-fields"];
                 };
-                # TODO: setup for neovim dev?
+                # FIX: setup for neovim dev?
               };
               golangci_lint_ls.enable = true;
               gopls = {
@@ -729,7 +728,7 @@
             #   dapLogPoint = map "" "#e51400";
             #   dapStopped = map "" "#ffcc00";
             # };
-            # TODO: no lua config?
+            # FIX: no lua config?
             # local dap = require 'dap'
             # local dapui = require 'dapui'
             # return {
@@ -802,12 +801,6 @@
               map('<leader>cs', ':CopilotChatCommitStaged<cr>', 'Commit Message (Staged)')
             '';
           };
-
-          # TODO: lazygit.nvim
-          # TODO: term
-          # TODO: session manager
-          # TODO: git worktrees
-          # TODO: ricing the UI (nvchad?)
 
           # TODO: fix obsidian.nvim for blink.cmp
           # obsidian = {
