@@ -535,8 +535,8 @@
                 vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
               end
             '';
+            # FIX: doesn't work?
             onAttach = ''
-              -- doesn't work?
               if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
                 local highlight_augroup = vim.api.nvim_create_augroup('userLspHighlight', { clear = false })
 
@@ -801,124 +801,6 @@
               map('<leader>cs', ':CopilotChatCommitStaged<cr>', 'Commit Message (Staged)')
             '';
           };
-
-          # TODO: fix obsidian.nvim for blink.cmp
-          # obsidian = {
-          #   enable = true;
-          #   settings = {
-          #     dir = "~/notes";
-          #     log_level = "info";
-          #     open_notes_in = "vsplit";
-          #     new_notes_location = "current_dir";
-          #     ui = {enable = true;};
-          #     completion = {
-          #       nvim_cmp = true;
-          #       min_chars = 2;
-          #     };
-          #     templates = {
-          #       subdir = "_templates";
-          #       date_format = "%Y-%m-%d";
-          #       time_format = "%H:%M";
-          #       # A map for custom variables; the key should be the variable and the value a function
-          #       substitutions = {
-          #         date_verbose.__raw = ''
-          #           function()
-          #             return os.date '%A, %B %d, %Y'
-          #           end
-          #         '';
-          #         daily.__raw = ''
-          #           function()
-          #             return os.date 'logs/%Y/%m/%Y-%m-%d'
-          #           end
-          #         '';
-          #         daily_previous.__raw = ''
-          #           function()
-          #             return os.date('logs/%Y/%m/%Y-%m-%d', os.time() - 24 * 60 * 60)
-          #           end
-          #         '';
-          #         daily_next.__raw = ''
-          #           function()
-          #             return os.date('logs/%Y/%m/%Y-%m-%d', os.time() + 24 * 60 * 60)
-          #           end
-          #         '';
-          #         weekly.__raw = ''
-          #           function() -- Week starts from Monday
-          #             return os.date('logs/%Y/Weekly/%yW%V', os.time() - 24 * 60 * 60)
-          #           end
-          #         '';
-          #       };
-          #     };
-          #     attachments.img_folder = "_attachments";
-          #     daily_notes = {
-          #       folder = "logs";
-          #       date_format = "%Y/%m/%Y-%m-%d";
-          #       template = "daily.md";
-          #     };
-          #     disable_frontmatter = true;
-          #     note_frontmatter_func.__raw = ''
-          #       function(note)
-          #         local out = { date = os.date '%Y-%m-%d', lastmod = os.date '%Y-%m-%d' }
-          #         -- `note.metadata` contains any manually added fields in the frontmatter.
-          #         -- So here we just make sure those fields are kept in the frontmatter.
-          #         if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
-          #           for k, v in pairs(note.metadata) do
-          #             out[k] = v
-          #           end
-          #         end
-          #         return out
-          #       end
-          #     '';
-          #     note_id_func.__raw = ''
-          #       function(title)
-          #         -- If title is not given, use ISO timestamp, otherwise use as is
-          #         if title == nil then
-          #           return tostring(os.date '%y%m%d%H%M%S')
-          #         end
-          #         return title
-          #       end
-          #     '';
-          #     mappings = let
-          #       map = action: desc: {
-          #         inherit action;
-          #         opts.desc = desc;
-          #       };
-          #     in {
-          #       # Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
-          #       "gf" = {
-          #         action = "require('obsidian').util.gf_passthrough";
-          #         opts = {
-          #           expr = true;
-          #           buffer = true;
-          #           desc = "Follow link";
-          #         };
-          #       };
-          #       # Toggle check-boxes.
-          #       "<leader>nc" = map "require('obsidian').util.toggle_checkbox" "Toggle Checkbox";
-          #       "<leader>nO" = map "require('obsidian').util.open" "Open";
-          #       "<leader>nn" = map "require('obsidian').util.new" "New Note";
-          #       "<leader>nN" = map "require('obsidian').util.new_from_template" "New Note (T)";
-          #       "<leader>nf" = map "require('obsidian').util.quick_switch" "Find";
-          #       "<leader>ng" = map "require('obsidian').util.search" "Grep or Create";
-          #       "<leader>nG" = map "require('obsidian').util.tags" "Tag Search";
-          #       "<leader>nt" = map "require('obsidian').util.today" "Today";
-          #       "<leader>ny" = map "require('obsidian').util.yesterday" "Yesterday";
-          #       "<leader>nm" = map "require('obsidian').util.template" "Template";
-          #       "<leader>nv" = map "function() require('obsidian').util.follow_link('vsplit') end" "Follow Vertical";
-          #       "<leader>ns" = map "function() require('obsidian').util.follow_link('hsplit') end" "Follow Horizontal";
-          #       "<leader>nl" = map "require('obsidian').util.links" "Links";
-          #       "<leader>nb" = map "require('obsidian').util.backlinks" "Backlinks";
-          #       "<leader>nT" = map "require('obsidian').util.toc" "TOC";
-          #       "<leader>ni" = map "require('obsidian').util.paste_img" "Paste Image";
-          #       "<leader>nr" = map "function() require('obsidian').util.rename('--dry-run') end" "Rename (dry-run)";
-          #       "<leader>nR" = map "require('obsidian').util.rename" "Rename";
-          #     };
-          #   };
-          #   luaConfig.post = ''
-          #     vim.keymap.set('v', '<leader>nl', '<cmd>ObsidianLink<cr>', { desc = 'Link to File' })
-          #     vim.keymap.set('v', '<leader>nL', '<cmd>ObsidianLinkNew<cr>', { desc = 'Link to New File' })
-          #     vim.keymap.set('v', '<leader>ne', '<cmd>ObsidianExtractNote<cr>', { desc = 'Extract Note' })
-          #   '';
-          # };
 
           which-key = {
             enable = true;
