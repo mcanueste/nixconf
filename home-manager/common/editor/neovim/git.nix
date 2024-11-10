@@ -2,6 +2,7 @@
   programs.nixvim = {
     plugins = {
       gitlinker.enable = true;
+      gitignore.enable = true;
       gitblame = {
         enable = true;
         settings.delay = 1000;
@@ -32,6 +33,7 @@
       };
     in [
       (map ["n"] "<leader>gb" "<cmd>GitBlameToggle<cr>" "Toggle Blame")
+      (map ["n"] "<leader>gi" {__raw = "require('gitignore').generate";} "Gitignore")
       (map ["n"] "<leader>go" "<cmd>DiffviewOpen<cr>" "Diffview Open")
       (map ["n"] "<leader>gc" "<cmd>DiffviewClose<cr>" "Diffview Close")
       (map ["n"] "<leader>gr" "<cmd>DiffviewRefresh<cr>" "Diffview Refresh")
