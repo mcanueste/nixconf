@@ -1,6 +1,8 @@
 {config, ...}: {
   programs.nixvim = {
     plugins = {
+      fidget.enable = true;
+
       typescript-tools.enable = true;
 
       rustaceanvim = {
