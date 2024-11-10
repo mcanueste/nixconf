@@ -9,6 +9,7 @@
     ./util.nix
     ./git.nix
     ./arrow.nix
+    ./flash.nix
     ./oil.nix
     ./telescope.nix
     ./treesitter.nix
