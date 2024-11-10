@@ -8,6 +8,7 @@
     settings = {
       default_format_opts.lsp_format = "fallback";
       format_on_save.lsp_format = "fallback";
+
       formatters = {
         shellcheck.command = lib.getExe pkgs.shellcheck;
         shfmt.command = lib.getExe pkgs.shfmt;
@@ -21,9 +22,12 @@
         alejandra.command = lib.getExe pkgs.alejandra;
         squeeze_blanks.command = lib.getExe' pkgs.coreutils "cat";
       };
+
       formatters_by_ft = {
         bash = ["shellcheck" "shellharden" "shfmt"];
+
         lua = ["stylua"];
+
         cpp = ["clang_format"];
         go = ["gofumpt" "goimports"];
         python = ["ruff_format" "ruff_organize_imports" "ruff_fix"];

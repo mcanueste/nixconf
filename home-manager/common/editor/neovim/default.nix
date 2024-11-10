@@ -16,7 +16,7 @@
     ./blink.nix
     ./trouble.nix
     ./conform.nix
-    # lint
+    ./lint.nix
     ./lsp.nix
     # dap
     ./whichkey.nix

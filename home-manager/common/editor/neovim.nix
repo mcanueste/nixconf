@@ -39,6 +39,8 @@
           pkgs.cargo # For rust (rustacean.nvim)
           pkgs.rustc # For rust (rustacean.nvim)
           pkgs.sox # For audio playback (gp.nvim)
+
+          # linters
         ];
       };
     };

@@ -138,7 +138,6 @@
 
     autoCmd = [
       {
-        # desc = "Highlight references to word under cursor in LSP buffers";
         desc = "Autocommands to enable when LSP attaches";
         group = "customLspAttach";
         event = "LspAttach";
