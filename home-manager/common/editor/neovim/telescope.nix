@@ -15,7 +15,6 @@
 
       extensions = {
         manix.enable = true;
-        ui-select.enable = true;
         fzf-native = {
           enable = true;
           settings = {

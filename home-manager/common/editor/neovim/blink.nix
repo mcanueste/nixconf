@@ -19,9 +19,8 @@
           "<C-f>" = ["scroll_documentation_down" "fallback"];
         };
         nerd_font_variant = "mono";
-        accept.auto_brackets.enabled = true;
-        documentation.auto_show = true;
         highlight.use_nvim_cmp_as_default = true;
+        accept.auto_brackets.enabled = true;
         trigger.signature_help.enabled = true;
       };
     };

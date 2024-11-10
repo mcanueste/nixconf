@@ -16,6 +16,7 @@
 
     plugins = {
       lualine.enable = true;
+      dressing.enable = true;
     };
   };
 }
