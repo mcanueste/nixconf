@@ -39,7 +39,7 @@
         options.desc = desc;
       };
     in [
-      (map ["n"] "<leader>oe" "<cmd>Oil<cr>" "Explorer")
+      (map ["n"] "<leader>oe" "<cmd>Oil<cr>" "Oil")
     ];
   };
 }

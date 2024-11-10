@@ -120,6 +120,14 @@
           };
         };
       };
+
+      which-key.settings.spec = [
+        {
+          __unkeyed = "<leader>l";
+          group = "LSP";
+          icon = "";
+        }
+      ];
     };
 
     autoGroups = {

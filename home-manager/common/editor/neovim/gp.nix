@@ -61,5 +61,13 @@
       (map ["n"] "<leader>ai" "<cmd>GpImplement<cr>" "Implement Selected Comment")
       (map ["n"] "<leader>ac" "<cmd>GpContext vsplit<cr>" "Custom Context")
     ];
+
+    plugins.which-key.settings.spec = [
+      {
+        __unkeyed = "<leader>a";
+        group = "AI";
+        icon = "󰚩";
+      }
+    ];
   };
 }
