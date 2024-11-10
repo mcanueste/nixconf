@@ -1,8 +1,28 @@
 {
   programs.nixvim = {
-    plugins.diffview = {
-      enable = true;
-      enhancedDiffHl = true;
+    plugins = {
+      gitlinker.enable = true;
+      gitblame = {
+        enable = true;
+        settings.delay = 1000;
+      };
+      diffview = {
+        enable = true;
+        enhancedDiffHl = true;
+      };
+
+      which-key.settings.spec = [
+        {
+          __unkeyed = "<leader>g";
+          group = "Git";
+          icon = "";
+        }
+        {
+          __unkeyed-1 = "<leader>gy";
+          desc = "Create Link";
+          mode = "n";
+        }
+      ];
     };
 
     keymaps = let
@@ -11,6 +31,7 @@
         options.desc = desc;
       };
     in [
+      (map ["n"] "<leader>gb" "<cmd>GitBlameToggle<cr>" "Toggle Blame")
       (map ["n"] "<leader>go" "<cmd>DiffviewOpen<cr>" "Diffview Open")
       (map ["n"] "<leader>gc" "<cmd>DiffviewClose<cr>" "Diffview Close")
       (map ["n"] "<leader>gr" "<cmd>DiffviewRefresh<cr>" "Diffview Refresh")

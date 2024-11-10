@@ -7,7 +7,7 @@
     ./theme.nix
     ./mini.nix
     ./util.nix
-    ./diffview.nix
+    ./git.nix
     ./arrow.nix
     ./oil.nix
     ./telescope.nix
