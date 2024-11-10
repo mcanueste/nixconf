@@ -14,7 +14,6 @@
       ];
 
       extensions = {
-        manix.enable = true;
         fzf-native = {
           enable = true;
           settings = {
@@ -80,7 +79,6 @@
         "<leader>fsf" = map "filetypes" "Filetypes";
         "<leader>fsh" = map "help_tags" "Help Tags";
         "<leader>fsH" = map "highlights" "Highlight Groups";
-        "<leader>fsm" = map "manix" "Manix";
         "<leader>fsM" = map "man_pages" "Man Pages";
       };
     };

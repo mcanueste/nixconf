@@ -6,6 +6,10 @@
         options.desc = desc;
       };
     in [
+      # Update jump list on vertical motions
+      (map ["n"] "k" "(v:count > 0 ? 'm`' . v:count : '') . 'k'" "Move up")
+      (map ["n"] "j" "(v:count > 0 ? 'm`' . v:count : '') . 'j'" "Move down")
+
       # Clear search with ESC
       (map ["n" "i"] "<esc>" "<cmd>noh<cr><esc>" "Clear Search")
 

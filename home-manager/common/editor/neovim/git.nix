@@ -1,11 +1,12 @@
 {
   programs.nixvim = {
     plugins = {
+      lazygit.enable = true;
       gitlinker.enable = true;
       gitignore.enable = true;
       gitblame = {
         enable = true;
-        settings.delay = 1000;
+        settings.enabled = false; # don't enable by default
       };
       diffview = {
         enable = true;
@@ -32,6 +33,7 @@
         options.desc = desc;
       };
     in [
+      (map ["n"] "<leader>gg" "<cmd>LazyGit<cr>" "LazyGit")
       (map ["n"] "<leader>gb" "<cmd>GitBlameToggle<cr>" "Toggle Blame")
       (map ["n"] "<leader>gi" {__raw = "require('gitignore').generate";} "Gitignore")
       (map ["n"] "<leader>go" "<cmd>DiffviewOpen<cr>" "Diffview Open")
