@@ -13,6 +13,9 @@
       # Clear search with ESC
       (map ["n" "i"] "<esc>" "<cmd>noh<cr><esc>" "Clear Search")
 
+      # Search and replace word under cursor
+      (map ["n"] "<leader>er" "[[:%s/<C-r><C-w>/" "Replace word under cursor")
+
       # Cut/Paste without saving to register
       (map ["v"] "<leader>ep" "[[\"_dP]]" "Paste w/o register")
       (map ["n"] "<leader>ed" "[[viw\"_d]]" "Delete word w/o register")
