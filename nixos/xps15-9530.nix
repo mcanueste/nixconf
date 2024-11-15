@@ -21,9 +21,13 @@
       };
 
       virtualisation = {
-        podman = {
+        docker = {
           enable = true;
-          dockerCompat = true;
+          autoPrune = true;
+        };
+        podman = {
+          enable = false;
+          dockerCompat = false;
         };
       };
     };

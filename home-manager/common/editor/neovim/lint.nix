@@ -8,6 +8,8 @@
       enable = true;
       linters = {
         hadolint.cmd = lib.getExe pkgs.hadolint;
+        tflint.cmd = lib.getExe pkgs.tflint;
+        tfsec.cmd = lib.getExe pkgs.tfsec;
       };
       lintersByFt = {
         # bash: lsp is enough
@@ -17,7 +19,7 @@
         # rust: lsp is enough
         # ts: lsp is enough
         dockerfile = ["hadolint"];
-        # TODO: terraform later
+        terraform = ["tflint" "tfsec"];
         # TODO: json/yaml later
       };
     };

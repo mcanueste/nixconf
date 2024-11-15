@@ -41,6 +41,9 @@
           pkgs.sox # For audio playback (gp.nvim)
 
           # linters
+          pkgs.hadolint
+          pkgs.tflint
+          pkgs.tfsec
         ];
       };
     };

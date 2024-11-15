@@ -3,13 +3,7 @@
     plugins = {
       flash = {
         enable = true;
-        settings = {
-          # jump.nohlsearch = true;
-          # jump.autojump = true;
-          modes = {
-            search.enabled = false;
-          };
-        };
+        settings.modes.search.enabled = false;
       };
     };
 

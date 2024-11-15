@@ -50,11 +50,13 @@
           yank.suffix = ""; # not using
         };
       };
-      luaConfig.post = ''
-        -- delete mini.basics binding for sys clipboard yank and paste (using global clipboard)
-        vim.keymap.del({ "n", "x" }, "gy")
-        vim.keymap.del({ "n", "x" }, "gp")
-      '';
+      luaConfig.post =
+        #lua
+        ''
+          -- delete mini.basics binding for sys clipboard yank and paste (using global clipboard)
+          vim.keymap.del({ "n", "x" }, "gy")
+          vim.keymap.del({ "n", "x" }, "gp")
+        '';
     };
   };
 }

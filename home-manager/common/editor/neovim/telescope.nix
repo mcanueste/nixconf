@@ -25,37 +25,39 @@
         };
       };
 
-      luaConfig.post = ''
-        local function git_root()
-          local root = string.gsub(vim.fn.system "git rev-parse --show-toplevel", "\n", "")
-          if vim.v.shell_error == 0 then
-            return root
+      luaConfig.post =
+        #lua
+        ''
+          local function git_root()
+            local root = string.gsub(vim.fn.system "git rev-parse --show-toplevel", "\n", "")
+            if vim.v.shell_error == 0 then
+              return root
+            end
+            return nil
           end
-          return nil
-        end
 
-        local function run_cmd_in_cwd(func, cwd)
-          local builtin = require "telescope.builtin"
-          local utils = require "telescope.utils"
-          if cwd then
-            builtin[func] { cwd = utils.buffer_dir() }
-          else
-            builtin[func] { cwd = git_root() }
+          local function run_cmd_in_cwd(func, cwd)
+            local builtin = require "telescope.builtin"
+            local utils = require "telescope.utils"
+            if cwd then
+              builtin[func] { cwd = utils.buffer_dir() }
+            else
+              builtin[func] { cwd = git_root() }
+            end
           end
-        end
 
-        local function map(l, r, desc)
-          vim.keymap.set("n", l, r, { desc = desc })
-        end
+          local function map(l, r, desc)
+            vim.keymap.set("n", l, r, { desc = desc })
+          end
 
-        -- Find keymaps that can be run in git root
-        map("<leader>ff", function() run_cmd_in_cwd('find_files', false) end, "Find Files")
-        map("<leader>fF", function() run_cmd_in_cwd('find_files', true) end, "Find Files (cwd)")
-        map("<leader>fg", function() run_cmd_in_cwd('live_grep', false) end, "Grep Files")
-        map("<leader>fG", function() run_cmd_in_cwd('live_grep', true) end, "Grep Files (cwd)")
-        map("<leader>fh", function() run_cmd_in_cwd('grep_string', false) end, "Grep Current Word")
-        map("<leader>fH", function() run_cmd_in_cwd('grep_string', true) end, "Grep Current Word (cwd)")
-      '';
+          -- Find keymaps that can be run in git root
+          map("<leader>ff", function() run_cmd_in_cwd('find_files', false) end, "Find Files")
+          map("<leader>fF", function() run_cmd_in_cwd('find_files', true) end, "Find Files (cwd)")
+          map("<leader>fg", function() run_cmd_in_cwd('live_grep', false) end, "Grep Files")
+          map("<leader>fG", function() run_cmd_in_cwd('live_grep', true) end, "Grep Files (cwd)")
+          map("<leader>fh", function() run_cmd_in_cwd('grep_string', false) end, "Grep Current Word")
+          map("<leader>fH", function() run_cmd_in_cwd('grep_string', true) end, "Grep Current Word (cwd)")
+        '';
 
       keymaps = let
         map = action: desc: {

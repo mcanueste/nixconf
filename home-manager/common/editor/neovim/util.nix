@@ -9,7 +9,7 @@
 
     # to make things harder for myself...
     hardtime = {
-      enable = true;
+      enable = false;
       settings = {
         enabled = true;
       };
