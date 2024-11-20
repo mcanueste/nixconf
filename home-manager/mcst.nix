@@ -11,11 +11,7 @@
 
       scripts = {
         enable = true;
-        systemd = {
-          enable = false;
-          sync-notes = true;
-          sync-blog = true;
-        };
+        systemd = true;
       };
 
       editor = {
