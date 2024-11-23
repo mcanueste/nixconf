@@ -11,7 +11,7 @@
 
       scripts = {
         enable = true;
-        systemd = true;
+        systemd = false;
       };
 
       editor = {
