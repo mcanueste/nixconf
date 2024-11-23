@@ -1,4 +1,4 @@
-{
+{config, ...}: {
   programs.bash = {
     enable = true;
     enableCompletion = true;
@@ -59,6 +59,11 @@
       bind '"\e[B": history-search-forward'
       bind '"\e[C": forward-char'
       bind '"\e[D": backward-char'
+
+      # Source nix profile on standalone installations
+      if [ -f /home/${config.nixconf.username}/.nix-profile/etc/profile.d/nix.sh ]; then
+        . /home/${config.nixconf.username}/.nix-profile/etc/profile.d/nix.sh
+      fi
     '';
     sessionVariables = {
       # Automatically trim long paths in the prompt (requires Bash 4.x)
