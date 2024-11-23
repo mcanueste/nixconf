@@ -86,9 +86,17 @@
     homeConfigurations = {
       "mcst@nixos" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = args;
+        extraSpecialArgs = args // {isStandalone = true;};
         modules = [
           ./home-manager/mcst.nix
+        ];
+      };
+
+      "mcst@fedora" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = args // {isStandalone = true;};
+        modules = [
+          ./home-manager/mcst-fedora.nix
         ];
       };
     };
