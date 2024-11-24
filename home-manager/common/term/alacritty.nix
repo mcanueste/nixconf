@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  isStandalone ? true,
   ...
 }: {
   options.nixconf.term = {
@@ -40,6 +41,10 @@
     lib.mkIf config.nixconf.term.alacritty {
       programs.alacritty = {
         enable = true;
+        package =
+          if isStandalone
+          then (config.lib.nixGL.wrap pkgs.alacritty)
+          else pkgs.alacritty;
         catppuccin.enable = true;
         settings = {
           terminal = {inherit shell;};

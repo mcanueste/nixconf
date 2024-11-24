@@ -4,6 +4,7 @@
   pkgs,
   lib,
   config,
+  system,
   isStandalone ? true,
   ...
 }: {
@@ -49,7 +50,7 @@
         lib.attrsets.attrValues outputs.overlays
         ++ [
           # You can also add overlays exported from other flakes:
-          # neovim-nightly-overlay.overlays.default
+          # inputs.nixgl.overlays.default # install packages directly from outputs instead
         ];
 
       config = {
@@ -98,6 +99,14 @@
       registry.nixpkgs.flake = inputs.nixpkgs;
     };
 
+    # if standalone install, setup nixgl
+    nixGL = lib.mkIf isStandalone {
+      packages = inputs.nixgl.packages;
+      defaultWrapper = "mesa";
+      offloadWrapper = "nvidiaPrime";
+      installScripts = ["mesa" "nvidiaPrime"];
+    };
+
     # Set flakes path for nh
     home.sessionVariables.FLAKE = config.nixconf.flakePath;
     home.packages = pkgs.libExt.filterNull [
@@ -107,7 +116,7 @@
       pkgs.nix-output-monitor
       pkgs.manix
 
-      # also install home-manager if standalone hm install
+      # also install home-manager and nixgl if standalone hm install
       (pkgs.libExt.mkIfElseNull isStandalone pkgs.home-manager)
     ];
   };
