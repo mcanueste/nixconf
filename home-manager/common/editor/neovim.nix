@@ -36,11 +36,17 @@
         extraLuaPackages = ps: [ps.tiktoken_core]; # For tokenization (CopilotChat.nvim)
 
         extraPackages = [
-          pkgs.cargo # For rust (rustacean.nvim)
-          pkgs.rustc # For rust (rustacean.nvim)
-          pkgs.sox # For audio playback (gp.nvim)
+          # For rust (rustacean.nvim)
+          pkgs.cargo
+          pkgs.rustc
+          pkgs.rust-analyzer
+          pkgs.rustfmt
+          pkgs.clippy
 
-          # linters
+          # For audio playback (gp.nvim)
+          pkgs.sox
+
+          # linters & formatters
           pkgs.hadolint
           pkgs.tflint
           pkgs.tfsec
