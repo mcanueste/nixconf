@@ -11,6 +11,7 @@
 
   options.nixconf.scripts = {
     enable = pkgs.libExt.mkEnabledOption "Custom Scripts";
-    systemd = lib.mkEnableOption "Enable user space systemd services related to scripts";
+    notes = lib.mkEnableOption "Enable notes syncing";
+    systemd = lib.mkEnableOption "Enable user space systemd services related to notes syncing";
   };
 }

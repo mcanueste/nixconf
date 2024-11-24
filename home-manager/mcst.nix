@@ -11,6 +11,7 @@
 
       scripts = {
         enable = true;
+        notes = true;
         systemd = true;
       };
 
@@ -31,16 +32,9 @@
         zotero = true;
       };
 
-      chat = {
-        slack = true;
-        telegram = false;
-        discord = false;
-      };
+      chat.slack = true;
 
       packages = {
-        nerdctl = true;
-        lazydocker = true;
-        packer = true;
         terraform = true;
         gcloud = true;
         kubectl = true;

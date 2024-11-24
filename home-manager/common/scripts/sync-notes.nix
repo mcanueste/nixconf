@@ -27,7 +27,7 @@
       '';
     };
   in
-    lib.mkIf config.nixconf.scripts.enable {
+    lib.mkIf (config.nixconf.scripts.enable && config.nixconf.scripts.notes) {
       home.packages = [
         sync-notes
       ];

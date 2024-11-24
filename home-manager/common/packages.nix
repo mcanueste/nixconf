@@ -45,7 +45,6 @@
       pkgs.ffmpegthumbnailer
       pkgs.just
       pkgs.fastfetch
-      pkgs.glow
 
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.docker-compose pkgs.docker-compose)
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.podman-compose pkgs.podman-compose)

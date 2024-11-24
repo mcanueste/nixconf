@@ -9,38 +9,16 @@
       stateVersion = "24.05";
       flakePath = "/home/${username}/nixconf";
 
-      scripts = {
-        enable = true;
-        systemd = false;
-      };
+      scripts.enable = true;
+      browsers.brave = true;
+      chat.slack = true;
 
       editor = {
+        neovim = true;
         vscode = true;
-        obsidian = true;
-      };
-
-      browsers = {
-        brave = true;
-        chrome = true;
-        firefox = true;
-      };
-
-      media = {
-        spotify = true;
-        calibre = true;
-        zotero = true;
-      };
-
-      chat = {
-        slack = true;
-        telegram = false;
-        discord = false;
       };
 
       packages = {
-        nerdctl = true;
-        lazydocker = true;
-        packer = true;
         terraform = true;
         gcloud = true;
         kubectl = true;

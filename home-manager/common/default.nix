@@ -107,6 +107,15 @@
       installScripts = ["mesa" "nvidiaPrime"];
     };
 
+    # Enable settings to make it work better on standalone hm installations
+    targets.genericLinux.enable = isStandalone;
+
+    # Add nix installed apps to desktop on standalone hm installations
+    xdg = lib.mkIf isStandalone {
+      mime.enable = true;
+      systemDirs.data = ["/home/${config.nixconf.username}/.nix-profile/share/applications"];
+    };
+
     # Set flakes path for nh
     home.sessionVariables.FLAKE = config.nixconf.flakePath;
     home.packages = pkgs.libExt.filterNull [
