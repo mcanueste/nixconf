@@ -106,6 +106,9 @@
       pkgs.nvd
       pkgs.nix-output-monitor
       pkgs.manix
+
+      # also install home-manager if standalone hm install
+      (pkgs.libExt.mkIfElseNull isStandalone pkgs.home-manager)
     ];
   };
 }
