@@ -7,6 +7,7 @@
       wrapSpell.clear = true;
       closeWithQ.clear = true;
       lastMod.clear = true;
+      tfCommentString.clear = true;
     };
 
     autoCmd = [
@@ -87,6 +88,18 @@
                 break
               end
             end
+          end
+        '';
+      }
+
+      {
+        desc = "Fix terraform and hcl comment string";
+        group = "tfCommentString";
+        event = "FileType";
+        pattern = ["terraform" "hcl"];
+        callback.__raw = ''
+          function(ev)
+            vim.bo[ev.buf].commentstring = "# %s"
           end
         '';
       }
