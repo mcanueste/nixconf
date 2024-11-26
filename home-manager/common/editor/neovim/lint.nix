@@ -9,7 +9,7 @@
       linters = {
         hadolint.cmd = lib.getExe pkgs.hadolint;
         tflint.cmd = lib.getExe pkgs.tflint;
-        tfsec.cmd = lib.getExe pkgs.tfsec;
+        tfsec.cmd = lib.getExe' pkgs.tfsec "tfsec";
       };
       lintersByFt = {
         # bash: lsp is enough
