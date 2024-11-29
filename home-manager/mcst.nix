@@ -18,6 +18,8 @@
       editor = {
         vscode = true;
         obsidian = true;
+        pycharm-professional = true;
+        rust-rover = true;
       };
 
       browsers = {
