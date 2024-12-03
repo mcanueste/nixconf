@@ -48,6 +48,7 @@
             whitespace = "trailing-space,space-before-tab";
             editor = "nvim";
           };
+          spr.requireTestPlan = false;
         };
         ignores = [".direnv"]; # things that will be ignored always
         aliases = {
@@ -88,5 +89,10 @@
         enable = true;
         catppuccin.enable = true;
       };
+
+      home.packages = [
+        # for stacked prs
+        pkgs.spr
+      ];
     };
 }
