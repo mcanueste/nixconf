@@ -7,6 +7,7 @@
   imports = [
     ./neovim.nix
     ./vscode.nix
+    ./zed.nix
   ];
 
   options.nixconf.editor = {
