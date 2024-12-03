@@ -32,7 +32,7 @@
   config = {
     fonts.fontconfig.enable = true;
     home.packages = [
-      (pkgs.nerdfonts.override {fonts = [config.nixconf.theme.font];})
+      (pkgs.stable.nerdfonts.override {fonts = [config.nixconf.theme.font];})
     ];
 
     catppuccin.flavor = config.nixconf.theme.flavor;
