@@ -37,7 +37,7 @@
         {
           __unkeyed = "<leader>c";
           group = "Copilot";
-          icon = "";
+          icon = "";
         }
       ];
     };
@@ -48,16 +48,24 @@
         options.desc = desc;
       };
     in [
+      # General Copilot Chat commands
       (map ["n"] "<leader>cc" ":CopilotChatToggle<cr>" "Toggle Chat")
       (map ["n"] "<leader>cS" ":CopilotChatStop<cr>" "Stop Output")
-      (map ["n"] "<leader>cR" ":CopilotChatReset<cr>" "Reset Chat")
       (map ["n"] "<leader>cM" ":CopilotChatModels<cr>" "Models")
+
+      # Explanation and review commands
       (map ["n"] "<leader>ce" ":CopilotChatExplain<cr>" "Explain")
       (map ["n"] "<leader>cr" ":CopilotChatReview<cr>" "Review")
+
+      # Fix and optimize commands
       (map ["n"] "<leader>cf" ":CopilotChatFix<cr>" "Fix")
       (map ["n"] "<leader>co" ":CopilotChatOptimize<cr>" "Optimize")
+
+      # Documentation and testing commands
       (map ["n"] "<leader>cd" ":CopilotChatDocs<cr>" "Docs")
       (map ["n"] "<leader>ct" ":CopilotChatTests<cr>" "Tests")
+
+      # Diagnostic and commit commands
       (map ["n"] "<leader>ci" ":CopilotChatFixDiagnostic<cr>" "Fix Diagnostic")
       (map ["n"] "<leader>cm" ":CopilotChatCommit<cr>" "Commit Message")
       (map ["n"] "<leader>cs" ":CopilotChatCommitStaged<cr>" "Commit Message (Staged)")

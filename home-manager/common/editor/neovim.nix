@@ -33,7 +33,8 @@
           markdown_recommended_style = 0; # Fix markdown indentation settings
         };
 
-        extraLuaPackages = ps: [ps.tiktoken_core]; # For tokenization (CopilotChat.nvim)
+        # For tokenization (CopilotChat.nvim)
+        extraLuaPackages = ps: [ps.tiktoken_core];
 
         extraPackages = [
           # For rust (rustacean.nvim)
