@@ -38,6 +38,7 @@
       chat.slack = true;
 
       packages = {
+        packer = true;
         terraform = true;
         gcloud = true;
         kubectl = true;
