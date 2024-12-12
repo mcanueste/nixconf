@@ -93,6 +93,9 @@
         # Avoid unwanted garbage collection when using nix-direnv
         keep-outputs = true;
         keep-derivations = true;
+
+        # Add user to the trusted users
+        trusted-users = [config.nixconf.username];
       };
 
       # flake registry defaults to nixpkgs (unstable in this case)
