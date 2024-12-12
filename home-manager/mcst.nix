@@ -21,6 +21,7 @@
         obsidian = true;
         pycharm-professional = true;
         rust-rover = true;
+        godot = true;
       };
 
       browsers = {
