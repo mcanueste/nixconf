@@ -118,6 +118,16 @@
               };
             };
           };
+
+          # godot support
+          gdscript = {
+            enable = true;
+            package = null;
+          };
+          gdshader_lsp = {
+            enable = true;
+            package = null;
+          };
         };
       };
 
