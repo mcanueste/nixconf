@@ -24,14 +24,14 @@
         enable = true;
 
         displayManager.gdm = {
-          enable = !config.nixconf.desktop.cosmic;
-          wayland = !config.nixconf.desktop.cosmic;
+          enable = config.nixconf.desktop.gnome;
+          wayland = config.nixconf.desktop.gnome;
         };
 
         desktopManager.gnome.enable = config.nixconf.desktop.gnome;
       };
 
-      displayManager.cosmic-greeter.enable = config.nixconf.desktop.cosmic;
+      displayManager.cosmic-greeter.enable = !config.nixconf.desktop.gnome && config.nixconf.desktop.cosmic;
       desktopManager.cosmic.enable = config.nixconf.desktop.cosmic;
     };
 
