@@ -44,24 +44,5 @@
         ]
         else []
       );
-
-    environment.gnome.excludePackages =
-      if config.nixconf.desktop.gnome
-      then [
-        pkgs.baobab # disk usage analyzer
-        pkgs.gnome-system-monitor
-        pkgs.gnome-disk-utility
-        pkgs.seahorse # password manager
-        pkgs.epiphany # web browser
-        pkgs.geary # email client
-        pkgs.totem # video player
-        pkgs.yelp # help viewer
-        pkgs.simple-scan # document scanner
-      ]
-      else [];
-
-    # Temp fix for nvim flicker on cosmic-comp due to wl-clipboard
-    # See: https://github.com/pop-os/cosmic-comp/issues/700
-    environment.sessionVariables.COSMIC_DATA_CONTROL_ENABLED = 1;
   };
 }
