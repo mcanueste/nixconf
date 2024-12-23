@@ -22,7 +22,10 @@
   };
 
   # Enable GPU drivers
-  services.xserver.videoDrivers = ["intel"];
+  services.xserver.videoDrivers = [
+    "modesetting"
+    "nvidia"
+  ];
 
   # Graphics related tools
   environment.systemPackages = with pkgs; [
