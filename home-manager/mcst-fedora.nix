@@ -19,6 +19,7 @@
       };
 
       packages = {
+        todoist = true;
         terraform = true;
         gcloud = true;
         kubectl = true;

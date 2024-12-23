@@ -35,7 +35,20 @@
       (pkgs.stable.nerdfonts.override {fonts = [config.nixconf.theme.font];})
     ];
 
-    catppuccin.flavor = config.nixconf.theme.flavor;
-    catppuccin.accent = config.nixconf.theme.accent;
+    catppuccin = {
+      flavor = config.nixconf.theme.flavor;
+      accent = config.nixconf.theme.accent;
+      yazi.enable = true;
+      tmux.enable = true;
+      starship.enable = true;
+      lazygit.enable = true;
+      k9s.enable = true;
+      gh-dash.enable = true;
+      fzf.enable = true;
+      fish.enable = true;
+      delta.enable = true;
+      bat.enable = true;
+      alacritty.enable = true;
+    };
   };
 }

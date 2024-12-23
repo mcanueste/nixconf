@@ -37,10 +37,7 @@
       programs.git = {
         enable = true;
         lfs.enable = true;
-        delta = {
-          enable = true;
-          catppuccin.enable = true;
-        };
+        delta.enable = true;
         userName = config.nixconf.git.gitUsername;
         userEmail = config.nixconf.git.gitEmail;
         extraConfig = {
@@ -80,15 +77,9 @@
         extensions = [pkgs.gh-copilot];
       };
 
-      programs.gh-dash = {
-        enable = true;
-        catppuccin.enable = true;
-      };
+      programs.gh-dash.enable = true;
 
-      programs.lazygit = {
-        enable = true;
-        catppuccin.enable = true;
-      };
+      programs.lazygit.enable = true;
 
       home.packages = [
         # for stacked prs

@@ -5,6 +5,7 @@
   ...
 }: {
   options.nixconf.packages = {
+    todoist = lib.mkEnableOption "Todoist";
     docker-compose = lib.mkEnableOption "Docker Compose";
     podman-compose = lib.mkEnableOption "Podman Compose";
     nerdctl = lib.mkEnableOption "Nerdctl";
@@ -47,6 +48,7 @@
       pkgs.fastfetch
       pkgs.bottom
 
+      (pkgs.libExt.mkIfElseNull config.nixconf.packages.todoist pkgs.todoist)
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.docker-compose pkgs.docker-compose)
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.podman-compose pkgs.podman-compose)
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.nerdctl pkgs.nerdctl)
@@ -75,9 +77,6 @@
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.helm pkgs.kubernetes-helm)
     ];
 
-    programs.k9s = {
-      enable = config.nixconf.packages.k9s;
-      catppuccin.enable = true;
-    };
+    programs.k9s.enable = config.nixconf.packages.k9s;
   };
 }

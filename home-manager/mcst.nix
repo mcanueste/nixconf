@@ -39,6 +39,7 @@
       chat.slack = true;
 
       packages = {
+        todoist = true;
         packer = true;
         terraform = true;
         gcloud = true;

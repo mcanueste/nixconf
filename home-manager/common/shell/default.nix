@@ -19,7 +19,6 @@ in {
     programs = {
       bat = {
         enable = true;
-        catppuccin.enable = true;
         extraPackages = with pkgs.bat-extras; [
           batgrep
           batman
@@ -41,7 +40,6 @@ in {
       fzf =
         enable
         // {
-          catppuccin.enable = true;
           tmux.enableShellIntegration = true;
           defaultCommand = "${pkgs.fd}/bin/fd --type f";
           fileWidgetCommand = "${pkgs.fd}/bin/fd --type f";
@@ -55,7 +53,6 @@ in {
       yazi =
         enable
         // {
-          catppuccin.enable = true;
           keymap = {};
           settings = {};
         };
@@ -65,8 +62,6 @@ in {
       starship =
         enable
         // {
-          catppuccin.enable = true;
-
           settings = {
             scan_timeout = 10;
             add_newline = true;
@@ -78,7 +73,6 @@ in {
 
       fish = {
         enable = true;
-        catppuccin.enable = true;
         shellInit = ''
           set fish_greeting # Disable greeting
           fish_vi_key_bindings

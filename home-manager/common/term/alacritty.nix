@@ -45,7 +45,6 @@
           if isStandalone
           then (config.lib.nixGL.wrap pkgs.alacritty)
           else pkgs.alacritty;
-        catppuccin.enable = true;
         settings = {
           terminal = {inherit shell;};
           general.live_config_reload = true;
@@ -56,7 +55,6 @@
           };
           window = {
             opacity = 1.0;
-            decorations = "none";
             title = "Alacritty";
             class = {
               instance = "Alacritty";
