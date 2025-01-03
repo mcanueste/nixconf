@@ -18,10 +18,10 @@
           "<C-b>" = ["scroll_documentation_up" "fallback"];
           "<C-f>" = ["scroll_documentation_down" "fallback"];
         };
-        nerd_font_variant = "mono";
-        highlight.use_nvim_cmp_as_default = true;
-        accept.auto_brackets.enabled = true;
-        trigger.signature_help.enabled = true;
+        # nerd_font_variant = "mono";
+        # highlight.use_nvim_cmp_as_default = true;
+        # accept.auto_brackets.enabled = true;
+        # trigger.signature_help.enabled = true;
       };
     };
 

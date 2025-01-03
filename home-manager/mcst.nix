@@ -16,7 +16,6 @@
       };
 
       editor = {
-        neovim = false;
         zed = true;
         vscode = false;
         obsidian = true;

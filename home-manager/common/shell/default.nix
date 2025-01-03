@@ -78,6 +78,9 @@ in {
           fish_vi_key_bindings
         '';
       };
+
+      # fish wants to generate man cache for every lang for no reason...
+      man.generateCaches = false;
     };
 
     home.packages = [
