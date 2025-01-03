@@ -16,11 +16,12 @@
       };
 
       editor = {
+        neovim = false;
         zed = true;
-        vscode = true;
+        vscode = false;
         obsidian = true;
-        pycharm-professional = true;
-        rust-rover = true;
+        pycharm-professional = false;
+        rust-rover = false;
         godot = true;
       };
 

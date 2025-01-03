@@ -35,6 +35,7 @@
       pkgs.lshw
       pkgs.pciutils
       pkgs.unzip
+      pkgs.unrar-free
       pkgs.rsync
       pkgs.fd
       pkgs.ripgrep
