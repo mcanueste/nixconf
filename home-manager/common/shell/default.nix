@@ -84,7 +84,7 @@ in {
     };
 
     home.packages = [
-      pkgs.aichat
+      pkgs.aider-chat
     ];
   };
 }

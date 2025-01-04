@@ -27,7 +27,7 @@
         enable = true;
         settings = {
           debug = false;
-          model = "gpt-4";
+          model = "claude-3.5-sonnet";
           temperature = 0.1;
           context = "buffers"; # Default context: "buffers" | "buffer" | nil
         };

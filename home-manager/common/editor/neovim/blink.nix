@@ -8,7 +8,7 @@
         keymap = {
           "<C-space>" = ["show" "show_documentation" "hide_documentation"];
           "<C-e>" = ["hide"];
-          "<CR>" = ["accept" "fallback"];
+          "<C-y>" = ["accept" "fallback"];
           "<Tab>" = ["snippet_forward" "fallback"];
           "<S-Tab>" = ["snippet_backward" "fallback"];
           "<Up>" = ["select_prev" "fallback"];
@@ -18,10 +18,12 @@
           "<C-b>" = ["scroll_documentation_up" "fallback"];
           "<C-f>" = ["scroll_documentation_down" "fallback"];
         };
-        # nerd_font_variant = "mono";
-        # highlight.use_nvim_cmp_as_default = true;
-        # accept.auto_brackets.enabled = true;
-        # trigger.signature_help.enabled = true;
+        appearance = {
+          nerd_font_variant = "mono";
+          use_nvim_cmp_as_default = true;
+        };
+        completion.accept.auto_brackets.enabled = true;
+        signature.enabled = true;
       };
     };
 

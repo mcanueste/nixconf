@@ -12,6 +12,7 @@
           mappings = {
             option_toggle_prefix = "<leader>t";
             windows = true;
+            move_with_alt = true; # move with alt + hjkl in insert and term mode
           };
         };
         ai = {};
@@ -20,6 +21,15 @@
         diff = {};
         icons = {};
         move = {};
+        indentscope.symbol = "│";
+        splitjoin.mappings.toggle = "<leader>ej";
+        operators = {
+          evaluate.prefix = "<leader>ee";
+          exchange.prefix = "<leader>ex";
+          multiply.prefix = "<leader>em";
+          replace.prefix = "<leader>er";
+          sort.prefix = "<leader>es";
+        };
         surround = {
           mappings = {
             add = "gsa";
@@ -31,8 +41,6 @@
             update_n_lines = "gsn";
           };
         };
-        indentscope.symbol = "│";
-        splitjoin.mappings.toggle = "<leader>es";
         bracketed = {
           buffer.suffix = "b";
           comment.suffix = "c";

@@ -21,6 +21,6 @@
     # dap
     ./whichkey.nix
     ./copilot.nix
-    ./gp.nix
+    # ./avante.nix
   ];
 }

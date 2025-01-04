@@ -14,12 +14,11 @@
       (map ["n" "i"] "<esc>" "<cmd>noh<cr><esc>" "Clear Search")
 
       # Search and replace word under cursor
-      (map ["n"] "<leader>er" "[[:%s/<C-r><C-w>/" "Replace word under cursor")
+      (map ["n"] "<leader>eR" ":%s/<C-r><C-w>//gc<Left><Left><Left>" "Replace word under cursor")
 
-      # Cut/Paste without saving to register
-      (map ["v"] "<leader>ep" "[[\"_dP]]" "Paste w/o register")
-      (map ["n"] "<leader>ed" "[[viw\"_d]]" "Delete word w/o register")
-      (map ["v"] "<leader>ed" "[[\"_d]]" "Delete w/o register")
+      # Delete word without saving to register
+      (map ["n"] "<leader>ed" "viw\"_d" "Delete word w/o register")
+      (map ["v"] "<leader>ed" "\"_d" "Delete w/o register")
 
       # Move to the beginning or end of line with H and L
       (map ["n" "v"] "H" "^" "Move beginning of line")
@@ -54,7 +53,7 @@
       {
         __unkeyed = "<leader>o";
         group = "Open";
-        icon = "";
+        icon = "";
       }
       {
         __unkeyed = "<leader>t";

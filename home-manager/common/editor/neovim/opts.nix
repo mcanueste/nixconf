@@ -41,6 +41,8 @@
       wildmode = "longest:full,full"; # Command-line completion mode
 
       formatoptions = "jql1tcron";
+
+      laststatus = 3; # Always show status line (a single instance for different panes)
     };
 
     extraConfigLuaPre = ''
