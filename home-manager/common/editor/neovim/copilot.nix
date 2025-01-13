@@ -3,22 +3,24 @@
     plugins = {
       copilot-lua = {
         enable = true;
-        panel = {
-          enabled = true;
-          autoRefresh = false;
-          keymap = {
-            refresh = "<C-r>";
-            open = "<C-CR>";
+        settings = {
+          panel = {
+            enabled = true;
+            autoRefresh = false;
+            keymap = {
+              refresh = "<C-r>";
+              open = "<C-CR>";
+            };
           };
-        };
-        suggestion = {
-          enabled = true;
-          autoTrigger = true;
-          keymap = {
-            accept = "<C-l>";
-            dismiss = "<C-h>";
-            next = "<C-j>";
-            prev = "<C-k>";
+          suggestion = {
+            enabled = true;
+            autoTrigger = true;
+            keymap = {
+              accept = "<C-l>";
+              dismiss = "<C-h>";
+              next = "<C-j>";
+              prev = "<C-k>";
+            };
           };
         };
       };

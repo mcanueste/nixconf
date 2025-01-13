@@ -1,26 +1,7 @@
-{config, ...}: {
+{...}: {
   programs.nixvim = {
     plugins = {
       fidget.enable = true;
-
-      typescript-tools.enable = true;
-
-      rustaceanvim = {
-        enable = true;
-        settings = {
-          server.default_settings = {
-            rust-analyzer = {
-              check.command = "clippy";
-              inlayHints.lifetimeElisionHints.enable = "always";
-            };
-          };
-          tools = {
-            enable_clippy = true;
-            enable_nextest = true;
-          };
-          dap.autoload_configurations = true;
-        };
-      };
 
       lsp = {
         enable = true;
@@ -64,70 +45,6 @@
               options = {desc = "Toggle Inlay Hints";};
             }
           ];
-        };
-
-        servers = {
-          bashls = {
-            enable = true;
-            settings.bashIde.globPattern = "*@(.sh|.inc|.bash|.command)";
-          };
-
-          dockerls = {
-            enable = true;
-            settings.docker.languageserver.formatter.ignoreMultilineInstructions = true;
-          };
-
-          terraformls.enable = true;
-
-          lua_ls = {
-            enable = true;
-            settings = {
-              telemetry.enable = false;
-              format.enable = false;
-              completion.callSnippet = "Replace";
-              diagnostics.disable = ["missing-fields"];
-            };
-          };
-
-          golangci_lint_ls.enable = true;
-
-          gopls = {
-            enable = true;
-            settings.gopls.usePlaceholders = true;
-          };
-
-          ruff.enable = true;
-
-          pyright = {
-            enable = true;
-            settings.pyright.analysis = {
-              autoSearchPaths = true;
-              diagnosticMode = "openFilesOnly";
-              useLibraryCodeForTypes = true;
-            };
-          };
-
-          nixd = {
-            enable = true;
-            settings = {
-              formatting.command = ["alejandra"];
-              nixpkgs.expr = "import (builtins.getFlake \"/home/${config.nixconf.username}/nixconf\").inputs.nixpkgs { }";
-              options = {
-                nixos.expr = "(builtins.getFlake \"/home/${config.nixconf.username}/nixconf\").nixosConfigurations.nixos.options";
-                home-manager.expr = "(builtins.getFlake \"/home/${config.nixconf.username}/nixconf\").homeConfigurations.\"${config.nixconf.username}@nixos\".options";
-              };
-            };
-          };
-
-          # godot support
-          gdscript = {
-            enable = true;
-            package = null;
-          };
-          gdshader_lsp = {
-            enable = true;
-            package = null;
-          };
         };
       };
 

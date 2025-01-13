@@ -92,7 +92,7 @@
         icon = "";
       }
       {
-        __unkeyed = "<leader>f";
+        __unkeyed = "<leader>fs";
         group = "Search";
         icon = "";
       }

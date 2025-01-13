@@ -32,26 +32,6 @@
           maplocalleader = "\\";
           markdown_recommended_style = 0; # Fix markdown indentation settings
         };
-
-        # For tokenization (CopilotChat.nvim)
-        extraLuaPackages = ps: [ps.tiktoken_core];
-
-        extraPackages = [
-          # For rust (rustacean.nvim)
-          pkgs.cargo
-          pkgs.rustc
-          pkgs.rust-analyzer
-          pkgs.rustfmt
-          pkgs.clippy
-
-          # For audio playback (gp.nvim)
-          pkgs.sox
-
-          # linters & formatters
-          pkgs.hadolint
-          pkgs.tflint
-          pkgs.tfsec
-        ];
       };
     };
   };

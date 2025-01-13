@@ -43,6 +43,7 @@
         set-option -g status-interval 5
         set-option -g automatic-rename on
         set-option -g automatic-rename-format '#{b:pane_current_path}'
+        set-option -g focus-events on
 
         bind-key -T copy-mode-vi v send-keys -X begin-selection
         bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
