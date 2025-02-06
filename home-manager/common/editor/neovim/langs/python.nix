@@ -15,6 +15,6 @@
 
     conform-nvim.settings.formatters_by_ft.python = ["ruff_format" "ruff_organize_imports" "ruff_fix"];
 
-    dap.extensions.dap-python.enable = true;
+    dap-python.enable = true;
   };
 }

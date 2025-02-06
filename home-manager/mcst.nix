@@ -48,6 +48,7 @@
         k3d = true;
         helm = true;
         argo = true;
+        dive = true;
       };
     };
   };

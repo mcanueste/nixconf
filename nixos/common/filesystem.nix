@@ -11,12 +11,6 @@
       description = "Boot partition";
     };
 
-    luks = lib.mkOption {
-      type = lib.types.str;
-      default = "/dev/disk/by-partlabel/LUKS";
-      description = "LUKS encrypted partition";
-    };
-
     root = lib.mkOption {
       type = lib.types.str;
       default = "/dev/disk/by-label/root";
@@ -27,6 +21,18 @@
       type = lib.types.str;
       default = "/dev/disk/by-label/swap";
       description = "Swap partition";
+    };
+
+    luks = lib.mkOption {
+      type = lib.types.str;
+      default = "/dev/disk/by-partlabel/LUKS";
+      description = "LUKS encrypted partition";
+    };
+
+    encrypted = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enabled disk decryption if the system is LUKS encrypted";
     };
 
     ssd = pkgs.libExt.mkEnabledOption "SSD Optimizations";
@@ -55,7 +61,7 @@
       }
     ];
 
-    boot = {
+    boot = lib.mkIf config.nixconf.filesystem.encrypted {
       initrd = {
         luks.devices = {
           crypted = {

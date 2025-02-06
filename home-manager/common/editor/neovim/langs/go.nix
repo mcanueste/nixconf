@@ -24,9 +24,9 @@
       };
     };
 
-    dap.extensions.dap-go = {
+    dap-go = {
       enable = true;
-      delve.path = lib.getExe' pkgs.delve "dlv";
+      settings.delve.path = lib.getExe' pkgs.delve "dlv";
     };
   };
 }

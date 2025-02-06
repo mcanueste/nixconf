@@ -47,7 +47,11 @@
           };
           spr.requireTestPlan = false;
         };
-        ignores = [".direnv"]; # things that will be ignored always
+        ignores = [
+          # things that will be ignored always
+          ".direnv"
+          ".aider*"
+        ];
         aliases = {
           s = "status";
           a = "add";
