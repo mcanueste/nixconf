@@ -26,6 +26,7 @@
     helm = lib.mkEnableOption "Helm";
     argo = lib.mkEnableOption "Argo CLI";
     argocd = lib.mkEnableOption "ArgoCD CLI";
+    graphite = lib.mkEnableOption "Graphite CLI";
   };
 
   config = {
@@ -76,6 +77,7 @@
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.kubectl pkgs.kubectl)
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.k3d pkgs.k3d)
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.helm pkgs.kubernetes-helm)
+      (pkgs.libExt.mkIfElseNull config.nixconf.packages.graphite pkgs.graphite-cli)
     ];
 
     programs.k9s.enable = config.nixconf.packages.k9s;

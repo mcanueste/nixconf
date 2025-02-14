@@ -49,6 +49,7 @@
         helm = true;
         argo = true;
         dive = true;
+        graphite = true;
       };
     };
   };

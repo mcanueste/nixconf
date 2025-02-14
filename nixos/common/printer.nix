@@ -9,7 +9,7 @@
 
     printerDrivers = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = ["cups-dymo"];
+      default = ["cups-dymo" "brlaser"];
       description = "Printer drivers";
     };
 
