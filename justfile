@@ -38,7 +38,7 @@ setup-nix PROFILE:
   mv ~/.bashrc ~/.bash_profile ~/.bash_backup/
 
   # Install home-manager config
-  home-manager switch --flake github:mcanueste/nixconf#{{PROFILE}}
+  home-manager switch --flake github:mcuste/nixconf#{{PROFILE}}
 
   # Setup ssh key
   mkdir ~/.ssh && pushd ~/.ssh && ssh-keygen -t ed25519 && popd
@@ -47,6 +47,6 @@ setup-nix PROFILE:
   read -p "Press any key after setting up SSH key on GitHub to continue"
 
   # Clone nixconf
-  git clone git@github.com:mcanueste/nixconf.git ~/nixconf
+  git clone git@github.com:mcuste/nixconf.git ~/nixconf
   echo "All set! The nixconf repository has been cloned to ~/nixconf."
   echo "You can now use 'nh' CLI tool to manage your home-manager state."

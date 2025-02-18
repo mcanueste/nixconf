@@ -10,7 +10,7 @@
       text = ''
         #!/usr/bin/env bash
         echo "Setting up template: $1..."
-        nix flake --tarball-ttl 0 init -t "github:mcanueste/templates#$1"
+        nix flake --tarball-ttl 0 init -t "github:mcuste/templates#$1"
         echo "Done!"
       '';
     };

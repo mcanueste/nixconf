@@ -9,13 +9,13 @@
 
     gitUsername = lib.mkOption {
       type = lib.types.str;
-      default = "mcanueste";
+      default = "mcuste";
       description = "Git username";
     };
 
     gitEmail = lib.mkOption {
       type = lib.types.str;
-      default = "mcanueste@gmail.com";
+      default = "github@muratcanuste.com";
       description = "Git email";
     };
   };
