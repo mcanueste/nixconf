@@ -45,7 +45,6 @@
             whitespace = "trailing-space,space-before-tab";
             editor = "nvim";
           };
-          spr.requireTestPlan = false;
         };
         ignores = [
           # things that will be ignored always
@@ -84,10 +83,5 @@
       programs.gh-dash.enable = true;
 
       programs.lazygit.enable = true;
-
-      home.packages = [
-        # for stacked prs
-        pkgs.spr
-      ];
     };
 }
