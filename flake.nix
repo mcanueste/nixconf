@@ -38,11 +38,10 @@
   } @ inputs: let
     # Supported systems
     systems = [
-      "aarch64-linux"
-      "i686-linux"
       "x86_64-linux"
-      "aarch64-darwin"
+      "aarch64-linux"
       "x86_64-darwin"
+      "aarch64-darwin"
     ];
 
     system = "x86_64-linux";
@@ -83,6 +82,23 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = args // {isStandalone = false;};
             home-manager.users.mcst = import ./home-manager/mcst.nix;
+          }
+        ];
+      };
+
+      homeserver = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = args;
+        modules = [
+          nixos-cosmic.nixosModules.default
+          ./nixos/xps15-9560.nix
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = args // {isStandalone = false;};
+            home-manager.users.homeserver = import ./home-manager/homeserver.nix;
           }
         ];
       };
