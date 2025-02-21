@@ -5,6 +5,13 @@
 }: {
   programs.nixvim.plugins = {
     typescript-tools.enable = true;
+    tailwind-tools.enable = true;
+    ts-autotag.enable = true;
+
+    lsp.servers = {
+      eslint.enable = true;
+      # tailwindcss.enable = true;
+    };
 
     conform-nvim.settings = {
       formatters = {
