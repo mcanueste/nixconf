@@ -4,7 +4,6 @@
   pkgs,
   lib,
   config,
-  system,
   isStandalone ? true,
   ...
 }: {
@@ -13,12 +12,12 @@
     ./scripts
     ./shell
     ./term
+    ./packages
 
     ./browsers.nix
     ./chat.nix
     ./git.nix
     ./media.nix
-    ./packages.nix
     ./theme.nix
   ];
 
