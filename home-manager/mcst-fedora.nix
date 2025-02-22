@@ -6,7 +6,7 @@
   config = {
     nixconf = rec {
       username = "mcst";
-      stateVersion = "24.05";
+      stateVersion = "24.11";
       flakePath = "/home/${username}/nixconf";
 
       scripts.enable = true;

@@ -8,15 +8,23 @@
 
   config = {
     nixconf = {
-      username = "mcst";
-      hostname = "nixos";
+      username = "homeserver";
+      hostname = "homeserver";
       stateVersion = "24.11";
 
+      filesystem = {
+        boot = "/dev/disk/by-partlabel/EFI";
+        root = "/dev/disk/by-partlabel/root";
+        swap = "/dev/disk/by-label/swap";
+        encrypted = false;
+      };
+
+      desktop.cosmic = false;
       gaming.enable = true;
 
       nvidia = {
         enable = true;
-        isTuring = true;
+        isTuring = false;
         sync = false; # use offload, sync causes issues with wayland and browsers
       };
 
@@ -24,10 +32,6 @@
         docker = {
           enable = true;
           autoPrune = true;
-        };
-        podman = {
-          enable = false;
-          dockerCompat = false;
         };
       };
     };
