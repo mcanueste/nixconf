@@ -10,7 +10,7 @@
 
     lsp.servers = {
       eslint.enable = true;
-      # tailwindcss.enable = true;
+      tailwindcss.enable = true;
     };
 
     conform-nvim.settings = {

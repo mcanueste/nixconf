@@ -14,7 +14,6 @@
       media.spotify = true;
 
       packages = {
-        docker-compose = true;
         lazydocker = true;
         dive = true;
       };

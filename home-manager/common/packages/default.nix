@@ -15,7 +15,6 @@
   options.nixconf.packages = {
     todoist = lib.mkEnableOption "Todoist";
     graphite = lib.mkEnableOption "Graphite CLI";
-    fabric = lib.mkEnableOption "Fabric AI ClI";
   };
 
   config = {
@@ -41,7 +40,6 @@
 
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.todoist pkgs.todoist)
       (pkgs.libExt.mkIfElseNull config.nixconf.packages.graphite pkgs.graphite-cli)
-      (pkgs.libExt.mkIfElseNull config.nixconf.packages.fabric pkgs.fabric-ai)
     ];
   };
 }
